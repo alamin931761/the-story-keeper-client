@@ -1,0 +1,80 @@
+[
+    {
+        "_id": 1,
+        "image": "https://i.ibb.co/qJv3TRw/grape.png",
+        "name": "My Family and Other Animals",
+        "author": "DURRELL, GERALD",
+        "price": 240,
+        "description1": "First edition. 8vo., original green boards, dust jacket. London, Rupert Hart-Davis. 1956",
+        "description2": "A very good copy, spine unevenly faded, especially to head of spine, corresponding to loss to head of dust jacket, jacket worn to head and tail of spine, with loss of around 1cm by 4cm affecting head of spine and top of back panel, closed tears reinforced with tap to verso, spine faded.",
+        "publisher": "RUPERT HART-DAVIS",
+        "publication_date": "01/01/1956",
+        "weight": 650,
+        "isbn": 2000000309965
+    },
+    {
+        "_id": 2,
+        "image": "https://i.ibb.co/qJv3TRw/grape.png",
+        "name": "My Family and Other Animals",
+        "author": "DURRELL, GERALD",
+        "price": 240,
+        "description1": "First edition. 8vo., original green boards, dust jacket. London, Rupert Hart-Davis. 1956",
+        "description2": "A very good copy, spine unevenly faded, especially to head of spine, corresponding to loss to head of dust jacket, jacket worn to head and tail of spine, with loss of around 1cm by 4cm affecting head of spine and top of back panel, closed tears reinforced with tap to verso, spine faded.",
+        "publisher": "RUPERT HART-DAVIS",
+        "publication_date": "01/01/1956",
+        "weight": 650,
+        "isbn": 2000000309965
+    },
+    {
+        "_id": 3,
+        "image": "https://i.ibb.co/qJv3TRw/grape.png",
+        "name": "My Family and Other Animals",
+        "author": "DURRELL, GERALD",
+        "price": 240,
+        "description1": "First edition. 8vo., original green boards, dust jacket. London, Rupert Hart-Davis. 1956",
+        "description2": "A very good copy, spine unevenly faded, especially to head of spine, corresponding to loss to head of dust jacket, jacket worn to head and tail of spine, with loss of around 1cm by 4cm affecting head of spine and top of back panel, closed tears reinforced with tap to verso, spine faded.",
+        "publisher": "RUPERT HART-DAVIS",
+        "publication_date": "01/01/1956",
+        "weight": 650,
+        "isbn": 2000000309965
+    },
+    {
+        "_id": 4,
+        "image": "https://i.ibb.co/qJv3TRw/grape.png",
+        "name": "My Family and Other Animals",
+        "author": "DURRELL, GERALD",
+        "price": 240,
+        "description1": "First edition. 8vo., original green boards, dust jacket. London, Rupert Hart-Davis. 1956",
+        "description2": "A very good copy, spine unevenly faded, especially to head of spine, corresponding to loss to head of dust jacket, jacket worn to head and tail of spine, with loss of around 1cm by 4cm affecting head of spine and top of back panel, closed tears reinforced with tap to verso, spine faded.",
+        "publisher": "RUPERT HART-DAVIS",
+        "publication_date": "01/01/1956",
+        "weight": 650,
+        "isbn": 2000000309965
+    },
+    {
+        "_id": 5,
+        "image": "https://i.ibb.co/qJv3TRw/grape.png",
+        "name": "My Family and Other Animals",
+        "author": "DURRELL, GERALD",
+        "price": 240,
+        "description1": "First edition. 8vo., original green boards, dust jacket. London, Rupert Hart-Davis. 1956",
+        "description2": "A very good copy, spine unevenly faded, especially to head of spine, corresponding to loss to head of dust jacket, jacket worn to head and tail of spine, with loss of around 1cm by 4cm affecting head of spine and top of back panel, closed tears reinforced with tap to verso, spine faded.",
+        "publisher": "RUPERT HART-DAVIS",
+        "publication_date": "01/01/1956",
+        "weight": 650,
+        "isbn": 2000000309965
+    },
+    {
+        "_id": 6,
+        "image": "https://i.ibb.co/qJv3TRw/grape.png",
+        "name": "My Family and Other Animals",
+        "author": "DURRELL, GERALD",
+        "price": 240,
+        "description1": "First edition. 8vo., original green boards, dust jacket. London, Rupert Hart-Davis. 1956",
+        "description2": "A very good copy, spine unevenly faded, especially to head of spine, corresponding to loss to head of dust jacket, jacket worn to head and tail of spine, with loss of around 1cm by 4cm affecting head of spine and top of back panel, closed tears reinforced with tap to verso, spine faded.",
+        "publisher": "RUPERT HART-DAVIS",
+        "publication_date": "01/01/1956",
+        "weight": 650,
+        "isbn": 2000000309965
+    }
+]
