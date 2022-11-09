@@ -12,33 +12,21 @@ const Navbar = () => {
                     <div className='w-[250px]'>
                         <p className='font-semibold text-xl'>Top Categories</p>
                         <div>
-                            <li><Link to='/artAndPhotography'>Art & Photography</Link></li>
-                            <li><Link to='/biography'>Biography</Link></li>
-                            <li><Link to='/kidsBooks'>Kids Books</Link></li>
+                            <li><Link to='/kidsBooks'>Essays</Link></li>
                             <li><Link to='/fiction'>Fiction</Link></li>
                             <li><Link to='/nonFiction'>Non-Fiction</Link></li>
+                            <li><Link to='/romance'>Sci-Fi, Fantasy & Horror</Link></li>
+                            <li><Link to='/rareBooks'>Rare Books</Link></li>
                         </div>
                     </div>
 
                     <div className='w-[250px]'>
                         <p className='font-semibold text-xl'>More Categories</p>
                         <div>
-                            <li><Link to='/romance'>Romance</Link></li>
-                            <li><Link to='/mystery'>Mystery</Link></li>
-                            <li><Link to='/health'>Health</Link></li>
+                            <li><Link to='/biography'>Arts & Music</Link></li>
+                            <li><Link to='/mystery'>Mystery & Crime</Link></li>
                             <li><Link to='/poetry'>Poetry</Link></li>
-                            <li><Link to='/rareBooks'>Crime & Thriller</Link></li>
-                        </div>
-                    </div>
-
-                    <div className='w-[250px]'>
-                        <p className='font-semibold text-xl'>Bestselling Series</p>
-                        <div>
-                            <li><Link to='/harryPotter'>Harry Potter</Link></li>
-                            <li><Link to='/mystery'>Game Of Thrones</Link></li>
-                            <li><Link to='/health'>Star Wars</Link></li>
-                            <li><Link to='/poetry'>Divergent</Link></li>
-                            <li><Link to='/rareBooks'>Throne Of Glass</Link></li>
+                            <li><Link to='/rareBooks'>Politics & Economics</Link></li>
                         </div>
                     </div>
                 </div>
