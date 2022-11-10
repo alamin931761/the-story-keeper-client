@@ -12,7 +12,7 @@ const Navbar = () => {
                     <div className='w-[250px]'>
                         <p className='font-semibold text-xl'>Top Categories</p>
                         <div>
-                            <li><Link to='/kidsBooks'>Essays</Link></li>
+                            <li><Link to='/essays'>Essays</Link></li>
                             <li><Link to='/fiction'>Fiction</Link></li>
                             <li><Link to='/nonFiction'>Non-Fiction</Link></li>
                             <li><Link to='/romance'>Sci-Fi, Fantasy & Horror</Link></li>
@@ -38,7 +38,7 @@ const Navbar = () => {
 
     return (
         <section>
-            <div className="navbar bg-emerald-900">
+            <div className="navbar bg-emerald-900 fixed z-50">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -50,7 +50,7 @@ const Navbar = () => {
                     </div>
 
                     {/* logo */}
-                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium text-3xl ml-2'>The Story Keeper</span></Link>
+                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium whitespace-nowrap text-2xl'>The Story Keeper</span></Link>
 
                 </div>
                 <div className="navbar-center hidden lg:flex">
