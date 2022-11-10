@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const RareBook = ({ data }) => {
-    const { name, author, price, image, _id } = data;
+const Fiction = ({ data }) => {
+    console.log(data);
+    const { image, name, author, price, _id } = data;
+
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
-        navigate(`/rareBookDetails/${id}`);
+        navigate(`/fictiondetails/${id}`);
     }
     return (
         <section className='flex justify-center'>
@@ -24,4 +26,4 @@ const RareBook = ({ data }) => {
     );
 };
 
-export default RareBook;
+export default Fiction;

@@ -7,21 +7,20 @@ const EssayDetails = () => {
     const [essayDetails, setEssayDetails] = useState([]);
     const { image, name, name2, author, price, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = essayDetails;
     const { id } = useParams();
-    console.log(essayDetails)
     useEffect(() => {
-        fetch(`http://localhost:5000/essay/${id}`)
+        fetch(`http://localhost:5000/book/${id}`)
             .then(res => res.json())
             .then(data => setEssayDetails(data))
     }, []);
     return (
         <section className='bg-white'>
             <div className='flex justify-center'>
-                <div className='flex mt-28 mb-10 ml-10 mr-10 shadow-2xl rounded-3xl'>
-                    <div>
-                        <img className='rounded-l-3xl' src={image} alt="Book" />
+                <div className='flex flex-wrap lg:flex-nowrap mt-28 mb-10 ml-10 mr-10 shadow-2xl'>
+                    <div className='flex justify-center items-center'>
+                        <img className='h-full sm:w-full md:full lg:w-[350px]' src={image} alt="Book" />
                     </div>
 
-                    <div className='ml-5 pt-5 mr-5 w-[550px]'>
+                    <div className='ml-5 pt-5 mr-5 lg:w-[550px]'>
                         <h1 className='text-3xl mt-4'>{name}</h1>
                         <h1 className='text-2xl mt-4'>{name2}</h1>
                         <h3 className='text-xl mt-4'>{author}</h3>

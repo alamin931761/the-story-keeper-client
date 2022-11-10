@@ -13,10 +13,9 @@ const Navbar = () => {
                         <p className='font-semibold text-xl'>Top Categories</p>
                         <div>
                             <li><Link to='/essays'>Essays</Link></li>
-                            <li><Link to='/fiction'>Fiction</Link></li>
+                            <li><Link to='/fictions'>Fiction</Link></li>
                             <li><Link to='/nonFiction'>Non-Fiction</Link></li>
                             <li><Link to='/romance'>Sci-Fi, Fantasy & Horror</Link></li>
-                            <li><Link to='/rareBooks'>Rare Books</Link></li>
                         </div>
                     </div>
 
@@ -26,7 +25,7 @@ const Navbar = () => {
                             <li><Link to='/biography'>Arts & Music</Link></li>
                             <li><Link to='/mystery'>Mystery & Crime</Link></li>
                             <li><Link to='/poetry'>Poetry</Link></li>
-                            <li><Link to='/rareBooks'>Politics & Economics</Link></li>
+                            <li><Link to='/rareBooks'>Rare Books</Link></li>
                         </div>
                     </div>
                 </div>
@@ -34,6 +33,7 @@ const Navbar = () => {
         </li>
         <li className='mr-5'><Link to='/contact'>Contact</Link></li>
         <li className='mr-5'><Link to='/signIn'>Sign In</Link></li>
+        <li className='mr-5'><Link to='/cart'>Cart</Link></li>
     </>
 
     return (

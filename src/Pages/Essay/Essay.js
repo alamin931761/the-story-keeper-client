@@ -2,13 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Essay = ({ data }) => {
-    console.log(data);
     const { name, author, price, image, _id } = data;
-
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
         navigate(`/essayDetails/${id}`);
     }
+
     return (
         <section className='flex justify-center'>
             <div className="card w-[450px] bg-white shadow-2xl">
