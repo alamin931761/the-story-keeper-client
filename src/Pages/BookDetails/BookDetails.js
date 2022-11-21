@@ -3,15 +3,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const EssayDetails = () => {
-    const [essayDetails, setEssayDetails] = useState([]);
-    const { image, name, name2, author, price, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = essayDetails;
+const BookDetails = () => {
+    const [bookDetails, setBookDetails] = useState([]);
+    const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
     const { id } = useParams();
     useEffect(() => {
         fetch(`http://localhost:5000/book/${id}`)
             .then(res => res.json())
-            .then(data => setEssayDetails(data))
-    }, []);
+            .then(data => setBookDetails(data));
+    }, [])
     return (
         <section className='bg-white'>
             <div className='flex justify-center'>
@@ -26,6 +26,8 @@ const EssayDetails = () => {
                         <h3 className='text-xl mt-4'>{author}</h3>
                         <h1 className='text-3xl mt-4'>${price}</h1>
                         <hr className='mt-4' />
+                        <p className='mt-4'>{description}</p>
+                        <p className='mt-4'>{description2}</p>
                         <div className='mt-4'>
                             <p className='uppercase'><small>publisher: {publisher}</small></p>
                             <p className='uppercase'><small>publication date: {publication_date}</small></p>
@@ -42,4 +44,4 @@ const EssayDetails = () => {
     );
 };
 
-export default EssayDetails;
+export default BookDetails;

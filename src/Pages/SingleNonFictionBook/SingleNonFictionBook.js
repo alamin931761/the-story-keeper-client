@@ -6,7 +6,7 @@ const SingleNonFictionBook = ({ data }) => {
 
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
-        navigate(`/NonFictionDetails/${id}`);
+        navigate(`/bookDetails/${id}`);
     }
     return (
         <section className='flex justify-center'>

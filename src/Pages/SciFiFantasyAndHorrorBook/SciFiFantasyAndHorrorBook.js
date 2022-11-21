@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Fiction = ({ data }) => {
-    const { image, name, author, price, _id } = data;
+const SciFiFantasyAndHorrorBook = ({ data }) => {
+    const { name, author, price, image, _id } = data;
 
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
@@ -25,4 +25,4 @@ const Fiction = ({ data }) => {
     );
 };
 
-export default Fiction;
+export default SciFiFantasyAndHorrorBook;

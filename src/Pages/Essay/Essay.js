@@ -5,7 +5,7 @@ const Essay = ({ data }) => {
     const { name, author, price, image, _id } = data;
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
-        navigate(`/essayDetails/${id}`);
+        navigate(`/bookDetails/${id}`);
     }
 
     return (

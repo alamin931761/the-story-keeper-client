@@ -15,7 +15,7 @@ const Navbar = () => {
                             <li><Link to='/essays'>Essays</Link></li>
                             <li><Link to='/fictions'>Fiction</Link></li>
                             <li><Link to='/nonFiction'>Non-Fiction</Link></li>
-                            <li><Link to='/romance'>Sci-Fi, Fantasy & Horror</Link></li>
+                            <li><Link to='/SciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</Link></li>
                         </div>
                     </div>
 
