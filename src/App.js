@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import ArtsAndMusicBooks from './Pages/ArtAndMusicBooks/ArtsAndMusicBooks';
 import BookDetails from './Pages/BookDetails/BookDetails';
 import Cart from './Pages/Cart/Cart';
 import Essays from './Pages/Essays/Essays';
 import Fictions from './Pages/Fictions/Fictions';
 import Home from './Pages/Home/Home';
-import NonFiction from './Pages/NonFiction/NonFiction';
+import NonFictionBooks from './Pages/NonFictionBooks/NonFictionBooks';
 import NotFound from './Pages/NotFound/NotFound';
 import SciFiFantasyAndHorrorBooks from './Pages/SciFiFantasyAndHorrorBooks/SciFiFantasyAndHorrorBooks';
 import Footer from './Pages/Shared/Footer';
@@ -21,8 +22,9 @@ function App() {
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/essays' element={<Essays></Essays>}></Route>
         <Route path='/fictions' element={<Fictions></Fictions>}></Route>
-        <Route path='/nonFiction' element={<NonFiction></NonFiction>}></Route>
+        <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
         <Route path='/SciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
+        <Route path='/artsAndMusic' element={<ArtsAndMusicBooks></ArtsAndMusicBooks>}></Route>
         <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
         <Route path='/signIn' element={<SignIn></SignIn>}></Route>
         <Route path='/cart' element={<Cart></Cart>}></Route>

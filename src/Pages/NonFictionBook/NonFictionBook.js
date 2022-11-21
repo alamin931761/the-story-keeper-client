@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SingleNonFictionBook = ({ data }) => {
+const NonFictionBook = ({ data }) => {
     const { name, author, price, image, _id } = data;
 
     const navigate = useNavigate();
@@ -25,4 +25,4 @@ const SingleNonFictionBook = ({ data }) => {
     );
 };
 
-export default SingleNonFictionBook;
+export default NonFictionBook;
