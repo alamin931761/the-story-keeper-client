@@ -23,7 +23,7 @@ const Navbar = () => {
                         <p className='font-semibold text-xl'>More Categories</p>
                         <div>
                             <li><Link to='/artsAndMusic'>Arts & Music</Link></li>
-                            <li><Link to='/mystery'>Mystery & Crime</Link></li>
+                            <li><Link to='/mysteryAndCrime'>Mystery & Crime</Link></li>
                             <li><Link to='/poetry'>Poetry</Link></li>
                             <li><Link to='/rareBooks'>Rare Books</Link></li>
                         </div>

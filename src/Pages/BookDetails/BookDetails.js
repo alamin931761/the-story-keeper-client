@@ -32,10 +32,10 @@ const BookDetails = () => {
                             <p className='uppercase'><small>publisher: {publisher}</small></p>
                             <p className='uppercase'><small>publication date: {publication_date}</small></p>
                             <p className='uppercase'><small>weight: {weight}</small></p>
-                            <p className='uppercase'><small>pages_quantity {pages_quantity}</small></p>
-                            <p className='uppercase'><small>dimensions (mm) {dimensions}</small></p>
-                            <p className='uppercase'><small>isbn: {isbn}</small></p>
-                            <p className='uppercase'><small>binding {binding}</small></p>
+                            <p className='uppercase'><small>{pages_quantity ? 'pages quantity' : ''} {pages_quantity}</small></p>
+                            <p className='uppercase'><small>{dimensions ? 'dimensions (mm): ' : ''}{dimensions}</small></p>
+                            <p className='uppercase'><small>{isbn ? 'isbn:' : ''} {isbn}</small></p>
+                            <p className='uppercase'><small>{binding ? "binding:" : ''} {binding}</small></p>
                         </div>
                     </div>
                 </div>
