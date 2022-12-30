@@ -1,8 +1,8 @@
 import React from 'react';
 import { BsArrowRight } from 'react-icons/bs';
-import NewArrivalSlices from '../NewArrivalSlices/NewArrivalSlices';
+import NewArrivalSlices from './NewArrivalSlices/NewArrivalSlices';
 import { Link } from 'react-router-dom';
-import useNewArrivals from '../../Hooks/useNewArrivals';
+import useNewArrivals from '../../../Hooks/useNewArrivals';
 
 const NewArrivals = () => {
     const [newBooks] = useNewArrivals([]);

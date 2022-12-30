@@ -1,6 +1,6 @@
 import React from 'react';
 import useNewArrivals from '../../Hooks/useNewArrivals';
-import NewArrivalBook from '../NewArrivalBook/NewArrivalBook';
+import NewArrivalBook from './NewArrivalBook/NewArrivalBook';
 
 const NewArrivalBooks = () => {
     const [newBooks] = useNewArrivals([]);

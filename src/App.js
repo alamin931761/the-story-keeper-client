@@ -18,7 +18,6 @@ import SciFiFantasyAndHorrorBooks from './Pages/SciFiFantasyAndHorrorBooks/SciFi
 import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
 import SignIn from './Pages/SignIn/SignIn';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

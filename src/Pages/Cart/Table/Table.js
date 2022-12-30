@@ -19,7 +19,8 @@ const Table = ({ data }) => {
             </td>
             <td>${price}</td>
             <th>
-                <button className="btn btn-primary">Checkout</button>
+                <button className="btn btn-primary mr-2">Checkout</button>
+                <button className="btn btn-error">Delete</button>
             </th>
         </tr>
     );

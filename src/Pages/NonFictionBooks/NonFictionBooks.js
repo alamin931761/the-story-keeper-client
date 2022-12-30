@@ -1,6 +1,6 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
-import NonFictionBook from '../NonFictionBook/NonFictionBook';
+import NonFictionBook from './NonFictionBook/NonFictionBook';
 
 const NonFictionBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);

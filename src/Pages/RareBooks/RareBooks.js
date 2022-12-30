@@ -1,6 +1,6 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
-import RareBook from '../RareBook/RareBook';
+import RareBook from './RareBook/RareBook';
 
 const RareBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);

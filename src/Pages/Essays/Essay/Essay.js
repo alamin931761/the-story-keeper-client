@@ -1,12 +1,22 @@
 import React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { BookDetailsContext } from '../../App';
 
-const MysteryAndCrimeBook = ({ data }) => {
+const Essay = ({ data }) => {
     const { name, author, price, image, _id } = data;
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
         navigate(`/bookDetails/${id}`);
-    }
+    };
+
+    const [bookData, setBookData] = useContext(BookDetailsContext);
+    const handleAddToCart = (data) => {
+        setBookData([...bookData, data]);
+        toast.info(`${name} - successfully added to the cart`);
+    };
+
     return (
         <section className='flex justify-center'>
             <div className="card w-[450px] bg-white shadow-2xl">
@@ -16,12 +26,14 @@ const MysteryAndCrimeBook = ({ data }) => {
                     <p className='text-xl'>{author}</p>
                     <h2 className='text-2xl font-bold'>${price}</h2>
                     <div className="card-actions justify-end">
+                        <button onClick={() => handleAddToCart(data)} className="btn btn-success">Add To Cart</button>
                         <button onClick={() => navigateToDetails(_id)} className="btn btn-primary">Details</button>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     );
 };
 
-export default MysteryAndCrimeBook;
+export default Essay;

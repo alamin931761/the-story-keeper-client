@@ -1,10 +1,9 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { BookDetailsContext } from '../../App';
+import { BookDetailsContext } from '../../../App';
 
-const Essay = ({ data }) => {
+const PoetryBook = ({ data }) => {
     const { name, author, price, image, _id } = data;
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
@@ -12,12 +11,10 @@ const Essay = ({ data }) => {
     };
 
     const [bookData, setBookData] = useContext(BookDetailsContext);
-    // console.log(bookData);
     const handleAddToCart = (data) => {
         setBookData([...bookData, data]);
         toast.info(`${name} - successfully added to the cart`);
     };
-
     return (
         <section className='flex justify-center'>
             <div className="card w-[450px] bg-white shadow-2xl">
@@ -37,4 +34,4 @@ const Essay = ({ data }) => {
     );
 };
 
-export default Essay;
+export default PoetryBook;

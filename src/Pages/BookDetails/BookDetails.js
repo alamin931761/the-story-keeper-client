@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { BookDetailsContext } from '../../App';
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState([]);
@@ -11,7 +13,14 @@ const BookDetails = () => {
         fetch(`http://localhost:5000/book/${id}`)
             .then(res => res.json())
             .then(data => setBookDetails(data));
-    }, [])
+    }, []);
+
+    const [bookData, setBookData] = useContext(BookDetailsContext);
+    const handleAddToCart = (data) => {
+        setBookData([...bookData, data]);
+        toast.info(`${name} - successfully added to the cart`);
+    };
+
     return (
         <section className='bg-white'>
             <div className='flex justify-center'>
@@ -37,9 +46,13 @@ const BookDetails = () => {
                             <p className='uppercase'><small>{isbn ? 'isbn:' : ''} {isbn}</small></p>
                             <p className='uppercase'><small>{binding ? "binding:" : ''} {binding}</small></p>
                         </div>
+                        <div className='mt-2'>
+                            <button onClick={() => handleAddToCart(bookDetails)} className="btn btn-success">Add To Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     );
 };

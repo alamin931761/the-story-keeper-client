@@ -1,9 +1,9 @@
 import React from 'react';
 import Coverflow from 'react-coverflow';
-import carousel1 from '../../assets/images/carousel/carousel1.png';
-import carousel2 from '../../assets/images/carousel/carousel2.png';
-import carousel3 from '../../assets/images/carousel/carousel3.png';
-import carousel4 from '../../assets/images/carousel/carousel4.png';
+import carousel1 from '../../../assets/images/carousel/carousel1.png';
+import carousel2 from '../../../assets/images/carousel/carousel2.png';
+import carousel3 from '../../../assets/images/carousel/carousel3.png';
+import carousel4 from '../../../assets/images/carousel/carousel4.png';
 
 const Carousel = () => {
     const fn = function () {
