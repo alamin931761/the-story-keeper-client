@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { BookDetailsContext } from '../../App';
+import Table from './Table/Table';
 
 const Cart = () => {
+    const [bookData, setBookData] = useContext(BookDetailsContext);
+    console.log(bookData);
+
     return (
-        <div className='pt-32'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas alias eius, pariatur ullam ipsam saepe qui molestias quis unde rem cumque amet similique sequi laudantium, voluptatibus sunt reiciendis vero. Iusto beatae nemo velit optio, voluptatibus quasi repudiandae quos eaque accusantium autem quibusdam. Fugit, asperiores. Culpa odit perferendis adipisci pariatur, inventore possimus, quo quis praesentium atque mollitia deserunt recusandae libero rem officiis blanditiis harum unde commodi numquam repudiandae. Ducimus ipsum porro, ab eius, sequi facere exercitationem quibusdam aliquid voluptatibus dignissimos quod repellendus fugiat recusandae aliquam? Dolor libero doloribus dolores vero dignissimos iusto culpa iste sequi commodi ex in architecto veniam, odit amet accusantium soluta totam earum. Nemo eaque, quia asperiores ab incidunt magni possimus placeat deserunt itaque, ipsam veniam aperiam harum quisquam accusamus libero quis minus perspiciatis eveniet voluptate sequi laudantium. Ex deserunt ab repellendus atque ipsa voluptatum autem, nam odio expedita temporibus possimus qui maiores molestiae laudantium itaque in! Sed iure expedita nam, sit velit, reprehenderit modi maiores perspiciatis at vero temporibus animi. Exercitationem ad quaerat tempore alias ipsum et veniam totam beatae expedita, nisi, sit est sequi nam a, dolorum nemo! Eligendi voluptate quae deserunt quos cumque dolorem, neque et, quo distinctio qui nam laboriosam, autem debitis repudiandae architecto perspiciatis consequatur itaque. Reprehenderit, temporibus animi. Reiciendis ipsum dolorum magni, suscipit accusantium aperiam magnam quas libero odio eligendi veniam a corporis, eos minima consequuntur sapiente sint quia ad recusandae id nulla. Quidem consectetur fugiat praesentium, aut incidunt quis dignissimos quod, cupiditate, reiciendis optio esse? Similique harum cupiditate dignissimos nostrum voluptas incidunt expedita, laudantium voluptatem reprehenderit rem temporibus enim et qui sint aliquid voluptatibus, voluptatum aspernatur. Aliquam error dolores est nihil enim ipsa aut, quisquam magni? Voluptatum quibusdam harum voluptas ratione accusantium corrupti repellendus quis debitis ea corporis numquam, similique dolorum expedita? Beatae nesciunt veritatis saepe hic fuga tenetur voluptatibus velit aperiam delectus quibusdam ullam, laudantium quaerat suscipit similique itaque cupiditate. Facilis similique non tempore ea? Eveniet, vitae laudantium in distinctio ipsa labore a vero esse nam repellendus, nesciunt quidem, minima earum consequatur quaerat magnam! Ipsam voluptates repudiandae consequatur. Esse ex numquam sequi quas voluptate architecto eaque, necessitatibus mollitia fugit repellendus animi hic suscipit sit ducimus nobis dolorum excepturi molestias dolore dolor tenetur fuga? Quod quo id, optio, assumenda dolor nisi voluptatem praesentium excepturi harum aspernatur esse, nemo quaerat magnam maxime numquam obcaecati. Molestias, sit? Quo itaque cum nihil quidem aspernatur nesciunt esse fugiat sed, autem voluptatibus, quisquam ab consectetur dolor, culpa et tenetur corporis minus quod numquam quis eveniet necessitatibus. Fugit ipsum corrupti, incidunt praesentium veniam nesciunt similique vero numquam porro alias autem omnis quis inventore eligendi odit harum velit cum pariatur, eius eos exercitationem aliquid adipisci laborum nihil? Numquam fugiat libero ipsum. Ex modi deleniti fugit dolores eum odit saepe vel qui possimus libero id corporis velit fugiat labore, excepturi amet provident aut, dolore autem ut temporibus? Placeat iusto ullam odit fugit obcaecati delectus rem, beatae, sint unde quas repellat veniam cupiditate fuga aliquam voluptas, repellendus praesentium fugiat soluta quisquam nihil incidunt quis? Dignissimos molestias minus autem atque eius.
-        </div>
+        <section className='pt-32'>
+            <h1 className='text-5xl text-center'>Cart Page</h1>
+
+            <div className="overflow-x-auto w-full">
+                <table className="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Button</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            bookData.map(data => <Table key={data._id} data={data}></Table>)
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
     );
 };
 
