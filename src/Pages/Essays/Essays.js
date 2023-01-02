@@ -1,6 +1,6 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
-import Essay from '../Essay/Essay';
+import Essay from './Essay/Essay';
 
 const Essays = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);

@@ -1,4 +1,5 @@
 import React from 'react';
+import Bestsellings from './Bestsellings/Bestsellings';
 import Carousel from './Carousel/Carousel';
 import NewArrivals from './NewArrivals/NewArrivals';
 
@@ -9,6 +10,7 @@ const Home = () => {
             <div>
                 <h1>This is Home</h1>
                 <NewArrivals></NewArrivals>
+                <Bestsellings></Bestsellings>
             </div>
         </section>
     );

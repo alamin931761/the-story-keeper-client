@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { BookDetailsContext } from '../../App';
+import { BookDetailsContext } from '../../../App';
 
 const SciFiFantasyAndHorrorBook = ({ data }) => {
     const { name, author, price, image, _id } = data;
@@ -15,6 +15,7 @@ const SciFiFantasyAndHorrorBook = ({ data }) => {
     const handleAddToCart = (data) => {
         setBookData([...bookData, data]);
         toast.info(`${name} - successfully added to the cart`);
+        toast.info("If you want to increase the quantity or remove the book from the cart, please visit the Cart🛒page.");
     };
 
     return (
@@ -26,14 +27,13 @@ const SciFiFantasyAndHorrorBook = ({ data }) => {
                     <p className='text-xl'>{author}</p>
                     <h2 className='text-2xl font-bold'>${price}</h2>
                     <div className="card-actions justify-end">
-                        <button onClick={() => handleAddToCart(data)} className="btn btn-success">Add To Cart</button>
                         <button onClick={() => navigateToDetails(_id)} className="btn btn-primary">Details</button>
+                        <button onClick={() => handleAddToCart(data)} className="btn btn-success">Add To Cart</button>
                     </div>
                 </div>
             </div>
             <ToastContainer />
         </section>
-
     );
 };
 

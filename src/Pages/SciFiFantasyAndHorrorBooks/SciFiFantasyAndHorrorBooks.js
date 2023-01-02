@@ -1,6 +1,6 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
-import SciFiFantasyAndHorrorBook from '../SciFiFantasyAndHorrorBook/SciFiFantasyAndHorrorBook';
+import SciFiFantasyAndHorrorBook from './SciFiFantasyAndHorrorBook/SciFiFantasyAndHorrorBook';
 
 const SciFiFantasyAndHorrorBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);

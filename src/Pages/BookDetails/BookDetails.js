@@ -15,10 +15,12 @@ const BookDetails = () => {
             .then(data => setBookDetails(data));
     }, []);
 
+    // add to cart 
     const [bookData, setBookData] = useContext(BookDetailsContext);
     const handleAddToCart = (data) => {
         setBookData([...bookData, data]);
         toast.info(`${name} - successfully added to the cart`);
+        toast.info("If you want to increase the quantity or remove the book from the cart, please visit the Cart🛒page.");
     };
 
     return (
@@ -46,7 +48,7 @@ const BookDetails = () => {
                             <p className='uppercase'><small>{isbn ? 'isbn:' : ''} {isbn}</small></p>
                             <p className='uppercase'><small>{binding ? "binding:" : ''} {binding}</small></p>
                         </div>
-                        <div className='mt-2'>
+                        <div className='mt-2 mb-2'>
                             <button onClick={() => handleAddToCart(bookDetails)} className="btn btn-success">Add To Cart</button>
                         </div>
                     </div>

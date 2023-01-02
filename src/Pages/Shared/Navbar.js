@@ -4,8 +4,30 @@ import { BookDetailsContext } from '../../App';
 import logo from '../../assets/images/logo.png';
 
 const Navbar = () => {
+    // cart data 
     const [bookData, setBookData] = useContext(BookDetailsContext);
+    const booksPrice = bookData.map(book => book.bookPrice);
 
+    let subTotal = 0;
+    for (const price of booksPrice) {
+        subTotal = subTotal + price;
+    };
+
+    const vat = 0.05;
+    const deliveryCharge = 25;
+    let total;
+    if (bookData.length === 0) {
+        total = 0;
+    } else {
+        total = subTotal + vat + deliveryCharge;
+    }
+
+    let item = 'Item';
+    if (bookData.length > 1) {
+        item = 'Items';
+    }
+
+    // navbar 
     const menuItems = <>
         <li className='mr-5'><Link to='/home'>Home</Link></li>
         <li className='z-50' tabIndex="0">
@@ -73,10 +95,14 @@ const Navbar = () => {
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                                 <div className="card-body bg-lime-800">
-                                    <span className="font-bold text-lg">{bookData.length} Items</span>
-                                    <span className="text-info">Subtotal: $9999</span>
+                                    <span className="font-bold text-xl">{bookData.length} {item}</span>
+                                    <span className="text-info text-base">SubTotal: ${subTotal}</span>
+                                    <span className="text-info text-base">VAT: 5%</span>
+                                    <span className="text-info text-base">Delivery Charge: {deliveryCharge}</span>
+                                    <span className="text-info text-base">Total: ${total}</span>
                                     <div className="card-actions">
-                                        <Link className='btn btn-primary' to='/cart'>View cart</Link>
+                                        <Link className='btn btn-primary w-full' to='/cart'>View cart</Link>
+                                        <Link className='btn btn-primary w-full' to='/abc'>Checkout</Link>
                                     </div>
                                 </div>
                             </div>

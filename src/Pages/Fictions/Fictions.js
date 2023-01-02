@@ -1,6 +1,6 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
-import Fiction from '../Fiction/Fiction';
+import Fiction from './Fiction/Fiction';
 
 const Fictions = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);

@@ -11,7 +11,7 @@ const Carousel = () => {
     }
     return (
         <section className='z-0'>
-            <Coverflow classes={{ background: 'rgb(233, 23, 23)' }}
+            {/* <Coverflow classes={{ background: 'rgb(233, 23, 23)' }}
                 displayQuantityOfSide={1}
                 infiniteScroll={true}
                 navigation={false}
@@ -47,7 +47,7 @@ const Carousel = () => {
                 <img src={carousel2} alt="" />
                 <img src={carousel3} alt="" />
                 <img src={carousel4} alt="" />
-            </Coverflow>
+            </Coverflow> */}
         </section >
     );
 };

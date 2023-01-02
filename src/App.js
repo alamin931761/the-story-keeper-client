@@ -18,12 +18,14 @@ import SciFiFantasyAndHorrorBooks from './Pages/SciFiFantasyAndHorrorBooks/SciFi
 import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
 import SignIn from './Pages/SignIn/SignIn';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Contact from './Pages/Contact/Contact';
 
 export const BookDetailsContext = createContext();
 function App() {
   const [bookData, setBookData] = useState([]);
+  // console.log(bookData);
   return (
     <div className="App">
       <BookDetailsContext.Provider value={[bookData, setBookData]}>
@@ -43,6 +45,7 @@ function App() {
           <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
           <Route path='/signIn' element={<SignIn></SignIn>}></Route>
           <Route path='/cart' element={<Cart></Cart>}></Route>
+          <Route path='/contact' element={<Contact></Contact>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>
         <Footer></Footer>
