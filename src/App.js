@@ -21,6 +21,7 @@ import SignIn from './Pages/SignIn/SignIn';
 // import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Contact from './Pages/Contact/Contact';
+import SignUp from './Pages/SignIn/SignUp';
 
 export const BookDetailsContext = createContext();
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
           <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
           <Route path='/signIn' element={<SignIn></SignIn>}></Route>
+          <Route path='/signUp' element={<SignUp></SignUp>}></Route>
           <Route path='/cart' element={<Cart></Cart>}></Route>
           <Route path='/contact' element={<Contact></Contact>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
