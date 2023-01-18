@@ -48,7 +48,7 @@ const Cart = () => {
             </div>
 
             <div className='flex justify-center mt-10'>
-                <Link className='btn btn-success' to='/abc'>Proceed to checkout</Link>
+                <Link className='btn btn-success' to='/checkout'>Proceed to checkout</Link>
             </div>
         </section>
     );

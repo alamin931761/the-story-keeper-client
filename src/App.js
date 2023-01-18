@@ -22,6 +22,8 @@ import SignIn from './Pages/SignIn/SignIn';
 import 'react-toastify/dist/ReactToastify.css';
 import Contact from './Pages/Contact/Contact';
 import SignUp from './Pages/SignIn/SignUp';
+import Checkout from './Pages/Checkout/Checkout';
+import RequireAuth from './Pages/SignIn/RequireAuth/RequireAuth';
 
 export const BookDetailsContext = createContext();
 function App() {
@@ -38,7 +40,7 @@ function App() {
           <Route path='/essays' element={<Essays></Essays>}></Route>
           <Route path='/fictions' element={<Fictions></Fictions>}></Route>
           <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
-          <Route path='/SciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
+          <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
           <Route path='/artsAndMusic' element={<ArtsAndMusicBooks></ArtsAndMusicBooks>}></Route>
           <Route path='/mysteryAndCrime' element={<MysteryAndCrimeBooks></MysteryAndCrimeBooks>}></Route>
           <Route path='/poetry' element={<PoetryBooks></PoetryBooks>}></Route>
@@ -48,6 +50,7 @@ function App() {
           <Route path='/signUp' element={<SignUp></SignUp>}></Route>
           <Route path='/cart' element={<Cart></Cart>}></Route>
           <Route path='/contact' element={<Contact></Contact>}></Route>
+          <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>
         <Footer></Footer>

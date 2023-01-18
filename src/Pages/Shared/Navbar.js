@@ -1,9 +1,18 @@
+import { signOut } from 'firebase/auth';
 import React, { useContext } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { BookDetailsContext } from '../../App';
 import logo from '../../assets/images/logo.png';
+import auth from '../../firebase.init';
 
 const Navbar = () => {
+    const [user] = useAuthState(auth);
+
+    const handleSignOut = () => {
+        signOut(auth);
+    };
+
     // cart data 
     const [bookData, setBookData] = useContext(BookDetailsContext);
     const booksPrice = bookData.map(book => book.bookPrice);
@@ -40,7 +49,7 @@ const Navbar = () => {
                             <li><Link to='/essays'>Essays</Link></li>
                             <li><Link to='/fictions'>Fiction</Link></li>
                             <li><Link to='/nonFiction'>Non-Fiction</Link></li>
-                            <li><Link to='/SciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</Link></li>
+                            <li><Link to='/sciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</Link></li>
                         </div>
                     </div>
 
@@ -117,14 +126,16 @@ const Navbar = () => {
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li>
+                            {/* <li>
                                 <a className="justify-between">
                                     Profile
                                     <span className="badge">New</span>
                                 </a>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li><a>Settings</a></li> */}
+                            {
+                                user ? <button onClick={handleSignOut} className='btn btn-primary'>Sign Out</button> : <Link to='/signIn' className='btn btn-primary'>Sign In</Link>
+                            }
                         </ul>
                     </div>
                 </div>

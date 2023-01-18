@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { BookDetailsContext } from '../../App';
+import PageTitle from '../Shared/PageTitle';
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState([]);
@@ -25,6 +26,7 @@ const BookDetails = () => {
 
     return (
         <section className='bg-white'>
+            <PageTitle title="Book Details"></PageTitle>
             <div className='flex justify-center'>
                 <div className='flex flex-wrap lg:flex-nowrap mt-28 mb-10 ml-10 mr-10 shadow-2xl'>
                     <div className='flex justify-center items-center'>
