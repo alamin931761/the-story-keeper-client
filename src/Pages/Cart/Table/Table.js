@@ -1,48 +1,13 @@
-import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
 
 const Table = ({ data, deleteBook }) => {
-    const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding, _id } = data;
+    const { image, name, author, price, _id, quantity, subtotal } = data;
 
     // delete 
     const handleDeleteButton = (id) => {
         deleteBook(id);
     }
-
-    // quantity 
-    const [quantity, setQuantity] = useState(1);
-    const subTotal = quantity * price;
-
-    const increase = () => {
-        setQuantity(quantity + 1);
-    };
-    const decrease = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        } else {
-            toast.error("Sorry! Less Number of Quantity");
-        }
-    };
-
-    const bookData = {
-        image: image,
-        name: name,
-        name2: name2,
-        author: author,
-        price: price,
-        description: description,
-        description2: description2,
-        publisher: publisher,
-        publication_date: publication_date,
-        weight: weight,
-        pages_quantity: pages_quantity,
-        dimensions: dimensions,
-        isbn: isbn,
-        binding: binding,
-        quantity: quantity,
-        subTotal: subTotal
-    };
-    // console.log(bookData)
 
     return (
         <tr>
@@ -64,15 +29,9 @@ const Table = ({ data, deleteBook }) => {
                     </div>
                 </div>
             </td>
-            <td>${price}</td>
-            <td>
-                <div className='flex items-center'>
-                    <button onClick={() => decrease()} className='btn btn-outline rounded-none h-[10px]'>-</button>
-                    <input type="text" value={quantity} placeholder="Quantity" className="rounded-none input w-[100px] h-[48px] text-center" />
-                    <button onClick={() => increase()} className='btn btn-outline rounded-none h-[10px]'>+</button>
-                </div>
-            </td>
-            <td>${subTotal}</td>
+            <td className='text-center'>${price}</td>
+            <td className='text-center'>{quantity}</td>
+            <td className='text-center'>${subtotal}</td>
             <ToastContainer />
         </tr>
     );

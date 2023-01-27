@@ -24,11 +24,13 @@ import Contact from './Pages/Contact/Contact';
 import SignUp from './Pages/SignIn/SignUp';
 import Checkout from './Pages/Checkout/Checkout';
 import RequireAuth from './Pages/SignIn/RequireAuth/RequireAuth';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import AddBooks from './Pages/Dashboard/AddBooks/AddBooks';
 
 export const BookDetailsContext = createContext();
 function App() {
   const [bookData, setBookData] = useState([]);
-  // console.log(bookData);
+  console.log(bookData);
   return (
     <div className="App">
       <BookDetailsContext.Provider value={[bookData, setBookData]}>
@@ -50,6 +52,8 @@ function App() {
           <Route path='/signUp' element={<SignUp></SignUp>}></Route>
           <Route path='/cart' element={<Cart></Cart>}></Route>
           <Route path='/contact' element={<Contact></Contact>}></Route>
+          <Route path='/addBooks' element={<AddBooks></AddBooks>}></Route>
+          <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}></Route>
           <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>

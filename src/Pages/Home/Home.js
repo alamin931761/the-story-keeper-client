@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <section>
             <PageTitle title="Home"></PageTitle>
-            <Carousel></Carousel>
+            {/* <Carousel></Carousel> */}
             <div>
                 <h1>This is Home</h1>
                 <NewArrivals></NewArrivals>

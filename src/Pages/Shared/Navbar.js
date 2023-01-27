@@ -15,24 +15,22 @@ const Navbar = () => {
 
     // cart data 
     const [bookData, setBookData] = useContext(BookDetailsContext);
-    const booksPrice = bookData.map(book => book.bookPrice);
+    const booksPrice = bookData.map(book => book.subtotal);
+    const booksQuantity = bookData.map(book => book.quantity);
 
-    let subTotal = 0;
+    let subtotal = 0;
     for (const price of booksPrice) {
-        subTotal = subTotal + price;
+        subtotal = subtotal + price;
     };
 
-    const vat = 0.05;
-    const deliveryCharge = 25;
-    let total;
-    if (bookData.length === 0) {
-        total = 0;
-    } else {
-        total = subTotal + vat + deliveryCharge;
+    // quantity
+    let quantity = 0;
+    for (const bookQuantity of booksQuantity) {
+        quantity = quantity + bookQuantity;
     }
 
     let item = 'Item';
-    if (bookData.length > 1) {
+    if (quantity.length > 1) {
         item = 'Items';
     }
 
@@ -99,19 +97,15 @@ const Navbar = () => {
                             <label tabIndex={0} className="btn btn-ghost btn-circle">
                                 <div className="indicator">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                    <span className="badge badge-sm indicator-item">{bookData.length}</span>
+                                    <span className="badge badge-sm indicator-item">{quantity}</span>
                                 </div>
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                                 <div className="card-body bg-lime-800">
-                                    <span className="font-bold text-xl">{bookData.length} {item}</span>
-                                    <span className="text-info text-base">SubTotal: ${subTotal}</span>
-                                    <span className="text-info text-base">VAT: 5%</span>
-                                    <span className="text-info text-base">Delivery Charge: {deliveryCharge}</span>
-                                    <span className="text-info text-base">Total: ${total}</span>
+                                    <span className="font-bold text-xl">{quantity} {item}</span>
+                                    <span className="text-info text-base">Subtotal: ${subtotal}</span>
                                     <div className="card-actions">
                                         <Link className='btn btn-primary w-full' to='/cart'>View cart</Link>
-                                        <Link className='btn btn-primary w-full' to='/abc'>Checkout</Link>
                                     </div>
                                 </div>
                             </div>
@@ -125,16 +119,16 @@ const Navbar = () => {
                                 <img src="https://placeimg.com/80/80/people" />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            {/* <li>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-lime-800 rounded-box w-52">
+                            <li>
                                 <a className="justify-between">
                                     Profile
                                     <span className="badge">New</span>
                                 </a>
                             </li>
-                            <li><a>Settings</a></li> */}
+                            <li><Link className='btn btn-danger w-full' to='/dashboard'>Dashboard</Link></li>
                             {
-                                user ? <button onClick={handleSignOut} className='btn btn-primary'>Sign Out</button> : <Link to='/signIn' className='btn btn-primary'>Sign In</Link>
+                                user ? <button onClick={handleSignOut} className='btn btn-primary mt-2'>Sign Out</button> : <Link to='/signIn' className='btn btn-primary'>Sign In</Link>
                             }
                         </ul>
                     </div>
