@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { BookDetailsContext } from '../../App';
 import logo from '../../assets/images/logo.png';
 import auth from '../../firebase.init';
+import { GiShoppingCart, GiHamburgerMenu } from 'react-icons/gi';
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
@@ -36,35 +37,42 @@ const Navbar = () => {
 
     // navbar 
     const menuItems = <>
-        <li className='mr-5'><Link to='/home'>Home</Link></li>
+        <li className='text-white'><Link to='/home'>Home</Link></li>
         <li className='z-50' tabIndex="0">
-            <span>Shop By Category</span>
+            <span className='text-white'>Shop By Category</span>
             <ul className="p-2 bg-lime-800">
                 <div className='flex justify-center'>
                     <div className='w-[250px]'>
-                        <p className='font-semibold text-xl'>Top Categories</p>
+                        <p className='font-semibold text-xl text-white'>Top Categories</p>
                         <div>
-                            <li><Link to='/essays'>Essays</Link></li>
-                            <li><Link to='/fictions'>Fiction</Link></li>
-                            <li><Link to='/nonFiction'>Non-Fiction</Link></li>
-                            <li><Link to='/sciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</Link></li>
+                            <li className='text-white'><Link to='/essays'>Essays</Link></li>
+                            <li className='text-white'><Link to='/fiction'>Fiction</Link></li>
+                            <li className='text-white'><Link to='/nonFiction'>Non-Fiction</Link></li>
+                            <li className='text-white'><Link to='/sciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</Link></li>
                         </div>
                     </div>
 
                     <div className='w-[250px]'>
-                        <p className='font-semibold text-xl'>More Categories</p>
+                        <p className='font-semibold text-xl text-white'>More Categories</p>
                         <div>
-                            <li><Link to='/artsAndMusic'>Arts & Music</Link></li>
-                            <li><Link to='/mysteryAndCrime'>Mystery & Crime</Link></li>
-                            <li><Link to='/poetry'>Poetry</Link></li>
-                            <li><Link to='/rareBooks'>Rare Books</Link></li>
+                            <li className='text-white'><Link to='/artsAndMusic'>Arts & Music</Link></li>
+                            <li className='text-white'><Link to='/mysteryAndCrime'>Mystery & Crime</Link></li>
+                            <li className='text-white'><Link to='/poetry'>Poetry</Link></li>
+                            <li className='text-white'><Link to='/rareBooks'>Rare Books</Link></li>
                         </div>
                     </div>
                 </div>
             </ul>
         </li>
-        <li className='mr-5'><Link to='/contact'>Contact</Link></li>
-        <li className='mr-5'><Link to='/signIn'>Sign In</Link></li>
+        <li className=' text-white'><Link to='/contact'>Contact</Link></li>
+        {
+            user && <>
+                <li className='text-white'><Link to='/dashboard'>Dashboard</Link></li>
+            </>
+        }
+        {
+            user ? <li onClick={handleSignOut} className="text-white text-sm lg:text-base flex lg:items-center pl-4 cursor-pointer">Sign Out</li> : <Link to='/signIn' className='text-white text-sm lg:text-base flex items-center pl-4'>Sign In</Link>
+        }
     </>
 
     return (
@@ -73,16 +81,15 @@ const Navbar = () => {
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                            <GiHamburgerMenu className='text-3xl text-white' />
                         </label>
-                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-red-800 rounded-box w-52">
                             {menuItems}
                         </ul>
                     </div>
 
                     {/* logo */}
-                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium whitespace-nowrap text-2xl'>The Story Keeper</span></Link>
-
+                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium whitespace-nowrap text-2xl text-white'>The Story Keeper</span></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
@@ -96,8 +103,8 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle">
                                 <div className="indicator">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                    <span className="badge badge-sm indicator-item">{quantity}</span>
+                                    <GiShoppingCart className='text-3xl text-white' />
+                                    <span className="badge badge-sm indicator-item text-yellow-300">{quantity}</span>
                                 </div>
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
@@ -112,26 +119,6 @@ const Navbar = () => {
                         </div>
                     </div>
                     {/* cart end  */}
-
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
-                            </div>
-                        </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-lime-800 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><Link className='btn btn-danger w-full' to='/dashboard'>Dashboard</Link></li>
-                            {
-                                user ? <button onClick={handleSignOut} className='btn btn-primary mt-2'>Sign Out</button> : <Link to='/signIn' className='btn btn-primary'>Sign In</Link>
-                            }
-                        </ul>
-                    </div>
                 </div>
             </div>
         </section >

@@ -18,7 +18,6 @@ import SciFiFantasyAndHorrorBooks from './Pages/SciFiFantasyAndHorrorBooks/SciFi
 import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
 import SignIn from './Pages/SignIn/SignIn';
-// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Contact from './Pages/Contact/Contact';
 import SignUp from './Pages/SignIn/SignUp';
@@ -26,11 +25,13 @@ import Checkout from './Pages/Checkout/Checkout';
 import RequireAuth from './Pages/SignIn/RequireAuth/RequireAuth';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import AddBooks from './Pages/Dashboard/AddBooks/AddBooks';
+import { ToastContainer } from 'react-toastify';
+import Orders from './Pages/Dashboard/Orders/Orders';
 
 export const BookDetailsContext = createContext();
+export const TotalContext = createContext();
 function App() {
   const [bookData, setBookData] = useState([]);
-  console.log(bookData);
   return (
     <div className="App">
       <BookDetailsContext.Provider value={[bookData, setBookData]}>
@@ -40,7 +41,7 @@ function App() {
           <Route path='/home' element={<Home></Home>}></Route>
           <Route path='/NewArrivalBooks' element={<NewArrivalBooks></NewArrivalBooks>}></Route>
           <Route path='/essays' element={<Essays></Essays>}></Route>
-          <Route path='/fictions' element={<Fictions></Fictions>}></Route>
+          <Route path='/fiction' element={<Fictions></Fictions>}></Route>
           <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
           <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
           <Route path='/artsAndMusic' element={<ArtsAndMusicBooks></ArtsAndMusicBooks>}></Route>
@@ -52,13 +53,16 @@ function App() {
           <Route path='/signUp' element={<SignUp></SignUp>}></Route>
           <Route path='/cart' element={<Cart></Cart>}></Route>
           <Route path='/contact' element={<Contact></Contact>}></Route>
-          <Route path='/addBooks' element={<AddBooks></AddBooks>}></Route>
-          <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}></Route>
+          <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
+            <Route index element={<Orders></Orders>}></Route>
+            <Route path='addBooks' element={<AddBooks></AddBooks>}></Route>
+          </Route>
           <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>
         <Footer></Footer>
       </BookDetailsContext.Provider>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

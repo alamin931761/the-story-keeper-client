@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { BookDetailsContext } from '../../App';
 import Table from './Table/Table';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
     const [bookData, setBookData] = useContext(BookDetailsContext);
@@ -37,7 +37,7 @@ const Cart = () => {
             .then(data => setCoupon(data));
     }, []);
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
         const check = coupon.find(code => data.couponCode === code.code);
@@ -60,6 +60,7 @@ const Cart = () => {
     // total 
     const tax = bookSubtotal * 0.05;
     let total = (bookSubtotal + tax + deliveryCharge).toFixed(2);
+
 
     // cart data 
     let cart;
@@ -86,10 +87,23 @@ const Cart = () => {
                     <td></td>
                     <td className='border border-red-400 flex justify-center items-center'>
                         <form onSubmit={handleSubmit(onSubmit)} className='flex'>
+
+
                             <div className="form-control w-full max-w-xs">
-                                <input {...register("couponCode", { required: true, minLength: 5, maxLength: 10 })} type="text" placeholder='coupon code' className="input input-bordered w-full max-w-xs rounded-none" />
+                                <input {...register("couponCode", {
+                                    required: true,
+                                    minLength: {
+                                        value: 5,
+                                        message: "Coupon code must be 5 digits or more"
+                                    },
+                                    maxLength: {
+                                        value: 10,
+                                        message: "Coupon code must be 10 digits or less"
+                                    }
+                                })} type="text" placeholder='coupon code' className="input input-bordered w-full max-w-xs rounded-none" />
                                 <label className="label">
-                                    <span className="label-text-alt">Error Message</span>
+                                    {errors.couponCode?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
+                                    {errors.couponCode?.type === 'maxLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
                                 </label>
                             </div>
                             <input className="btn btn-primary rounded-none" type="submit" value='Apply coupon' />
@@ -105,7 +119,7 @@ const Cart = () => {
                 <h1 className='text-center text-3xl'>Cart Totals</h1>
 
                 <div>
-                    <h6 className='mb-4'>Choose Your Delivery Option:</h6>
+                    <h4 className='mb-4 text-xl'>Choose Your Delivery Option:<span className='text-xs text-red-500 ml-3'>(If you do not choose a delivery option you will need to collect the books from the store)</span></h4>
                     <div className='flex items-center mb-4 ml-5'>
                         <input onChange={handleDeliveryCharge} type="radio" id='store' name="delivery-charge" className="radio radio-success radio-lg mr-3" value={0} />
                         <label htmlFor="store">$0 - Collect in store (Gazipur, Bangladesh) <span className='text-2xs'>3-5 working days</span> </label>
@@ -127,15 +141,13 @@ const Cart = () => {
             <div className='flex justify-center mt-10'>
                 <Link className='btn btn-success' to='/checkout'>Proceed to checkout</Link>
             </div>
-        </div>
+        </div >
     };
 
     return (
         <section className='pt-32 pb-32 border border-3 border-red-500'>
             <h1 className='text-5xl text-center'>Cart Page</h1>
             {cart}
-
-            <ToastContainer></ToastContainer>
         </section >
     );
 };

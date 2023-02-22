@@ -1,5 +1,4 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
 
 const Table = ({ data, deleteBook }) => {
     const { image, name, author, price, _id, quantity, subtotal } = data;
@@ -32,7 +31,6 @@ const Table = ({ data, deleteBook }) => {
             <td className='text-center'>${price}</td>
             <td className='text-center'>{quantity}</td>
             <td className='text-center'>${subtotal}</td>
-            <ToastContainer />
         </tr>
     );
 };

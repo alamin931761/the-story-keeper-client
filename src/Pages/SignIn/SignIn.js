@@ -2,7 +2,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
@@ -52,13 +52,13 @@ const SignIn = () => {
     return (
         <section className='pt-32'>
             <PageTitle title="Sign In"></PageTitle>
-            <h2 className="text-center">Sign In to The Story Keeper</h2>
+            <h2 className="text-center text-3xl mb-5">Sign In to The Story Keeper</h2>
 
             <div>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center'>
-                    <input ref={emailRef} type="email" placeholder="Your email address" className="input input-bordered w-full max-w-xs mb-5" />
+                    <input ref={emailRef} type="email" placeholder="Your email address" className="input input-bordered w-full max-w-lg mb-5" required />
 
-                    <input ref={passwordRef} type="password" placeholder="Your password" className="input input-bordered w-full max-w-xs mb-5" />
+                    <input ref={passwordRef} type="password" placeholder="Your password" className="input input-bordered w-full max-w-lg mb-5" required />
 
                     <button type='submit' className='btn btn-success'>Sign In</button>
                 </form>
@@ -67,7 +67,6 @@ const SignIn = () => {
             </div>
             {errorElement}
             <Social></Social>
-            <ToastContainer />
         </section>
     );
 };

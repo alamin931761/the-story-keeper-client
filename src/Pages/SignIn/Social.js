@@ -3,6 +3,8 @@ import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/a
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
+import { FcGoogle } from 'react-icons/fc';
+import { BsGithub, BsFacebook } from 'react-icons/bs';
 
 const Social = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -26,9 +28,11 @@ const Social = () => {
         <section>
             <div className="divider">OR</div>
             <div className='flex flex-col justify-center mb-3'>
-                <button onClick={() => signInWithGoogle()} className='btn btn-success mt-3 w-1/4 mx-auto'>Continue with Google</button>
-                <button onClick={() => signInWithGithub()} className='btn btn-success mt-3 w-1/4 mx-auto'>Continue with Github</button>
-                <button className='btn btn-success mt-3 w-1/4 mx-auto'>Continue with Facebook</button>
+                <button onClick={() => signInWithGoogle()} className='btn btn-success mt-3 w-[300px] mx-auto'><FcGoogle className='text-3xl mr-1' />Continue with Google</button>
+
+                <button onClick={() => signInWithGithub()} className='btn btn-success mt-3 w-[300px] mx-auto'><BsGithub className='text-3xl mr-1' />Continue with Github</button>
+
+                <button className='btn btn-success mt-3 w-[300px] mx-auto'><BsFacebook className='text-3xl mr-1' />Continue with Facebook</button>
             </div>
             {errorElement}
         </section>

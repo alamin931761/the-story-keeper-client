@@ -5,11 +5,11 @@ import ArtsAndMusicBook from './ArtsAndMusicBook/ArtsAndMusicBook';
 
 const ArtsAndMusicBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
-    const artsAndMusicBooks = allBooks.slice(12, 15);
+    const artsAndMusicBooks = allBooks.filter(book => book.category === "arts-and-music");
     return (
         <section>
             <PageTitle title="Arts & Music"></PageTitle>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 bg-white pt-32 pb-16'>
+            <div className='common-style grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 bg-white'>
                 {
                     artsAndMusicBooks.map(data => <ArtsAndMusicBook key={data._id} data={data}></ArtsAndMusicBook>)
                 }

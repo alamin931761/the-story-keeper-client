@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Social from './Social';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
@@ -7,7 +6,7 @@ import auth from '../../firebase.init';
 import { useState } from 'react';
 import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
-import { toast, ToastContainer } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 
 
 const SignUp = () => {
@@ -17,21 +16,16 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-    const nameRef = useRef('');
-    const emailRef = useRef('');
-    const passwordRef = useRef('');
-
-    const handleSignUp = async (event) => {
-        event.preventDefault();
-        const name = nameRef.current.value;
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit = async (data) => {
+        const name = data.name;
+        const email = data.email;
+        const password = data.password;
         // const agree = event.target.terms.checked;
-
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName: name });
         navigate('/home')
-    };
+    }
 
     if (loading || updating) {
         return <Loading></Loading>
@@ -44,14 +38,62 @@ const SignUp = () => {
             <h2 className='text-center'>Sign Up to The Story Keeper</h2>
 
             <div>
-                <form onSubmit={handleSignUp} className='flex flex-col justify-center items-center'>
-                    <input ref={nameRef} type="text" placeholder="Your name" className="input input-bordered w-full max-w-xs mb-5" required />
+                <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
+                    {/* Name */}
+                    <div className="form-control w-full max-w-lg mb-2">
+                        <input className='input input-bordered w-full max-w-lg' placeholder='Your Name' {...register("name", {
+                            required: {
+                                value: true,
+                                message: "Name field is required"
+                            },
+                            minLength: {
+                                value: 2,
+                                message: "Name should be 2 characters or longer"
+                            }
+                        })} />
+                        <label className="label">
+                            {errors.name?.type === 'required' && <span className="label-text-alt text-red-400">{errors.name.message}</span>}
+                            {errors.name?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.name.message}</span>}
+                        </label>
+                    </div>
 
-                    <input ref={emailRef} type="email" placeholder="Your email address" className="input input-bordered w-full max-w-xs mb-5" required />
+                    {/* Email */}
+                    <div className="form-control w-full max-w-lg mb-2">
+                        <input className='input input-bordered w-full max-w-lg' placeholder='Your email address' {...register("email", {
+                            required: {
+                                value: true,
+                                message: "Email field is required"
+                            },
+                            pattern: {
+                                value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                message: "Invalid email address"
+                            }
+                        })} />
+                        <label className="label">
+                            {errors.email?.type === 'required' && <span className="label-text-alt text-red-400">{errors.email.message}</span>}
+                            {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.email.message}</span>}
+                        </label>
+                    </div>
 
-                    <input ref={passwordRef} type="password" placeholder="Your password" className="input input-bordered w-full max-w-xs mb-5" required />
+                    {/* Password */}
+                    <div className="form-control w-full max-w-lg mb-2">
+                        <input type='password' className='input input-bordered w-full max-w-lg' placeholder='Your password' {...register("password", {
+                            required: {
+                                value: true,
+                                message: "Password field is required"
+                            },
+                            pattern: {
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
+                                message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
+                            }
+                        })} />
+                        <label className="label">
+                            {errors.password?.type === 'required' && <span className="label-text-alt text-red-400">{errors.password.message}</span>}
+                            {errors.password?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.password.message}</span>}
+                        </label>
+                    </div>
 
-                    <div className='flex items-center'>
+                    <div className='flex items-center mb-2'>
                         <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
                         {/* <label className={agree ? 'text-warning ml-2' : 'text-error ml-2'} htmlFor="terms">I accept the <span className='underline'>terms and conditions</span></label> */}
                         <label className={`ml-2 ${agree ? 'text-warning' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline'>terms and conditions</span></label>
@@ -62,7 +104,6 @@ const SignUp = () => {
             </div >
             <p>Already have an account? <Link to='/signIn'>Please Sign In</Link></p>
             <Social></Social>
-            <ToastContainer></ToastContainer>
         </section >
     );
 };
