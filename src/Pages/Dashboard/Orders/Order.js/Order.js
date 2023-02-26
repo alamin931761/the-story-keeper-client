@@ -2,7 +2,6 @@ import React from 'react';
 
 const Order = ({ data }) => {
     const { name, email, address, phoneNumber, books } = data;
-    console.log(books)
     return (
         <tr>
             <td>{name}</td>
@@ -11,7 +10,7 @@ const Order = ({ data }) => {
             <td>{phoneNumber}</td>
             <td>
                 {
-                    books.map(book => <tr>{books.indexOf(book) + 1}. {book.name}</tr>)
+                    books.map((book, index) => <tr>{index + 1}. {book.name}</tr>)
                 }
             </td>
         </tr>

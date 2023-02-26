@@ -2,8 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const AddBooks = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const onSubmit = data => {
+        console.log(data);
+        reset();
+    };
 
     return (
         <section>
@@ -147,7 +150,6 @@ const AddBooks = () => {
                         {errors.category?.type === 'required' && <span className="label-text-alt text-red-400">{errors.category.message}</span>}
                     </label>
                 </div>
-
                 <input className="btn btn-primary mb-4" type="submit" />
             </form>
         </section>

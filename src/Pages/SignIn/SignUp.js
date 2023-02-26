@@ -7,13 +7,13 @@ import { useState } from 'react';
 import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
-
+import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
+    const [agree, setAgree] = useState(false);
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [updateProfile, updating, updateProfileError] = useUpdateProfile(auth);
-    const [agree, setAgree] = useState(false);
-
+    const [token] = useToken(user);
     const navigate = useNavigate();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -24,13 +24,15 @@ const SignUp = () => {
         // const agree = event.target.terms.checked;
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName: name });
-        navigate('/home')
+    }
+
+    if (token) {
+        navigate('/home');
     }
 
     if (loading || updating) {
         return <Loading></Loading>
     }
-
 
     return (
         <section className='pt-32'>

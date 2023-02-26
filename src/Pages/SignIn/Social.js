@@ -1,27 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub, BsFacebook } from 'react-icons/bs';
+import useToken from '../../Hooks/useToken';
 
 const Social = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-    const [signInWithGithub, GithubUser, githubLoading, githubError] = useSignInWithGithub(auth);
+    const [signInWithGithub, githubUser, githubLoading, githubError] = useSignInWithGithub(auth);
+    const [token] = useToken(googleUser || githubUser);
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
-    let errorElement;
-    if (googleError || githubError) {
-        errorElement = <p className='text-error'>Error: {googleError?.message} {githubError?.message}</p>
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+        }
+    }, [token, from, navigate]);
+
     if (googleLoading || githubLoading) {
         return <Loading></Loading>
     }
-    if (googleUser || GithubUser) {
-        navigate(from, { replace: true });
+
+    let errorElement;
+    if (googleError || githubError) {
+        errorElement = <p className='text-error'>Error: {googleError?.message} {githubError?.message}</p>
     }
 
     return (

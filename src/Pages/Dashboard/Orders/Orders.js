@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from '../../../firebase.init';
-import Order from './Order/Order';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import Order from './Order.js/Order';
 
 const Orders = () => {
-    const [user] = useAuthState(auth);
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrdres] = useState([]);
     useEffect(() => {
-        if (user) {
-            fetch(`http://localhost:5000/order?email=${user.email}`)
-                .then(res => res.json())
-                .then(data => setOrders(data))
-        }
-    }, [user]);
+        fetch("http://localhost:5000/orders")
+            .then(res => res.json())
+            .then(data => setOrdres(data))
+    }, [])
+    console.log(orders);
     return (
         <section>
-            <h2>Your Orders ({orders?.length})</h2>
+            <h1>Orders({orders?.length})</h1>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>

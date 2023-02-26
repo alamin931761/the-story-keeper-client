@@ -26,7 +26,10 @@ import RequireAuth from './Pages/SignIn/RequireAuth/RequireAuth';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import AddBooks from './Pages/Dashboard/AddBooks/AddBooks';
 import { ToastContainer } from 'react-toastify';
+import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 import Orders from './Pages/Dashboard/Orders/Orders';
+import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
+import Users from './Pages/Dashboard/Users/Users';
 
 export const BookDetailsContext = createContext();
 export const TotalContext = createContext();
@@ -54,8 +57,11 @@ function App() {
           <Route path='/cart' element={<Cart></Cart>}></Route>
           <Route path='/contact' element={<Contact></Contact>}></Route>
           <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-            <Route index element={<Orders></Orders>}></Route>
+            <Route index element={<MyProfile></MyProfile>}></Route>
+            <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
+            <Route path='orders' element={<Orders></Orders>}></Route>
             <Route path='addBooks' element={<AddBooks></AddBooks>}></Route>
+            <Route path='users' element={<Users></Users>}></Route>
           </Route>
           <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>

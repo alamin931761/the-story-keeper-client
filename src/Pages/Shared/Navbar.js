@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import { BookDetailsContext } from '../../App';
 import logo from '../../assets/images/logo.png';
 import auth from '../../firebase.init';
-import { GiShoppingCart, GiHamburgerMenu } from 'react-icons/gi';
+import { GiShoppingCart } from 'react-icons/gi';
+import { RiMenu2Line } from 'react-icons/ri';
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
 
     const handleSignOut = () => {
         signOut(auth);
+        localStorage.removeItem("accessToken");
     };
 
     // cart data 
@@ -81,7 +83,7 @@ const Navbar = () => {
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                            <GiHamburgerMenu className='text-3xl text-white' />
+                            <RiMenu2Line className='text-3xl text-white' />
                         </label>
                         <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-red-800 rounded-box w-52">
                             {menuItems}

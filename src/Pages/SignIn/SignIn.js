@@ -1,9 +1,11 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
+import useToken from '../../Hooks/useToken';
 import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import Social from './Social';
@@ -12,6 +14,7 @@ const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
     const location = useLocation();
+    const [token] = useToken(user);
 
     const emailRef = useRef('');
     const passwordRef = useRef('');
@@ -38,9 +41,12 @@ const SignIn = () => {
 
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
-    if (user) {
-        navigate(from, { replace: true });
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+        }
+    }, [token, navigate, from])
+
     let errorElement;
     if (error) {
         errorElement = <p className='text-error'>Error: {error.message}</p>
