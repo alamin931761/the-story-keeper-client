@@ -78,7 +78,6 @@ const Checkout = () => {
                 </div>
                 {
                     bookData[0] ? <input className='btn btn-primary mb-2' type="submit" value="Proceed to checkout" /> : <p className='text-red-400 mb-2 text-2xl'>Your cart is empty</p>
-
                 }
             </form>
         </section>

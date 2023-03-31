@@ -11,7 +11,6 @@ const AddBooks = () => {
     return (
         <section>
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
-
                 {/* image URL */}
                 <div className="form-control w-full">
                     <input type='text' className='input input-bordered w-full' placeholder='Image URL' {...register("image", {

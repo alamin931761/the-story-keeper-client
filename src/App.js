@@ -30,6 +30,8 @@ import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 import Orders from './Pages/Dashboard/Orders/Orders';
 import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
 import Users from './Pages/Dashboard/Users/Users';
+import RequireAdmin from './Pages/SignIn/RequireAdmin/RequireAdmin';
+import ManageBooks from './Pages/Dashboard/ManageBooks/ManageBooks';
 
 export const BookDetailsContext = createContext();
 export const TotalContext = createContext();
@@ -59,9 +61,10 @@ function App() {
           <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
             <Route index element={<MyProfile></MyProfile>}></Route>
             <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
-            <Route path='orders' element={<Orders></Orders>}></Route>
-            <Route path='addBooks' element={<AddBooks></AddBooks>}></Route>
-            <Route path='users' element={<Users></Users>}></Route>
+            <Route path='orders' element={<RequireAdmin><Orders></Orders></RequireAdmin>}></Route>
+            <Route path='addBooks' element={<RequireAdmin><AddBooks></AddBooks></RequireAdmin>}></Route>
+            <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
+            <Route path='manageBooks' element={<RequireAdmin><ManageBooks></ManageBooks></RequireAdmin>}></Route>
           </Route>
           <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
           <Route path='*' element={<NotFound></NotFound>}></Route>

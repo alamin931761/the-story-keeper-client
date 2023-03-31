@@ -12,6 +12,7 @@ const Cart = () => {
     const [coupon, setCoupon] = useState([]);
     const [bookSubtotal, setBookSubtotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
+    const [delivery, setDelivery] = useState(0);
 
     // delete book 
     const deleteBook = (id) => {
@@ -54,7 +55,13 @@ const Cart = () => {
 
     // DeliveryCharge 
     const handleDeliveryCharge = (event) => {
-        setDeliveryCharge(parseFloat(event.target.value));
+        const cost = parseFloat(event.target.value)
+        setDeliveryCharge(cost);
+        console.log(cost);
+
+        // if(cost===0){
+        //     setDelivery("")
+        // }
     };
 
     // total 

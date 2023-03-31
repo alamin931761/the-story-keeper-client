@@ -3,10 +3,15 @@ import { BsArrowRight } from 'react-icons/bs';
 import NewArrivalSlices from './NewArrivalSlices/NewArrivalSlices';
 import { Link } from 'react-router-dom';
 import useNewArrivals from '../../../Hooks/useNewArrivals';
+import Loading from '../../Shared/Loading';
 
 const NewArrivals = () => {
     const [newBooks] = useNewArrivals([]);
     const newBooksSlices = newBooks.slice(4, 7);
+    if (newBooksSlices.length === 0) {
+        return <Loading></Loading>
+    }
+
     return (
         <section className='bg-white border border-red-500 my-5'>
             <div className='flex justify-between'>

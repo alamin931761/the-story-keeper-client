@@ -10,9 +10,10 @@ const Order = ({ data }) => {
             <td>{phoneNumber}</td>
             <td>
                 {
-                    books.map((book, index) => <tr>{index + 1}. {book.name}</tr>)
+                    books.map((book, index) => <tr>{index + 1}. {book.name} ({book.quantity} piece)</tr>)
                 }
             </td>
+            <td>Express</td>
         </tr>
     );
 };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading';
 import MyOrder from './MyOrder/MyOrder';
 
 const Orders = () => {
@@ -32,6 +33,7 @@ const Orders = () => {
                 })
         }
     }, [user]);
+
     return (
         <section>
             <h2>My Orders ({myOrders?.length})</h2>

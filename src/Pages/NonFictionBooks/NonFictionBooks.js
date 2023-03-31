@@ -1,11 +1,16 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
+import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import NonFictionBook from './NonFictionBook/NonFictionBook';
 
 const NonFictionBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
     const nonFiction = allBooks.filter(book => book.category === "non-fiction");
+    if (nonFiction.length === 0) {
+        return <Loading></Loading>
+    }
+
     return (
         <section>
             <PageTitle title='Non-Fiction'></PageTitle>

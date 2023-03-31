@@ -1,11 +1,16 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
+import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import Essay from './Essay/Essay';
 
 const Essays = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
     const essays = allBooks.filter(book => book.category === "essays");
+    console.log(essays.length);
+    if (essays.length === 0) {
+        return <Loading></Loading>
+    }
 
     return (
         <section>

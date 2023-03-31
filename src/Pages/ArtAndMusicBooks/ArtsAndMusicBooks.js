@@ -1,11 +1,16 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
+import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import ArtsAndMusicBook from './ArtsAndMusicBook/ArtsAndMusicBook';
 
 const ArtsAndMusicBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
     const artsAndMusicBooks = allBooks.filter(book => book.category === "arts-and-music");
+    if (artsAndMusicBooks.length === 0) {
+        return <Loading></Loading>
+    }
+
     return (
         <section>
             <PageTitle title="Arts & Music"></PageTitle>

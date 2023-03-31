@@ -1,11 +1,16 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
+import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import MysteryAndCrimeBook from './MysteryAndCrimeBook/MysteryAndCrimeBook';
 
 const MysteryAndCrimeBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
     const mysteryAndCrimeBooks = allBooks.filter(book => book.category === "mystery-and-crime");
+    if (mysteryAndCrimeBooks.length === 0) {
+        return <Loading></Loading>
+    }
+
     return (
         <section>
             <PageTitle title="Mystery & Crime"></PageTitle>

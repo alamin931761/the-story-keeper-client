@@ -1,11 +1,16 @@
 import React from 'react';
 import useAllBooks from '../../Hooks/useAllBooks';
+import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import RareBook from './RareBook/RareBook';
 
 const RareBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
     const rareBooks = allBooks.filter(book => book.category === "rare-books");
+    if (rareBooks.length === 0) {
+        return <Loading></Loading>
+    }
+
     return (
         <section>
             <PageTitle title="Rare Books"></PageTitle>
