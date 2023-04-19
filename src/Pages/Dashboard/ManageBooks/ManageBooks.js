@@ -17,6 +17,10 @@ const ManageBooks = () => {
         return <Loading></Loading>
     }
 
+    if (books.length === 0) {
+        return <Loading></Loading>
+    }
+
     return (
         <section>
             <h2 className="text-5xl text-center mb-10">Manage Books ({books.length})</h2>

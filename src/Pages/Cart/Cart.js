@@ -12,7 +12,7 @@ const Cart = () => {
     const [coupon, setCoupon] = useState([]);
     const [bookSubtotal, setBookSubtotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
-    const [delivery, setDelivery] = useState(0);
+    const [chooseDeliveryOption, setChooseDeliveryOption] = useState(true)
 
     // delete book 
     const deleteBook = (id) => {
@@ -58,16 +58,20 @@ const Cart = () => {
         const cost = parseFloat(event.target.value)
         setDeliveryCharge(cost);
         console.log(cost);
-
-        // if(cost===0){
-        //     setDelivery("")
-        // }
+        if (cost === 5) {
+            localStorage.setItem("delivery", "Standard");
+            setChooseDeliveryOption(false);
+        }
+        if (cost === 10) {
+            localStorage.setItem("delivery", "Express");
+            setChooseDeliveryOption(false);
+        }
     };
 
     // total 
     const tax = bookSubtotal * 0.05;
     let total = (bookSubtotal + tax + deliveryCharge).toFixed(2);
-
+    localStorage.setItem('total', total);
 
     // cart data 
     let cart;
@@ -94,8 +98,6 @@ const Cart = () => {
                     <td></td>
                     <td className='border border-red-400 flex justify-center items-center'>
                         <form onSubmit={handleSubmit(onSubmit)} className='flex'>
-
-
                             <div className="form-control w-full max-w-xs">
                                 <input {...register("couponCode", {
                                     required: true,
@@ -126,27 +128,22 @@ const Cart = () => {
                 <h1 className='text-center text-3xl'>Cart Totals</h1>
 
                 <div>
-                    <h4 className='mb-4 text-xl'>Choose Your Delivery Option:<span className='text-xs text-red-500 ml-3'>(If you do not choose a delivery option you will need to collect the books from the store)</span></h4>
+                    <h4 className='mb-4 text-xl'>Choose Your Delivery Option:</h4>
                     <div className='flex items-center mb-4 ml-5'>
-                        <input onChange={handleDeliveryCharge} type="radio" id='store' name="delivery-charge" className="radio radio-success radio-lg mr-3" value={0} />
-                        <label htmlFor="store">$0 - Collect in store (Gazipur, Bangladesh) <span className='text-2xs'>3-5 working days</span> </label>
+                        <input onChange={handleDeliveryCharge} type="radio" id="standard-delivery" name="delivery-charge" className="radio radio-success radio-lg mr-3" value={5} />
+                        <label htmlFor="standard-delivery">$5 - Home Delivery - Standard <span className='text-2xs'>7-10 working days</span> </label>
                     </div>
                     <div className='flex items-center mb-4 ml-5'>
-                        <input onChange={handleDeliveryCharge} type="radio" id='express-delivery' name="delivery-charge" className="radio radio-success radio-lg mr-3" value={15} />
-                        <label htmlFor="express-delivery">$15 - Home Delivery - Express <span className='text-2xs'>4-5 working days</span> </label>
-                    </div>
-                    <div className='flex items-center mb-4 ml-5'>
-                        <input onChange={handleDeliveryCharge} type="radio" id="standard-delivery" name="delivery-charge" className="radio radio-success radio-lg mr-3" value={10} />
-                        <label htmlFor="standard-delivery">$10 - Home Delivery - Standard <span className='text-2xs'>2-3 weeks</span> </label>
+                        <input onChange={handleDeliveryCharge} type="radio" id='express-delivery' name="delivery-charge" className="radio radio-success radio-lg mr-3" value={10} />
+                        <label htmlFor="express-delivery">$10 - Home Delivery - Express <span className='text-2xs'>2-3 working days</span> </label>
                     </div>
                 </div>
                 <p className='mb-4'>Tax: 5%</p>
-
                 <p>Total: ${total}</p>
             </div>
 
             <div className='flex justify-center mt-10'>
-                <Link className='btn btn-success' to='/checkout'>Proceed to checkout</Link>
+                <Link disabled={chooseDeliveryOption} className='btn btn-success' to='/details'>Proceed to checkout</Link>
             </div>
         </div >
     };

@@ -32,44 +32,50 @@ import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
 import Users from './Pages/Dashboard/Users/Users';
 import RequireAdmin from './Pages/SignIn/RequireAdmin/RequireAdmin';
 import ManageBooks from './Pages/Dashboard/ManageBooks/ManageBooks';
+import Details from './Pages/Cart/Details/Details';
 
 export const BookDetailsContext = createContext();
-export const TotalContext = createContext();
+export const OrderContext = createContext();
 function App() {
   const [bookData, setBookData] = useState([]);
+  const [order, setOrder] = useState([]);
+
   return (
     <div className="App">
       <BookDetailsContext.Provider value={[bookData, setBookData]}>
-        <Navbar></Navbar>
-        <Routes>
-          <Route path='/' element={<Home></Home>}></Route>
-          <Route path='/home' element={<Home></Home>}></Route>
-          <Route path='/NewArrivalBooks' element={<NewArrivalBooks></NewArrivalBooks>}></Route>
-          <Route path='/essays' element={<Essays></Essays>}></Route>
-          <Route path='/fiction' element={<Fictions></Fictions>}></Route>
-          <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
-          <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
-          <Route path='/artsAndMusic' element={<ArtsAndMusicBooks></ArtsAndMusicBooks>}></Route>
-          <Route path='/mysteryAndCrime' element={<MysteryAndCrimeBooks></MysteryAndCrimeBooks>}></Route>
-          <Route path='/poetry' element={<PoetryBooks></PoetryBooks>}></Route>
-          <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
-          <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
-          <Route path='/signIn' element={<SignIn></SignIn>}></Route>
-          <Route path='/signUp' element={<SignUp></SignUp>}></Route>
-          <Route path='/cart' element={<Cart></Cart>}></Route>
-          <Route path='/contact' element={<Contact></Contact>}></Route>
-          <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-            <Route index element={<MyProfile></MyProfile>}></Route>
-            <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
-            <Route path='orders' element={<RequireAdmin><Orders></Orders></RequireAdmin>}></Route>
-            <Route path='addBooks' element={<RequireAdmin><AddBooks></AddBooks></RequireAdmin>}></Route>
-            <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
-            <Route path='manageBooks' element={<RequireAdmin><ManageBooks></ManageBooks></RequireAdmin>}></Route>
-          </Route>
-          <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
-          <Route path='*' element={<NotFound></NotFound>}></Route>
-        </Routes>
-        <Footer></Footer>
+        <OrderContext.Provider value={[order, setOrder]}>
+          <Navbar></Navbar>
+          <Routes>
+            <Route path='/' element={<Home></Home>}></Route>
+            <Route path='/home' element={<Home></Home>}></Route>
+            <Route path='/NewArrivalBooks' element={<NewArrivalBooks></NewArrivalBooks>}></Route>
+            <Route path='/essays' element={<Essays></Essays>}></Route>
+            <Route path='/fiction' element={<Fictions></Fictions>}></Route>
+            <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
+            <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
+            <Route path='/artsAndMusic' element={<ArtsAndMusicBooks></ArtsAndMusicBooks>}></Route>
+            <Route path='/mysteryAndCrime' element={<MysteryAndCrimeBooks></MysteryAndCrimeBooks>}></Route>
+            <Route path='/poetry' element={<PoetryBooks></PoetryBooks>}></Route>
+            <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
+            <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
+            <Route path='/signIn' element={<SignIn></SignIn>}></Route>
+            <Route path='/signUp' element={<SignUp></SignUp>}></Route>
+            <Route path='/cart' element={<Cart></Cart>}></Route>
+            <Route path='/details' element={<RequireAuth><Details></Details></RequireAuth>}></Route>
+            <Route path='/contact' element={<Contact></Contact>}></Route>
+            <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
+              <Route index element={<MyProfile></MyProfile>}></Route>
+              <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
+              <Route path='orders' element={<RequireAdmin><Orders></Orders></RequireAdmin>}></Route>
+              <Route path='addBooks' element={<RequireAdmin><AddBooks></AddBooks></RequireAdmin>}></Route>
+              <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
+              <Route path='manageBooks' element={<RequireAdmin><ManageBooks></ManageBooks></RequireAdmin>}></Route>
+            </Route>
+            <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
+            <Route path='*' element={<NotFound></NotFound>}></Route>
+          </Routes>
+          <Footer></Footer>
+        </OrderContext.Provider>
       </BookDetailsContext.Provider>
       <ToastContainer></ToastContainer>
     </div>

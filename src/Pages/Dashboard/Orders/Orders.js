@@ -28,8 +28,11 @@ const Orders = () => {
                             <th className='text-center'>Email</th>
                             <th className='text-center'>Address</th>
                             <th className='text-center'>Phone Number</th>
+                            <th className='text-center'>Date</th>
+                            <th className='text-center'>Time</th>
                             <th className='text-center'>Books</th>
                             <th className='text-center'>Delivery</th>
+                            <th className='text-center'></th>
                         </tr>
                     </thead>
                     <tbody>
