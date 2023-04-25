@@ -88,6 +88,7 @@ const CheckoutForm = () => {
             fetch(url, {
                 method: "POST",
                 headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     "content-type": "application/json"
                 },
                 body: JSON.stringify(order)

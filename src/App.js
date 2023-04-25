@@ -33,6 +33,8 @@ import Users from './Pages/Dashboard/Users/Users';
 import RequireAdmin from './Pages/SignIn/RequireAdmin/RequireAdmin';
 import ManageBooks from './Pages/Dashboard/ManageBooks/ManageBooks';
 import Details from './Pages/Cart/Details/Details';
+import AddReview from './Pages/Dashboard/AddReview/AddReview';
+import RequireUser from './Pages/SignIn/RequireUser/RequireUser';
 
 export const BookDetailsContext = createContext();
 export const OrderContext = createContext();
@@ -68,6 +70,7 @@ function App() {
               <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
               <Route path='orders' element={<RequireAdmin><Orders></Orders></RequireAdmin>}></Route>
               <Route path='addBooks' element={<RequireAdmin><AddBooks></AddBooks></RequireAdmin>}></Route>
+              <Route path='addReview' element={<RequireUser><AddReview></AddReview></RequireUser>}></Route>
               <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
               <Route path='manageBooks' element={<RequireAdmin><ManageBooks></ManageBooks></RequireAdmin>}></Route>
             </Route>
