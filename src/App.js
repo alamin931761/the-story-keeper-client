@@ -35,6 +35,7 @@ import ManageBooks from './Pages/Dashboard/ManageBooks/ManageBooks';
 import Details from './Pages/Cart/Details/Details';
 import AddReview from './Pages/Dashboard/AddReview/AddReview';
 import RequireUser from './Pages/SignIn/RequireUser/RequireUser';
+import EditBook from './Pages/Dashboard/EditBook/EditBook';
 
 export const BookDetailsContext = createContext();
 export const OrderContext = createContext();
@@ -60,6 +61,7 @@ function App() {
             <Route path='/poetry' element={<PoetryBooks></PoetryBooks>}></Route>
             <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
             <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
+            <Route path='/editBook/:id' element={<RequireAdmin><EditBook></EditBook></RequireAdmin>}></Route>
             <Route path='/signIn' element={<SignIn></SignIn>}></Route>
             <Route path='/signUp' element={<SignUp></SignUp>}></Route>
             <Route path='/cart' element={<Cart></Cart>}></Route>

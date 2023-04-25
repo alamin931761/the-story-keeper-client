@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../../Shared/Loading';
-import DeleteConfirmModal from '../DeleteConfirmModal/DeleteConfirmModal';
 import ManageBooksRow from './ManageBooksRow/ManageBooksRow';
+import DeleteConfirmModal from './DeleteConfirmModal/DeleteConfirmModal';
 
 const ManageBooks = () => {
     const [deleteBook, setDeleteBook] = useState(null);

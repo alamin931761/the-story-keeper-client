@@ -1,6 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ManageBooksRow = ({ book, index, setDeleteBook }) => {
+    const { image, name, _id } = book;
+
+    const navigate = useNavigate();
 
     return (
         <tr>
@@ -8,12 +12,15 @@ const ManageBooksRow = ({ book, index, setDeleteBook }) => {
             <th className='text-center'>
                 <div className="avatar">
                     <div className="w-24 rounded-full">
-                        <img src={book.image} alt={book.name} />
+                        <img src={image} alt={name} />
                     </div>
                 </div>
             </th>
-            <td className='text-2xl font-bold text-center'>{book.name}</td>
-            <td className='text-center'><button className="btn btn-accent">Edit</button></td>
+            <td className='text-2xl font-bold text-center'>{name}</td>
+            <td className='text-center'>
+                <label onClick={() => navigate(`/editBook/${_id}`)} htmlFor="edit-book" className="btn btn-accent">Edit</label>
+            </td>
+
             <td className='text-center'>
                 <label onClick={() => setDeleteBook(book)} htmlFor="delete-confirm-modal" className="btn btn-error">Delete</label>
             </td>
