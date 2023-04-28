@@ -1,20 +1,32 @@
 import { signOut } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
-import { BookDetailsContext } from '../../App';
+import { Link, useNavigate } from 'react-router-dom';
+import { BookDetailsContext, SearchContext } from '../../App';
 import logo from '../../assets/images/logo.png';
 import auth from '../../firebase.init';
 import { GiShoppingCart } from 'react-icons/gi';
 import { RiMenu2Line } from 'react-icons/ri';
+import { BiSearch } from 'react-icons/bi';
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
+    const [search, setSearch] = useContext(SearchContext);
 
     const handleSignOut = () => {
         signOut(auth);
         localStorage.removeItem("accessToken");
     };
+
+    const navigate = useNavigate();
+    const searchRef = useRef('');
+    const handleSearch = event => {
+        event.preventDefault();
+        const searchValue = searchRef.current.value.toLowerCase();
+        setSearch(searchValue);
+        navigate('/search')
+        event.target.reset()
+    }
 
     // cart data 
     const [bookData, setBookData] = useContext(BookDetailsContext);
@@ -99,7 +111,23 @@ const Navbar = () => {
                     </ul>
                 </div>
 
+                {/* search  */}
                 <div className="navbar-end">
+                    <div className="flex-none">
+                        <div className="dropdown dropdown-end">
+                            <label tabIndex={0} className="btn btn-ghost btn-circle">
+                                <button className="btn btn-ghost btn-circle">
+                                    <BiSearch className='text-3xl text-white' />
+                                </button>
+                            </label>
+                            <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow">
+                                <form onSubmit={handleSearch}>
+                                    <input ref={searchRef} type="text" placeholder="Search" className="input input-bordered w-full max-w-sm bg-lime-800 text-white" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* cart start  */}
                     <div className="flex-none">
                         <div className="dropdown dropdown-end">

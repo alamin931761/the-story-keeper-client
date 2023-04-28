@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 
 const Cart = () => {
     const [bookData, setBookData] = useContext(BookDetailsContext);
+    console.log(bookData);
     const [coupon, setCoupon] = useState([]);
     const [bookSubtotal, setBookSubtotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
-    const [chooseDeliveryOption, setChooseDeliveryOption] = useState(true)
+    const [chooseDeliveryOption, setChooseDeliveryOption] = useState(true);
 
     // delete book 
     const deleteBook = (id) => {

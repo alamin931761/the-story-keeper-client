@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BookDetailsContext } from '../../App';
 import PageTitle from '../Shared/PageTitle';
+import { useForm } from 'react-hook-form';
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
-    const subtotal = price * quantity;
     const { id } = useParams();
     useEffect(() => {
         fetch(`http://localhost:5000/book/${id}`)
@@ -21,29 +21,21 @@ const BookDetails = () => {
     // add to cart 
     const [bookData, setBookData] = useContext(BookDetailsContext);
 
-    const handleAddToCart = (data) => {
-        data.subtotal = subtotal;
-        data.quantity = quantity;
-        const check = bookData.find(book => book._id === data._id);
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const onSubmit = async (data) => {
+        const check = bookData.find(book => book._id === id);
         if (check) {
             toast.error("You have already added this book to the cart")
         } else {
-            setBookData([...bookData, data]);
+            const quantity = parseInt(data.quantity);
+            setQuantity(quantity);
+            bookDetails.quantity = quantity;
+            bookDetails.subtotal = quantity * price;
+            setBookData([...bookData, bookDetails]);
             toast.info(`${name} - successfully added to the cart`);
         }
-    };
-
-    // quantity 
-    const increase = () => {
-        setQuantity(quantity + 1);
-    };
-    const decrease = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        } else {
-            toast.error("Sorry! Less Number of Quantity");
-        }
-    };
+        reset();
+    }
 
     return (
         <section className='bg-white'>
@@ -64,7 +56,7 @@ const BookDetails = () => {
                         <p className='mt-4'>{description2}</p>
                         <div className='mt-4'>
                             <p className='uppercase'><small>quantity: {quantity}</small></p>
-                            <p className='uppercase'><small>subtotal: {subtotal}</small></p>
+                            <p className='uppercase'><small>subtotal: {price * quantity}</small></p>
                             <p className='uppercase'><small>publisher: {publisher}</small></p>
                             <p className='uppercase'><small>publication date: {publication_date}</small></p>
                             <p className='uppercase'><small>weight: {weight}</small></p>
@@ -73,12 +65,31 @@ const BookDetails = () => {
                             <p className='uppercase'><small>{isbn ? 'isbn:' : ''} {isbn}</small></p>
                             <p className='uppercase'><small>{binding ? "binding:" : ''} {binding}</small></p>
                         </div>
-                        <div className='mt-2 mb-2 flex'>
-                            <button onClick={() => decrease()} className='btn btn-outline rounded-none h-[10px]'>-</button>
-                            <p className='inline-block h-[48px] w-[100px] text-center text-5xl border border-red-400'>{quantity}</p>
-                            <button onClick={() => increase()} className='btn btn-outline rounded-none h-[10px] mr-8'>+</button>
-                            <button onClick={() => handleAddToCart(bookDetails)} className="btn btn-success">Add To Cart</button>
-                        </div>
+
+                        <form onSubmit={handleSubmit(onSubmit)} className='flex justify-between my-2'>
+                            <div className="form-control w-full max-w-[200px] mb-2">
+                                <input type='number' className='input input-bordered w-full max-w-lg' placeholder='Quantity' {...register("quantity", {
+                                    required: {
+                                        value: true,
+                                        message: "Quantity field is required"
+                                    },
+                                    min: {
+                                        value: 1,
+                                        message: "Minimum quantity must be 1"
+                                    },
+                                    max: {
+                                        value: 1000,
+                                        message: "Quantity must be less than 1001"
+                                    }
+                                })} />
+                                <label className="label">
+                                    {errors.quantity?.type === 'required' && <span className="label-text-alt text-red-400">{errors.quantity.message}</span>}
+                                    {errors.quantity?.type === 'min' && <span className="label-text-alt text-red-400">{errors.quantity.message}</span>}
+                                    {errors.quantity?.type === 'max' && <span className="label-text-alt text-red-400">{errors.quantity.message}</span>}
+                                </label>
+                            </div>
+                            <input className='btn btn-accent' type="submit" value="Add To Cart" />
+                        </form>
                     </div>
                 </div>
             </div>

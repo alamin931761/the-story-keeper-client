@@ -255,8 +255,9 @@ const EditBook = () => {
                 <input className="btn btn-primary mb-4" type="submit" />
             </form>
 
-
-            <Link className='text-4xl' to='/dashboard/manageBooks'>Back</Link>
+            <div className='flex justify-center'>
+                <Link className='btn btn-secondary' to='/dashboard/manageBooks'>Back</Link>
+            </div>
         </section>
     );
 };
