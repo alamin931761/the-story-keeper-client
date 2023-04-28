@@ -29,7 +29,7 @@ const Users = () => {
                             <th></th>
                             <th className='text-center'>Email</th>
                             <th className='text-center'>Make Admin</th>
-                            <th className='text-center'>Remove User</th>
+                            <th className='text-center'>Remove Admin</th>
                         </tr>
                     </thead>
                     <tbody>
