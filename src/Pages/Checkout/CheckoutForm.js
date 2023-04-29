@@ -3,11 +3,12 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
-import { OrderContext } from '../../App';
+import { BookDetailsContext, OrderContext } from '../../App';
 
 const CheckoutForm = () => {
     const [user] = useAuthState(auth);
     const [order, setOrder] = useContext(OrderContext);
+    const [bookData, setBookData] = useContext(BookDetailsContext);
     const [cardError, setCardError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
     const [successMessage, setSuccessMessage] = useState('');
@@ -99,6 +100,7 @@ const CheckoutForm = () => {
                         toast.info("Your order has been placed");
                     }
                 });
+            setBookData([]);
         }
     }
 

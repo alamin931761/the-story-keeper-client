@@ -63,7 +63,6 @@ const Cart = () => {
     const handleDeliveryCharge = (event) => {
         const cost = parseFloat(event.target.value)
         setDeliveryCharge(cost);
-        console.log(cost);
         if (cost === 5) {
             localStorage.setItem("delivery", "Standard");
             setChooseDeliveryOption(false);

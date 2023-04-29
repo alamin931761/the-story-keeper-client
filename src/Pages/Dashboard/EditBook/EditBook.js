@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const EditBook = () => {
     const { id } = useParams();
@@ -45,8 +46,13 @@ const EditBook = () => {
             body: JSON.stringify({ author, binding, category, description, description2, dimensions, image, isbn, name, name2, pages_quantity, price, publication_date, publisher, weight })
         })
             .then(res => res.json())
-            .then(data => console.log(data))
-        reset();
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.info('Book edited successfully')
+                }
+                console.log(data)
+            })
+        // reset();
     };
 
     return (
@@ -137,7 +143,7 @@ const EditBook = () => {
                 {/* description 2 */}
                 <div className='w-full'>
                     <label className="label">
-                        <span className="label-text">Description</span>
+                        <span className="label-text">Description 2</span>
                     </label>
                     <textarea className="textarea textarea-bordered w-full mb-4 text-base" cols="30" rows="5" {...register("description2")}></textarea>
                 </div>
