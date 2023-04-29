@@ -1,19 +1,38 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import PageTitle from '../../Shared/PageTitle';
+import { toast } from 'react-toastify';
 
 const AddBooks = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-        console.log(data);
+
+        fetch('http://localhost:5000/allBooks', {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                toast.info("Book added successfully");
+            })
         reset();
     };
 
     return (
         <section>
+            <PageTitle title="Add Books"></PageTitle>
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
                 <div className="form-control w-full">
-                    <input type='text' className='input input-bordered w-full' placeholder='Image URL' {...register("image", {
+                    <label className="label">
+                        <span className="label-text">Image URL</span>
+                    </label>
+                    <input type='text' className='input input-bordered w-full' {...register("image", {
                         required: {
                             value: true,
                             message: "Image URL field is required"
@@ -26,7 +45,10 @@ const AddBooks = () => {
 
                 {/* name */}
                 <div className="form-control w-full">
-                    <input type='text' className='input input-bordered w-full' placeholder="Book name" {...register("name", {
+                    <label className="label">
+                        <span className="label-text">Book Name</span>
+                    </label>
+                    <input type='text' className='input input-bordered w-full' {...register("name", {
                         required: {
                             value: true,
                             message: "Book name field is required"
@@ -39,7 +61,10 @@ const AddBooks = () => {
 
                 {/* author */}
                 <div className="form-control w-full">
-                    <input type='text' className='input input-bordered w-full' placeholder='Author' {...register("author", {
+                    <label className="label">
+                        <span className="label-text">Author</span>
+                    </label>
+                    <input type='text' className='input input-bordered w-full' {...register("author", {
                         required: {
                             value: true,
                             message: "Author field is required"
@@ -52,7 +77,10 @@ const AddBooks = () => {
 
                 {/* price */}
                 <div className="form-control w-full">
-                    <input type='number' className='input input-bordered w-full' placeholder='Price' {...register("price", {
+                    <label className="label">
+                        <span className="label-text">Price</span>
+                    </label>
+                    <input type='number' className='input input-bordered w-full' {...register("price", {
                         required: {
                             value: true,
                             message: "Price field is required"
@@ -64,11 +92,19 @@ const AddBooks = () => {
                 </div>
 
                 {/* description  */}
-                <textarea className="textarea textarea-bordered w-full mb-4 text-base" placeholder="Description of the book" cols="30" rows="5" {...register("description")}></textarea>
+                <div className='w-full'>
+                    <label className="label">
+                        <span className="label-text">Description of the book</span>
+                    </label>
+                    <textarea className="textarea textarea-bordered w-full mb-4 text-base" cols="30" rows="5" {...register("description")}></textarea>
+                </div>
 
                 {/* publisher */}
                 <div className="form-control w-full">
-                    <input type='text' className='input input-bordered w-full' placeholder='Publisher' {...register("publisher", {
+                    <label className="label">
+                        <span className="label-text">Publisher</span>
+                    </label>
+                    <input type='text' className='input input-bordered w-full' {...register("publisher", {
                         required: {
                             value: true,
                             message: "Publisher field is required"
@@ -81,6 +117,9 @@ const AddBooks = () => {
 
                 {/* publication date */}
                 <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Publication Date</span>
+                    </label>
                     <input type="date" className='input input-bordered w-full' {...register("publication_date", {
                         required: {
                             value: true,
@@ -94,7 +133,10 @@ const AddBooks = () => {
 
                 {/* weight */}
                 <div className="form-control w-full">
-                    <input type="number" className='input input-bordered w-full' placeholder='Weight' {...register("weight", {
+                    <label className="label">
+                        <span className="label-text">Weight</span>
+                    </label>
+                    <input type="number" className='input input-bordered w-full' {...register("weight", {
                         required: {
                             value: true,
                             message: "Weight date field is required"
@@ -106,14 +148,27 @@ const AddBooks = () => {
                 </div>
 
                 {/* pages quantity */}
-                <input type="number" className="input input-bordered w-full mb-4" placeholder='Pages quantity' {...register("pages_quantity")} />
+                <div className="w-full">
+                    <label className="label">
+                        <span className="label-text">Pages Quantity</span>
+                    </label>
+                    <input type="number" className="input input-bordered w-full mb-4" {...register("pages_quantity")} />
+                </div>
 
                 {/* dimensions */}
-                <input className="input input-bordered w-full mb-4" placeholder='Dimensions' {...register("dimensions")} />
+                <div className="w-full">
+                    <label className="label">
+                        <span className="label-text">Dimensions (MM)</span>
+                    </label>
+                    <input className="input input-bordered w-full mb-4" {...register("dimensions")} />
+                </div>
 
                 {/* isbn */}
                 <div className="form-control w-full">
-                    <input type="number" className='input input-bordered w-full' placeholder='ISBN' {...register("isbn", {
+                    <label className="label">
+                        <span className="label-text">ISBN</span>
+                    </label>
+                    <input type="number" className='input input-bordered w-full' {...register("isbn", {
                         required: {
                             value: true,
                             message: "isbn field is required"
@@ -125,7 +180,12 @@ const AddBooks = () => {
                 </div>
 
                 {/* binding */}
-                <input className="input input-bordered w-full mb-4" placeholder='Binding' {...register("binding")} />
+                <div className="w-full">
+                    <label className="label">
+                        <span className="label-text">Binding</span>
+                    </label>
+                    <input className="input input-bordered w-full mb-4" {...register("binding")} />
+                </div>
 
                 {/* category  */}
                 <div className='w-full'>

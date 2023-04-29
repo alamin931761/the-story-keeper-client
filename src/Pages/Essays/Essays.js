@@ -7,7 +7,6 @@ import Essay from './Essay/Essay';
 const Essays = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
     const essays = allBooks.filter(book => book.category === "essays");
-    console.log(essays.length);
     if (essays.length === 0) {
         return <Loading></Loading>
     }

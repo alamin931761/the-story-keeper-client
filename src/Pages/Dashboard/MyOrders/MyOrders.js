@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading';
 import MyOrder from './MyOrder/MyOrder';
+import PageTitle from '../../Shared/PageTitle';
 
 const Orders = () => {
     const [user] = useAuthState(auth);
@@ -20,7 +21,7 @@ const Orders = () => {
                 }
             })
                 .then(res => {
-                    console.log('res', res);
+                    // console.log('res', res);
                     if (res.status === 401 || res.status === 403) {
                         signOut(auth);
                         localStorage.removeItem("accessToken");
@@ -36,6 +37,7 @@ const Orders = () => {
 
     return (
         <section>
+            <PageTitle title="My Orders"></PageTitle>
             <h2>My Orders ({myOrders?.length})</h2>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">

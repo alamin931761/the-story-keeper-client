@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Loading from '../../Shared/Loading';
 import Order from './Order.js/Order';
+import PageTitle from '../../Shared/PageTitle';
 
 const Orders = () => {
     const [orders, setOrdres] = useState([]);
@@ -19,6 +20,7 @@ const Orders = () => {
 
     return (
         <section>
+            <PageTitle title="Orders"></PageTitle>
             <h1>Orders({orders?.length})</h1>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">

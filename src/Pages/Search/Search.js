@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { SearchContext } from '../../App';
 import useAllBooks from '../../Hooks/useAllBooks';
 import SearchedOut from './SearchedOut/SearchedOut';
+import PageTitle from '../Shared/PageTitle';
 
 const Search = () => {
     const [search, setSearch] = useContext(SearchContext);
@@ -18,6 +19,7 @@ const Search = () => {
 
     return (
         <section className='pt-20'>
+            <PageTitle title="Search"></PageTitle>
             <h2 className="text-3xl text-center">{result}</h2>
             <div className='common-style grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 bg-white'>
                 {

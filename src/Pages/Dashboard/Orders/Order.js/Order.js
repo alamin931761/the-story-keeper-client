@@ -12,7 +12,7 @@ const Order = ({ data }) => {
             <td>{time}</td>
             <td>
                 {
-                    books.map((book, index) => <tr>{index + 1}. {book.name} ({book.quantity} piece)</tr>)
+                    books.map((book, index) => <span key={book._id}>{index + 1}. {book.name} ({book.quantity} piece)</span>)
                 }
             </td>
             <td>{delivery}</td>

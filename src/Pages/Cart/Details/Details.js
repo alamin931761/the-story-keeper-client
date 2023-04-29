@@ -4,6 +4,7 @@ import auth from '../../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { BookDetailsContext, OrderContext } from '../../../App';
+import PageTitle from '../../Shared/PageTitle';
 
 const Details = () => {
     const [user] = useAuthState(auth);
@@ -40,6 +41,7 @@ const Details = () => {
 
     return (
         <section className='pt-20'>
+            <PageTitle title="Details"></PageTitle>
             <h2 className='text-3xl text-center mb-5'>Submit delivery details</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
                 <input className='input input-bordered w-full max-w-lg mb-2' value={user?.displayName} disabled />

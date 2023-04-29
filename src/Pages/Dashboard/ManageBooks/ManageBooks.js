@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import Loading from '../../Shared/Loading';
 import ManageBooksRow from './ManageBooksRow/ManageBooksRow';
 import DeleteConfirmModal from './DeleteConfirmModal/DeleteConfirmModal';
+import PageTitle from '../../Shared/PageTitle';
 
 const ManageBooks = () => {
     const [deleteBook, setDeleteBook] = useState(null);
@@ -23,6 +24,7 @@ const ManageBooks = () => {
 
     return (
         <section>
+            <PageTitle title="Manage Books"></PageTitle>
             <h2 className="text-5xl text-center mb-10">Manage Books ({books.length})</h2>
 
             <div className="overflow-x-auto w-full">

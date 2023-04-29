@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../../Shared/Loading';
 import User from './User/User';
+import PageTitle from '../../Shared/PageTitle';
 
 const Users = () => {
     // users data load using React query
@@ -20,6 +21,7 @@ const Users = () => {
 
     return (
         <section>
+            <PageTitle title="Users"></PageTitle>
             <h2 className="text-center text-3xl">Users: {users.length}</h2>
 
             <div className="overflow-x-auto w-full">

@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { BookDetailsContext } from '../../App';
 import Table from './Table/Table';
 import { toast } from 'react-toastify';
+import PageTitle from '../Shared/PageTitle';
 
 const Cart = () => {
     const [bookData, setBookData] = useContext(BookDetailsContext);
-    console.log(bookData);
     const [coupon, setCoupon] = useState([]);
     const [bookSubtotal, setBookSubtotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
@@ -34,7 +34,12 @@ const Cart = () => {
 
     // coupon codes 
     useEffect(() => {
-        fetch("http://localhost:5000/couponCodes")
+        fetch("http://localhost:5000/couponCodes", {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+        })
             .then(res => res.json())
             .then(data => setCoupon(data));
     }, []);
@@ -96,32 +101,34 @@ const Cart = () => {
                     }
                 </tbody>
                 <tbody>
-                    <td></td>
-                    <td className='border border-red-400 flex justify-center items-center'>
-                        <form onSubmit={handleSubmit(onSubmit)} className='flex'>
-                            <div className="form-control w-full max-w-xs">
-                                <input {...register("couponCode", {
-                                    required: true,
-                                    minLength: {
-                                        value: 5,
-                                        message: "Coupon code must be 5 digits or more"
-                                    },
-                                    maxLength: {
-                                        value: 10,
-                                        message: "Coupon code must be 10 digits or less"
-                                    }
-                                })} type="text" placeholder='coupon code' className="input input-bordered w-full max-w-xs rounded-none" />
-                                <label className="label">
-                                    {errors.couponCode?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
-                                    {errors.couponCode?.type === 'maxLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
-                                </label>
-                            </div>
-                            <input className="btn btn-primary rounded-none" type="submit" value='Apply coupon' />
-                        </form>
-                    </td>
-                    <td></td>
-                    <td className='border border-gray-700 text-xl text-right'>Subtotal:</td>
-                    <td className='border border-green-400 text-xl text-center'>${bookSubtotal}</td>
+                    <tr>
+                        <td></td>
+                        <td className='border border-red-400 flex justify-center items-center'>
+                            <form onSubmit={handleSubmit(onSubmit)} className='flex'>
+                                <div className="form-control w-full max-w-xs">
+                                    <input {...register("couponCode", {
+                                        required: true,
+                                        minLength: {
+                                            value: 5,
+                                            message: "Coupon code must be 5 digits or more"
+                                        },
+                                        maxLength: {
+                                            value: 10,
+                                            message: "Coupon code must be 10 digits or less"
+                                        }
+                                    })} type="text" placeholder='coupon code' className="input input-bordered w-full max-w-xs rounded-none" />
+                                    <label className="label">
+                                        {errors.couponCode?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
+                                        {errors.couponCode?.type === 'maxLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
+                                    </label>
+                                </div>
+                                <input className="btn btn-primary rounded-none" type="submit" value='Apply coupon' />
+                            </form>
+                        </td>
+                        <td></td>
+                        <td className='border border-gray-700 text-xl text-right'>Subtotal:</td>
+                        <td className='border border-green-400 text-xl text-center'>${bookSubtotal}</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -151,6 +158,7 @@ const Cart = () => {
 
     return (
         <section className='pt-32 pb-32 border border-3 border-red-500'>
+            <PageTitle title="Cart"></PageTitle>
             <h1 className='text-5xl text-center'>Cart Page</h1>
             {cart}
         </section >

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import image from '../../../assets/images/user-default-image.png';
+import PageTitle from '../../Shared/PageTitle';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
@@ -66,6 +67,7 @@ const MyProfile = () => {
 
     return (
         <section className='border border-red-600'>
+            <PageTitle title="My Profile"></PageTitle>
             <h2 className='text-center text-5xl mt-12'>This is my Profile Page</h2>
 
             <div className="flex justify-evenly items-center">

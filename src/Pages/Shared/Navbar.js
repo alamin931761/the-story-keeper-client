@@ -103,7 +103,7 @@ const Navbar = () => {
                     </div>
 
                     {/* logo */}
-                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium whitespace-nowrap text-2xl text-white'>The Story Keeper</span></Link>
+                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium whitespace-nowrap text-2xl  text-white'>The Story Keeper</span></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
