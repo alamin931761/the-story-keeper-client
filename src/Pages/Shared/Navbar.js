@@ -79,13 +79,14 @@ const Navbar = () => {
             </ul>
         </li>
         <li className=' text-white'><Link to='/contact'>Contact</Link></li>
+        <li className=' text-white'><Link to='/blogs'>Blogs</Link></li>
         {
             user && <>
                 <li className='text-white'><Link to='/dashboard'>Dashboard</Link></li>
             </>
         }
         {
-            user ? <li onClick={handleSignOut} className="text-white text-sm lg:text-base flex lg:items-center pl-4 cursor-pointer">Sign Out</li> : <Link to='/signIn' className='text-white text-sm lg:text-base flex items-center pl-4'>Sign In</Link>
+            user ? <li onClick={handleSignOut} className="text-white flex lg:items-center pl-4 cursor-pointer">Sign Out</li> : <Link to='/signIn' className='text-white flex items-center pl-4'>Sign In</Link>
         }
     </>
 
@@ -97,13 +98,13 @@ const Navbar = () => {
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <RiMenu2Line className='text-3xl text-white' />
                         </label>
-                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-red-800 rounded-box w-52">
+                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-red-800 rounded-box w-44">
                             {menuItems}
                         </ul>
                     </div>
 
                     {/* logo */}
-                    <Link className='flex items-center' to='/home'><img className='inline-block' src={logo} alt="logo" /> <span className='font-medium whitespace-nowrap text-2xl  text-white'>The Story Keeper</span></Link>
+                    <Link className='flex items-center' to='/home'><img width="320px" src={logo} alt="logo" /></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">

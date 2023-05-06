@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 const EditBook = () => {
     const { id } = useParams();
     const [book, setBook] = useState([]);
+    const [bestSelling, setBestSelling] = useState(false);
     useEffect(() => {
         fetch(`http://localhost:5000/editBook/${id}`, {
             method: "GET",
@@ -35,6 +36,8 @@ const EditBook = () => {
         const publication_date = data.publication_date;
         const publisher = data.publisher;
         const weight = data.weight;
+        const bestSellingBook = bestSelling;
+        console.log(bestSellingBook);
 
         // send edited book data to database
         fetch(`http://localhost:5000/allBooks/${id}`, {
@@ -43,7 +46,7 @@ const EditBook = () => {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ author, binding, category, description, description2, dimensions, image, isbn, name, name2, pages_quantity, price, publication_date, publisher, weight })
+            body: JSON.stringify({ author, binding, category, description, description2, dimensions, image, isbn, name, name2, pages_quantity, price, publication_date, publisher, weight, bestSellingBook })
         })
             .then(res => res.json())
             .then(data => {
@@ -258,6 +261,13 @@ const EditBook = () => {
                         {errors.category?.type === 'required' && <span className="label-text-alt text-red-400">{errors.category.message}</span>}
                     </label>
                 </div>
+
+                {/* Bestselling Books */}
+                <div className='flex items-center mb-4 w-full'>
+                    <input className="checkbox" id='bestselling' type="checkbox" onClick={() => setBestSelling(!bestSelling)} />
+                    <label htmlFor="bestselling" className='ml-2'>Bestselling Book</label>
+                </div>
+
                 <input className="btn btn-primary mb-4" type="submit" />
             </form>
 

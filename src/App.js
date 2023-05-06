@@ -37,6 +37,8 @@ import AddReview from './Pages/Dashboard/AddReview/AddReview';
 import RequireUser from './Pages/SignIn/RequireUser/RequireUser';
 import EditBook from './Pages/Dashboard/EditBook/EditBook';
 import Search from './Pages/Search/Search';
+import Blogs from './Pages/Blogs/Blogs';
+import BestSellingBooks from './Pages/BestSellingBooks/BestSellingBooks';
 
 export const BookDetailsContext = createContext();
 export const OrderContext = createContext();
@@ -57,6 +59,7 @@ function App() {
               <Route path='/' element={<Home></Home>}></Route>
               <Route path='/home' element={<Home></Home>}></Route>
               <Route path='/NewArrivalBooks' element={<NewArrivalBooks></NewArrivalBooks>}></Route>
+              <Route path='/bestSellingBooks' element={<BestSellingBooks></BestSellingBooks>}></Route>
               <Route path='/essays' element={<Essays></Essays>}></Route>
               <Route path='/fiction' element={<Fictions></Fictions>}></Route>
               <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
@@ -70,6 +73,7 @@ function App() {
               <Route path='/signIn' element={<SignIn></SignIn>}></Route>
               <Route path='/signUp' element={<SignUp></SignUp>}></Route>
               <Route path='/search' element={<Search></Search>}></Route>
+              <Route path='/blogs' element={<Blogs></Blogs>}></Route>
               <Route path='/cart' element={<Cart></Cart>}></Route>
               <Route path='/details' element={<RequireAuth><Details></Details></RequireAuth>}></Route>
               <Route path='/contact' element={<Contact></Contact>}></Route>

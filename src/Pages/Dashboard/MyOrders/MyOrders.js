@@ -50,6 +50,7 @@ const Orders = () => {
                             <th className='text-center'>Date</th>
                             <th className='text-center'>Time</th>
                             <th className='text-center'>Books</th>
+                            <th className='text-center'>Total</th>
                             <th className='text-center'>Delivery</th>
                         </tr>
                     </thead>

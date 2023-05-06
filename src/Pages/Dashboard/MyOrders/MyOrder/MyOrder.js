@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Order = ({ data }) => {
-    const { name, email, address, phoneNumber, books, delivery, date, time } = data;
+    const { name, email, address, phoneNumber, books, delivery, date, time, total } = data;
     return (
         <tr>
             <td className='text-center'>{name}</td>
@@ -15,6 +15,7 @@ const Order = ({ data }) => {
                     books.map((book, index) => <span key={book._id} className='border border-blue-500 block'>{index + 1} {book.name} ({book.quantity} piece)</span>)
                 }
             </td>
+            <td className='text-center'>${total}</td>
             <td>{delivery}</td>
         </tr>
     );

@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState([]);
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(0);
     const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
     const { id } = useParams();
     useEffect(() => {

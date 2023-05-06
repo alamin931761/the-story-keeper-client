@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Testimonial from './Testimonial/Testimonial';
+import Loading from '../../Shared/Loading';
 
 const Testimonials = () => {
     const [testimonials, setTestimonials] = useState([]);
@@ -11,6 +12,10 @@ const Testimonials = () => {
             .then(res => res.json())
             .then(data => setTestimonials(data))
     }, [testimonials])
+
+    if (testimonials.length === 0) {
+        return <Loading></Loading>
+    }
 
     return (
         <div>

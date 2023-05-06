@@ -98,13 +98,13 @@ const SignUp = () => {
                     <div className='flex items-center mb-2'>
                         <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
                         {/* <label className={agree ? 'text-warning ml-2' : 'text-error ml-2'} htmlFor="terms">I accept the <span className='underline'>terms and conditions</span></label> */}
-                        <label className={`ml-2 ${agree ? 'text-warning' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline'>terms and conditions</span></label>
+                        <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline text-blue-500 cursor-pointer'>terms and conditions</span></label>
                     </div>
 
                     <button disabled={!agree} type='submit' className='btn btn-success'>Sign Up</button>
                 </form>
             </div >
-            <p>Already have an account? <Link to='/signIn'>Please Sign In</Link></p>
+            <p>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In</Link></p>
             <Social></Social>
         </section >
     );

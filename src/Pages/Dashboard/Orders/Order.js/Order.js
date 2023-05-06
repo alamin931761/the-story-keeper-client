@@ -25,19 +25,20 @@ const Order = ({ data, refetch }) => {
 
     return (
         <tr>
-            <td>{name}</td>
-            <td>{email}</td>
-            <td>{address}</td>
-            <td>{phoneNumber}</td>
-            <td>{date}</td>
-            <td>{time}</td>
-            <td>
+            <td className='text-center'>{name}</td>
+            <td className='text-center'>{email}</td>
+            <td className='text-center'>{address}</td>
+            <td className='text-center'>{phoneNumber}</td>
+            <td className='text-center'>{date}</td>
+            <td className='text-center'>{time}</td>
+            <td className='text-center'>
                 {
                     books.map((book, index) => <span key={book._id}>{index + 1}. {book.name} <span className='mr-7'>({book.quantity} piece)</span></span>)
                 }
             </td>
-            <td>{delivery}</td>
-            <td><button onClick={() => handleStatus(_id)} className='btn btn-success'>{`${status ? status : 'Pending'}`}</button></td>
+            <td className='text-center'>${total}</td>
+            <td className='text-center'>{delivery}</td>
+            <td className='text-center'><button onClick={() => handleStatus(_id)} className='btn btn-success'>{`${status ? status : 'Pending'}`}</button></td>
         </tr>
     );
 };

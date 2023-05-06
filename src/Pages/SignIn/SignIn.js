@@ -68,8 +68,8 @@ const SignIn = () => {
 
                     <button type='submit' className='btn btn-success'>Sign In</button>
                 </form>
-                <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-orange-800'>Reset Password</span></p>
-                <p className='mt-5'>New to The Story Keeper? <Link to='/signUp'>Please Sign Up</Link></p>
+                <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline'>Reset Password</span></p>
+                <p className='mt-5'>New to The Story Keeper? <Link className='text-blue-500 underline' to='/signUp'>Please Sign Up</Link></p>
             </div>
             {errorElement}
             <Social></Social>

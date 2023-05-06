@@ -1,19 +1,20 @@
 import React from 'react';
 import PageTitle from '../Shared/PageTitle';
-import Bestsellings from './Bestsellings/Bestsellings';
 import Carousel from './Carousel/Carousel';
 import NewArrivals from './NewArrivals/NewArrivals';
 import Testimonials from './Testimonials/Testimonials';
+import Services from './Services/Services';
+import BestSelling from './BestSelling/BestSelling';
 
 const Home = () => {
     return (
         <section>
             <PageTitle title="Home"></PageTitle>
-            {/* <Carousel></Carousel> */}
+            <Carousel></Carousel>
             <div>
-                <h1>This is Home</h1>
                 <NewArrivals></NewArrivals>
-                <Bestsellings></Bestsellings>
+                <BestSelling></BestSelling>
+                <Services></Services>
                 <Testimonials></Testimonials>
             </div>
         </section>
