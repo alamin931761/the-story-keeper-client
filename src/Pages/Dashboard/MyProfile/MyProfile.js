@@ -18,8 +18,8 @@ const MyProfile = () => {
     const handleSubmit = event => {
         event.preventDefault();
         const profile = {
-            name: user.displayName,
-            email: user.email,
+            name: user?.displayName,
+            email: user?.email,
             imageURL: imageRef.current.value,
             phoneNumber: numberRef.current.value,
             address: addressRef.current.value,

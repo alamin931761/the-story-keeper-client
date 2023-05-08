@@ -54,7 +54,7 @@ const Navbar = () => {
         <li className='text-white'><Link to='/home'>Home</Link></li>
         <li className='z-50' tabIndex="0">
             <span className='text-white'>Shop By Category</span>
-            <ul className="p-2 bg-lime-800">
+            <ul className="p-2 bg-black">
                 <div className='flex justify-center'>
                     <div className='w-[250px]'>
                         <p className='font-semibold text-xl text-white'>Top Categories</p>
@@ -92,13 +92,13 @@ const Navbar = () => {
 
     return (
         <section>
-            <div className="navbar bg-emerald-900 fixed z-50">
+            <div className="navbar bg-black fixed z-50">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <RiMenu2Line className='text-3xl text-white' />
                         </label>
-                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-red-800 rounded-box w-44">
+                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-44">
                             {menuItems}
                         </ul>
                     </div>
@@ -123,7 +123,7 @@ const Navbar = () => {
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow">
                                 <form onSubmit={handleSearch}>
-                                    <input ref={searchRef} type="text" placeholder="Search" className="input input-bordered w-full max-w-sm bg-lime-800 text-white" />
+                                    <input ref={searchRef} type="text" placeholder="Search" className="input input-bordered w-full max-w-sm bg-black text-white" />
                                 </form>
                             </div>
                         </div>
@@ -135,13 +135,13 @@ const Navbar = () => {
                             <label tabIndex={0} className="btn btn-ghost btn-circle">
                                 <div className="indicator">
                                     <GiShoppingCart className='text-3xl text-white' />
-                                    <span className="badge badge-sm indicator-item text-yellow-300">{quantity}</span>
+                                    <span className="badge badge-sm indicator-item text-white">{quantity}</span>
                                 </div>
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
-                                <div className="card-body bg-lime-800">
-                                    <span className="font-bold text-xl">{quantity} {item}</span>
-                                    <span className="text-info text-base">Subtotal: ${subtotal}</span>
+                                <div className="card-body bg-black">
+                                    <span className="font-bold text-xl text-white">{quantity} {item}</span>
+                                    <span className="text-white text-base">Subtotal: ${subtotal}</span>
                                     <div className="card-actions">
                                         <Link className='btn btn-primary w-full' to='/cart'>View cart</Link>
                                     </div>
