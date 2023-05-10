@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import image from '../../../assets/images/user-default-image.png';
 import PageTitle from '../../Shared/PageTitle';
+import Typewriter from 'typewriter-effect';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
@@ -66,9 +67,19 @@ const MyProfile = () => {
     }
 
     return (
-        <section className='border border-red-600'>
+        <section className='mb-10'>
             <PageTitle title="My Profile"></PageTitle>
-            <h2 className='text-center text-5xl mt-12'>This is my Profile Page</h2>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['My Profile'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
 
             <div className="flex justify-evenly items-center">
                 <div className='bg-white drop-shadow-2xl rounded-2xl p-4 w-[450px]'>
@@ -85,8 +96,8 @@ const MyProfile = () => {
                 </div>
 
                 <div className='w-1/2'>
-                    <h2 className='text-3xl text-center'>Update Profile</h2>
-                    <form onSubmit={handleSubmit} className='flex flex-col items-center mx-3 border border-blue-500 w-full'>
+                    <h2 className='text-3xl text-center mb-4'>Update Profile</h2>
+                    <form onSubmit={handleSubmit} className='flex flex-col items-center mx-3 w-full'>
                         <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-2' disabled />
 
                         <input value={user.email} className='input input-bordered w-full max-w-lg mb-2' disabled />

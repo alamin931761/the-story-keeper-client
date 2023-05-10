@@ -1,12 +1,15 @@
 import React from 'react';
 import { toast } from 'react-toastify';
+import auth from '../../../../firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const User = ({ user, index, refetch }) => {
-    const { email, role } = user;
+const User = ({ allUser, index, refetch }) => {
+    const { email, role } = allUser;
+    const [user] = useAuthState(auth);
 
     // make admin 
-    const makeAdmin = () => {
-        fetch(`http://localhost:5000/user/admin/${email}`, {
+    const makeAdmin = (emailAddress) => {
+        fetch(`http://localhost:5000/user/admin/${emailAddress}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -27,8 +30,8 @@ const User = ({ user, index, refetch }) => {
     };
 
     // remove admin 
-    const removeAdmin = () => {
-        fetch(`http://localhost:5000/user/admin/${email}`, {
+    const removeAdmin = (emailAddress) => {
+        fetch(`http://localhost:5000/user/admin/${emailAddress}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -47,13 +50,38 @@ const User = ({ user, index, refetch }) => {
                 }
             });
     }
+    // delete user 
+    const deleteUser = (emailAddress, role) => {
+        if (role === 'admin' && user.email !== 'alamin931761@gmail.com') {
+            toast.error(`You can't remove an admin`);
+        } else {
+            // toast.success(` remove an admin`);
+
+            fetch(`http://localhost:5000/user/${emailAddress}`, {
+                method: "DELETE",
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast.success(`User deleted successfully`);
+                        refetch();
+                    }
+                })
+        }
+    }
 
     return (
         <tr>
             <th>{index + 1}</th>
             <td className='text-center'>{email}</td>
-            <td className='text-center'>{role !== "admin" && <button onClick={makeAdmin} className="btn btn-xs">Make Admin</button>}</td>
-            <td className='text-center'>{role === 'admin' && email !== 'alamin931761@gmail.com' && <button onClick={removeAdmin} className="btn btn-xs">Remove Admin</button>}</td>
+            <td className='text-center'>{role !== "admin" && user.email === "alamin931761@gmail.com" && <button onClick={() => makeAdmin(email)} className="btn btn-xs">Make Admin</button>}</td>
+
+            <td className='text-center'>{role === 'admin' && email !== 'alamin931761@gmail.com' && user.email === "alamin931761@gmail.com" && <button onClick={() => removeAdmin(email)} className="btn btn-xs">Remove Admin</button>}</td>
+            <td className='text-center'>{email !== 'alamin931761@gmail.com' && email !== user.email && <button onClick={() => deleteUser(email, role)} className="btn btn-xs">Delete User</button>}</td>
         </tr>
     );
 };

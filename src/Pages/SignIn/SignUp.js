@@ -11,7 +11,7 @@ import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
     const [agree, setAgree] = useState(false);
-    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: false });
     const [updateProfile, updating, updateProfileError] = useUpdateProfile(auth);
     const [token] = useToken(user);
     const navigate = useNavigate();

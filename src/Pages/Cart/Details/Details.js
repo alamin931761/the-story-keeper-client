@@ -40,9 +40,9 @@ const Details = () => {
     };
 
     return (
-        <section className='pt-20'>
+        <section className='common-style'>
             <PageTitle title="Details"></PageTitle>
-            <h2 className='text-3xl text-center mb-5'>Submit delivery details</h2>
+
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
                 <input className='input input-bordered w-full max-w-lg mb-2' value={user?.displayName} disabled />
                 <input className='input input-bordered w-full max-w-lg mb-2' type='email' value={user?.email} disabled />

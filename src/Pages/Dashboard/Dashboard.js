@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { RiMenu3Line } from 'react-icons/ri';
+import { GiPartyPopper } from 'react-icons/gi';
 import useAdmin from '../../Hooks/useAdmin';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -17,15 +18,19 @@ const Dashboard = () => {
                     <div className='text-right'>
                         <label htmlFor="my-drawer-2" className="btn btn-ghost drawer-button lg:hidden"><RiMenu3Line className='text-3xl' /></label>
                     </div>
-                    <h1 className='text-3xl text-center'>Welcome to the Dashboard</h1>
+
+                    <div className='flex justify-center items-center mt-4'>
+                        <GiPartyPopper className='inline text-4xl' />
+                        <h2 className='text-3xl'>Welcome to the Dashboard</h2>
+                        <GiPartyPopper className='inline text-4xl' />
+                    </div>
+
                     <Outlet></Outlet>
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-64 bg-base-100 text-base-content">
                         <li><Link to='/dashboard'>My Profile</Link></li>
-                        {/* {!admin && <li><Link to='/dashboard/myOrders'>My Orders</Link></li>} */}
-                        <li><Link to='/dashboard/myOrders'>My Orders</Link></li>
                         {admin &&
                             <>
                                 <li><Link to='/dashboard/addBooks'>Add Books</Link></li>
@@ -36,11 +41,11 @@ const Dashboard = () => {
                         }
                         {
                             !admin && <>
+                                <li><Link to='/dashboard/myOrders'>My Orders</Link></li>
                                 <li><Link to='/dashboard/addReview'>Add Review</Link></li>
                             </>
                         }
                     </ul>
-
                 </div>
             </div>
         </section>

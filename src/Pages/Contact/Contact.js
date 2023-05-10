@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -7,31 +7,42 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { GoLocation } from 'react-icons/go';
 import { FiPhone } from 'react-icons/fi';
 import { TfiEmail } from 'react-icons/tfi';
+import { Link } from 'react-router-dom';
+import { MdKeyboardBackspace } from 'react-icons/md';
+import Typewriter from 'typewriter-effect';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
-    const [user] = useAuthState(auth);
+    const form = useRef();
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     const onSubmit = data => {
-        console.log(data);
-        const name = user?.displayName;
-        const email = user.email;
-        const subject = data.subject;
-        const message = data.message;
-        console.log('name: ', name)
-        console.log('email: ', email)
-        console.log('subject: ', subject)
-        console.log('message ', message)
-
-        // toast.info("Message send successfully");
-        // reset();
-    };
+        emailjs.sendForm('service_bg6e6vs', "template_8tk8z7h", form.current, 'kEtixGBVNFDZ5Zygz')
+            .then((result) => {
+                toast.success("Your message has been sent successfully");
+            }, (error) => {
+                toast.error("Your message was not sent successfully");
+                // console.log(error.text); 
+            });
+        reset();
+    }
 
     return (
         <section className='common-style'>
             <PageTitle title="Contact"></PageTitle>
-            <h2 className='text-5xl text-center'>Contact Us</h2>
-            <div className='flex justify-evenly border border-2 border-red-500'>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['Contact Us'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
+            <div className='flex justify-evenly mt-8'>
                 <div className='w-full flex flex-col justify-center pl-20'>
                     <div className='flex items-center mb-10'>
                         <GoLocation className='text-5xl mr-3' />
@@ -64,13 +75,26 @@ const Contact = () => {
 
                 <div className='w-full'>
                     <h2 className='text-2xl text-center'>Tell Your Message</h2>
-                    <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
+                    <form ref={form} className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                         {/* Name */}
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Your Name</span>
                             </label>
-                            <input type='text' className='input input-bordered w-full' value={user?.displayName} disabled />
+                            <input name='user_name' type='text' className='input input-bordered w-full'{...register("user_name", {
+                                required: {
+                                    value: true,
+                                    message: "Name field is required"
+                                },
+                                minLength: {
+                                    value: 2,
+                                    message: "Name should be 2 characters or longer"
+                                }
+                            })} />
+                            <label className="label">
+                                {errors.user_name?.type === 'required' && <span className="label-text-alt text-red-400">{errors.user_name.message}</span>}
+                                {errors.user_name?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.user_name.message}</span>}
+                            </label>
                         </div>
 
                         {/* Email */}
@@ -78,22 +102,19 @@ const Contact = () => {
                             <label className="label">
                                 <span className="label-text">Your Email</span>
                             </label>
-                            <input type='text' className='input input-bordered w-full' value={user?.email} disabled />
-                        </div>
-
-                        {/* Subject */}
-                        <div className="form-control w-full">
-                            <label className="label">
-                                <span className="label-text">Subject</span>
-                            </label>
-                            <input type='text' className='input input-bordered w-full' {...register("subject", {
+                            <input name='user_email' type='text' className='input input-bordered w-full' {...register("user_email", {
                                 required: {
                                     value: true,
-                                    message: "Subject field is required"
+                                    message: "Email field is required"
+                                },
+                                pattern: {
+                                    value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                    message: "Invalid email address"
                                 }
                             })} />
                             <label className="label">
-                                {errors.subject?.type === 'required' && <span className="label-text-alt text-red-400">{errors.subject.message}</span>}
+                                {errors.user_email?.type === 'required' && <span className="label-text-alt text-red-400">{errors.user_email.message}</span>}
+                                {errors.user_email?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.user_email.message}</span>}
                             </label>
                         </div>
 
@@ -102,7 +123,7 @@ const Contact = () => {
                             <label className="label">
                                 <span className="label-text">Your Message</span>
                             </label>
-                            <textarea className="textarea textarea-bordered w-full mb-4 text-base" cols="30" rows="5" {...register("message", {
+                            <textarea name='message' className="textarea textarea-bordered w-full mb-4 text-base" cols="30" rows="5" {...register("message", {
                                 required: {
                                     value: true,
                                     message: "Message field is required"
@@ -112,9 +133,15 @@ const Contact = () => {
                                 {errors.message?.type === 'required' && <span className="label-text-alt text-red-400">{errors.message.message}</span>}
                             </label>
                         </div>
-                        <input type="submit" value="Send Message" className='btn btn-success' />
+                        <input type="submit" value="Send Message"
+                            className='btn btn-success' />
                     </form>
                 </div>
+            </div>
+
+            {/* back button  */}
+            <div className='flex justify-center mt-14'>
+                <Link className='btn btn-primary mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
         </section >
     );

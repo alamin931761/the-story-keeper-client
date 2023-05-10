@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 const DeleteConfirmModal = ({ deleteBook, refetch, setDeleteBook }) => {
 
     const handleDelete = id => {
-        console.log(id);
         fetch(`http://localhost:5000/allBooks/${id}`, {
             method: "DELETE",
             headers: {

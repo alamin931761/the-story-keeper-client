@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { BookDetailsContext } from '../../App';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
+import Typewriter from 'typewriter-effect';
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState([]);
@@ -38,12 +39,24 @@ const BookDetails = () => {
     }
 
     return (
-        <section className='bg-white'>
+        <section className='bg-white common-style'>
             <PageTitle title="Book Details"></PageTitle>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: [`${name} - details`],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
             <div className='flex justify-center'>
-                <div className='flex flex-wrap lg:flex-nowrap mt-28 mb-10 ml-10 mr-10 shadow-2xl'>
+                <div className='flex flex-wrap lg:flex-nowrap ml-10 mr-10 shadow-2xl'>
                     <div className='flex justify-center items-center'>
-                        <img className='h-full sm:w-full md:full lg:w-[350px]' src={image} alt="Book" />
+                        <img className='h-full sm:w-full md:w-full lg:w-[350px]' src={image} alt="Book" />
                     </div>
 
                     <div className='ml-5 pt-5 mr-5 lg:w-[550px]'>

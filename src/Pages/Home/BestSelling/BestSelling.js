@@ -7,7 +7,7 @@ import Loading from '../../Shared/Loading';
 
 const BestSelling = () => {
     const [bestsellingBooks] = useBestSellingBooks([]);
-    const bestSellingSlices = bestsellingBooks.slice(0, 2);
+    const bestSellingSlices = bestsellingBooks.slice(0, 3);
 
     if (bestSellingSlices.length === 0) {
         return <Loading></Loading>

@@ -6,7 +6,7 @@ import Typewriter from 'typewriter-effect';
 const Blogs = () => {
     return (
         <section className='common-style'>
-            <div className='text-5xl flex justify-center'>
+            <div className='text-5xl flex justify-center mt-4'>
                 <Typewriter
                     options={{
                         strings: ['Coming Soon'],

@@ -55,7 +55,7 @@ const EditBook = () => {
                 }
                 console.log(data)
             })
-        // reset();
+        reset();
     };
 
     return (
