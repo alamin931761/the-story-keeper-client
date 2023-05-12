@@ -6,6 +6,7 @@ import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading';
 import MyOrder from './MyOrder/MyOrder';
 import PageTitle from '../../Shared/PageTitle';
+import Typewriter from 'typewriter-effect';
 
 const Orders = () => {
     const [user] = useAuthState(auth);
@@ -38,7 +39,18 @@ const Orders = () => {
     return (
         <section>
             <PageTitle title="My Orders"></PageTitle>
-            <h2>My Orders ({myOrders?.length})</h2>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: [`My Orders (${myOrders?.length})`],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>

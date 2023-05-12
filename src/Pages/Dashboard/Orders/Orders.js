@@ -3,6 +3,7 @@ import Loading from '../../Shared/Loading';
 import Order from './Order.js/Order';
 import PageTitle from '../../Shared/PageTitle';
 import { useQuery } from 'react-query';
+import Typewriter from 'typewriter-effect';
 
 const Orders = () => {
     // orders data load using React query
@@ -22,7 +23,19 @@ const Orders = () => {
     return (
         <section>
             <PageTitle title="Orders"></PageTitle>
-            <h1>Orders({orders?.length})</h1>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: [`Orders(${orders?.length})`],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
+
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>

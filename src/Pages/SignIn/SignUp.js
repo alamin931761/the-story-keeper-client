@@ -8,6 +8,7 @@ import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import useToken from '../../Hooks/useToken';
+import Typewriter from 'typewriter-effect';
 
 const SignUp = () => {
     const [agree, setAgree] = useState(false);
@@ -35,9 +36,19 @@ const SignUp = () => {
     }
 
     return (
-        <section className='pt-32'>
+        <section className='common-style'>
             <PageTitle title="Sign Up"></PageTitle>
-            <h2 className='text-center'>Sign Up to The Story Keeper</h2>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['Sign Up to The Story Keeper'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
 
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>

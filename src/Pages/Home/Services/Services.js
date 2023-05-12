@@ -27,11 +27,11 @@ const Services = () => {
                 <p>100% best quality books</p>
             </div>
 
-            {/* Best Quality */}
+            {/* Return Guarantee */}
             <div className='flex flex-col items-center'>
                 <GiRoundStar className="text-5xl" />
                 <h2 className='text-2xl'>Return Guarantee</h2>
-                <p>100% Money Back Guarantee on eBooks</p>
+                <p>Within 30 days return</p>
             </div>
         </section>
     );

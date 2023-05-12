@@ -6,11 +6,13 @@ import { useForm } from "react-hook-form";
 import { BookDetailsContext } from '../../App';
 import Table from './Table/Table';
 import { toast } from 'react-toastify';
+import Typewriter from 'typewriter-effect';
 import PageTitle from '../Shared/PageTitle';
 
 const Cart = () => {
     const [bookData, setBookData] = useContext(BookDetailsContext);
     const [coupon, setCoupon] = useState([]);
+    console.log(coupon);
     const [bookSubtotal, setBookSubtotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [chooseDeliveryOption, setChooseDeliveryOption] = useState(true);
@@ -36,9 +38,9 @@ const Cart = () => {
     useEffect(() => {
         fetch("http://localhost:5000/couponCodes", {
             method: 'GET',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
+            // headers: {
+            //     authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            // },
         })
             .then(res => res.json())
             .then(data => setCoupon(data));
@@ -102,7 +104,7 @@ const Cart = () => {
                 <tbody>
                     <tr>
                         <td></td>
-                        <td className='border border-red-400 flex justify-center items-center'>
+                        <td className='flex justify-center items-center'>
                             <form onSubmit={handleSubmit(onSubmit)} className='flex'>
                                 <div className="form-control w-full max-w-xs">
                                     <input {...register("couponCode", {
@@ -125,16 +127,14 @@ const Cart = () => {
                             </form>
                         </td>
                         <td></td>
-                        <td className='border border-gray-700 text-xl text-right'>Subtotal:</td>
-                        <td className='border border-green-400 text-xl text-center'>${bookSubtotal}</td>
+                        <td className='text-xl text-right'>Subtotal:</td>
+                        <td className='text-xl text-center'>${bookSubtotal}</td>
                     </tr>
                 </tbody>
             </table>
 
             <div>
-                <h1 className='text-center text-3xl'>Cart Totals</h1>
-
-                <div>
+                <div className='mt-10'>
                     <h4 className='mb-4 text-xl'>Choose Your Delivery Option:</h4>
                     <div className='flex items-center mb-4 ml-5'>
                         <input onChange={handleDeliveryCharge} type="radio" id="standard-delivery" name="delivery-charge" className="radio radio-success radio-lg mr-3" value={5} />
@@ -156,9 +156,20 @@ const Cart = () => {
     };
 
     return (
-        <section className='pt-32 pb-32 border border-3 border-red-500'>
+        <section className='common-style'>
             <PageTitle title="Cart"></PageTitle>
-            <h1 className='text-5xl text-center'>Cart Page</h1>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['Cart Page'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
             {cart}
         </section >
     );

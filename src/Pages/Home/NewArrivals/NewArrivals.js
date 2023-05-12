@@ -15,8 +15,8 @@ const NewArrivals = () => {
     return (
         <section className='mt-10'>
             <div className='flex justify-between items-center mb-5'>
-                <h2 className='ml-5 text-[4vw]'>New Arrivals</h2>
-                <Link className='mr-5 text-[2vw]' to='/NewArrivalBooks'>View all<BsArrowRight className='inline' /></Link>
+                <h2 className='text-[4vw]'>New Arrivals</h2>
+                <Link className='text-[2vw]' to='/NewArrivalBooks'>View all<BsArrowRight className='inline' /></Link>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
                 {

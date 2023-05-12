@@ -42,35 +42,37 @@ const Contact = () => {
                 />
             </div>
 
-            <div className='flex justify-evenly mt-8'>
-                <div className='w-full flex flex-col justify-center pl-20'>
-                    <div className='flex items-center mb-10'>
-                        <GoLocation className='text-5xl mr-3' />
-                        <div>
-                            <h5 className='text-2xl font-semibold'>Address</h5>
-                            <p>Kunming, Yunnan, China</p>
+            <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 mt-8'>
+                <div className=' flex items-center justify-center w-full'>
+                    <div>
+                        <div className='flex items-center mb-10'>
+                            <GoLocation className='text-5xl mr-3' />
+                            <div>
+                                <h5 className='text-2xl font-semibold'>Address</h5>
+                                <p>Kunming, Yunnan, China</p>
+                            </div>
                         </div>
+
+                        <a href="tel:+8613116273029">
+                            <div className='flex items-center mb-10'>
+                                <FiPhone className='text-5xl mr-3' />
+                                <div>
+                                    <h5 className='text-2xl font-semibold'>Phone</h5>
+                                    <p>+8613116273029</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="mailto:alamin931761@gmail.com">
+                            <div className='flex items-center mb-10'>
+                                <TfiEmail className='text-5xl mr-3' />
+                                <div>
+                                    <h5 className='text-2xl font-semibold'>Email</h5>
+                                    <p>alamin931761@gmail.com</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-
-                    <a href="tel:+8613116273029">
-                        <div className='flex items-center mb-10'>
-                            <FiPhone className='text-5xl mr-3' />
-                            <div>
-                                <h5 className='text-2xl font-semibold'>Phone</h5>
-                                <p>+8613116273029</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="mailto:alamin931761@gmail.com">
-                        <div className='flex items-center mb-10'>
-                            <TfiEmail className='text-5xl mr-3' />
-                            <div>
-                                <h5 className='text-2xl font-semibold'>Email</h5>
-                                <p>alamin931761@gmail.com</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
 
                 <div className='w-full'>

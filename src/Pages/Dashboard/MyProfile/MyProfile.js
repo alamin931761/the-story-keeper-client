@@ -81,7 +81,7 @@ const MyProfile = () => {
                 />
             </div>
 
-            <div className="flex justify-evenly items-center">
+            <div className="flex justify-evenly items-center flex-wrap">
                 <div className='bg-white drop-shadow-2xl rounded-2xl p-4 w-[450px]'>
                     <div className="avatar flex justify-center mb-5">
                         <div className="w-80 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -95,7 +95,7 @@ const MyProfile = () => {
                     <p className='mb-3'><span className='font-bold text-xl'>LinkedIn profile link: </span>{updateProfile[0]?.linkedInLink}</p>
                 </div>
 
-                <div className='w-1/2'>
+                <div className='w-1/2 sm:mt-20 md-mt-20'>
                     <h2 className='text-3xl text-center mb-4'>Update Profile</h2>
                     <form onSubmit={handleSubmit} className='flex flex-col items-center mx-3 w-full'>
                         <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-2' disabled />

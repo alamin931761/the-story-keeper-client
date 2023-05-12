@@ -55,8 +55,8 @@ const Navbar = () => {
         <li className='z-50' tabIndex="0">
             <span className='text-white'>Shop By Category</span>
             <ul className="p-2 bg-black">
-                <div className='flex justify-center'>
-                    <div className='w-[250px]'>
+                <div className='lg:flex lg:justify-center'>
+                    <div className='lg:w-[250px] md:w-[250px] sm:w-[250px]'>
                         <p className='font-semibold text-xl text-white'>Top Categories</p>
                         <div>
                             <li className='text-white'><Link to='/essays'>Essays</Link></li>
@@ -66,7 +66,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className='w-[250px]'>
+                    <div className='lg:w-[250px] md:w-[250px] sm:w-[250px]'>
                         <p className='font-semibold text-xl text-white'>More Categories</p>
                         <div>
                             <li className='text-white'><Link to='/artsAndMusic'>Arts & Music</Link></li>
@@ -123,7 +123,7 @@ const Navbar = () => {
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow">
                                 <form onSubmit={handleSearch}>
-                                    <input ref={searchRef} type="text" placeholder="Search" className="input input-bordered w-full max-w-sm bg-black text-white" />
+                                    <input ref={searchRef} type="text" placeholder="Search by book title" className="input input-bordered w-full max-w-sm bg-black text-white" />
                                 </form>
                             </div>
                         </div>

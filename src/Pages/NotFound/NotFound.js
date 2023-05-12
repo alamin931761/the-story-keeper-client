@@ -6,7 +6,7 @@ import notFound from '../../assets/images/not-found.png'
 
 const NotFound = () => {
     return (
-        <section>
+        <section className='common-style'>
             <PageTitle title='404'></PageTitle>
             <div>
                 <img src={notFound} alt="Page Not Found" />

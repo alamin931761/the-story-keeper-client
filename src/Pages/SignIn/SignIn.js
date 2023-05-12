@@ -9,6 +9,7 @@ import useToken from '../../Hooks/useToken';
 import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import Social from './Social';
+import Typewriter from 'typewriter-effect';
 
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
@@ -56,9 +57,19 @@ const SignIn = () => {
     }
 
     return (
-        <section className='pt-32'>
+        <section className='common-style'>
             <PageTitle title="Sign In"></PageTitle>
-            <h2 className="text-center text-3xl mb-5">Sign In to The Story Keeper</h2>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['Sign In to The Story Keeper'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
 
             <div>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center'>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Typewriter from 'typewriter-effect';
 
 const EditBook = () => {
     const { id } = useParams();
@@ -59,8 +60,19 @@ const EditBook = () => {
     };
 
     return (
-        <section className='pt-32'>
-            <h2 className='text-3xl text-center'>{book.name}</h2>
+        <section className='common-style'>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: [`${book.name}`],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
                 <div className="form-control w-full">
@@ -268,11 +280,11 @@ const EditBook = () => {
                     <label htmlFor="bestselling" className='ml-2'>Bestselling Book</label>
                 </div>
 
-                <input className="btn btn-primary mb-4" type="submit" />
+                <input className="btn btn-primary mb-4" type="submit" value="update" />
             </form>
 
             <div className='flex justify-center'>
-                <Link className='btn btn-secondary' to='/dashboard/manageBooks'>Back</Link>
+                <Link className='btn btn-secondary' to='/dashboard/manageBooks'>Back to Manage Books</Link>
             </div>
         </section>
     );

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 import { FcGoogle } from 'react-icons/fc';
-import { BsGithub, BsFacebook } from 'react-icons/bs';
+import { BsGithub } from 'react-icons/bs';
 import useToken from '../../Hooks/useToken';
 
 const Social = () => {
@@ -38,8 +38,6 @@ const Social = () => {
                 <button onClick={() => signInWithGoogle()} className='btn btn-success mt-3 w-[300px] mx-auto'><FcGoogle className='text-3xl mr-1' />Continue with Google</button>
 
                 <button onClick={() => signInWithGithub()} className='btn btn-success mt-3 w-[300px] mx-auto'><BsGithub className='text-3xl mr-1' />Continue with Github</button>
-
-                <button className='btn btn-success mt-3 w-[300px] mx-auto'><BsFacebook className='text-3xl mr-1' />Continue with Facebook</button>
             </div>
             {errorElement}
         </section>

@@ -108,7 +108,7 @@ const CheckoutForm = () => {
         <>
             <form onSubmit={handleSubmit}>
                 <CardElement />
-                <button className='btn btn-success btn-sm mt-2' type="submit" disabled={!stripe || !elements || !clientSecret}>
+                <button className='btn btn-success btn-sm mt-5' type="submit" disabled={!stripe || !elements || !clientSecret}>
                     Pay
                 </button>
             </form>

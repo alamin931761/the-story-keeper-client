@@ -8,10 +8,10 @@ import BestSelling from './BestSelling/BestSelling';
 
 const Home = () => {
     return (
-        <section>
+        <section className='border-5 border-red-400 pt-[59px]'>
             <PageTitle title="Home"></PageTitle>
             <Carousel></Carousel>
-            <div>
+            <div className='home-page'>
                 <NewArrivals></NewArrivals>
                 <BestSelling></BestSelling>
                 <Services></Services>

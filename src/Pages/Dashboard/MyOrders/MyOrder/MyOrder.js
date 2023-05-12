@@ -10,9 +10,9 @@ const Order = ({ data }) => {
             <td className='text-center'>{phoneNumber}</td>
             <td className='text-center'>{date}</td>
             <td className='text-center'>{time}</td>
-            <td className='border border-red-500 flex flex-col items-center'>
+            <td className='flex flex-col items-start'>
                 {
-                    books.map((book, index) => <span key={book._id} className='border border-blue-500 block'>{index + 1} {book.name} ({book.quantity} piece)</span>)
+                    books.map((book, index) => <span key={book._id} className='block'>{`${index + 1}.`} {book.name} ({book.quantity} piece)</span>)
                 }
             </td>
             <td className='text-center'>${total}</td>

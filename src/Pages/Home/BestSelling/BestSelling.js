@@ -16,7 +16,7 @@ const BestSelling = () => {
     return (
         <section className='mt-10'>
             <div className='flex justify-between items-center mb-5'>
-                <h2 className='text-[4vw] ml-5'>Bestselling Books</h2>
+                <h2 className='text-[4vw]'>Bestselling Books</h2>
                 <Link to='/bestSellingBooks' className='text-[2vw]'>View all <BsArrowRight className='inline' /></Link>
             </div>
 

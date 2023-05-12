@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import PageTitle from '../../Shared/PageTitle';
 import { toast } from 'react-toastify';
+import Typewriter from 'typewriter-effect';
 
 const AddBooks = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
@@ -26,6 +27,18 @@ const AddBooks = () => {
     return (
         <section>
             <PageTitle title="Add Books"></PageTitle>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['Add Books'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
+
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
                 <div className="form-control w-full">

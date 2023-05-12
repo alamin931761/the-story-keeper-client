@@ -5,6 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { BookDetailsContext, OrderContext } from '../../../App';
 import PageTitle from '../../Shared/PageTitle';
+import Typewriter from 'typewriter-effect';
+import { toast } from 'react-toastify';
 
 const Details = () => {
     const [user] = useAuthState(auth);
@@ -35,13 +37,25 @@ const Details = () => {
 
         if (address) {
             setAddress(false);
+            toast.success('Details submitted successfully')
         }
         reset();
     };
 
     return (
         <section className='common-style'>
-            <PageTitle title="Details"></PageTitle>
+            <PageTitle title="Delivery Details"></PageTitle>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: ['Delivery Details'],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
                 <input className='input input-bordered w-full max-w-lg mb-2' value={user?.displayName} disabled />

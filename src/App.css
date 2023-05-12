@@ -3,5 +3,13 @@
 }
 
 .common-style {
-  padding: 60px 0px 20px 0px;
+  padding: 59px 10px 20px 10px;
+  /* background-color: seagreen; */
+  /* border: 5px dotted yellow; */
+}
+
+.home-page {
+  padding: 0px 10px 0px 10px;
+  /* border: 5px dotted yellow; */
+  /* background-color: tomato; */
 }

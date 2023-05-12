@@ -81,7 +81,7 @@ const User = ({ allUser, index, refetch }) => {
             <td className='text-center'>{role !== "admin" && user.email === "alamin931761@gmail.com" && <button onClick={() => makeAdmin(email)} className="btn btn-xs">Make Admin</button>}</td>
 
             <td className='text-center'>{role === 'admin' && email !== 'alamin931761@gmail.com' && user.email === "alamin931761@gmail.com" && <button onClick={() => removeAdmin(email)} className="btn btn-xs">Remove Admin</button>}</td>
-            <td className='text-center'>{email !== 'alamin931761@gmail.com' && email !== user.email && <button onClick={() => deleteUser(email, role)} className="btn btn-xs">Delete User</button>}</td>
+            <td className='text-center'>{email !== 'alamin931761@gmail.com' && email !== user.email && <button onClick={() => deleteUser(email, role)} className="btn btn-xs">Delete</button>}</td>
         </tr>
     );
 };

@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import Loading from '../../Shared/Loading';
 import User from './User/User';
 import PageTitle from '../../Shared/PageTitle';
+import Typewriter from 'typewriter-effect';
 
 const Users = () => {
     // users data load using React query
@@ -22,7 +23,17 @@ const Users = () => {
     return (
         <section>
             <PageTitle title="Users"></PageTitle>
-            <h2 className="text-center text-3xl">Users: {users.length}</h2>
+
+            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
+                <Typewriter
+                    options={{
+                        strings: [`Users (${users.length})`],
+                        autoStart: true,
+                        loop: true,
+                        delay: 100
+                    }}
+                />
+            </div>
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -32,7 +43,7 @@ const Users = () => {
                             <th className='text-center'>Email</th>
                             <th className='text-center'>Make Admin</th>
                             <th className='text-center'>Remove Admin</th>
-                            <th className='text-center'>Delete User</th>
+                            <th className='text-center'>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
