@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Order = ({ data }) => {
+const Order = ({ data, index }) => {
     const { name, email, address, phoneNumber, books, delivery, date, time, total } = data;
     return (
         <tr>
+            <th className='text-center'>{index + 1}</th>
             <td className='text-center'>{name}</td>
             <td className='text-center'>{email}</td>
             <td className='text-center'>{address}</td>

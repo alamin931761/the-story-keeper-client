@@ -1,4 +1,6 @@
 import React from 'react';
+import { MdDelete } from 'react-icons/md';
+import { ImCross } from 'react-icons/im';
 
 const Table = ({ data, deleteBook }) => {
     const { image, name, author, price, _id, quantity, subtotal } = data;
@@ -13,7 +15,7 @@ const Table = ({ data, deleteBook }) => {
             <tr>
                 <th>
                     <label htmlFor="cart-delete-confirm-modal" className="btn btn-circle btn-outline btn-error">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        < MdDelete className='text-3xl' />
                     </label>
                 </th>
                 <td>
@@ -40,8 +42,8 @@ const Table = ({ data, deleteBook }) => {
                     <div className="modal-box">
                         <h3 className="text-lg text-red-500">Are you sure you want to delete <span className='font-bold'>{name}</span>?</h3>
                         <div className="modal-action">
-                            <button onClick={() => handleDeleteButton(_id)} className="btn btn-error">Delete</button>
-                            <label htmlFor="cart-delete-confirm-modal" className="btn">Cancel</label>
+                            <button onClick={() => handleDeleteButton(_id)} className="btn btn-outline btn-error mb-1">< MdDelete className='text-2xl mr-2' />Delete</button>
+                            <label htmlFor="cart-delete-confirm-modal" className="btn btn-outline"><ImCross className='text-xl mr-2 mb-1' />Cancel</label>
                         </div>
                     </div>
                 </div>

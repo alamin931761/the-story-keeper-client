@@ -3,13 +3,14 @@ import { useForm } from 'react-hook-form';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Typewriter from 'typewriter-effect';
+import { BsArrowLeft } from 'react-icons/bs';
 
 const EditBook = () => {
     const { id } = useParams();
     const [book, setBook] = useState([]);
     const [bestSelling, setBestSelling] = useState(false);
     useEffect(() => {
-        fetch(`http://localhost:5000/editBook/${id}`, {
+        fetch(`https://the-story-keeper-server-ten.vercel.app/editBook/${id}`, {
             method: "GET",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -41,7 +42,7 @@ const EditBook = () => {
         console.log(bestSellingBook);
 
         // send edited book data to database
-        fetch(`http://localhost:5000/allBooks/${id}`, {
+        fetch(`https://the-story-keeper-server-ten.vercel.app/allBooks/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -280,11 +281,11 @@ const EditBook = () => {
                     <label htmlFor="bestselling" className='ml-2'>Bestselling Book</label>
                 </div>
 
-                <input className="btn btn-primary mb-4" type="submit" value="update" />
+                <input className="btn btn-outline mb-4" type="submit" value="update" />
             </form>
 
             <div className='flex justify-center'>
-                <Link className='btn btn-secondary' to='/dashboard/manageBooks'>Back to Manage Books</Link>
+                <Link className='btn btn-outline' to='/dashboard/manageBooks'><BsArrowLeft className='text-2xl mr-2' />Back to Manage Books</Link>
             </div>
         </section>
     );

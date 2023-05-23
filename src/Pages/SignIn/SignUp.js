@@ -9,6 +9,8 @@ import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import useToken from '../../Hooks/useToken';
 import Typewriter from 'typewriter-effect';
+import { BsArrowRight } from 'react-icons/bs';
+import { SlLogin } from 'react-icons/sl';
 
 const SignUp = () => {
     const [agree, setAgree] = useState(false);
@@ -112,10 +114,10 @@ const SignUp = () => {
                         <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline text-blue-500 cursor-pointer'>terms and conditions</span></label>
                     </div>
 
-                    <button disabled={!agree} type='submit' className='btn btn-success'>Sign Up</button>
+                    <button disabled={!agree} type='submit' className='btn btn-outline'>Sign Up<SlLogin className='text-xl ml-2' /></button>
                 </form>
             </div >
-            <p>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In</Link></p>
+            <p className='mt-5'>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
             <Social></Social>
         </section >
     );

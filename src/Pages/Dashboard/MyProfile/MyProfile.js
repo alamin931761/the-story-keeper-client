@@ -28,7 +28,7 @@ const MyProfile = () => {
         };
 
         // update profile
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://the-story-keeper-server-ten.vercel.app/user/${user.email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -49,7 +49,7 @@ const MyProfile = () => {
 
     // load user profile data
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://the-story-keeper-server-ten.vercel.app/user/${user.email}`, {
             method: "GET",
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             'content-type': 'application/json'
@@ -81,8 +81,8 @@ const MyProfile = () => {
                 />
             </div>
 
-            <div className="flex justify-evenly items-center flex-wrap">
-                <div className='bg-white drop-shadow-2xl rounded-2xl p-4 w-[450px]'>
+            <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 mx-3">
+                <div className='bg-[#DFF6FF] drop-shadow-2xl rounded-2xl p-4 w-[450px]'>
                     <div className="avatar flex justify-center mb-5">
                         <div className="w-80 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             <img src={profilePicture} alt="" />
@@ -92,12 +92,12 @@ const MyProfile = () => {
                     <p className='mb-3'><span className='font-bold text-xl'>Email: </span>{user.email}</p>
                     <p className='mb-3'><span className='font-bold text-xl'>Address: </span>{updateProfile[0]?.address}</p>
                     <p className='mb-3'><span className='font-bold text-xl'>Phone Number: </span>{updateProfile[0]?.phoneNumber}</p>
-                    <p className='mb-3'><span className='font-bold text-xl'>LinkedIn profile link: </span>{updateProfile[0]?.linkedInLink}</p>
+                    <p className='mb-3 break-all'><span className='font-bold text-xl'>LinkedIn profile link: </span>{updateProfile[0]?.linkedInLink}</p>
                 </div>
 
-                <div className='w-1/2 sm:mt-20 md-mt-20'>
+                <div className='w-full mt-20 lg:mt-0 lg:flex flex-col justify-center'>
                     <h2 className='text-3xl text-center mb-4'>Update Profile</h2>
-                    <form onSubmit={handleSubmit} className='flex flex-col items-center mx-3 w-full'>
+                    <form onSubmit={handleSubmit} className='flex flex-col items-center p-4 w-full'>
                         <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-2' disabled />
 
                         <input value={user.email} className='input input-bordered w-full max-w-lg mb-2' disabled />
@@ -110,7 +110,7 @@ const MyProfile = () => {
 
                         <input ref={linkedInRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='LinkedIn profile link' />
 
-                        <input className='btn btn-primary' type="submit" value="Update Profile" />
+                        <input className='btn btn-outline' type="submit" value="Update Profile" />
                     </form>
                 </div>
             </div>

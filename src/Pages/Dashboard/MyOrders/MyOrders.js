@@ -15,7 +15,7 @@ const Orders = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/order?email=${user.email}`, {
+            fetch(`https://the-story-keeper-server-ten.vercel.app/order?email=${user.email}`, {
                 method: "GET",
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -55,6 +55,7 @@ const Orders = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
+                            <th></th>
                             <th className='text-center'>Name</th>
                             <th className='text-center'>Email</th>
                             <th className='text-center'>Address</th>
@@ -68,7 +69,7 @@ const Orders = () => {
                     </thead>
                     <tbody>
                         {
-                            myOrders.map(data => <MyOrder key={data._id} data={data}></MyOrder>)
+                            myOrders.map((data, index) => <MyOrder key={data._id} data={data} index={index}></MyOrder>)
                         }
                     </tbody>
                 </table>

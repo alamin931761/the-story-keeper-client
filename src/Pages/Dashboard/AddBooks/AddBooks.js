@@ -8,7 +8,7 @@ const AddBooks = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = data => {
 
-        fetch('http://localhost:5000/allBooks', {
+        fetch('https://the-story-keeper-server-ten.vercel.app/allBooks', {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -222,7 +222,7 @@ const AddBooks = () => {
                         {errors.category?.type === 'required' && <span className="label-text-alt text-red-400">{errors.category.message}</span>}
                     </label>
                 </div>
-                <input className="btn btn-primary mb-4" type="submit" />
+                <input className="btn btn-outline mb-4" type="submit" value="Add Book" />
             </form>
         </section>
     );

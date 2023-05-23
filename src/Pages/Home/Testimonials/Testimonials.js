@@ -8,7 +8,7 @@ const Testimonials = () => {
     const [testimonials, setTestimonials] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/review')
+        fetch('https://the-story-keeper-server-ten.vercel.app/review')
             .then(res => res.json())
             .then(data => setTestimonials(data))
     }, [testimonials])

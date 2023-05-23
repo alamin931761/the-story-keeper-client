@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImArrowLeft } from 'react-icons/im';
+import { MdKeyboardBackspace } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 
@@ -18,7 +18,7 @@ const Blogs = () => {
             </div>
 
             <div className='flex justify-center mt-10'>
-                <Link className='flex items-center btn btn-primary' to='/home'><ImArrowLeft className='mr-2' /> Back To Home </Link>
+                <Link className='flex items-center btn btn-outline' to='/home'><MdKeyboardBackspace className='mr-2 text-2xl' /> Back To Home </Link>
             </div>
         </section>
     );

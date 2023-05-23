@@ -10,7 +10,7 @@ const BestSellingBook = ({ data }) => {
 
     return (
         <section className='flex justify-center'>
-            <div className="card w-[450px] bg-white shadow-2xl">
+            <div className="card w-[450px] bg-[#DFF6FF] shadow-2xl">
                 <figure><img className='h-[450px] w-[450px]' src={image} alt={name} /></figure>
                 <div className="card-body">
                     <h2 className="text-2xl font-bold">{name}</h2>

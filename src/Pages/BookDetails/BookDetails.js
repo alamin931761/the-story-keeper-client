@@ -7,6 +7,7 @@ import { BookDetailsContext } from '../../App';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import Typewriter from 'typewriter-effect';
+import { BsCartPlus } from "react-icons/bs";
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState([]);
@@ -14,7 +15,7 @@ const BookDetails = () => {
     const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
     const { id } = useParams();
     useEffect(() => {
-        fetch(`http://localhost:5000/book/${id}`)
+        fetch(`https://the-story-keeper-server-ten.vercel.app/book/${id}`)
             .then(res => res.json())
             .then(data => setBookDetails(data));
     }, []);
@@ -39,7 +40,7 @@ const BookDetails = () => {
     }
 
     return (
-        <section className='bg-white common-style'>
+        <section className='common-style'>
             <PageTitle title="Book Details"></PageTitle>
 
             <div className='text-[4vw] flex justify-center mb-5 mt-4'>
@@ -54,7 +55,7 @@ const BookDetails = () => {
             </div>
 
             <div className='flex justify-center'>
-                <div className='flex flex-wrap lg:flex-nowrap ml-10 mr-10 shadow-2xl'>
+                <div className='flex flex-wrap lg:flex-nowrap ml-10 mr-10 shadow-2xl bg-[#DFF6FF]'>
                     <div className='flex justify-center items-center'>
                         <img className='h-full sm:w-full md:w-full lg:w-[350px]' src={image} alt="Book" />
                     </div>
@@ -101,7 +102,7 @@ const BookDetails = () => {
                                     {errors.quantity?.type === 'max' && <span className="label-text-alt text-red-400">{errors.quantity.message}</span>}
                                 </label>
                             </div>
-                            <input className='btn btn-accent' type="submit" value="Add To Cart" />
+                            <button className='btn btn-outline' type="submit"><BsCartPlus className="text-2xl mr-2" />Add To Cart</button>
                         </form>
                     </div>
                 </div>

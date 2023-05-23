@@ -1,15 +1,18 @@
 .App {
   font-family: 'Poppins', sans-serif;
+  background-color: #EDF7FA;
 }
 
 .common-style {
   padding: 59px 10px 20px 10px;
   /* background-color: seagreen; */
   /* border: 5px dotted yellow; */
+  /* background-color: #EDFFEC; */
 }
 
 .home-page {
   padding: 0px 10px 0px 10px;
+  /* background-color: #EDFFEC; */
   /* border: 5px dotted yellow; */
   /* background-color: tomato; */
 }

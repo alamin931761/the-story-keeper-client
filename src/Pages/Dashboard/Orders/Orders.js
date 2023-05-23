@@ -7,7 +7,7 @@ import Typewriter from 'typewriter-effect';
 
 const Orders = () => {
     // orders data load using React query
-    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
+    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('https://the-story-keeper-server-ten.vercel.app/orders', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -40,6 +40,7 @@ const Orders = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
+                            <th></th>
                             <th className='text-center'>Name</th>
                             <th className='text-center'>Email</th>
                             <th className='text-center'>Address</th>
@@ -54,7 +55,7 @@ const Orders = () => {
                     </thead>
                     <tbody>
                         {
-                            orders.map(data => <Order key={data._id} data={data} refetch={refetch}></Order>)
+                            orders.map((data, index) => <Order key={data._id} data={data} refetch={refetch} index={index}></Order>)
                         }
                     </tbody>
                 </table>

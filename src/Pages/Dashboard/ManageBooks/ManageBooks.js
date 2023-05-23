@@ -9,7 +9,7 @@ import Typewriter from 'typewriter-effect';
 const ManageBooks = () => {
     const [deleteBook, setDeleteBook] = useState(null);
     // load all books using React query
-    const { data: books, isLoading, refetch } = useQuery('books', () => fetch('http://localhost:5000/allBooks', {
+    const { data: books, isLoading, refetch } = useQuery('books', () => fetch('https://the-story-keeper-server-ten.vercel.app/allBooks', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`

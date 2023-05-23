@@ -5,7 +5,7 @@ const useAllBooks = () => {
     const [allBooks, setAllBooks] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/allBooks')
+        fetch('https://the-story-keeper-server-ten.vercel.app/allBooks')
             .then(res => res.json())
             .then(data => setAllBooks(data));
     }, [allBooks]);

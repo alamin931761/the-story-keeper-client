@@ -1,12 +1,12 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const Order = ({ data, refetch }) => {
+const Order = ({ data, refetch, index }) => {
     const { _id, name, email, address, phoneNumber, delivery, books, date, time, total, status } = data;
 
     const handleStatus = (id) => {
         const status = 'Shipped';
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://the-story-keeper-server-ten.vercel.app/orders/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -25,6 +25,7 @@ const Order = ({ data, refetch }) => {
 
     return (
         <tr>
+            <th className='text-center'>{index + 1}</th>
             <td className='text-center'>{name}</td>
             <td className='text-center'>{email}</td>
             <td className='text-center'>{address}</td>
@@ -38,7 +39,7 @@ const Order = ({ data, refetch }) => {
             </td>
             <td className='text-center'>${total}</td>
             <td className='text-center'>{delivery}</td>
-            <td className='text-center'><button onClick={() => handleStatus(_id)} className='btn btn-success'>{`${status ? status : 'Pending'}`}</button></td>
+            <td className='text-center'><button onClick={() => handleStatus(_id)} className={`${status ? 'btn btn-success' : 'btn btn-outline'}`}>{`${status ? status : 'Pending'}`}</button></td>
         </tr>
     );
 };

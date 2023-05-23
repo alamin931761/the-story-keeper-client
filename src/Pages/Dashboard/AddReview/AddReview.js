@@ -27,7 +27,7 @@ const AddReview = () => {
         };
 
         // Save review to the database 
-        const url = `http://localhost:5000/review`;
+        const url = `https://the-story-keeper-server-ten.vercel.app/review`;
         fetch(url, {
             method: "POST",
             headers: {
@@ -104,7 +104,7 @@ const AddReview = () => {
                     </label>
                 </div>
 
-                <button disabled={rating === null} type='submit' className='btn btn-success'>Add Review</button>
+                <button disabled={rating === null} type='submit' className='btn btn-outline'>Add Review</button>
             </form>
         </section >
     );

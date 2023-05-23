@@ -143,7 +143,7 @@ const Navbar = () => {
                                     <span className="font-bold text-xl text-white">{quantity} {item}</span>
                                     <span className="text-white text-base">Subtotal: ${subtotal}</span>
                                     <div className="card-actions">
-                                        <Link className='btn btn-primary w-full' to='/cart'>View cart</Link>
+                                        <Link className='btn btn-outline btn-success w-full' to='/cart'><GiShoppingCart className="text-2xl mr-2" />View cart</Link>
                                     </div>
                                 </div>
                             </div>

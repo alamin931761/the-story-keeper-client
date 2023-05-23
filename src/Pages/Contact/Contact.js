@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';
 import Typewriter from 'typewriter-effect';
 import emailjs from '@emailjs/browser';
+import { SlPaperPlane } from 'react-icons/sl'
 
 const Contact = () => {
     const form = useRef();
@@ -135,15 +136,14 @@ const Contact = () => {
                                 {errors.message?.type === 'required' && <span className="label-text-alt text-red-400">{errors.message.message}</span>}
                             </label>
                         </div>
-                        <input type="submit" value="Send Message"
-                            className='btn btn-success' />
+                        <button type='submit' className='btn btn-outline'>Send Message <SlPaperPlane className='text-xl ml-2' /></button>
                     </form>
                 </div>
             </div>
 
             {/* back button  */}
             <div className='flex justify-center mt-14'>
-                <Link className='btn btn-primary mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+                <Link className='btn btn-outline mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
         </section >
     );

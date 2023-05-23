@@ -7,7 +7,7 @@ import Typewriter from 'typewriter-effect';
 
 const Users = () => {
     // users data load using React query
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://the-story-keeper-server-ten.vercel.app/users', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`

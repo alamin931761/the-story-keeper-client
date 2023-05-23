@@ -10,6 +10,8 @@ import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import Social from './Social';
 import Typewriter from 'typewriter-effect';
+import { SlLogin } from 'react-icons/sl';
+import { BsArrowRight } from 'react-icons/bs';
 
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
@@ -77,10 +79,12 @@ const SignIn = () => {
 
                     <input ref={passwordRef} type="password" placeholder="Your password" className="input input-bordered w-full max-w-lg mb-5" required />
 
-                    <button type='submit' className='btn btn-success'>Sign In</button>
+                    <button type='submit' className='btn btn-outline'>Sign In <SlLogin className='text-xl ml-2' /></button>
                 </form>
-                <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline'>Reset Password</span></p>
-                <p className='mt-5'>New to The Story Keeper? <Link className='text-blue-500 underline' to='/signUp'>Please Sign Up</Link></p>
+
+                <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline cursor-pointer'>Reset Password<BsArrowRight className='inline text-2xl ml-2' /></span></p>
+                <p className='mt-5'>New to The Story Keeper? <Link className='text-blue-500 underline' to='/signUp'>Please Sign Up<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
+
             </div>
             {errorElement}
             <Social></Social>

@@ -30,7 +30,7 @@ const Search = () => {
             </div>
 
             <div className='mt-10 flex justify-center'>
-                <Link className='btn btn-primary mb-5' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+                <Link className='btn btn-outline mb-5' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
         </section>
     );

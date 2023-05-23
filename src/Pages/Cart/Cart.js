@@ -8,6 +8,7 @@ import Table from './Table/Table';
 import { toast } from 'react-toastify';
 import Typewriter from 'typewriter-effect';
 import PageTitle from '../Shared/PageTitle';
+import { BsBagCheck } from 'react-icons/bs';
 
 const Cart = () => {
     const [bookData, setBookData] = useContext(BookDetailsContext);
@@ -36,7 +37,7 @@ const Cart = () => {
 
     // coupon codes 
     useEffect(() => {
-        fetch("http://localhost:5000/couponCodes", {
+        fetch("https://the-story-keeper-server-ten.vercel.app/couponCodes", {
             method: 'GET',
             // headers: {
             //     authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -123,7 +124,7 @@ const Cart = () => {
                                         {errors.couponCode?.type === 'maxLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
                                     </label>
                                 </div>
-                                <input className="btn btn-primary rounded-none" type="submit" value='Apply coupon' />
+                                <input className="btn btn-outline rounded-none" type="submit" value='Apply coupon' />
                             </form>
                         </td>
                         <td></td>
@@ -150,7 +151,7 @@ const Cart = () => {
             </div>
 
             <div className='flex justify-center mt-10'>
-                <Link disabled={chooseDeliveryOption} className='btn btn-success' to='/details'>Proceed to checkout</Link>
+                <Link disabled={chooseDeliveryOption} className='btn btn-outline' to='/details'>Proceed to checkout <BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
             </div>
         </div >
     };

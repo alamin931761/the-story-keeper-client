@@ -37,7 +37,7 @@ const Essays = () => {
 
             {/* back button  */}
             <div className='flex justify-center mt-14'>
-                <Link className='btn btn-primary mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+                <Link className='btn btn-outline mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
         </section>
     );

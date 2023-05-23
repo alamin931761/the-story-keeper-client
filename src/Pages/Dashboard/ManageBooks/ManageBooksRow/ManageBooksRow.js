@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BiEdit } from 'react-icons/bi';
+import { MdDelete } from 'react-icons/md';
 
 const ManageBooksRow = ({ book, index, setDeleteBook }) => {
     const { image, name, _id } = book;
@@ -18,11 +20,11 @@ const ManageBooksRow = ({ book, index, setDeleteBook }) => {
             </th>
             <td className='text-2xl font-bold text-center'>{name}</td>
             <td className='text-center'>
-                <label onClick={() => navigate(`/editBook/${_id}`)} htmlFor="edit-book" className="btn btn-accent">Edit</label>
+                <label onClick={() => navigate(`/editBook/${_id}`)} htmlFor="edit-book" className="btn btn-outline"><BiEdit className='text-2xl mr-2' />Edit</label>
             </td>
 
             <td className='text-center'>
-                <label onClick={() => setDeleteBook(book)} htmlFor="delete-confirm-modal" className="btn btn-error">Delete</label>
+                <label onClick={() => setDeleteBook(book)} htmlFor="delete-confirm-modal" className="btn btn-outline btn-error"><MdDelete className='text-2xl mr-2' />Delete</label>
             </td>
         </tr>
     );

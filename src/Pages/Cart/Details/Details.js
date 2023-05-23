@@ -7,6 +7,7 @@ import { BookDetailsContext, OrderContext } from '../../../App';
 import PageTitle from '../../Shared/PageTitle';
 import Typewriter from 'typewriter-effect';
 import { toast } from 'react-toastify';
+import { BsBagCheck } from 'react-icons/bs';
 
 const Details = () => {
     const [user] = useAuthState(auth);
@@ -92,12 +93,12 @@ const Details = () => {
                     </label>
                 </div>
                 {
-                    bookData[0] ? <input className='btn btn-primary mb-2' type="submit" value="Submit details" /> : <p className='text-red-400 mb-2 text-2xl'>Your cart is empty</p>
+                    bookData[0] ? <input className='btn btn-outline mb-2' type="submit" value="Submit details" /> : <p className='text-red-400 mb-2 text-2xl'>Your cart is empty</p>
                 }
             </form>
 
             <div className='flex justify-center mt-10 mb-20'>
-                <Link disabled={address} className='btn btn-success' to='/checkout'>Proceed to checkout</Link>
+                <Link disabled={address} className='btn btn-outline' to='/checkout'>Proceed to checkout<BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
             </div>
         </section>
     );

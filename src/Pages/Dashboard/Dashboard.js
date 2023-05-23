@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [admin] = useAdmin(user);
 
     return (
-        <section className='common-style bg-slate-300'>
+        <section className='common-style'>
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
@@ -22,7 +22,7 @@ const Dashboard = () => {
 
                     <div className='flex justify-center items-center mt-4'>
                         <GiPartyPopper className='inline text-4xl' />
-                        <h2 className='text-3xl'>Welcome to the Dashboard</h2>
+                        <h2 className='text-[4vw]'>Welcome to the Dashboard</h2>
                         <GiPartyPopper className='inline text-4xl' />
                     </div>
 
@@ -30,7 +30,7 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-64 bg-base-100 text-base-content">
+                    <ul className="menu p-4 w-64 bg-black text-white">
                         <li><Link to='/dashboard'>My Profile</Link></li>
                         {admin &&
                             <>
