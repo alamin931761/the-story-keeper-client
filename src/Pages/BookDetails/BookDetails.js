@@ -55,8 +55,8 @@ const BookDetails = () => {
             </div>
 
             <div className='flex justify-center'>
-                <div className='flex flex-wrap lg:flex-nowrap ml-10 mr-10 shadow-2xl bg-[#DFF6FF]'>
-                    <div className='flex justify-center items-center'>
+                <div className='flex flex-wrap lg:flex-nowrap shadow-2xl bg-[#DFF6FF] justify-center'>
+                    <div>
                         <img className='h-full sm:w-full md:w-full lg:w-[350px]' src={image} alt="Book" />
                     </div>
 

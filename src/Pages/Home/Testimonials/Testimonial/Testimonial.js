@@ -4,6 +4,7 @@ import { StarPicker } from 'react-star-picker';
 const Testimonial = ({ data }) => {
     const { name, image, rating, review } = data;
 
+
     return (
         <section>
             <div className='bg-[#DFF6FF] rounded-2xl drop-shadow-2xl mb-10 text-center p-5'>

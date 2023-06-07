@@ -11,6 +11,7 @@ import useToken from '../../Hooks/useToken';
 import Typewriter from 'typewriter-effect';
 import { BsArrowRight } from 'react-icons/bs';
 import { SlLogin } from 'react-icons/sl';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const [agree, setAgree] = useState(false);
@@ -19,14 +20,16 @@ const SignUp = () => {
     const [token] = useToken(user);
     const navigate = useNavigate();
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
         const name = data.name;
         const email = data.email;
         const password = data.password;
+        setAgree(false);
         // const agree = event.target.terms.checked;
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName: name });
+        reset();
     }
 
     if (token) {
@@ -35,6 +38,10 @@ const SignUp = () => {
 
     if (loading || updating) {
         return <Loading></Loading>
+    }
+
+    if (error) {
+        toast.error(`${error}`);
     }
 
     return (
@@ -119,7 +126,7 @@ const SignUp = () => {
             </div >
             <p className='mt-5'>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
             <Social></Social>
-        </section >
+        </section>
     );
 };
 

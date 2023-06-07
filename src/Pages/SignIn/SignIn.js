@@ -39,7 +39,7 @@ const SignIn = () => {
         }
     }
     if (resetPasswordError) {
-        console.log(resetPasswordError); //------------------------------------------------------>>>
+        toast.error(`${resetPasswordError}`);
     }
 
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ const SignIn = () => {
 
     let errorElement;
     if (error) {
-        errorElement = <p className='text-error'>Error: {error.message}</p>
+        errorElement = <p className='text-error mt-2 text-center'>{error.message}</p>
     }
     if (loading || sending) {
         return <Loading></Loading>

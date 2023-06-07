@@ -28,7 +28,7 @@ const Social = () => {
 
     let errorElement;
     if (googleError || githubError) {
-        errorElement = <p className='text-error'>Error: {googleError?.message} {githubError?.message}</p>
+        errorElement = <p className='text-error text-center mt-2'>{googleError?.message} {githubError?.message}</p>
     }
 
     return (

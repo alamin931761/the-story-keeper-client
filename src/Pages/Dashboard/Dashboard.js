@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [admin] = useAdmin(user);
 
     return (
-        <section className='common-style'>
+        <section className='pt-[59px]'>
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
@@ -30,7 +30,7 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-64 bg-black text-white">
+                    <ul className="menu p-4 w-64 bg-[#000000de] text-white">
                         <li><Link to='/dashboard'>My Profile</Link></li>
                         {admin &&
                             <>

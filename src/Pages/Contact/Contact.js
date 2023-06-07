@@ -22,8 +22,7 @@ const Contact = () => {
             .then((result) => {
                 toast.success("Your message has been sent successfully");
             }, (error) => {
-                toast.error("Your message was not sent successfully");
-                // console.log(error.text); 
+                toast.error(`${error.text}`);
             });
         reset();
     }

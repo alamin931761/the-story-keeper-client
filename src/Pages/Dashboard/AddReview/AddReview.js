@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './AddReview.css';
 import { useState } from 'react';
 import { StarPicker } from 'react-star-picker';
@@ -12,17 +12,38 @@ import PageTitle from '../../Shared/PageTitle';
 const AddReview = () => {
     const [user] = useAuthState(auth);
     const [rating, setRating] = useState(null);
+    const [profilePicture, setProfilePicture] = useState("");
 
     const onChange = (value) => {
         setRating(value);
     };
+
+    // load user profile picture
+    useEffect(() => {
+        fetch(`https://the-story-keeper-server-ten.vercel.app/user/${user.email}`, {
+            method: "GET",
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            'content-type': 'application/json'
+        })
+            .then(res => res.json())
+            .then(data => setProfilePicture(data[0].imageURL))
+    }, [])
+
+    // image 
+    const image = 'https://i.ibb.co/4WCwkWc/user-default-image.png';
+    let picture = '';
+    if (profilePicture) {
+        picture = profilePicture;
+    } else {
+        picture = image;
+    }
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
         const review = {
             rating: rating,
             name: user.displayName,
-            image: data.image,
+            image: picture,
             review: data.review
         };
 
@@ -72,19 +93,6 @@ const AddReview = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center'>
                 <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-4' disabled />
-
-                {/* image  */}
-                <div className="form-control w-full max-w-lg">
-                    <input className='input input-bordered w-full max-w-lg' placeholder='Image URL' {...register("image", {
-                        required: {
-                            value: true,
-                            message: "Image URL field is required"
-                        }
-                    })} />
-                    <label className="label">
-                        {errors.image?.type === 'required' && <span className="label-text-alt text-red-400">{errors.image.message}</span>}
-                    </label>
-                </div>
 
                 {/* review  */}
                 <div className="form-control w-full max-w-lg">
