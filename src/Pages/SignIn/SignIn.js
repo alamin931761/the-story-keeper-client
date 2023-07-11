@@ -15,6 +15,7 @@ import { BsArrowRight } from 'react-icons/bs';
 
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    console.log(user);
     const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
     const location = useLocation();
     const [token] = useToken(user);

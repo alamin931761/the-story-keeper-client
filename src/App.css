@@ -16,3 +16,9 @@
   /* border: 5px dotted yellow; */
   /* background-color: tomato; */
 }
+
+/* navbar */
+.active {
+  color: red;
+
+}

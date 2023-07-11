@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
 import { BookDetailsContext, OrderContext } from '../../App';
+import Loading from '../Shared/Loading';
 
 const CheckoutForm = () => {
     const [user] = useAuthState(auth);
@@ -35,7 +36,7 @@ const CheckoutForm = () => {
                     setClientSecret(data.clientSecret);
                 }
             })
-    }, [price])
+    }, [price]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -77,12 +78,15 @@ const CheckoutForm = () => {
                 },
             },
         );
+        order.transactionId = paymentIntent.id;
+
         if (intentError) {
             setCardError(intentError?.message);
         } else {
             setCardError('');
             setSuccessMessage('Congrats! Your payment is completed.');
             setTransactionId(paymentIntent.id);
+
 
             // Save the order to the database 
             const url = `https://the-story-keeper-server-ten.vercel.app/order`;

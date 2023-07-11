@@ -12,8 +12,8 @@ import { useForm } from 'react-hook-form';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
-    console.log(user);
     const [updatePassword, updating, error] = useUpdatePassword(auth);
+
     const [updateProfile, setUpdateProfile] = useState([]);
 
     const imageRef = useRef("");
@@ -122,7 +122,7 @@ const MyProfile = () => {
                     <p className='mb-3'><span className='font-bold text-xl'>Email: </span>{user.email}</p>
                     <p className='mb-3'><span className='font-bold text-xl'>Address: </span>{updateProfile[0]?.address}</p>
                     <p className='mb-3'><span className='font-bold text-xl'>Phone Number: </span>{updateProfile[0]?.phoneNumber}</p>
-                    <p className='mb-3 break-all'><span className='font-bold text-xl'>LinkedIn profile link: </span>{updateProfile[0]?.linkedInLink}</p>
+                    <p className='mb-3 break-all'><span className='font-bold text-xl'>LinkedIn profile link: </span><a target='_blank' href={updateProfile[0]?.linkedInLink}>{updateProfile[0]?.linkedInLink}</a></p>
                 </div>
 
                 {/* update profile  */}

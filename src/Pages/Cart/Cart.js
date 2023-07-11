@@ -13,7 +13,6 @@ import { BsBagCheck } from 'react-icons/bs';
 const Cart = () => {
     const [bookData, setBookData] = useContext(BookDetailsContext);
     const [coupon, setCoupon] = useState([]);
-    console.log(coupon);
     const [bookSubtotal, setBookSubtotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [chooseDeliveryOption, setChooseDeliveryOption] = useState(true);

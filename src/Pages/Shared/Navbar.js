@@ -1,5 +1,5 @@
-import { signOut } from 'firebase/auth';
 import React, { useContext, useRef } from 'react';
+import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { BookDetailsContext, SearchContext } from '../../App';
@@ -52,6 +52,7 @@ const Navbar = () => {
     // navbar 
     const menuItems = <>
         <li className='text-white'><Link to='/home'>Home</Link></li>
+
         <li className='z-50' tabIndex="0">
             <span className='text-white'>Shop By Category</span>
             <ul className="p-2 bg-black">
