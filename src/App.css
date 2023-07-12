@@ -18,7 +18,17 @@
 }
 
 /* navbar */
-.active {
-  color: red;
+.nav-link {
+  transition: 0.9s;
+  cursor: pointer;
+}
 
+.nav-link:hover {
+  color: yellow;
+  transform: translateX(2px)
+}
+
+.active {
+  transition: 0.9s;
+  color: yellow;
 }

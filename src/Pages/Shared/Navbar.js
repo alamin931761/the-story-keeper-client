@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { BookDetailsContext, SearchContext } from '../../App';
 import logo from '../../assets/images/logo.png';
 import auth from '../../firebase.init';
@@ -51,43 +51,47 @@ const Navbar = () => {
 
     // navbar 
     const menuItems = <>
-        <li className='text-white'><Link to='/home'>Home</Link></li>
+        <div className="text-white flex items-center pl-4 nav-link"><NavLink className={({ isActive }) => isActive ? "active" : ""} to='/home'>Home</NavLink></div>
 
-        <li className='z-50' tabIndex="0">
-            <span className='text-white'>Shop By Category</span>
-            <ul className="p-2 bg-black">
-                <div className='lg:flex lg:justify-center'>
-                    <div className='lg:w-[250px] md:w-[250px] sm:w-[250px]'>
-                        <p className='font-semibold text-xl text-white'>Top Categories</p>
+        <div className='z-50 dropdown dropdown-hover text-white'>
+            <label tabIndex={0} className='flex items-center ml-4 nav-link'>Shop By Category</label>
+            <ul tabIndex={0} className="bg-black dropdown-content">
+                <div className='lg:flex lg:justify-center px-4'>
+                    <div className='w-[230px]'>
+                        <p className='font-semibold text-xl mt-3'>Top Categories</p>
                         <div>
-                            <li className='text-white'><Link to='/essays'>Essays</Link></li>
-                            <li className='text-white'><Link to='/fiction'>Fiction</Link></li>
-                            <li className='text-white'><Link to='/nonFiction'>Non-Fiction</Link></li>
-                            <li className='text-white'><Link to='/sciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</Link></li>
+                            <NavLink className="block my-3 nav-link" to='/essays'>Essays</NavLink>
+                            <NavLink className="block my-3 nav-link" to='/fiction'>Fiction</NavLink>
+                            <NavLink className="block my-3 nav-link" to='/nonFiction'>Non-Fiction</NavLink>
+                            <NavLink className="block my-3 nav-link" to='/sciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</NavLink>
                         </div>
                     </div>
 
-                    <div className='lg:w-[250px] md:w-[250px] sm:w-[250px]'>
-                        <p className='font-semibold text-xl text-white'>More Categories</p>
+                    <div className='w-[230px]'>
+                        <p className='font-semibold text-xl mt-3'>More Categories</p>
                         <div>
-                            <li className='text-white'><Link to='/artsAndMusic'>Arts & Music</Link></li>
-                            <li className='text-white'><Link to='/mysteryAndCrime'>Mystery & Crime</Link></li>
-                            <li className='text-white'><Link to='/poetry'>Poetry</Link></li>
-                            <li className='text-white'><Link to='/rareBooks'>Rare Books</Link></li>
+                            <NavLink className="block my-3 nav-link" to='/artsAndMusic'>Arts & Music</NavLink>
+                            <NavLink className="block my-3 nav-link" to='/mysteryAndCrime'>Mystery & Crime</NavLink>
+                            <NavLink className="block my-3 nav-link" to='/poetry'>Poetry</NavLink>
+                            <NavLink className="block my-3 nav-link" to='/rareBooks'>Rare Books</NavLink>
                         </div>
                     </div>
                 </div>
             </ul>
-        </li>
-        <li className=' text-white'><Link to='/contact'>Contact</Link></li>
-        <li className=' text-white'><Link to='/blogs'>Blogs</Link></li>
+        </div>
+
+        <NavLink className='text-white flex items-center ml-4 nav-link' to='/contact'>Contact</NavLink>
+
+        <NavLink className='text-white flex items-center ml-4 nav-link' to='/blogs'>Blogs</NavLink>
+
         {
             user && <>
-                <li className='text-white'><Link to='/dashboard'>Dashboard</Link></li>
+                <NavLink className="text-white flex items-center ml-4 nav-link" to='/dashboard'>Dashboard</NavLink>
             </>
         }
+
         {
-            user ? <li onClick={handleSignOut} className="text-white flex lg:items-center pl-4 cursor-pointer">Sign Out</li> : <Link to='/signIn' className='text-white flex items-center pl-4'>Sign In</Link>
+            user ? <li onClick={handleSignOut} className="text-white flex lg:items-center ml-4 cursor-pointer nav-link">Sign Out</li> : <NavLink to='/signIn' className='text-white flex items-center ml-4 nav-link'>Sign In</NavLink>
         }
     </>
 
@@ -99,8 +103,50 @@ const Navbar = () => {
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <RiMenu2Line className='text-3xl text-white' />
                         </label>
-                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-44">
-                            {menuItems}
+                        <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-[300px]">
+                            {/* {menuItems} */}
+
+                            <div className="menu text-white w-full rounded-box">
+                                <div className="text-white flex items-center ml-4 my-1 nav-link"><NavLink to='/home'>Home</NavLink></div>
+                                <div className='ml-4'>
+                                    <details open1>
+                                        <summary className='nav-link'>Shop By Category</summary>
+                                        <div className='ml-6'>
+                                            <details open2>
+                                                <summary className='nav-link'>Top Categories</summary>
+                                                <div className='ml-8'>
+                                                    <NavLink className="block my-1 nav-link" to='/essays'>Essays</NavLink>
+                                                    <NavLink className="block my-1 nav-link" to='/fiction'>Fiction</NavLink>
+                                                    <NavLink className="block my-1 nav-link" to='/nonFiction'>Non-Fiction</NavLink>
+                                                    <NavLink className="block my-1 nav-link" to='/sciFiFantasyAndHorror'>Sci-Fi, Fantasy & Horror</NavLink>
+                                                </div>
+                                            </details>
+
+                                            <details open3>
+                                                <summary className='nav-link'>More Categories</summary>
+                                                <div className='ml-8'>
+                                                    <NavLink className="block my-1 nav-link" to='/artsAndMusic'>Arts & Music</NavLink>
+                                                    <NavLink className="block my-1 nav-link" to='/mysteryAndCrime'>Mystery & Crime</NavLink>
+                                                    <NavLink className="block my-1 nav-link" to='/poetry'>Poetry</NavLink>
+                                                    <NavLink className="block my-1 nav-link" to='/rareBooks'>Rare Books</NavLink>
+                                                </div>
+                                            </details>
+                                        </div>
+                                    </details>
+                                </div>
+                                <NavLink className='text-white flex items-center ml-4 my-1 nav-link' to='/contact'>Contact</NavLink>
+                                <NavLink className='text-white flex items-center ml-4 my-1 nav-link' to='/blogs'>Blogs</NavLink>
+
+                                {
+                                    user && <>
+                                        <NavLink className="text-white flex items-center ml-4 my-1 nav-link" to='/dashboard'>Dashboard</NavLink>
+                                    </>
+                                }
+
+                                {
+                                    user ? <li onClick={handleSignOut} className="text-white flex lg:items-center ml-4 cursor-pointer my-1 nav-link">Sign Out</li> : <NavLink to='/signIn' className='text-white flex items-center ml-4 my-1 nav-link'>Sign In</NavLink>
+                                }
+                            </div>
                         </ul>
                     </div>
 
@@ -119,7 +165,7 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle">
                                 <button className="btn btn-ghost btn-circle">
-                                    <BiSearch className='text-3xl text-white' />
+                                    <BiSearch className='text-3xl text-white nav-link' />
                                 </button>
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow">
@@ -135,8 +181,8 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle">
                                 <div className="indicator">
-                                    <GiShoppingCart className='text-3xl text-white' />
-                                    <span className="badge badge-sm indicator-item text-white">{quantity}</span>
+                                    <GiShoppingCart className='text-3xl text-white nav-link' />
+                                    <span className="badge badge-sm indicator-item text-[#FFFF00]">{quantity}</span>
                                 </div>
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">

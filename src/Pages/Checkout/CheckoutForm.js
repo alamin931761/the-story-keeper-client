@@ -4,7 +4,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
 import { BookDetailsContext, OrderContext } from '../../App';
-import Loading from '../Shared/Loading';
 
 const CheckoutForm = () => {
     const [user] = useAuthState(auth);

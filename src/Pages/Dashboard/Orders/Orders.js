@@ -49,6 +49,7 @@ const Orders = () => {
                             <th className='text-center'>Time</th>
                             <th className='text-center'>Books</th>
                             <th className='text-center'>Total</th>
+                            <th className='text-center'>Transaction Id</th>
                             <th className='text-center'>Delivery</th>
                             <th className='text-center'>Status</th>
                         </tr>
