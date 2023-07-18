@@ -14,8 +14,8 @@ const Navbar = () => {
     const [search, setSearch] = useContext(SearchContext);
 
     const handleSignOut = () => {
-        signOut(auth);
         localStorage.removeItem("accessToken");
+        signOut(auth);
     };
 
     const navigate = useNavigate();
@@ -55,7 +55,7 @@ const Navbar = () => {
 
         <div className='z-50 dropdown dropdown-hover text-white'>
             <label tabIndex={0} className='flex items-center ml-4 nav-link'>Shop By Category</label>
-            <ul tabIndex={0} className="bg-black dropdown-content">
+            <ul tabIndex={0} className="bg-black dropdown-content rounded-lg">
                 <div className='lg:flex lg:justify-center px-4'>
                     <div className='w-[230px]'>
                         <p className='font-semibold text-xl mt-3'>Top Categories</p>
@@ -77,6 +77,7 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
+                <NavLink className="block mb-3 nav-link text-center" to='/allBooks'>See All Books</NavLink>
             </ul>
         </div>
 
@@ -96,12 +97,12 @@ const Navbar = () => {
     </>
 
     return (
-        <section>
+        <div>
             <div className="navbar bg-black fixed z-50">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                            <RiMenu2Line className='text-3xl text-white' />
+                            <RiMenu2Line className='text-3xl text-white nav-link' />
                         </label>
                         <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-[300px]">
                             {/* {menuItems} */}
@@ -109,10 +110,10 @@ const Navbar = () => {
                             <div className="menu text-white w-full rounded-box">
                                 <div className="text-white flex items-center ml-4 my-1 nav-link"><NavLink to='/home'>Home</NavLink></div>
                                 <div className='ml-4'>
-                                    <details open1>
+                                    <details open1="true">
                                         <summary className='nav-link'>Shop By Category</summary>
                                         <div className='ml-6'>
-                                            <details open2>
+                                            <details open2="true">
                                                 <summary className='nav-link'>Top Categories</summary>
                                                 <div className='ml-8'>
                                                     <NavLink className="block my-1 nav-link" to='/essays'>Essays</NavLink>
@@ -122,7 +123,7 @@ const Navbar = () => {
                                                 </div>
                                             </details>
 
-                                            <details open3>
+                                            <details open3="true">
                                                 <summary className='nav-link'>More Categories</summary>
                                                 <div className='ml-8'>
                                                     <NavLink className="block my-1 nav-link" to='/artsAndMusic'>Arts & Music</NavLink>
@@ -132,6 +133,7 @@ const Navbar = () => {
                                                 </div>
                                             </details>
                                         </div>
+                                        <NavLink className="block my-1 nav-link ml-6" to='/allBooks'>See All Books</NavLink>
                                     </details>
                                 </div>
                                 <NavLink className='text-white flex items-center ml-4 my-1 nav-link' to='/contact'>Contact</NavLink>
@@ -199,7 +201,7 @@ const Navbar = () => {
                     {/* cart end  */}
                 </div>
             </div>
-        </section >
+        </div >
     );
 };
 

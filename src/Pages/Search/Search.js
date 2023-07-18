@@ -19,20 +19,20 @@ const Search = () => {
     }
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Search"></PageTitle>
 
             <h2 className="text-3xl text-center">{result}</h2>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
                     searchResult.map(data => <SearchedOut key={data._id} data={data}></SearchedOut>)
                 }
             </div>
 
-            <div className='mt-10 flex justify-center'>
-                <Link className='btn btn-outline mb-5' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+            <div className='my-6 flex justify-center'>
+                <Link className='btn btn-outline' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
-        </section>
+        </div>
     );
 };
 

@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import PageTitle from '../../Shared/PageTitle';
-import Typewriter from 'typewriter-effect';
 import Loading from '../../Shared/Loading';
 import { useForm } from 'react-hook-form';
 
@@ -32,7 +31,7 @@ const MyProfile = () => {
         };
 
         // update profile
-        fetch(`https://the-story-keeper-server-ten.vercel.app/user/${user.email}`, {
+        fetch(`http://localhost:5000/user/${user.email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -53,7 +52,7 @@ const MyProfile = () => {
 
     // load user profile data
     useEffect(() => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/user/${user.email}`, {
+        fetch(`http://localhost:5000/user/${user.email}`, {
             method: "GET",
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             'content-type': 'application/json'
@@ -96,19 +95,9 @@ const MyProfile = () => {
     }
 
     return (
-        <section className='mb-10'>
+        <div className='mb-10'>
             <PageTitle title="My Profile"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['My Profile'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>My Profile</h2>
 
             {/* profile info */}
             <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 mx-3">
@@ -189,7 +178,7 @@ const MyProfile = () => {
                     <input className='btn btn-outline' type="submit" value="Update Password" />
                 </form>
             </div>
-        </section>
+        </div>
     );
 };
 

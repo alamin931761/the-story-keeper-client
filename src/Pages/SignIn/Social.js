@@ -32,7 +32,7 @@ const Social = () => {
     }
 
     return (
-        <section>
+        <div>
             <div className="divider">OR</div>
             <div className='flex flex-col justify-center mb-3'>
                 <button onClick={() => signInWithGoogle()} className='btn btn-outline mt-3 w-[300px] mx-auto'><FcGoogle className='text-3xl mr-1' />Continue with Google</button>
@@ -40,7 +40,7 @@ const Social = () => {
                 <button onClick={() => signInWithGithub()} className='btn btn-outline mt-3 w-[300px] mx-auto'><BsGithub className='text-3xl mr-1' />Continue with Github</button>
             </div>
             {errorElement}
-        </section>
+        </div>
     );
 };
 

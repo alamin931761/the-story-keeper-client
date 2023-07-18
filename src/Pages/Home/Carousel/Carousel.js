@@ -21,7 +21,7 @@ const Carousel = () => {
         progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     };
     return (
-        <section>
+        <div>
             <>
                 <Swiper
                     spaceBetween={30}
@@ -67,7 +67,7 @@ const Carousel = () => {
                     </div>
                 </Swiper>
             </>
-        </section >
+        </div >
     );
 };
 

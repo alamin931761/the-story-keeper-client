@@ -3,16 +3,23 @@ import { useQuery } from 'react-query';
 import Loading from '../../Shared/Loading';
 import User from './User/User';
 import PageTitle from '../../Shared/PageTitle';
-import Typewriter from 'typewriter-effect';
+import { signOut } from 'firebase/auth';
+import auth from '../../../firebase.init';
 
 const Users = () => {
     // users data load using React query
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://the-story-keeper-server-ten.vercel.app/users', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
-    }).then(res => res.json()));
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("accessToken");
+        }
+        return res.json();
+    }));
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -21,19 +28,9 @@ const Users = () => {
     }
 
     return (
-        <section>
+        <div>
             <PageTitle title="Users"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: [`Users (${users.length})`],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>Users ({users.length})</h2>
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -53,7 +50,7 @@ const Users = () => {
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
     );
 };
 

@@ -8,9 +8,9 @@ const Footer = () => {
         <footer className="footer footer-center p-10 bg-black text-base-content">
             <div>
                 <div className="grid grid-flow-col gap-4">
-                    <a target='_blank' href="https://wwww.facebook.com"><FaFacebookF className='text-white text-4xl' /></a>
-                    <a target='_blank' href="https://twitter.com/"><FaTwitter className='text-white text-4xl' /></a>
-                    <a target='_blank' href="https://www.instagram.com/"><FaInstagram className='text-white text-4xl' /></a>
+                    <a target='_blank' href="https://wwww.facebook.com"><FaFacebookF className='social-icon text-4xl' /></a>
+                    <a target='_blank' href="https://twitter.com/"><FaTwitter className='social-icon text-4xl' /></a>
+                    <a target='_blank' href="https://www.instagram.com/"><FaInstagram className='social-icon text-4xl' /></a>
                 </div>
             </div>
             <div>

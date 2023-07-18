@@ -21,7 +21,7 @@ const CheckoutForm = () => {
     const price = localStorage.getItem('total');
 
     useEffect(() => {
-        fetch('https://the-story-keeper-server-ten.vercel.app/create-payment-intent', {
+        fetch('http://localhost:5000/create-payment-intent', {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -88,7 +88,7 @@ const CheckoutForm = () => {
 
 
             // Save the order to the database 
-            const url = `https://the-story-keeper-server-ten.vercel.app/order`;
+            const url = `http://localhost:5000/order`;
             fetch(url, {
                 method: "POST",
                 headers: {

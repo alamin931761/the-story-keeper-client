@@ -6,8 +6,8 @@ import auth from '../../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import Typewriter from 'typewriter-effect';
 import PageTitle from '../../Shared/PageTitle';
+import { signOut } from 'firebase/auth';
 
 const AddReview = () => {
     const [user] = useAuthState(auth);
@@ -20,16 +20,12 @@ const AddReview = () => {
 
     // load user profile picture
     useEffect(() => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/user/${user.email}`, {
-            method: "GET",
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            'content-type': 'application/json'
-        })
+        fetch(`http://localhost:5000/user/${user.email}`)
             .then(res => res.json())
             .then(data => setProfilePicture(data[0].imageURL))
     }, [])
 
-    // image 
+    // default image 
     const image = 'https://i.ibb.co/4WCwkWc/user-default-image.png';
     let picture = '';
     if (profilePicture) {
@@ -48,7 +44,7 @@ const AddReview = () => {
         };
 
         // Save review to the database 
-        const url = `https://the-story-keeper-server-ten.vercel.app/review`;
+        const url = `http://localhost:5000/review`;
         fetch(url, {
             method: "POST",
             headers: {
@@ -57,33 +53,29 @@ const AddReview = () => {
             },
             body: JSON.stringify(review)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(result => {
-                if (result?.message) {
-                    toast.error("Review was not successfully submitted")
-                } else {
+                if (result.acknowledged) {
                     toast.info("Review submitted successfully");
+                } else {
+                    toast.error("Review was not successfully submitted");
                 }
             });
         reset();
     }
 
     return (
-        <section>
+        <div>
             <PageTitle title="Add Review"></PageTitle>
+            <h2 className='text-center text-3xl my-6'>Add Review</h2>
 
-            <div className='text-[4vw] flex justify-center mb-10 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Add Review'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
-
-            <h2 className='text-3xl text-center'>Leave a Review</h2>
+            <h2 className='text-xl text-center mt-12'>Leave a Review</h2>
 
             {/* ratings  */}
             <div className='flex justify-center mb-5 mt-2'>
@@ -112,9 +104,9 @@ const AddReview = () => {
                     </label>
                 </div>
 
-                <button disabled={rating === null} type='submit' className='btn btn-outline'>Add Review</button>
+                <button disabled={rating === null} type='submit' className='btn btn-outline mb-6'>Add Review</button>
             </form>
-        </section >
+        </div >
     );
 };
 

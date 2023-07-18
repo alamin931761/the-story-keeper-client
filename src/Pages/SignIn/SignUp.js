@@ -8,7 +8,6 @@ import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import useToken from '../../Hooks/useToken';
-import Typewriter from 'typewriter-effect';
 import { BsArrowRight } from 'react-icons/bs';
 import { SlLogin } from 'react-icons/sl';
 import { toast } from 'react-toastify';
@@ -45,19 +44,10 @@ const SignUp = () => {
     }
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Sign Up"></PageTitle>
 
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Sign Up to The Story Keeper'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-4xl text-center  my-10'>Sign Up to The Story Keeper</h2>
 
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
@@ -126,7 +116,7 @@ const SignUp = () => {
             </div >
             <p className='mt-5'>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
             <Social></Social>
-        </section>
+        </div>
     );
 };
 

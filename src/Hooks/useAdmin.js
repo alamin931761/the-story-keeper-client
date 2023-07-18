@@ -7,7 +7,7 @@ const useAdmin = user => {
     useEffect(() => {
         const email = user?.email;
         if (email) {
-            fetch(`https://the-story-keeper-server-ten.vercel.app/admin/${email}`, {
+            fetch(`http://localhost:5000/admin/${email}`, {
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }

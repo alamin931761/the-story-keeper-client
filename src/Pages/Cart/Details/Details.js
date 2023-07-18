@@ -5,7 +5,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { BookDetailsContext, OrderContext } from '../../../App';
 import PageTitle from '../../Shared/PageTitle';
-import Typewriter from 'typewriter-effect';
 import { toast } from 'react-toastify';
 import { BsBagCheck } from 'react-icons/bs';
 
@@ -44,19 +43,9 @@ const Details = () => {
     };
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Delivery Details"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Delivery Details'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>Delivery Details</h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
                 <input className='input input-bordered w-full max-w-lg mb-2' value={user?.displayName} disabled />
@@ -100,7 +89,7 @@ const Details = () => {
             <div className='flex justify-center mt-10 mb-20'>
                 <Link disabled={address} className='btn btn-outline' to='/checkout'>Proceed to checkout<BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
             </div>
-        </section>
+        </div>
     );
 };
 

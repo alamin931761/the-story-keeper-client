@@ -4,7 +4,7 @@
 }
 
 .common-style {
-  padding: 59px 10px 20px 10px;
+  padding: 62px 10px 0px 10px;
   /* background-color: seagreen; */
   /* border: 5px dotted yellow; */
   /* background-color: #EDFFEC; */
@@ -19,16 +19,28 @@
 
 /* navbar */
 .nav-link {
-  transition: 0.9s;
+  transition: 0.5s;
   cursor: pointer;
 }
 
 .nav-link:hover {
   color: yellow;
-  transform: translateX(2px)
+  transform: translateX(2px);
 }
 
 .active {
-  transition: 0.9s;
+  transition: 0.5s;
   color: yellow;
+}
+
+
+/* footer */
+.social-icon {
+  color: white;
+  transition: 0.5s;
+}
+
+.social-icon:hover {
+  color: yellow;
+  transform: translateX(2px);
 }

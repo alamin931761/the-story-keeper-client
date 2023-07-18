@@ -9,13 +9,11 @@ import useToken from '../../Hooks/useToken';
 import Loading from '../Shared/Loading';
 import PageTitle from '../Shared/PageTitle';
 import Social from './Social';
-import Typewriter from 'typewriter-effect';
 import { SlLogin } from 'react-icons/sl';
 import { BsArrowRight } from 'react-icons/bs';
 
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
-    console.log(user);
     const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
     const location = useLocation();
     const [token] = useToken(user);
@@ -60,19 +58,10 @@ const SignIn = () => {
     }
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Sign In"></PageTitle>
 
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Sign In to The Story Keeper'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-4xl text-center  my-10'>Sign In to The Story Keeper</h2>
 
             <div>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center'>
@@ -89,7 +78,7 @@ const SignIn = () => {
             </div>
             {errorElement}
             <Social></Social>
-        </section>
+        </div>
     );
 };
 

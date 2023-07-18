@@ -7,7 +7,7 @@ const Order = ({ data, refetch, index }) => {
 
     const handleStatus = (id) => {
         const status = 'Shipped';
-        fetch(`https://the-story-keeper-server-ten.vercel.app/orders/${id}`, {
+        fetch(`http://localhost:5000/orders/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -15,9 +15,14 @@ const Order = ({ data, refetch, index }) => {
             },
             body: JSON.stringify({ status })
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    toast.error('Failed to shipped');
+                }
+                return res.json();
+            })
             .then(data => {
-                if (data.modifiedCount) {
+                if (data.modifiedCount > 0) {
                     toast.info('Shipped')
                 }
             })

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAuthState, useSendEmailVerification } from 'react-firebase-hooks/auth';
 import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -7,7 +7,6 @@ import Loading from '../../Shared/Loading';
 
 const RequireAuth = ({ children }) => {
     const [user, loading] = useAuthState(auth);
-    console.log(user);
     const location = useLocation();
     const [sendEmailVerification, sending, error] = useSendEmailVerification(auth);
 

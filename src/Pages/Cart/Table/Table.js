@@ -2,7 +2,7 @@ import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import { ImCross } from 'react-icons/im';
 
-const Table = ({ data, deleteBook }) => {
+const Table = ({ data, deleteBook, index }) => {
     const { image, name, author, price, _id, quantity, subtotal } = data;
 
     // delete 
@@ -13,6 +13,7 @@ const Table = ({ data, deleteBook }) => {
     return (
         <>
             <tr>
+                <th className='text-center'>{index + 1}</th>
                 <th>
                     <label htmlFor="cart-delete-confirm-modal" className="btn btn-circle btn-outline btn-error">
                         < MdDelete className='text-3xl' />

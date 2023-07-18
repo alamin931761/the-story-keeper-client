@@ -2,14 +2,11 @@ import React, { useRef } from 'react';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import auth from '../../firebase.init';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { GoLocation } from 'react-icons/go';
 import { FiPhone } from 'react-icons/fi';
 import { TfiEmail } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';
-import Typewriter from 'typewriter-effect';
 import emailjs from '@emailjs/browser';
 import { SlPaperPlane } from 'react-icons/sl'
 
@@ -28,19 +25,9 @@ const Contact = () => {
     }
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Contact"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Contact Us'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-3xl text-center my-6'>Contact us</h2>
 
             <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 mt-8'>
                 <div className=' flex items-center justify-center w-full'>
@@ -49,7 +36,7 @@ const Contact = () => {
                             <GoLocation className='text-5xl mr-3' />
                             <div>
                                 <h5 className='text-2xl font-semibold'>Address</h5>
-                                <p>Kunming, Yunnan, China</p>
+                                <p>Gazipur, Bangladesh</p>
                             </div>
                         </div>
 
@@ -58,7 +45,7 @@ const Contact = () => {
                                 <FiPhone className='text-5xl mr-3' />
                                 <div>
                                     <h5 className='text-2xl font-semibold'>Phone</h5>
-                                    <p>+8613116273029</p>
+                                    <p>+8801741931761</p>
                                 </div>
                             </div>
                         </a>
@@ -76,7 +63,7 @@ const Contact = () => {
                 </div>
 
                 <div className='w-full'>
-                    <h2 className='text-2xl text-center'>Tell Your Message</h2>
+                    <h2 className='text-xl text-center'>Tell Your Message</h2>
                     <form ref={form} className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                         {/* Name */}
                         <div className="form-control w-full">
@@ -141,10 +128,10 @@ const Contact = () => {
             </div>
 
             {/* back button  */}
-            <div className='flex justify-center mt-14'>
-                <Link className='btn btn-outline mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+            <div className='flex justify-center my-6'>
+                <Link className='btn btn-outline' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
-        </section >
+        </div >
     );
 };
 

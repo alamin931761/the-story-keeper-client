@@ -8,7 +8,7 @@ const Testimonials = () => {
     const [testimonials, setTestimonials] = useState([]);
 
     useEffect(() => {
-        fetch('https://the-story-keeper-server-ten.vercel.app/review')
+        fetch('http://localhost:5000/review')
             .then(res => res.json())
             .then(data => setTestimonials(data))
     }, [testimonials])
@@ -19,7 +19,7 @@ const Testimonials = () => {
 
     return (
         <div className='mt-20'>
-            <h2 className='text-[3vw] text-center mb-10'>Why Our Customers Love Us?</h2>
+            <h2 className='text-3xl text-center mb-10'>Why Our Customers Love Us?</h2>
             <div className='flex justify-evenly flex-wrap'>
                 {
                     testimonials.map(data => <Testimonial key={data._id} data={data}></Testimonial>)

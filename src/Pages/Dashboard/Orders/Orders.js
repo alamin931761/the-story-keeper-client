@@ -3,16 +3,25 @@ import Loading from '../../Shared/Loading';
 import Order from './Order.js/Order';
 import PageTitle from '../../Shared/PageTitle';
 import { useQuery } from 'react-query';
-import Typewriter from 'typewriter-effect';
+import { signOut } from 'firebase/auth';
+import auth from '../../../firebase.init';
+import { Navigate } from 'react-router-dom';
 
 const Orders = () => {
     // orders data load using React query
-    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('https://the-story-keeper-server-ten.vercel.app/orders', {
+    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
-    }).then(res => res.json()));
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("accessToken");
+            Navigate('/');
+        }
+        return res.json()
+    }));
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -21,20 +30,9 @@ const Orders = () => {
     }
 
     return (
-        <section>
+        <div>
             <PageTitle title="Orders"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: [`Orders(${orders?.length})`],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
-
+            <h2 className='text-center text-3xl my-6'>Orders({orders?.length})</h2>
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -61,7 +59,7 @@ const Orders = () => {
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
     );
 };
 

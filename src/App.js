@@ -1,7 +1,7 @@
-import { createContext } from 'react';
-import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { createContext } from 'react';
+import { useState } from 'react';
 import ArtsAndMusicBooks from './Pages/ArtAndMusicBooks/ArtsAndMusicBooks';
 import BookDetails from './Pages/BookDetails/BookDetails';
 import Cart from './Pages/Cart/Cart';
@@ -39,6 +39,8 @@ import EditBook from './Pages/Dashboard/EditBook/EditBook';
 import Search from './Pages/Search/Search';
 import Blogs from './Pages/Blogs/Blogs';
 import BestSellingBooks from './Pages/BestSellingBooks/BestSellingBooks';
+import AllBooks from './Pages/AllBooks/AllBooks';
+import Welcome from './Pages/Dashboard/Welcome/Welcome';
 
 export const BookDetailsContext = createContext();
 export const OrderContext = createContext();
@@ -68,6 +70,7 @@ function App() {
               <Route path='/mysteryAndCrime' element={<MysteryAndCrimeBooks></MysteryAndCrimeBooks>}></Route>
               <Route path='/poetry' element={<PoetryBooks></PoetryBooks>}></Route>
               <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
+              <Route path='allBooks' element={<AllBooks></AllBooks>}></Route>
               <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
               <Route path='/editBook/:id' element={<RequireAdmin><EditBook></EditBook></RequireAdmin>}></Route>
               <Route path='/signIn' element={<SignIn></SignIn>}></Route>
@@ -78,7 +81,8 @@ function App() {
               <Route path='/details' element={<RequireAuth><Details></Details></RequireAuth>}></Route>
               <Route path='/contact' element={<Contact></Contact>}></Route>
               <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-                <Route index element={<MyProfile></MyProfile>}></Route>
+                <Route index element={<Welcome></Welcome>}></Route>
+                <Route path='myProfile' element={<MyProfile></MyProfile>}></Route>
                 <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
                 <Route path='orders' element={<RequireAdmin><Orders></Orders></RequireAdmin>}></Route>
                 <Route path='addBooks' element={<RequireAdmin><AddBooks></AddBooks></RequireAdmin>}></Route>

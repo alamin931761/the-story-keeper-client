@@ -4,12 +4,11 @@ import Loading from '../../Shared/Loading';
 import ManageBooksRow from './ManageBooksRow/ManageBooksRow';
 import DeleteConfirmModal from './DeleteConfirmModal/DeleteConfirmModal';
 import PageTitle from '../../Shared/PageTitle';
-import Typewriter from 'typewriter-effect';
 
 const ManageBooks = () => {
     const [deleteBook, setDeleteBook] = useState(null);
     // load all books using React query
-    const { data: books, isLoading, refetch } = useQuery('books', () => fetch('https://the-story-keeper-server-ten.vercel.app/allBooks', {
+    const { data: books, isLoading, refetch } = useQuery('books', () => fetch('http://localhost:5000/allBooks', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -24,19 +23,9 @@ const ManageBooks = () => {
     }
 
     return (
-        <section>
+        <div>
             <PageTitle title="Manage Books"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: [`Manage Books (${books.length})`],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>Manage Books ({books.length})</h2>
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -51,7 +40,7 @@ const ManageBooks = () => {
                     </thead>
                     <tbody>
                         {
-                            books.map((book, index) => <ManageBooksRow key={book._id} book={book} index={index} setDeleteBook={setDeleteBook}></ManageBooksRow>)
+                            books?.map((book, index) => <ManageBooksRow key={book._id} book={book} index={index} setDeleteBook={setDeleteBook}></ManageBooksRow>)
                         }
                     </tbody>
                 </table>
@@ -59,7 +48,7 @@ const ManageBooks = () => {
             {
                 deleteBook && <DeleteConfirmModal deleteBook={deleteBook} refetch={refetch} setDeleteBook={setDeleteBook}></DeleteConfirmModal>
             }
-        </section>
+        </div>
     );
 };
 

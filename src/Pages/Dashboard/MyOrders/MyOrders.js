@@ -6,7 +6,6 @@ import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading';
 import MyOrder from './MyOrder/MyOrder';
 import PageTitle from '../../Shared/PageTitle';
-import Typewriter from 'typewriter-effect';
 
 const Orders = () => {
     const [user] = useAuthState(auth);
@@ -15,14 +14,13 @@ const Orders = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`https://the-story-keeper-server-ten.vercel.app/order?email=${user.email}`, {
+            fetch(`http://localhost:5000/order?email=${user.email}`, {
                 method: "GET",
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             })
                 .then(res => {
-                    // console.log('res', res);
                     if (res.status === 401 || res.status === 403) {
                         signOut(auth);
                         localStorage.removeItem("accessToken");
@@ -31,25 +29,19 @@ const Orders = () => {
                     return res.json()
                 })
                 .then(data => {
-                    setMyOrders(data)
+                    setMyOrders(data);
                 })
         }
     }, [user]);
 
-    return (
-        <section>
-            <PageTitle title="My Orders"></PageTitle>
+    if (myOrders.length === 0) {
+        return <Loading></Loading>
+    }
 
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: [`My Orders (${myOrders?.length})`],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+    return (
+        <div>
+            <PageTitle title="My Orders"></PageTitle>
+            <h2 className='text-center text-3xl my-6'>My Orders ({myOrders?.length})</h2>
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -75,7 +67,7 @@ const Orders = () => {
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
     );
 };
 

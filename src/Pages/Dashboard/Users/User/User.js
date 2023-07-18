@@ -9,17 +9,17 @@ const User = ({ allUser, index, refetch }) => {
 
     // make admin 
     const makeAdmin = (emailAddress) => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/user/admin/${emailAddress}`, {
+        fetch(`http://localhost:5000/user/admin/${emailAddress}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
         })
             .then(res => {
-                if (res.status === 403) {
-                    toast.error('Failed to make an admin')
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('Failed to make an admin');
                 }
-                return res.json()
+                return res.json();
             })
             .then(data => {
                 if (data.modifiedCount > 0) {
@@ -31,15 +31,15 @@ const User = ({ allUser, index, refetch }) => {
 
     // remove admin 
     const removeAdmin = (emailAddress) => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/user/admin/${emailAddress}`, {
+        fetch(`http://localhost:5000/user/admin/${emailAddress}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
         })
             .then(res => {
-                if (res.status === 403) {
-                    toast.error('Failed to remove an admin')
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('Failed to remove an admin');
                 }
                 return res.json()
             })
@@ -55,17 +55,19 @@ const User = ({ allUser, index, refetch }) => {
         if (role === 'admin' && user.email !== 'alamin931761@gmail.com') {
             toast.error(`You can't remove an admin`);
         } else {
-            // toast.success(` remove an admin`);
-
-            fetch(`https://the-story-keeper-server-ten.vercel.app/user/${emailAddress}`, {
+            fetch(`http://localhost:5000/user/${emailAddress}`, {
                 method: "DELETE",
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             })
-                .then(res => res.json())
+                .then(res => {
+                    if (res.status === 403 || res.status === 401) {
+                        toast.error('Failed to delete an user');
+                    }
+                    return res.json();
+                })
                 .then(data => {
-                    console.log(data)
                     if (data.deletedCount > 0) {
                         toast.success(`User deleted successfully`);
                         refetch();

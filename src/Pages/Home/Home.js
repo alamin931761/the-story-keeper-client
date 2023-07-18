@@ -8,7 +8,7 @@ import BestSelling from './BestSelling/BestSelling';
 
 const Home = () => {
     return (
-        <section className='border-5 border-red-400 pt-[59px]'>
+        <div className='border-5 border-red-400 pt-[59px]'>
             <PageTitle title="Home"></PageTitle>
             <Carousel></Carousel>
             <div className='home-page'>
@@ -17,7 +17,7 @@ const Home = () => {
                 <Services></Services>
                 <Testimonials></Testimonials>
             </div>
-        </section>
+        </div>
     );
 };
 

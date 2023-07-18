@@ -2,42 +2,55 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import PageTitle from '../../Shared/PageTitle';
 import { toast } from 'react-toastify';
-import Typewriter from 'typewriter-effect';
+import { signOut } from 'firebase/auth';
+import auth from '../../../firebase.init';
 
 const AddBooks = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = data => {
+        const newBook = {
+            image: data.image,
+            name: data.name,
+            author: data.author,
+            price: parseFloat(data.price),
+            description: data.description,
+            publisher: data.publisher,
+            publication_date: data.publication_date,
+            weight: data.weight,
+            pages_quantity: (data.pages_quantity),
+            dimensions: data.dimensions,
+            isbn: parseInt(data.isbn),
+            binding: data.binding,
+            category: data.category
+        };
 
-        fetch('https://the-story-keeper-server-ten.vercel.app/allBooks', {
+        fetch('http://localhost:5000/allBooks', {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 "content-type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(newBook)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(data => {
-                console.log(data)
-                toast.info("Book added successfully");
+                if (data.acknowledged) {
+                    toast.info("Book added successfully");
+                }
             })
         reset();
     };
 
     return (
-        <section>
+        <div>
             <PageTitle title="Add Books"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Add Books'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>Add Books</h2>
 
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
@@ -224,7 +237,7 @@ const AddBooks = () => {
                 </div>
                 <input className="btn btn-outline mb-4" type="submit" value="Add Book" />
             </form>
-        </section>
+        </div>
     );
 };
 

@@ -2,27 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Typewriter from 'typewriter-effect';
 import { BsArrowLeft } from 'react-icons/bs';
+import { signOut } from 'firebase/auth';
+import auth from '../../../firebase.init';
+import PageTitle from '../../Shared/PageTitle';
 
 const EditBook = () => {
     const { id } = useParams();
     const [book, setBook] = useState([]);
     const [bestSelling, setBestSelling] = useState(false);
     useEffect(() => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/editBook/${id}`, {
+        fetch(`http://localhost:5000/editBook/${id}`, {
             method: "GET",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             }
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(data => setBook(data))
     }, [book])
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-
         const author = data.author;
         const binding = data.binding;
         const category = data.category;
@@ -30,19 +37,18 @@ const EditBook = () => {
         const description2 = data.description2;
         const dimensions = data.dimensions;
         const image = data.image;
-        const isbn = data.isbn;
+        const isbn = parseInt(data.isbn);
         const name = data.name;
         const name2 = data.name2;
-        const pages_quantity = data.pages_quantity;
-        const price = data.price;
+        const pages_quantity = (data.pages_quantity);
+        const price = parseFloat(data.price);
         const publication_date = data.publication_date;
         const publisher = data.publisher;
-        const weight = data.weight;
+        const weight = (data.weight);
         const bestSellingBook = bestSelling;
-        console.log(bestSellingBook);
 
         // send edited book data to database
-        fetch(`https://the-story-keeper-server-ten.vercel.app/allBooks/${id}`, {
+        fetch(`http://localhost:5000/allBooks/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -50,29 +56,25 @@ const EditBook = () => {
             },
             body: JSON.stringify({ author, binding, category, description, description2, dimensions, image, isbn, name, name2, pages_quantity, price, publication_date, publisher, weight, bestSellingBook })
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(data => {
                 if (data.modifiedCount > 0) {
                     toast.info('Book edited successfully')
                 }
-                console.log(data)
             })
         reset();
     };
 
     return (
-        <section className='common-style'>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: [`${book.name}`],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+        <div className='common-style'>
+            <PageTitle title='Edit Book'></PageTitle>
+            <h2 className='text-center text-3xl my-6'>{book.name}</h2>
 
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
@@ -204,7 +206,7 @@ const EditBook = () => {
                     <input type="number" className='input input-bordered w-full'  {...register("weight", {
                         required: {
                             value: true,
-                            message: "Weight date field is required"
+                            message: "Weight field is required"
                         }
                     })} />
                     <label className="label">
@@ -287,7 +289,7 @@ const EditBook = () => {
             <div className='flex justify-center'>
                 <Link className='btn btn-outline' to='/dashboard/manageBooks'><BsArrowLeft className='text-2xl mr-2' />Back to Manage Books</Link>
             </div>
-        </section>
+        </div>
     );
 };
 

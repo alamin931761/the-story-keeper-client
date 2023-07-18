@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const MysteryAndCrimeBook = ({ data }) => {
+const AllBook = ({ data }) => {
     const { name, author, price, image, _id } = data;
+
     const navigate = useNavigate();
     const navigateToDetails = (id) => {
         navigate(`/bookDetails/${id}`);
     };
+
+
 
     return (
         <div className='flex justify-center'>
@@ -25,4 +28,4 @@ const MysteryAndCrimeBook = ({ data }) => {
     );
 };
 
-export default MysteryAndCrimeBook;
+export default AllBook;

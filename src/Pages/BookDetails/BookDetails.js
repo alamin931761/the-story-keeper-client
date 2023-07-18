@@ -6,16 +6,16 @@ import { toast } from 'react-toastify';
 import { BookDetailsContext } from '../../App';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
-import Typewriter from 'typewriter-effect';
 import { BsCartPlus } from "react-icons/bs";
+import Loading from '../Shared/Loading';
 
 const BookDetails = () => {
-    const [bookDetails, setBookDetails] = useState([]);
+    const [bookDetails, setBookDetails] = useState({});
     const [quantity, setQuantity] = useState(0);
     const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
     const { id } = useParams();
     useEffect(() => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/book/${id}`)
+        fetch(`http://localhost:5000/book/${id}`)
             .then(res => res.json())
             .then(data => setBookDetails(data));
     }, []);
@@ -37,22 +37,16 @@ const BookDetails = () => {
             toast.info(`${name} - successfully added to the cart`);
         }
         reset();
+    };
+
+    if (!bookDetails.image) {
+        return <Loading></Loading>
     }
 
     return (
-        <section className='common-style'>
+        <div className='common-style mb-6'>
             <PageTitle title="Book Details"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: [`${name} - details`],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>{name} - details</h2>
 
             <div className='flex justify-center'>
                 <div className='flex flex-wrap lg:flex-nowrap shadow-2xl bg-[#DFF6FF] justify-center'>
@@ -61,10 +55,10 @@ const BookDetails = () => {
                     </div>
 
                     <div className='ml-5 pt-5 mr-5 lg:w-[550px]'>
-                        <h1 className='text-3xl mt-4'>{name}</h1>
-                        <h1 className='text-2xl mt-4'>{name2}</h1>
-                        <h3 className='text-xl mt-4'>{author}</h3>
-                        <h1 className='text-3xl mt-4'>${price}</h1>
+                        <h1 className='text-2xl mt-4'>{name}</h1>
+                        <h1 className='text-xl mt-4'>{name2}</h1>
+                        <h3 className='text-lg mt-4'>{author}</h3>
+                        <h1 className='text-2xl mt-4'>${price}</h1>
                         <hr className='mt-4' />
                         <p className='mt-4'>{description}</p>
                         <p className='mt-4'>{description2}</p>
@@ -107,7 +101,7 @@ const BookDetails = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

@@ -5,7 +5,6 @@ import PageTitle from '../Shared/PageTitle';
 import MysteryAndCrimeBook from './MysteryAndCrimeBook/MysteryAndCrimeBook';
 import { Link } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';
-import Typewriter from 'typewriter-effect';
 
 const MysteryAndCrimeBooks = () => {
     const [allBooks, setAllBooks] = useAllBooks([]);
@@ -15,31 +14,21 @@ const MysteryAndCrimeBooks = () => {
     }
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Mystery & Crime"></PageTitle>
+            <h2 className='text-center text-3xl my-6'>Mystery & Crime</h2>
 
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Mystery & Crime'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
-
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
                     mysteryAndCrimeBooks.map(data => <MysteryAndCrimeBook key={data._id} data={data}></MysteryAndCrimeBook>)
                 }
             </div>
 
             {/* back button  */}
-            <div className='flex justify-center mt-14'>
-                <Link className='btn btn-outline mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+            <div className='flex justify-center my-6'>
+                <Link className='btn btn-outline' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
-        </section>
+        </div>
     );
 };
 

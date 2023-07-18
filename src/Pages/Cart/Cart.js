@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { BookDetailsContext } from '../../App';
 import Table from './Table/Table';
 import { toast } from 'react-toastify';
-import Typewriter from 'typewriter-effect';
 import PageTitle from '../Shared/PageTitle';
 import { BsBagCheck } from 'react-icons/bs';
 
@@ -36,19 +35,13 @@ const Cart = () => {
 
     // coupon codes 
     useEffect(() => {
-        fetch("https://the-story-keeper-server-ten.vercel.app/couponCodes", {
-            method: 'GET',
-            // headers: {
-            //     authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            // },
-        })
+        fetch("http://localhost:5000/couponCodes")
             .then(res => res.json())
             .then(data => setCoupon(data));
     }, []);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data)
         const check = coupon.find(code => data.couponCode === code.code);
         if (check?.code) {
             toast.success("Your coupon has been applied successfully");
@@ -63,7 +56,7 @@ const Cart = () => {
 
     // DeliveryCharge 
     const handleDeliveryCharge = (event) => {
-        const cost = parseFloat(event.target.value)
+        const cost = parseFloat(event.target.value);
         setDeliveryCharge(cost);
         if (cost === 5) {
             localStorage.setItem("delivery", "Standard");
@@ -89,6 +82,7 @@ const Cart = () => {
             <table className="table w-full">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Delete</th>
                         <th className='text-center'>Name</th>
                         <th className='text-center'>Price</th>
@@ -98,15 +92,16 @@ const Cart = () => {
                 </thead>
                 <tbody>
                     {
-                        bookData.map(data => <Table key={data._id} data={data} deleteBook={deleteBook}></Table>)
+                        bookData.map((data, index) => <Table key={data._id} data={data} index={index} deleteBook={deleteBook}></Table>)
                     }
                 </tbody>
                 <tbody>
                     <tr>
                         <td></td>
+                        <td></td>
                         <td className='flex justify-center items-center'>
                             <form onSubmit={handleSubmit(onSubmit)} className='flex'>
-                                <div className="form-control w-full max-w-xs">
+                                <div className="form-control w-full">
                                     <input {...register("couponCode", {
                                         required: true,
                                         minLength: {
@@ -117,7 +112,7 @@ const Cart = () => {
                                             value: 10,
                                             message: "Coupon code must be 10 digits or less"
                                         }
-                                    })} type="text" placeholder='coupon code' className="input input-bordered w-full max-w-xs rounded-none" />
+                                    })} type="text" placeholder='coupon code' className="input input-bordered w-[200px] rounded-none" />
                                     <label className="label">
                                         {errors.couponCode?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
                                         {errors.couponCode?.type === 'maxLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
@@ -149,29 +144,19 @@ const Cart = () => {
                 <p>Total: ${total}</p>
             </div>
 
-            <div className='flex justify-center mt-10'>
+            <div className='flex justify-center my-6'>
                 <Link disabled={chooseDeliveryOption} className='btn btn-outline' to='/details'>Proceed to checkout <BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
             </div>
         </div >
     };
 
     return (
-        <section className='common-style'>
+        <div className='common-style'>
             <PageTitle title="Cart"></PageTitle>
-
-            <div className='text-[4vw] flex justify-center mb-5 mt-4'>
-                <Typewriter
-                    options={{
-                        strings: ['Cart Page'],
-                        autoStart: true,
-                        loop: true,
-                        delay: 100
-                    }}
-                />
-            </div>
+            <h2 className='text-center text-3xl my-6'>Cart Page</h2>
 
             {cart}
-        </section >
+        </div >
     );
 };
 

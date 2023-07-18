@@ -14,18 +14,18 @@ const BestSelling = () => {
     }
 
     return (
-        <section className='mt-10'>
+        <div className='mt-10'>
             <div className='flex justify-between items-center mb-5'>
-                <h2 className='text-[4vw]'>Bestselling Books</h2>
-                <Link to='/bestSellingBooks' className='text-[2vw]'>View all <BsArrowRight className='inline' /></Link>
+                <h2 className='text-3xl'>Bestselling Books</h2>
+                <Link to='/bestSellingBooks' className='text-2xl'>View all <BsArrowRight className='inline' /></Link>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
                     bestSellingSlices.map(data => <BestSellingSlices key={data._id} data={data}></BestSellingSlices>)
                 }
             </div>
-        </section>
+        </div>
     );
 };
 

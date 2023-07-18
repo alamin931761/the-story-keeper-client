@@ -2,19 +2,26 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { MdDelete } from 'react-icons/md';
 import { ImCross } from 'react-icons/im';
+import auth from '../../../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 const DeleteConfirmModal = ({ deleteBook, refetch, setDeleteBook }) => {
 
     const handleDelete = id => {
-        fetch(`https://the-story-keeper-server-ten.vercel.app/allBooks/${id}`, {
+        fetch(`http://localhost:5000/allBooks/${id}`, {
             method: "DELETE",
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
             }
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(data => {
-                console.log(data)
                 if (data.deletedCount) {
                     toast.success(`${deleteBook.name} has been successfully deleted.`);
                     setDeleteBook(null)
