@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { BookDetailsContext } from '../../App';
 import PageTitle from '../Shared/PageTitle';
 import { useForm } from 'react-hook-form';
 import { BsCartPlus } from "react-icons/bs";
 import Loading from '../Shared/Loading';
+import { addToStorage } from '../../utilities/saveShoppingCartData';
+import useShoppingCart from '../../Hooks/useShoppingCart';
 
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState({});
-    const [quantity, setQuantity] = useState(0);
-    const { image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
+    const { _id, image, name, name2, author, price, description, description2, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding } = bookDetails;
     const { id } = useParams();
     useEffect(() => {
         fetch(`http://localhost:5000/book/${id}`)
@@ -20,24 +20,23 @@ const BookDetails = () => {
             .then(data => setBookDetails(data));
     }, []);
 
-    // add to cart 
-    const [bookData, setBookData] = useContext(BookDetailsContext);
-
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
-        const check = bookData.find(book => book._id === id);
-        if (check) {
-            toast.error("You have already added this book to the cart")
-        } else {
-            const quantity = parseInt(data.quantity);
-            setQuantity(quantity);
-            bookDetails.quantity = quantity;
-            bookDetails.subtotal = quantity * price;
-            setBookData([...bookData, bookDetails]);
-            toast.info(`${name} - successfully added to the cart`);
-        }
+        // Add book data to local storage
+        addToStorage(_id, parseInt(data.quantity));
+        toast.info(`${name} - successfully added to the cart`);
         reset();
     };
+
+    // set quantity and subtotal values 
+    const { savedCart } = useShoppingCart();
+    let quantity = 0;
+    let subtotal = 0;
+    const findBook = savedCart.find(book => book._id === _id);
+    if (findBook) {
+        quantity = findBook.quantity;
+        subtotal = findBook.subtotal;
+    }
 
     if (!bookDetails.image) {
         return <Loading></Loading>
@@ -64,7 +63,7 @@ const BookDetails = () => {
                         <p className='mt-4'>{description2}</p>
                         <div className='mt-4'>
                             <p className='uppercase'><small>quantity: {quantity}</small></p>
-                            <p className='uppercase'><small>subtotal: {price * quantity}</small></p>
+                            <p className='uppercase'><small>subtotal: {subtotal}</small></p>
                             <p className='uppercase'><small>publisher: {publisher}</small></p>
                             <p className='uppercase'><small>publication date: {publication_date}</small></p>
                             <p className='uppercase'><small>weight: {weight}</small></p>

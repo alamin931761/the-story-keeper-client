@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
-import { BookDetailsContext, OrderContext } from '../../App';
+import { OrderContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import auth from '../../firebase.init';
 
 const CheckoutForm = () => {
-    const [user] = useAuthState(auth);
     const [order, setOrder] = useContext(OrderContext);
-    const [bookData, setBookData] = useContext(BookDetailsContext);
+    // const [bookData, setBookData] = useContext(BookDetailsContext);
     const [cardError, setCardError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
     const [successMessage, setSuccessMessage] = useState('');
@@ -16,26 +16,38 @@ const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
 
-    const name = user?.displayName;
-    const email = user?.email;
-    const price = localStorage.getItem('total');
+    const name = order.name;
+    const email = order.email;
+    const total = order.total;
 
+    const navigate = useNavigate('')
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify({ price })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data?.clientSecret) {
-                    setClientSecret(data.clientSecret);
-                }
+        if (!total && !order.delivery && !order.books) {
+            navigate('/cart');
+        } else {
+            fetch('http://localhost:5000/create-payment-intent', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify({ total })
             })
-    }, [price]);
+                .then(res => {
+                    if (res.status === 401 || res.status === 403) {
+                        signOut(auth);
+                        localStorage.removeItem("accessToken");
+                        navigate('/signIn');
+                    }
+                    return res.json()
+                })
+                .then(data => {
+                    if (data?.clientSecret) {
+                        setClientSecret(data.clientSecret);
+                    }
+                })
+        }
+    }, [total, navigate, order.delivery, order.books]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -86,7 +98,6 @@ const CheckoutForm = () => {
             setSuccessMessage('Congrats! Your payment is completed.');
             setTransactionId(paymentIntent.id);
 
-
             // Save the order to the database 
             const url = `http://localhost:5000/order`;
             fetch(url, {
@@ -103,7 +114,12 @@ const CheckoutForm = () => {
                         toast.info("Your order has been placed");
                     }
                 });
-            setBookData([]);
+
+            setTimeout(() => {
+                localStorage.removeItem('shopping-cart');
+                setOrder({});
+                navigate('/dashboard/myOrders');
+            }, 15000);
         }
     }
 

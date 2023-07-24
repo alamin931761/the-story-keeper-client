@@ -1,19 +1,24 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { BookDetailsContext, OrderContext } from '../../../App';
+import { OrderContext } from '../../../App';
 import PageTitle from '../../Shared/PageTitle';
 import { toast } from 'react-toastify';
 import { BsBagCheck } from 'react-icons/bs';
 
 const Details = () => {
     const [user] = useAuthState(auth);
-    const [bookData, setBookData] = useContext(BookDetailsContext);
     const [order, setOrder] = useContext(OrderContext);
-    const [address, setAddress] = useState(true);
+    const [checkoutButton, setCheckoutButton] = useState(true);
 
+    const navigate = useNavigate('');
+    if (!order.total && !order.delivery && !order.books) {
+        navigate('/cart');
+    }
+
+    // date and time 
     const today = new Date();
     const date = today.toLocaleDateString();
     const time = today.toLocaleTimeString();
@@ -25,22 +30,24 @@ const Details = () => {
             email: user?.email,
             phoneNumber: data.phone,
             address: data.address,
-            delivery: localStorage.getItem("delivery"),
-            total: parseFloat(localStorage.getItem('total')),
             date: date,
             time: time,
-            books: bookData
+            books: order.books,
+            delivery: order.delivery,
+            total: order.total
         };
-        setOrder(myOrder)
-
-        setAddress(data?.address);
-
-        if (address) {
-            setAddress(false);
-            toast.success('Details submitted successfully')
-        }
+        setOrder(myOrder);
+        toast.success('Details submitted successfully')
         reset();
     };
+
+    // proceed to checkout button 
+    useEffect(() => {
+        if (Object.keys(order).length === 9) {
+            setCheckoutButton(false);
+        }
+    }, [order])
+
 
     return (
         <div className='common-style'>
@@ -48,11 +55,11 @@ const Details = () => {
             <h2 className='text-center text-3xl my-6'>Delivery Details</h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
-                <input className='input input-bordered w-full max-w-lg mb-2' value={user?.displayName} disabled />
-                <input className='input input-bordered w-full max-w-lg mb-2' type='email' value={user?.email} disabled />
+                <input className='input input-bordered w-full max-w-lg mb-4' value={user?.displayName} disabled />
+                <input className='input input-bordered w-full max-w-lg mb-4' type='email' value={user?.email} disabled />
 
                 {/* phone number */}
-                <div className="form-control w-full max-w-lg mb-2">
+                <div className="form-control w-full max-w-lg">
                     <input className='input input-bordered w-full max-w-lg' placeholder='Phone Number' {...register("phone", {
                         required: {
                             value: true,
@@ -70,7 +77,7 @@ const Details = () => {
                 </div>
 
                 {/* address */}
-                <div className="form-control w-full max-w-lg mb-2">
+                <div className="form-control w-full max-w-lg">
                     <input className='input input-bordered w-full max-w-lg' placeholder='Delivery Address' {...register("address", {
                         required: {
                             value: true,
@@ -82,12 +89,12 @@ const Details = () => {
                     </label>
                 </div>
                 {
-                    bookData[0] ? <input className='btn btn-outline mb-2' type="submit" value="Submit details" /> : <p className='text-red-400 mb-2 text-2xl'>Your cart is empty</p>
+                    <input className='btn btn-outline mt-0 mb-6' type="submit" value="Submit details" />
                 }
             </form>
 
-            <div className='flex justify-center mt-10 mb-20'>
-                <Link disabled={address} className='btn btn-outline' to='/checkout'>Proceed to checkout<BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
+            <div className='flex justify-center mb-6'>
+                <Link disabled={checkoutButton} className='btn btn-outline' to='/checkout'>Proceed to checkout<BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
             </div>
         </div>
     );

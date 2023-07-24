@@ -2,12 +2,13 @@ import React, { useContext, useRef } from 'react';
 import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { BookDetailsContext, SearchContext } from '../../App';
+import { SearchContext } from '../../App';
 import logo from '../../assets/images/logo.png';
 import auth from '../../firebase.init';
 import { GiShoppingCart } from 'react-icons/gi';
 import { RiMenu2Line } from 'react-icons/ri';
 import { BiSearch } from 'react-icons/bi';
+import useShoppingCart from '../../Hooks/useShoppingCart';
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
@@ -24,30 +25,31 @@ const Navbar = () => {
         event.preventDefault();
         const searchValue = searchRef.current.value.toLowerCase();
         setSearch(searchValue);
-        navigate('/search')
-        event.target.reset()
+        navigate('/search');
+        event.target.reset();
     }
 
     // cart data 
-    const [bookData, setBookData] = useContext(BookDetailsContext);
-    const booksPrice = bookData.map(book => book.subtotal);
-    const booksQuantity = bookData.map(book => book.quantity);
-
-    let subtotal = 0;
-    for (const price of booksPrice) {
-        subtotal = subtotal + price;
-    };
-
+    const { savedCart } = useShoppingCart();
     // quantity
+    const quantityArray = savedCart.map(book => book.quantity);
     let quantity = 0;
-    for (const bookQuantity of booksQuantity) {
+    for (const bookQuantity of quantityArray) {
         quantity = quantity + bookQuantity;
     }
 
     let item = 'Item';
-    if (quantity.length > 1) {
+    if (quantity > 1) {
         item = 'Items';
     }
+
+    // subtotal 
+    const subtotalArray = savedCart.map(book => book.subtotal);
+    let subtotal = 0;
+    for (const price of subtotalArray) {
+        subtotal = subtotal + price;
+    };
+
 
     // navbar 
     const menuItems = <>
