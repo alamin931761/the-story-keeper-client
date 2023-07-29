@@ -8,7 +8,6 @@ import auth from '../../firebase.init';
 
 const CheckoutForm = () => {
     const [order, setOrder] = useContext(OrderContext);
-    // const [bookData, setBookData] = useContext(BookDetailsContext);
     const [cardError, setCardError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
     const [successMessage, setSuccessMessage] = useState('');
@@ -119,7 +118,7 @@ const CheckoutForm = () => {
                 localStorage.removeItem('shopping-cart');
                 setOrder({});
                 navigate('/dashboard/myOrders');
-            }, 15000);
+            }, 7000);
         }
     }
 

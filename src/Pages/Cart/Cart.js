@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import PageTitle from '../Shared/PageTitle';
 import { BsBagCheck } from 'react-icons/bs';
 import { AiOutlineClear } from 'react-icons/ai';
+import { GoBook } from 'react-icons/go';
 import useShoppingCart from '../../Hooks/useShoppingCart';
 import { deleteShoppingCart, removeFromStorage } from '../../utilities/saveShoppingCartData';
 import Loading from '../Shared/Loading';
@@ -105,7 +106,10 @@ const Cart = () => {
     // cart data 
     let cart;
     if (savedCart.length === 0) {
-        cart = <h1 className='text-center text-xl my-6'>Your cart is empty</h1>
+        cart = <div className='w-full flex flex-col items-center justify-center mb-6'>
+            <GoBook className='text-7xl opacity-5' />
+            <p className='text-center text-xl'>Your cart is empty</p>
+        </div>
     }
     else {
         cart = <div className="overflow-x-auto w-full">
@@ -114,7 +118,7 @@ const Cart = () => {
                     <tr>
                         <th></th>
                         <th>Delete</th>
-                        <th className='text-center'>Name</th>
+                        <th className='text-center'>Title</th>
                         <th className='text-center'>Price</th>
                         <th className='text-center'>Quantity</th>
                         <th className='text-center'>Subtotal</th>

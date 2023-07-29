@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const Search = () => {
     const [search, setSearch] = useContext(SearchContext);
     const [allBooks, setAllBooks] = useAllBooks([]);
-    const searchResult = allBooks.filter(books => books.name.toLowerCase().includes(search));
+    const searchResult = allBooks.filter(books => books.title.toLowerCase().includes(search));
 
     let result = '';
     if (searchResult.length === 0) {

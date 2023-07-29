@@ -3,7 +3,7 @@ import { MdDelete } from 'react-icons/md';
 import { ImCross } from 'react-icons/im';
 
 const Table = ({ data, deleteBook, index }) => {
-    const { image, name, author, price, _id, quantity, subtotal } = data;
+    const { image, title, author, price, _id, quantity, subtotal } = data;
 
     // delete 
     const handleDeleteButton = (id) => {
@@ -27,7 +27,7 @@ const Table = ({ data, deleteBook, index }) => {
                             </div>
                         </div>
                         <div>
-                            <div className="font-bold">{name}</div>
+                            <div className="font-bold">{title}</div>
                             <div className="text-sm opacity-50">{author}</div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ const Table = ({ data, deleteBook, index }) => {
                 <input type="checkbox" id="cart-delete-confirm-modal" className="modal-toggle" />
                 <div className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
-                        <h3 className="text-lg text-red-500">Are you sure you want to delete <span className='font-bold'>{name}</span>?</h3>
+                        <h3 className="text-lg text-red-500">Are you sure you want to delete <span className='font-bold'>{title}</span>?</h3>
                         <div className="modal-action">
                             <button onClick={() => handleDeleteButton(_id)} className="btn btn-outline btn-error mb-1">< MdDelete className='text-2xl mr-2' />Delete</button>
                             <label htmlFor="cart-delete-confirm-modal" className="btn btn-outline"><ImCross className='text-xl mr-2 mb-1' />Cancel</label>

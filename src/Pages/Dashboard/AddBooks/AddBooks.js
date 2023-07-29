@@ -10,7 +10,8 @@ const AddBooks = () => {
     const onSubmit = data => {
         const newBook = {
             image: data.image,
-            name: data.name,
+            title: data.title,
+            subtitle: data.subtitle,
             author: data.author,
             price: parseFloat(data.price),
             description: data.description,
@@ -69,20 +70,28 @@ const AddBooks = () => {
                     </label>
                 </div>
 
-                {/* name */}
+                {/* title */}
                 <div className="form-control w-full">
                     <label className="label">
-                        <span className="label-text">Book Name</span>
+                        <span className="label-text">Title</span>
                     </label>
-                    <input type='text' className='input input-bordered w-full' {...register("name", {
+                    <input type='text' className='input input-bordered w-full' {...register("title", {
                         required: {
                             value: true,
-                            message: "Book name field is required"
+                            message: "Title field is required"
                         }
                     })} />
                     <label className="label">
-                        {errors.name?.type === 'required' && <span className="label-text-alt text-red-400">{errors.name.message}</span>}
+                        {errors.title?.type === 'required' && <span className="label-text-alt text-red-400">{errors.title.message}</span>}
                     </label>
+                </div>
+
+                {/* subtitle */}
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Subtitle</span>
+                    </label>
+                    <input type='text' className='input input-bordered w-full' {...register("subtitle")} />
                 </div>
 
                 {/* author */}

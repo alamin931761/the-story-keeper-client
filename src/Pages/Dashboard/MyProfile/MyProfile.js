@@ -13,12 +13,11 @@ const MyProfile = () => {
     const [user] = useAuthState(auth);
     const [updatePassword, updating, error] = useUpdatePassword(auth);
 
-    const [updateProfile, setUpdateProfile] = useState([]);
+    const [profileData, setProfileData] = useState([]);
 
     const imageRef = useRef("");
     const numberRef = useRef("");
     const addressRef = useRef("");
-    const linkedInRef = useRef("");
     const handleUpdateProfile = event => {
         event.preventDefault();
         const profile = {
@@ -27,7 +26,6 @@ const MyProfile = () => {
             imageURL: imageRef.current.value,
             phoneNumber: numberRef.current.value,
             address: addressRef.current.value,
-            linkedInLink: linkedInRef.current.value
         };
 
         // update profile
@@ -58,14 +56,14 @@ const MyProfile = () => {
             'content-type': 'application/json'
         })
             .then(res => res.json())
-            .then(data => setUpdateProfile(data))
-    }, [updateProfile])
+            .then(data => setProfileData(data))
+    }, [profileData, user.email])
 
     // image 
     const image = 'https://i.ibb.co/4WCwkWc/user-default-image.png';
     let profilePicture = '';
-    if (updateProfile[0]?.imageURL) {
-        profilePicture = updateProfile[0]?.imageURL;
+    if (profileData[0]?.imageURL) {
+        profilePicture = profileData[0]?.imageURL;
     } else {
         profilePicture = image;
     }
@@ -109,9 +107,8 @@ const MyProfile = () => {
                     </div>
                     <p className='mb-3'><span className='font-bold text-xl'>Name: </span>{user.displayName}</p>
                     <p className='mb-3'><span className='font-bold text-xl'>Email: </span>{user.email}</p>
-                    <p className='mb-3'><span className='font-bold text-xl'>Address: </span>{updateProfile[0]?.address}</p>
-                    <p className='mb-3'><span className='font-bold text-xl'>Phone Number: </span>{updateProfile[0]?.phoneNumber}</p>
-                    <p className='mb-3 break-all'><span className='font-bold text-xl'>LinkedIn profile link: </span><a target='_blank' href={updateProfile[0]?.linkedInLink}>{updateProfile[0]?.linkedInLink}</a></p>
+                    <p className='mb-3'><span className='font-bold text-xl'>Address: </span>{profileData[0]?.address}</p>
+                    <p className='mb-3'><span className='font-bold text-xl'>Phone Number: </span>{profileData[0]?.phoneNumber}</p>
                 </div>
 
                 {/* update profile  */}
@@ -127,8 +124,6 @@ const MyProfile = () => {
                         <input ref={numberRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Phone Number' />
 
                         <input ref={addressRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Address' />
-
-                        <input ref={linkedInRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='LinkedIn profile link' />
 
                         <input className='btn btn-outline' type="submit" value="Update Profile" />
                     </form>

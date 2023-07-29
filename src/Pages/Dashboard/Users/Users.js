@@ -23,7 +23,8 @@ const Users = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
-    if (users.length === undefined) {
+
+    if (users.length === 0) {
         return <Loading></Loading>
     }
 

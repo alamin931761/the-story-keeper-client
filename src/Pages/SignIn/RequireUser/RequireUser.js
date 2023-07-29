@@ -7,17 +7,19 @@ import useAdmin from '../../../Hooks/useAdmin';
 import { signOut } from 'firebase/auth';
 
 const RequireUser = ({ children }) => {
-    const [user, loading] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const [admin, adminLoading] = useAdmin(user);
     const location = useLocation();
 
-    if (loading || adminLoading) {
+    if (adminLoading) {
         return <Loading></Loading>
     }
-    if (admin || !user) {
+
+    if (admin) {
         signOut(auth);
         return <Navigate to='/signIn' state={{ from: location }} replace></Navigate>
     }
+
 
     return children;
 };

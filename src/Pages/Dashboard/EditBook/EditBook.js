@@ -10,7 +10,7 @@ import PageTitle from '../../Shared/PageTitle';
 const EditBook = () => {
     const { id } = useParams();
     const [book, setBook] = useState([]);
-    const [bestSelling, setBestSelling] = useState(false);
+
     useEffect(() => {
         fetch(`http://localhost:5000/editBook/${id}`, {
             method: "GET",
@@ -34,18 +34,16 @@ const EditBook = () => {
         const binding = data.binding;
         const category = data.category;
         const description = data.description;
-        const description2 = data.description2;
         const dimensions = data.dimensions;
         const image = data.image;
         const isbn = parseInt(data.isbn);
-        const name = data.name;
-        const name2 = data.name2;
+        const title = data.title;
+        const subtitle = data.subtitle;
         const pages_quantity = (data.pages_quantity);
         const price = parseFloat(data.price);
         const publication_date = data.publication_date;
         const publisher = data.publisher;
         const weight = (data.weight);
-        const bestSellingBook = bestSelling;
 
         // send edited book data to database
         fetch(`http://localhost:5000/allBooks/${id}`, {
@@ -54,7 +52,7 @@ const EditBook = () => {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ author, binding, category, description, description2, dimensions, image, isbn, name, name2, pages_quantity, price, publication_date, publisher, weight, bestSellingBook })
+            body: JSON.stringify({ author, binding, category, description, dimensions, image, isbn, title, subtitle, pages_quantity, price, publication_date, publisher, weight })
         })
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
@@ -93,28 +91,28 @@ const EditBook = () => {
                     </label>
                 </div>
 
-                {/* name */}
+                {/* title */}
                 <div className="form-control w-full">
                     <label className="label">
-                        <span className="label-text">Name</span>
+                        <span className="label-text">Title</span>
                     </label>
-                    <input type='text' className='input input-bordered w-full' {...register("name", {
+                    <input type='text' className='input input-bordered w-full' {...register("title", {
                         required: {
                             value: true,
-                            message: "Book name field is required"
+                            message: "Title field is required"
                         }
                     })} />
                     <label className="label">
-                        {errors.name?.type === 'required' && <span className="label-text-alt text-red-400">{errors.name.message}</span>}
+                        {errors.title?.type === 'required' && <span className="label-text-alt text-red-400">{errors.title.message}</span>}
                     </label>
                 </div>
 
-                {/* name 2 */}
+                {/* sub title */}
                 <div className="form-control w-full">
                     <label className="label">
-                        <span className="label-text">Name 2</span>
+                        <span className="label-text">Subtitle</span>
                     </label>
-                    <input type='text' className='input input-bordered w-full' {...register("name2", {
+                    <input type='text' className='input input-bordered w-full' {...register("subtitle", {
                     })} />
                 </div>
 
@@ -156,14 +154,6 @@ const EditBook = () => {
                         <span className="label-text">Description</span>
                     </label>
                     <textarea className="textarea textarea-bordered w-full mb-4 text-base" cols="30" rows="5" {...register("description")}></textarea>
-                </div>
-
-                {/* description 2 */}
-                <div className='w-full'>
-                    <label className="label">
-                        <span className="label-text">Description 2</span>
-                    </label>
-                    <textarea className="textarea textarea-bordered w-full mb-4 text-base" cols="30" rows="5" {...register("description2")}></textarea>
                 </div>
 
                 {/* publisher */}
@@ -276,17 +266,10 @@ const EditBook = () => {
                         {errors.category?.type === 'required' && <span className="label-text-alt text-red-400">{errors.category.message}</span>}
                     </label>
                 </div>
-
-                {/* Bestselling Books */}
-                <div className='flex items-center mb-4 w-full'>
-                    <input className="checkbox" id='bestselling' type="checkbox" onClick={() => setBestSelling(!bestSelling)} />
-                    <label htmlFor="bestselling" className='ml-2'>Bestselling Book</label>
-                </div>
-
-                <input className="btn btn-outline mb-4" type="submit" value="update" />
+                <input className="btn btn-outline mb-6" type="submit" value="update" />
             </form>
 
-            <div className='flex justify-center'>
+            <div className='flex justify-center mb-6'>
                 <Link className='btn btn-outline' to='/dashboard/manageBooks'><BsArrowLeft className='text-2xl mr-2' />Back to Manage Books</Link>
             </div>
         </div>

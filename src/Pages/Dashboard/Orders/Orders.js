@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import { signOut } from 'firebase/auth';
 import auth from '../../../firebase.init';
 import { Navigate } from 'react-router-dom';
+import { GoBook } from 'react-icons/go';
 
 const Orders = () => {
     // orders data load using React query
@@ -25,8 +26,39 @@ const Orders = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
-    if (orders.length === undefined) {
-        return <Loading></Loading>
+
+    let orderContainer;
+    if (orders.length > 0) {
+        orderContainer = <div className="overflow-x-auto w-full">
+            <table className="table w-full">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th className='text-center'>Name</th>
+                        <th className='text-center'>Email</th>
+                        <th className='text-center'>Address</th>
+                        <th className='text-center'>Phone Number</th>
+                        <th className='text-center'>Date</th>
+                        <th className='text-center'>Time</th>
+                        <th className='text-center'>Books</th>
+                        <th className='text-center'>Total</th>
+                        <th className='text-center'>Transaction Id</th>
+                        <th className='text-center'>Delivery</th>
+                        <th className='text-center'>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        orders.map((data, index) => <Order key={data._id} data={data} refetch={refetch} index={index}></Order>)
+                    }
+                </tbody>
+            </table>
+        </div>
+    } else {
+        orderContainer = <div className='w-full mt-6 flex flex-col items-center justify-center'>
+            <GoBook className='text-7xl opacity-5' />
+            <p>No one has ordered yet</p>
+        </div>
     }
 
     return (
@@ -34,31 +66,7 @@ const Orders = () => {
             <PageTitle title="Orders"></PageTitle>
             <h2 className='text-center text-3xl my-6'>Orders({orders?.length})</h2>
 
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th className='text-center'>Name</th>
-                            <th className='text-center'>Email</th>
-                            <th className='text-center'>Address</th>
-                            <th className='text-center'>Phone Number</th>
-                            <th className='text-center'>Date</th>
-                            <th className='text-center'>Time</th>
-                            <th className='text-center'>Books</th>
-                            <th className='text-center'>Total</th>
-                            <th className='text-center'>Transaction Id</th>
-                            <th className='text-center'>Delivery</th>
-                            <th className='text-center'>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            orders.map((data, index) => <Order key={data._id} data={data} refetch={refetch} index={index}></Order>)
-                        }
-                    </tbody>
-                </table>
-            </div>
+            {orderContainer}
         </div>
     );
 };

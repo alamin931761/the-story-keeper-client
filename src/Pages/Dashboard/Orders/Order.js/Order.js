@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 const Order = ({ data, refetch, index }) => {
-    const { _id, name, email, address, phoneNumber, delivery, books, date, time, total, status, transactionId
+    const { _id, title, email, address, phoneNumber, delivery, books, date, time, total, status, transactionId, name
     } = data;
 
     const handleStatus = (id) => {
@@ -41,7 +41,7 @@ const Order = ({ data, refetch, index }) => {
                 <td className='text-center'>{time}</td>
                 <td className=''>
                     {
-                        books.map((book, index) => <p key={book._id}>{index + 1}. {book.name} <span className='mr-7'>({book.quantity} piece)</span></p>)
+                        books.map((book, index) => <p key={book._id}>{index + 1}. {book.title} <span className='mr-7'>({book.quantity} piece)</span></p>)
                     }
                 </td>
                 <td className='text-center'>${total}</td>
