@@ -50,7 +50,6 @@ const Navbar = () => {
         subtotal = subtotal + price;
     };
 
-
     // navbar 
     const menuItems = <>
         <div className="text-white flex items-center pl-4 nav-link"><NavLink className={({ isActive }) => isActive ? "active" : ""} to='/home'>Home</NavLink></div>
@@ -172,9 +171,9 @@ const Navbar = () => {
                                     <BiSearch className='text-3xl text-white nav-link' />
                                 </button>
                             </label>
-                            <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-60 bg-base-100 shadow">
+                            <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-[270px] bg-base-100 shadow">
                                 <form onSubmit={handleSearch}>
-                                    <input ref={searchRef} type="text" placeholder="Search by book title" className="input input-bordered w-full max-w-sm bg-black text-white" />
+                                    <input ref={searchRef} type="text" placeholder="Search by Title, Author or ISBN" className="input input-bordered w-full max-w-sm bg-black text-white" />
                                 </form>
                             </div>
                         </div>

@@ -9,7 +9,7 @@ const TopRatedSliceBooks = () => {
     const [topRatedBooksArray] = useTopRatedBooks();
 
     // loading 
-    if (topRatedBooksArray === 0) {
+    if (topRatedBooksArray.length === 0) {
         return <Loading></Loading>
     }
 
