@@ -3,8 +3,8 @@ import PageTitle from '../Shared/PageTitle';
 import Carousel from './Carousel/Carousel';
 import NewArrivals from './NewArrivals/NewArrivals';
 import Services from './Services/Services';
-import BestSelling from './BestSelling/BestSelling';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions/FrequentlyAskedQuestions';
+import TopRatedSliceBooks from './TopRatedSliceBooks/TopRatedSliceBooks';
 
 const Home = () => {
     return (
@@ -13,7 +13,7 @@ const Home = () => {
             <Carousel></Carousel>
             <div className='home-page'>
                 <NewArrivals></NewArrivals>
-                <BestSelling></BestSelling>
+                <TopRatedSliceBooks></TopRatedSliceBooks>
                 <Services></Services>
                 <FrequentlyAskedQuestions></FrequentlyAskedQuestions>
             </div>
