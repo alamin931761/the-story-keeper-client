@@ -7,87 +7,82 @@ import Loading from '../../Shared/Loading';
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
-    const [filteredBooks, setFilteredBooks] = useState([]);
     const [count, setCount] = useState(0);
     const [priceRange, setPriceRange] = useState(2000);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(9);
+    const [sorted, setSorted] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:5000/books?page=${page}&size=${size}`)
+        fetch(`http://localhost:5000/books?page=${page}&size=${size}`, {
+            headers: {
+                sorted: sorted
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setCount(data.count);
                 setBooks(data.books);
             })
-    }, [page, size])
+    }, [page, size, sorted])
 
-    useEffect(() => {
-        setFilteredBooks(books.filter(book => book.price < parseInt(priceRange)))
-    }, [books, priceRange])
 
     // loading
     if (books.length === 0) {
         return <Loading></Loading>
     }
 
-    // price range 
+    // price range
+    const filteredBooks = books.filter(book => book.price < parseInt(priceRange));
 
 
-
-    // pagination 
+    // pagination
     const pages = Math.ceil(count / size);
 
-    // sort 
+    // sort
     const sortedBooks = (event) => {
         if (event.target.value === 'low-high') {
-            setFilteredBooks(filteredBooks.sort((a, b) => a.price - b.price));
-            console.log(filteredBooks);
-        }
-        if (event.target.value === 'high-low') {
-            console.log(event.target.value);
-            setFilteredBooks(filteredBooks.sort((a, b) => b.price - a.price));
-            console.log(filteredBooks);
+            setSorted(event.target.value);
+        } else if (event.target.value === 'high-low') {
+            setSorted(event.target.value);
+        } else {
+            setSorted(event.target.value);
         }
     }
 
-    const handleDate = e => {
-        e.preventDefault();
-        const date = e.target.date.value;
-        const today = new Date();
-        const currentMonth = today.getMonth() + 1;
-        //       7-5=2   <= 7
-        if (currentMonth - 5 <= currentMonth) {
-            console.log(currentMonth, 'from if');
-        } else {
-            console.log(currentMonth, 'from else');
-        }
-    }
     return (
         <div className='common-style'>
-            <form onSubmit={handleDate}>
-                <input type="date" name='date' />
-                <input type="submit" value="submit" />
-            </form>
-
-
             <PageTitle title="All Books"></PageTitle>
-            <h2 className="text-center text-3xl">All Books ({filteredBooks.length})</h2>
+            <h2 className="text-center text-3xl my-6">All Books</h2>
 
-            {/* sort  */}
-            <div className='flex'>
-                <p>Short By: </p>
-                <select onChange={sortedBooks}>
-                    <option disabled selected>Default</option>
-                    <option value="low-high">Price (Low - High)</option>
-                    <option value="high-low">Price (High - Low)</option>
-                </select>
-            </div>
+            <div className='flex justify-between flex-wrap mb-6'>
+                {/* price range  */}
+                <div className='w-[330px]'>
+                    <p>Price Range</p>
+                    <p>$0 - ${priceRange}</p>
+                    <input className="range range-md" type="range" min="0" max="2000" value={priceRange} onChange={(event) => setPriceRange(event.target.value)} />
+                </div>
 
-            {/* price range  */}
-            <div>
-                <h2>Price Range ({priceRange})</h2>
-                <input className={`range range-lg`} type="range" min="0" max="2000" value={priceRange} onChange={(event) => setPriceRange(event.target.value)} />
+                <div className='flex flex-wrap'>
+                    {/* show  */}
+                    <div className='flex items-center mr-10 mb-2'>
+                        <p className='mr-2'>Show: </p>
+                        <select onChange={event => setSize(event.target.value)} className="select select-bordered w-[75px]">
+                            <option value={9} selected>9</option>
+                            <option value={12}>12</option>
+                        </select>
+                    </div>
+
+                    {/* sort  */}
+                    <div className='flex items-center'>
+                        <p className='mr-2'>Sort By:</p>
+                        <select onChange={sortedBooks} className="select select-bordered w-[185px]">
+                            <option value="default">Default</option>
+                            <option value="low-high">Price (Low - High)</option>
+                            <option value="high-low">Price (High - Low)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -97,24 +92,15 @@ const AllBooks = () => {
             </div>
 
             {/* pagination */}
-            <div className='text-center mt-20'>
-                <p>page number {page}</p>
+            <div className='text-center my-6'>
                 {
                     [...Array(pages).keys()].map(number => <button key={number} onClick={() => setPage(number)} className={page === number ? 'btn btn-warning mx-2' : 'btn mx-2'}>{number + 1}</button>)
                 }
-
-                <div className='flex'>
-                    <p>show: </p>
-                    <select onChange={event => setSize(event.target.value)}>
-                        <option value={9} selected>9</option>
-                        <option value={12}>12</option>
-                    </select>
-                </div>
             </div>
 
             {/* back button  */}
-            <div className='flex justify-center mt-14'>
-                <Link className='btn btn-outline mb-5 text' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
+            <div className='flex justify-center mb-6'>
+                <Link className='btn btn-outline' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
             </div>
         </div>
     );
