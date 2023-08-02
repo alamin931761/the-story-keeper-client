@@ -14,7 +14,7 @@ const MysteryAndCrimeBooks = () => {
     }
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title="Mystery & Crime"></PageTitle>
             <h2 className='text-center text-3xl my-6'>Mystery & Crime</h2>
 

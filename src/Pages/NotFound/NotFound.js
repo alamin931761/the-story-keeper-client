@@ -6,7 +6,7 @@ import notFound from '../../assets/images/not-found.png'
 
 const NotFound = () => {
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title='404'></PageTitle>
             <div>
                 <img src={notFound} alt="Page Not Found" />

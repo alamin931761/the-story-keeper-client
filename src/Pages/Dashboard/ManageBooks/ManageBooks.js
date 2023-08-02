@@ -52,7 +52,7 @@ const ManageBooks = () => {
     }
 
     return (
-        <div>
+        <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Manage Books"></PageTitle>
             <h2 className='text-center text-3xl my-6'>Manage Books ({books.length})</h2>
 

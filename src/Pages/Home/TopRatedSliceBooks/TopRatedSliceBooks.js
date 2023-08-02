@@ -16,8 +16,8 @@ const TopRatedSliceBooks = () => {
     const topRatedSliceBooks = topRatedBooksArray.slice(0, 3);
 
     return (
-        <div className='mt-10'>
-            <div className='flex justify-between items-center mb-5'>
+        <div className='mt-10' data-aos="fade-down" data-aos-duration="1000">
+            <div className='flex justify-between items-center my-6'>
                 <h2 className='text-3xl'>Top Rated</h2>
                 <Link to='/topRatedBooks' className='text-2xl'>View all <BsArrowRight className='inline' /></Link>
             </div>

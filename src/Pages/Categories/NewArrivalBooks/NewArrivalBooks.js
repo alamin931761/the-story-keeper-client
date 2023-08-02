@@ -13,7 +13,7 @@ const NewArrivalBooks = () => {
     }
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title='New Arrivals'></PageTitle>
             <h2 className='text-center text-3xl my-6'>New Arrivals</h2>
 

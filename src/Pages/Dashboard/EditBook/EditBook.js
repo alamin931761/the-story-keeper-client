@@ -70,9 +70,9 @@ const EditBook = () => {
     };
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title='Edit Book'></PageTitle>
-            <h2 className='text-center text-3xl my-6'>{book.name}</h2>
+            <h2 className='text-center text-3xl my-6'>{book.title}</h2>
 
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
@@ -246,7 +246,7 @@ const EditBook = () => {
 
                 {/* category  */}
                 <div className='w-full'>
-                    <select className="select select-secondary w-full" {...register("category", {
+                    <select className="select select-warning w-full" {...register("category", {
                         required: {
                             value: true,
                             message: "Category field required, please select a category"

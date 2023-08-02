@@ -44,7 +44,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title="Sign Up"></PageTitle>
 
             <h2 className='text-4xl text-center  my-10'>Sign Up to The Story Keeper</h2>

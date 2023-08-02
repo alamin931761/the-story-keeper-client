@@ -10,7 +10,7 @@ const NonFictionBook = ({ data }) => {
     };
 
     return (
-        <div className='flex justify-center'>
+        <div className='flex justify-center' data-aos="flip-left" data-aos-duration="3000">
             <div className="card w-[450px] bg-[#DFF6FF] shadow-xl">
                 <figure><img className='h-[450px] w-[450px]' src={image} alt={title} /></figure>
                 <div className="card-body">

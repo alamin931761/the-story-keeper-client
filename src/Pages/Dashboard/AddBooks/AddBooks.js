@@ -49,13 +49,13 @@ const AddBooks = () => {
     };
 
     return (
-        <div>
+        <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Add Books"></PageTitle>
             <h2 className='text-center text-3xl my-6'>Add Books</h2>
 
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
-                <div className="form-control w-full">
+                <div className="form-control w-full" >
                     <label className="label">
                         <span className="label-text">Image URL</span>
                     </label>
@@ -127,7 +127,7 @@ const AddBooks = () => {
                 </div>
 
                 {/* description  */}
-                <div className='w-full'>
+                <div className='w-full' >
                     <label className="label">
                         <span className="label-text">Description of the book</span>
                     </label>
@@ -224,7 +224,7 @@ const AddBooks = () => {
 
                 {/* category  */}
                 <div className='w-full'>
-                    <select className="select select-secondary w-full" {...register("category", {
+                    <select className="select select-warning w-full" {...register("category", {
                         required: {
                             value: true,
                             message: "Category field required, please select a category"

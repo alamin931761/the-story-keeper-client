@@ -11,12 +11,12 @@ const Dashboard = () => {
     const [admin] = useAdmin(user);
 
     return (
-        <div className='pt-[59px]'>
+        <div className='pt-[59px]' data-aos="fade-down" data-aos-duration="1000">
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
                     <div className='flex justify-end m-2 '>
-                        <label htmlFor="my-drawer-2" className="lg:hidden fixed"><RiMenu3Line className='text-3xl' /></label>
+                        <label htmlFor="my-drawer-2" className="lg:hidden fixed z-50"><RiMenu3Line className='text-3xl' /></label>
                     </div>
 
                     <Outlet></Outlet>

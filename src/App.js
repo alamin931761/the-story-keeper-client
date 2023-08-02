@@ -41,6 +41,9 @@ import Checkout from './Pages/Cart/Checkout/Checkout';
 import AllBooks from './Pages/Categories/AllBooks/AllBooks';
 import TopRatedBooks from './Pages/Categories/TopRatedBooks/TopRatedBooks';
 import AddReview from './Pages/Categories/BookDetails/AddReview/AddReview';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 export const OrderContext = createContext();
 export const SearchContext = createContext();

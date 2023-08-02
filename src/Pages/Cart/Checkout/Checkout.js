@@ -8,7 +8,7 @@ const Checkout = () => {
     const stripePromise = loadStripe('pk_test_51L4PWfLjrmUqnITL4TDtVJQQb9fne5taAj6AYMgv1WRYo6WqERdQ2bxlLgMjNTV3HQQq2fAcBpDPi4GbYkLLlQCa00Tltuz0Tl');
 
     return (
-        <div className='common-style mb-6'>
+        <div className='common-style mb-6' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title="Checkout"></PageTitle>
             <h2 className='text-center text-3xl my-6'>Welcome to checkout page</h2>
 

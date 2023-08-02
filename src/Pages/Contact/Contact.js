@@ -25,7 +25,7 @@ const Contact = () => {
     }
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title="Contact"></PageTitle>
             <h2 className='text-3xl text-center my-6'>Contact us</h2>
 

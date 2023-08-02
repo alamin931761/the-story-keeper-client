@@ -25,7 +25,7 @@ const Reviews = ({ data }) => {
     }
 
     return (
-        <div className='p-5 shadow-2xl bg-[#DFF6FF] rounded w-96'>
+        <div className='p-5 shadow-2xl bg-[#DFF6FF] rounded w-96' data-aos="flip-left" data-aos-duration="3000">
             <div className="avatar flex justify-center">
                 <div className="w-32 mask rounded-full">
                     <img src={image} alt={name} />

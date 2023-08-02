@@ -6,7 +6,7 @@ import PageTitle from '../Shared/PageTitle';
 
 const Blogs = () => {
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title='Blogs'></PageTitle>
             <div className='text-4xl flex justify-center mt-4'>
                 <Typewriter

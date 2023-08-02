@@ -29,7 +29,7 @@ const Users = () => {
     }
 
     return (
-        <div>
+        <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Users"></PageTitle>
             <h2 className='text-center text-3xl my-6'>Users ({users.length})</h2>
 

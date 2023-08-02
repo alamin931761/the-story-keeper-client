@@ -88,7 +88,7 @@ const AddReview = () => {
     }
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-left" data-aos-duration="1000">
             <PageTitle title="Add Review"></PageTitle>
             <h2 className='text-3xl text-center my-6'>Leave a Review</h2>
 

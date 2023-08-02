@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import PageTitle from '../../Shared/PageTitle';
 import Loading from '../../Shared/Loading';
 import { useForm } from 'react-hook-form';
+import { BiEdit } from 'react-icons/bi';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
@@ -93,85 +94,92 @@ const MyProfile = () => {
     }
 
     return (
-        <div className='mb-10'>
+        <div className='mx-3' data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="My Profile"></PageTitle>
             <h2 className='text-center text-3xl my-6'>My Profile</h2>
 
-            {/* profile info */}
-            <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 mx-3">
-                <div className='bg-[#DFF6FF] drop-shadow-2xl rounded-2xl p-4 w-[450px]'>
-                    <div className="avatar flex justify-center mb-5">
-                        <div className="w-80 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                            <img src={profilePicture} alt="" />
+            <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
+                {/* profile info */}
+                <div className='flex justify-center items-center'>
+                    <div className="lg:w-[450px] w-full">
+                        <div className='bg-[#DFF6FF] p-4 rounded-lg'>
+                            <div className='flex justify-end mb-5'>
+                                <label htmlFor="my-modal-3" className="btn btn-outline"><BiEdit className='text-2xl mr-2' />Edit Profile</label>
+                            </div>
+                            <div className="avatar flex justify-center mb-5">
+                                <div className="w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img src={profilePicture} alt="" />
+                                </div>
+                            </div>
+                            <p className='mb-3'><span className='font-bold text-xl'>Name: </span>{user.displayName}</p>
+                            <p className='mb-3 break-all'><span className='font-bold text-xl'>Email: </span>{user.email}</p>
+                            <p className='mb-3 break-all'><span className='font-bold text-xl'>Address: </span><span>{profileData[0]?.address}</span></p>
+                            <p className='mb-3 break-all'><span className='font-bold text-xl'>Phone Number: </span>{profileData[0]?.phoneNumber}</p>
                         </div>
                     </div>
-                    <p className='mb-3'><span className='font-bold text-xl'>Name: </span>{user.displayName}</p>
-                    <p className='mb-3'><span className='font-bold text-xl'>Email: </span>{user.email}</p>
-                    <p className='mb-3'><span className='font-bold text-xl'>Address: </span>{profileData[0]?.address}</p>
-                    <p className='mb-3'><span className='font-bold text-xl'>Phone Number: </span>{profileData[0]?.phoneNumber}</p>
                 </div>
 
-                {/* update profile  */}
-                <div className='w-full mt-20 lg:mt-0 lg:flex flex-col justify-center'>
-                    <h2 className='text-2xl text-center mb-4'>Update Profile</h2>
-                    <form onSubmit={handleUpdateProfile} className='flex flex-col items-center p-4 w-full'>
-                        <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-2' disabled />
+                {/* change password  */}
+                <div className='flex flex-col justify-center my-6'>
+                    <h2 className='text-2xl text-center mb-4'>Update Password</h2>
+                    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
+                        {/* New Password */}
+                        <div className="form-control w-full max-w-lg mb-2">
+                            <input type='password' className='input input-bordered w-full max-w-lg' placeholder='New Password' {...register("newPassword", {
+                                required: {
+                                    value: true,
+                                    message: "New Password field is required"
+                                },
+                                pattern: {
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
+                                    message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
+                                }
+                            })} />
+                            <label className="label">
+                                {errors.newPassword?.type === 'required' && <span className="label-text-alt text-red-400">{errors.newPassword.message}</span>}
+                                {errors.newPassword?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.newPassword.message}</span>}
+                            </label>
+                        </div>
 
-                        <input value={user.email} className='input input-bordered w-full max-w-lg mb-2' disabled />
+                        {/* New Password 2 */}
+                        <div className="form-control w-full max-w-lg">
+                            <input type='password' className='input input-bordered w-full max-w-lg' placeholder='Confirm New Password' {...register("newPassword2", {
+                                required: {
+                                    value: true,
+                                    message: "New Password field is required"
+                                },
+                                pattern: {
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
+                                    message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
+                                }
+                            })} />
+                            <label className="label">
+                                {errors.newPassword2?.type === 'required' && <span className="label-text-alt text-red-400">{errors.newPassword2.message}</span>}
+                                {errors.newPassword2?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.newPassword2.message}</span>}
+                            </label>
+                        </div>
 
-                        <input ref={imageRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Image URL' />
-
-                        <input ref={numberRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Phone Number' />
-
-                        <input ref={addressRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Address' />
-
-                        <input className='btn btn-outline' type="submit" value="Update Profile" />
+                        <input className='btn btn-outline' type="submit" value="Update Password" />
                     </form>
                 </div>
-            </div>
 
-            {/* change password  */}
-            <div className='mt-20'>
-                <h2 className='text-2xl text-center mb-4'>Update Password</h2>
-                <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
-                    {/* New Password */}
-                    <div className="form-control w-full max-w-lg mb-2">
-                        <input type='password' className='input input-bordered w-full max-w-lg' placeholder='New Password' {...register("newPassword", {
-                            required: {
-                                value: true,
-                                message: "New Password field is required"
-                            },
-                            pattern: {
-                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
-                                message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
-                            }
-                        })} />
-                        <label className="label">
-                            {errors.newPassword?.type === 'required' && <span className="label-text-alt text-red-400">{errors.newPassword.message}</span>}
-                            {errors.newPassword?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.newPassword.message}</span>}
-                        </label>
+                {/* Put this part before </body> tag */}
+                <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+                <div className="modal bg-[#00000094]">
+                    <div className="modal-box relative bg-[#DFF6FF]">
+                        <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                        <h2 className='text-2xl text-center mb-4'>Update Profile</h2>
+
+                        <form onSubmit={handleUpdateProfile} className='flex flex-col items-center w-full'>
+                            <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-2' disabled />
+                            <input value={user.email} className='input input-bordered w-full max-w-lg mb-2' disabled />
+                            <input ref={imageRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Image URL' />
+                            <input ref={numberRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Phone Number' />
+                            <input ref={addressRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Address' />
+                            <input className='btn btn-outline' type="submit" value="Update Profile" />
+                        </form>
                     </div>
-
-                    {/* New Password 2 */}
-                    <div className="form-control w-full max-w-lg mb-2">
-                        <input type='password' className='input input-bordered w-full max-w-lg' placeholder='Confirm New Password' {...register("newPassword2", {
-                            required: {
-                                value: true,
-                                message: "New Password field is required"
-                            },
-                            pattern: {
-                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
-                                message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
-                            }
-                        })} />
-                        <label className="label">
-                            {errors.newPassword2?.type === 'required' && <span className="label-text-alt text-red-400">{errors.newPassword2.message}</span>}
-                            {errors.newPassword2?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.newPassword2.message}</span>}
-                        </label>
-                    </div>
-
-                    <input className='btn btn-outline' type="submit" value="Update Password" />
-                </form>
+                </div>
             </div>
         </div>
     );

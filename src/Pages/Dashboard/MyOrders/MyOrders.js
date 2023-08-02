@@ -68,7 +68,7 @@ const Orders = () => {
     }
 
     return (
-        <div>
+        <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="My Orders"></PageTitle>
             <h2 className='text-center text-3xl my-6'>My Orders ({myOrders?.length})</h2>
 

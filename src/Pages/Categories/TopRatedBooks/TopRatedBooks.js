@@ -14,7 +14,7 @@ const TopRatedBooks = () => {
     }
 
     return (
-        <div className='common-style'>
+        <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title='Top Rated'></PageTitle>
             <h2 className='text-center text-3xl my-6'>Top Rated Books</h2>
 

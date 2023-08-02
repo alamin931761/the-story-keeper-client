@@ -13,8 +13,9 @@ const NewArrivals = () => {
     }
 
     return (
-        <div className='mt-10'>
-            <div className='flex justify-between items-center mb-5'>
+        <div className='mt-10' data-aos="fade-up" data-aos-duration="1000">
+
+            <div className='flex justify-between items-center my-6'>
                 <h2 className='text-3xl'>New Arrivals</h2>
                 <Link className='text-2xl' to='/NewArrivalBooks'>View all<BsArrowRight className='inline' /></Link>
             </div>

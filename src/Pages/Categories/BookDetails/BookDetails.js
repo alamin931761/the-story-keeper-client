@@ -78,7 +78,7 @@ const BookDetails = () => {
     }
 
     return (
-        <div className='common-style mb-6'>
+        <div className='common-style mb-6' data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Book Details"></PageTitle>
             <h2 className='text-center text-3xl my-6'>{title} - details</h2>
 
