@@ -15,7 +15,7 @@ const Contact = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     const onSubmit = data => {
-        emailjs.sendForm('service_bg6e6vs', "template_8tk8z7h", form.current, 'kEtixGBVNFDZ5Zygz')
+        emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, form.current, process.env.REACT_APP_PUBLIC_KEY)
             .then((result) => {
                 toast.success("Your message has been sent successfully");
             }, (error) => {
