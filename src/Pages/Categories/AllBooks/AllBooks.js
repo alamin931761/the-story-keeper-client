@@ -50,6 +50,11 @@ const AllBooks = () => {
         }
     }
 
+    const handleSelectChange = event => {
+        setSize(parseInt(event.target.value));
+        setPage(0);
+    }
+
     return (
         <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title="All Books"></PageTitle>
@@ -67,9 +72,12 @@ const AllBooks = () => {
                     {/* show  */}
                     <div className='flex items-center mr-10 mb-2'>
                         <p className='mr-2'>Show: </p>
-                        <select onChange={event => setSize(event.target.value)} className="select select-bordered w-[75px]">
-                            <option value={9} selected>9</option>
-                            <option value={12}>12</option>
+                        <select onChange={handleSelectChange} className="select select-bordered w-[75px]">
+                            <option value="3" selected>3</option>
+                            <option value="6">6</option>
+                            <option value="9">9</option>
+                            <option value="12">12</option>
+                            <option value="15">15</option>
                         </select>
                     </div>
 

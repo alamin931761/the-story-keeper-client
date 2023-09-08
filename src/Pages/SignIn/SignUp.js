@@ -39,7 +39,7 @@ const SignUp = () => {
         return <Loading></Loading>
     }
 
-    if (error) {
+    if (error || updateProfileError) {
         toast.error(`${error}`);
     }
 

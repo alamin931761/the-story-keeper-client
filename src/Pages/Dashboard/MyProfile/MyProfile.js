@@ -9,6 +9,7 @@ import PageTitle from '../../Shared/PageTitle';
 import Loading from '../../Shared/Loading';
 import { useForm } from 'react-hook-form';
 import { BiEdit } from 'react-icons/bi';
+import { signOut } from 'firebase/auth';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
@@ -38,7 +39,13 @@ const MyProfile = () => {
             },
             body: JSON.stringify(profile)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(data => {
                 if (data.result.modifiedCount > 0) {
                     toast.success("Profile updated successfully");
@@ -53,10 +60,18 @@ const MyProfile = () => {
     useEffect(() => {
         fetch(`http://localhost:5000/user/${user.email}`, {
             method: "GET",
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            'content-type': 'application/json'
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                'content-type': 'application/json'
+            }
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                }
+                return res.json();
+            })
             .then(data => setProfileData(data))
     }, [profileData, user.email])
 
@@ -163,7 +178,6 @@ const MyProfile = () => {
                     </form>
                 </div>
 
-                {/* Put this part before </body> tag */}
                 <input type="checkbox" id="my-modal-3" className="modal-toggle" />
                 <div className="modal bg-[#00000094]">
                     <div className="modal-box relative bg-[#DFF6FF]">

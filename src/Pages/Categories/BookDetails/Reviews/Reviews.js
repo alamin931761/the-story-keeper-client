@@ -35,7 +35,7 @@ const Reviews = ({ data }) => {
                 <StarPicker value={rating} halfStars={true} size={40} className='enlargeStar' />
             </div>
 
-            <p className='mt-3'>{review}</p>
+            <p className='mt-3'><pre>{review}</pre></p>
             <p className='text-end text-xs mt-3'>By <span className='font-semibold'>{name}</span> on {today}</p>
         </div>
     );
