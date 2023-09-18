@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -11,12 +11,14 @@ import PageTitle from '../Shared/PageTitle';
 import Social from './Social';
 import { SlLogin } from 'react-icons/sl';
 import { BsArrowRight } from 'react-icons/bs';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
     const location = useLocation();
     const [token] = useToken(user);
+    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
 
     const emailRef = useRef('');
     const passwordRef = useRef('');
@@ -57,6 +59,11 @@ const SignIn = () => {
         return <Loading></Loading>
     }
 
+    // google recaptcha 
+    const onChange = (value) => {
+        setGoogleRecaptcha(value);
+    }
+
     return (
         <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title="Sign In"></PageTitle>
@@ -69,7 +76,9 @@ const SignIn = () => {
 
                     <input ref={passwordRef} type="password" placeholder="Your password" className="input input-bordered w-full max-w-lg mb-5" required />
 
-                    <button type='submit' className='btn btn-outline'>Sign In <SlLogin className='text-xl ml-2' /></button>
+                    <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
+
+                    <button disabled={googleRecaptcha ? false : true} type='submit' className='btn btn-outline mt-5'>Sign In <SlLogin className='text-xl ml-2' /></button>
                 </form>
 
                 <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline cursor-pointer'>Reset Password<BsArrowRight className='inline text-2xl ml-2' /></span></p>

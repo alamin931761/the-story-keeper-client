@@ -5,7 +5,7 @@ import CheckoutForm from './CheckoutForm';
 import PageTitle from '../../Shared/PageTitle';
 
 const Checkout = () => {
-    const stripePromise = loadStripe('pk_test_51L4PWfLjrmUqnITL4TDtVJQQb9fne5taAj6AYMgv1WRYo6WqERdQ2bxlLgMjNTV3HQQq2fAcBpDPi4GbYkLLlQCa00Tltuz0Tl');
+    const stripePromise = loadStripe(process.env.REACT_APP_publishable_key);
 
     return (
         <div className='common-style mb-6' data-aos="fade-down" data-aos-duration="1000">

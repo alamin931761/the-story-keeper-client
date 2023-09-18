@@ -11,6 +11,7 @@ import useToken from '../../Hooks/useToken';
 import { BsArrowRight } from 'react-icons/bs';
 import { SlLogin } from 'react-icons/sl';
 import { toast } from 'react-toastify';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const SignUp = () => {
     const [agree, setAgree] = useState(false);
@@ -18,6 +19,7 @@ const SignUp = () => {
     const [updateProfile, updating, updateProfileError] = useUpdateProfile(auth);
     const [token] = useToken(user);
     const navigate = useNavigate();
+    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
@@ -41,6 +43,11 @@ const SignUp = () => {
 
     if (error || updateProfileError) {
         toast.error(`${error}`);
+    }
+
+    // google recaptcha
+    const onChange = (value) => {
+        setGoogleRecaptcha(value);
     }
 
     return (
@@ -107,11 +114,12 @@ const SignUp = () => {
 
                     <div className='flex items-center mb-2'>
                         <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
-                        {/* <label className={agree ? 'text-warning ml-2' : 'text-error ml-2'} htmlFor="terms">I accept the <span className='underline'>terms and conditions</span></label> */}
                         <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline text-blue-500 cursor-pointer'>terms and conditions</span></label>
                     </div>
 
-                    <button disabled={!agree} type='submit' className='btn btn-outline'>Sign Up<SlLogin className='text-xl ml-2' /></button>
+                    <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
+
+                    <button disabled={(googleRecaptcha && agree) ? false : true} type='submit' className='btn btn-outline mt-2'>Sign Up<SlLogin className='text-xl ml-2' /></button>
                 </form>
             </div >
             <p className='mt-5'>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
