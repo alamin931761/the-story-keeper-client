@@ -16,9 +16,10 @@ import ReCAPTCHA from 'react-google-recaptcha';
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
+    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const [token] = useToken(user);
-    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
 
     const emailRef = useRef('');
     const passwordRef = useRef('');
@@ -72,13 +73,21 @@ const SignIn = () => {
 
             <div>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center'>
-                    <input ref={emailRef} type="email" placeholder="Your email address" className="input input-bordered w-full max-w-lg mb-5" required />
+                    <p className='w-full max-w-lg text-sm mb-2'>Your Email Address</p>
+                    <input ref={emailRef} type="email" className="input input-bordered w-full max-w-lg mb-5" required />
 
-                    <input ref={passwordRef} type="password" placeholder="Your password" className="input input-bordered w-full max-w-lg mb-5" required />
+                    <p className='w-full max-w-lg text-sm mb-2'>Your Password</p>
+                    <input ref={passwordRef} type={`${showPassword ? 'text' : 'password'}`} className="input input-bordered w-full max-w-lg mb-2" required />
+                    <div className='flex items-center mb-5 w-full max-w-lg'>
+                        <input onClick={() => setShowPassword(!showPassword)} className="checkbox" name='password-toggle' id='password-toggle' type="checkbox" />
+                        <label className="ml-2 my-0 cursor-pointer" htmlFor="password-toggle">Show Password</label>
+                    </div>
 
-                    <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
+                    <div className='w-full max-w-lg'>
+                        <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
+                        <button disabled={googleRecaptcha ? false : true} type='submit' className='btn btn-outline mt-5'>Sign In <SlLogin className='text-xl ml-2' /></button>
+                    </div>
 
-                    <button disabled={googleRecaptcha ? false : true} type='submit' className='btn btn-outline mt-5'>Sign In <SlLogin className='text-xl ml-2' /></button>
                 </form>
 
                 <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline cursor-pointer'>Reset Password<BsArrowRight className='inline text-2xl ml-2' /></span></p>

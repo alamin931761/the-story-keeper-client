@@ -17,9 +17,10 @@ const SignUp = () => {
     const [agree, setAgree] = useState(false);
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [updateProfile, updating, updateProfileError] = useUpdateProfile(auth);
+    const [showPassword, setShowPassword] = useState(false);
+    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
     const [token] = useToken(user);
     const navigate = useNavigate();
-    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
@@ -59,8 +60,11 @@ const SignUp = () => {
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
                     {/* Name */}
-                    <div className="form-control w-full max-w-lg mb-2">
-                        <input className='input input-bordered w-full max-w-lg' placeholder='Your Name' {...register("name", {
+                    <div className="form-control w-full max-w-lg mb-5">
+                        <label className="label pt-0">
+                            <span className="label-text">Your name</span>
+                        </label>
+                        <input className='input input-bordered w-full max-w-lg' {...register("name", {
                             required: {
                                 value: true,
                                 message: "Name field is required"
@@ -70,15 +74,18 @@ const SignUp = () => {
                                 message: "Name should be 2 characters or longer"
                             }
                         })} />
-                        <label className="label">
+                        <label className="label pb-0">
                             {errors.name?.type === 'required' && <span className="label-text-alt text-red-400">{errors.name.message}</span>}
                             {errors.name?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.name.message}</span>}
                         </label>
                     </div>
 
                     {/* Email */}
-                    <div className="form-control w-full max-w-lg mb-2">
-                        <input className='input input-bordered w-full max-w-lg' placeholder='Your email address' {...register("email", {
+                    <div className="form-control w-full max-w-lg mb-5">
+                        <label className="label pt-0">
+                            <span className="label-text">Your email address</span>
+                        </label>
+                        <input className='input input-bordered w-full max-w-lg' {...register("email", {
                             required: {
                                 value: true,
                                 message: "Email field is required"
@@ -88,15 +95,18 @@ const SignUp = () => {
                                 message: "Invalid email address"
                             }
                         })} />
-                        <label className="label">
+                        <label className="label pb-0">
                             {errors.email?.type === 'required' && <span className="label-text-alt text-red-400">{errors.email.message}</span>}
                             {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.email.message}</span>}
                         </label>
                     </div>
 
                     {/* Password */}
-                    <div className="form-control w-full max-w-lg mb-2">
-                        <input type='password' className='input input-bordered w-full max-w-lg' placeholder='Your password' {...register("password", {
+                    <div className="form-control w-full max-w-lg mb-5">
+                        <label className="label pt-0">
+                            <span className="label-text">Your password</span>
+                        </label>
+                        <input type={`${showPassword ? 'text' : 'password'}`} className='input input-bordered w-full max-w-lg'{...register("password", {
                             required: {
                                 value: true,
                                 message: "Password field is required"
@@ -107,19 +117,28 @@ const SignUp = () => {
                             }
                         })} />
                         <label className="label">
+                            <div className='flex items-center'>
+                                <input onClick={() => setShowPassword(!showPassword)} className="checkbox" name='password-toggle' id='password-toggle' type="checkbox" />
+                                <label className="ml-2 my-0 cursor-pointer" htmlFor="password-toggle">Show Password</label>
+                            </div>
+                        </label>
+
+                        <label className="label">
                             {errors.password?.type === 'required' && <span className="label-text-alt text-red-400">{errors.password.message}</span>}
                             {errors.password?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.password.message}</span>}
                         </label>
                     </div>
 
-                    <div className='flex items-center mb-2'>
-                        <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
-                        <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline text-blue-500 cursor-pointer'>terms and conditions</span></label>
+                    <div className='w-full max-w-lg'>
+                        <div className='flex items-center mb-5'>
+                            <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
+                            <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline text-blue-500 cursor-pointer'>terms and conditions</span></label>
+                        </div>
+
+                        <ReCAPTCHA className='cursor-pointer' sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
+
+                        <button disabled={(googleRecaptcha && agree) ? false : true} type='submit' className='btn btn-outline mt-5'>Sign Up<SlLogin className='text-xl ml-2' /></button>
                     </div>
-
-                    <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
-
-                    <button disabled={(googleRecaptcha && agree) ? false : true} type='submit' className='btn btn-outline mt-2'>Sign Up<SlLogin className='text-xl ml-2' /></button>
                 </form>
             </div >
             <p className='mt-5'>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
