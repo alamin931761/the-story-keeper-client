@@ -51,7 +51,7 @@ const AddBooks = () => {
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Add Books"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>Add Books</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Add Books</h2>
 
             <form className='flex flex-col justify-center items-center mx-3' onSubmit={handleSubmit(onSubmit)}>
                 {/* image URL */}
@@ -244,7 +244,7 @@ const AddBooks = () => {
                         {errors.category?.type === 'required' && <span className="label-text-alt text-red-400">{errors.category.message}</span>}
                     </label>
                 </div>
-                <input className="btn btn-outline mb-4" type="submit" value="Add Book" />
+                <input className="btn btn-outline mb-4 transition ease-linear duration-500" type="submit" value="Add Book" />
             </form>
         </div>
     );

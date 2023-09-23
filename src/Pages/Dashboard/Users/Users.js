@@ -31,7 +31,7 @@ const Users = () => {
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Users"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>Users ({users.length})</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Users ({users.length})</h2>
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">

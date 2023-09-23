@@ -55,7 +55,7 @@ const SignUp = () => {
         <div className='common-style' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title="Sign Up"></PageTitle>
 
-            <h2 className='text-4xl text-center  my-10'>Sign Up to The Story Keeper</h2>
+            <h2 className='text-4xl text-center my-10 second-font'>Sign Up to The Story Keeper</h2>
 
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
@@ -132,16 +132,16 @@ const SignUp = () => {
                     <div className='w-full max-w-lg'>
                         <div className='flex items-center mb-5'>
                             <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
-                            <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline text-blue-500 cursor-pointer'>terms and conditions</span></label>
+                            <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline hover:decoration-wavy underline-offset-2 text-blue-500 cursor-pointer'>terms and conditions</span></label>
                         </div>
 
                         <ReCAPTCHA className='cursor-pointer' sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
 
-                        <button disabled={(googleRecaptcha && agree) ? false : true} type='submit' className='btn btn-outline mt-5'>Sign Up<SlLogin className='text-xl ml-2' /></button>
+                        <button disabled={(googleRecaptcha && agree) ? false : true} type='submit' className='btn btn-outline mt-5 transition ease-linear duration-500'>Sign Up<SlLogin className='text-xl ml-2' /></button>
                     </div>
                 </form>
             </div >
-            <p className='mt-5'>Already have an account? <Link className='text-blue-500 underline' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
+            <p className='mt-5 second-font'>Already have an account? <Link className='text-blue-500 underline hover:decoration-wavy underline-offset-2' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
             <Social></Social>
         </div>
     );

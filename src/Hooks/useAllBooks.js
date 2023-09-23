@@ -9,6 +9,6 @@ const useAllBooks = () => {
             .then(res => res.json())
             .then(data => setAllBooks(data));
     }, [allBooks]);
-    return [allBooks, setAllBooks];
+    return { allBooks, setAllBooks };
 }
 export default useAllBooks;

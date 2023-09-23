@@ -108,7 +108,7 @@ const Cart = () => {
     if (savedCart.length === 0) {
         cart = <div className='w-full flex flex-col items-center justify-center mb-6'>
             <GoBook className='text-7xl opacity-5' />
-            <p className='text-center text-xl'>Your cart is empty</p>
+            <p className='text-center text-xl second-font'>Your cart is empty</p>
         </div>
     }
     else {
@@ -152,11 +152,11 @@ const Cart = () => {
                                         {errors.couponCode?.type === 'maxLength' && <span className="label-text-alt text-red-400">{errors.couponCode.message}</span>}
                                     </label>
                                 </div>
-                                <input className="btn btn-outline rounded-none" type="submit" value='Apply coupon' />
+                                <input className="btn btn-outline rounded-none transition ease-linear duration-500" type="submit" value='Apply coupon' />
                             </form>
                         </td>
                         <td></td>
-                        <td className='text-xl text-right'>Subtotal:</td>
+                        <td className='text-xl text-right second-font'>Subtotal:</td>
                         <td className='text-xl text-center'>${bookSubtotal}</td>
                     </tr>
                 </tbody>
@@ -164,23 +164,23 @@ const Cart = () => {
 
             <div>
                 <div className='mt-10'>
-                    <h4 className='mb-4 text-xl'>Choose Your Delivery Option:</h4>
+                    <h4 className='mb-4 text-xl second-font'>Choose Your Delivery Option:</h4>
                     <div className='flex items-center mb-4 ml-5'>
                         <input onChange={handleDeliveryCharge} type="radio" id="standard-delivery" name="delivery-charge" className="radio radio-success radio-lg mr-3" value={5} />
-                        <label htmlFor="standard-delivery">$5 - Home Delivery - Standard <span className='text-2xs'>7-10 working days</span> </label>
+                        <label className='cursor-pointer' htmlFor="standard-delivery">$5 - Home Delivery - Standard <span className='text-2xs'>7-10 working days</span> </label>
                     </div>
                     <div className='flex items-center mb-4 ml-5'>
                         <input onChange={handleDeliveryCharge} type="radio" id='express-delivery' name="delivery-charge" className="radio radio-success radio-lg mr-3" value={10} />
-                        <label htmlFor="express-delivery">$10 - Home Delivery - Express <span className='text-2xs'>2-3 working days</span> </label>
+                        <label className='cursor-pointer' htmlFor="express-delivery">$10 - Home Delivery - Express <span className='text-2xs'>2-3 working days</span> </label>
                     </div>
                 </div>
-                <p className='mb-4'>Tax: 5%</p>
-                <p>Total: ${total}</p>
+                <p className='mb-4'><span className='second-font'>Tax:</span> 5%</p>
+                <p><span className='second-font'>Total:</span> ${total}</p>
             </div>
 
             <div className='flex flex-col justify-center items-center my-6'>
-                <button onClick={clearCart} className='btn btn-outline btn-error mb-6'>Clear Cart <AiOutlineClear className='ml-2 text-2xl mb-1' /></button>
-                <Link onClick={handleOrderedBooks} disabled={chooseDeliveryOption} className='btn btn-outline' to='/details'>Proceed to checkout <BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
+                <button onClick={clearCart} className='btn btn-outline btn-error mb-6 transition ease-linear duration-500'>Clear Cart <AiOutlineClear className='ml-2 text-2xl mb-1' /></button>
+                <Link onClick={handleOrderedBooks} disabled={chooseDeliveryOption} className='btn btn-outline transition ease-linear duration-500' to='/deliveryDetails'>Proceed to checkout <BsBagCheck className='ml-2 text-2xl mb-1' /></Link>
             </div>
         </div >
     };
@@ -188,7 +188,7 @@ const Cart = () => {
     return (
         <div className='common-style' data-aos="fade-down" data-aos-duration="1000">
             <PageTitle title="Cart"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>Cart</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Cart</h2>
 
             {cart}
         </div >

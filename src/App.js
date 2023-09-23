@@ -21,26 +21,32 @@ import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
 import Users from './Pages/Dashboard/Users/Users';
 import RequireAdmin from './Pages/SignIn/RequireAdmin/RequireAdmin';
 import ManageBooks from './Pages/Dashboard/ManageBooks/ManageBooks';
-import Details from './Pages/Cart/Details/Details';
 import RequireUser from './Pages/SignIn/RequireUser/RequireUser';
-import EditBook from './Pages/Dashboard/EditBook/EditBook';
+import EditBook from './Pages/Dashboard/ManageBooks/EditBook/EditBook';
 import Search from './Pages/Search/Search';
 import Blogs from './Pages/Blogs/Blogs';
 import Welcome from './Pages/Dashboard/Welcome/Welcome';
-import ArtsAndMusicBooks from './Pages/Categories/ArtAndMusicBooks/ArtsAndMusicBooks';
-import BookDetails from './Pages/Categories/BookDetails/BookDetails';
-import Essays from './Pages/Categories/Essays/Essays';
-import Fictions from './Pages/Categories/Fictions/Fictions';
-import MysteryAndCrimeBooks from './Pages/Categories/MysteryAndCrimeBooks/MysteryAndCrimeBooks';
-import NewArrivalBooks from './Pages/Categories/NewArrivalBooks/NewArrivalBooks';
-import NonFictionBooks from './Pages/Categories/NonFictionBooks/NonFictionBooks';
-import PoetryBooks from './Pages/Categories/PoetryBooks/PoetryBooks';
-import RareBooks from './Pages/Categories/RareBooks/RareBooks';
-import SciFiFantasyAndHorrorBooks from './Pages/Categories/SciFiFantasyAndHorrorBooks/SciFiFantasyAndHorrorBooks';
-import Checkout from './Pages/Cart/Checkout/Checkout';
+
+// top categories 
+import Essays from './Pages/Categories/TopCategories/Essays/Essays';
+import Fiction from './Pages/Categories/TopCategories/Fiction/Fiction';
+import NonFiction from './Pages/Categories/TopCategories/NonFiction/NonFiction';
+import SciFiFantasyAndHorror from './Pages/Categories/TopCategories/SciFiFantasyAndHorror/SciFiFantasyAndHorror';
+
+// more categories 
+import ArtsAndMusic from './Pages/Categories/MoreCategories/ArtsAndMusic/ArtsAndMusic';
+import MysteryAndCrime from './Pages/Categories/MoreCategories/MysteryAndCrime/MysteryAndCrime';
+import Poetry from './Pages/Categories/MoreCategories/Poetry/Poetry';
+import RareBooks from './Pages/Categories/MoreCategories/RareBooks/RareBooks';
+
+import TopRated from './Pages/Categories/TopRated/TopRated';
+import NewArrivals from './Pages/Categories/NewArrivals/NewArrivals';
 import AllBooks from './Pages/Categories/AllBooks/AllBooks';
-import TopRatedBooks from './Pages/Categories/TopRatedBooks/TopRatedBooks';
-import AddReview from './Pages/Categories/BookDetails/AddReview/AddReview';
+
+import Checkout from './Pages/Cart/Checkout/Checkout';
+import BookDetails from './Pages/Shared/BookDetails/BookDetails';
+import AddReview from './Pages/Shared/BookDetails/AddReview/AddReview';
+import DeliveryDetails from './Pages/Cart/DeliveryDetails/DeliveryDetails';
 
 export const OrderContext = createContext();
 export const SearchContext = createContext();
@@ -63,26 +69,25 @@ function App() {
             <Route path='/blogs' element={<Blogs></Blogs>}></Route>
             <Route path='/contact' element={<Contact></Contact>}></Route>
 
-
-            <Route path='/artsAndMusic' element={<ArtsAndMusicBooks></ArtsAndMusicBooks>}></Route>
+            <Route path='/artsAndMusic' element={<ArtsAndMusic></ArtsAndMusic>}></Route>
             <Route path='/essays' element={<Essays></Essays>}></Route>
-            <Route path='/fiction' element={<Fictions></Fictions>}></Route>
-            <Route path='/mysteryAndCrime' element={<MysteryAndCrimeBooks></MysteryAndCrimeBooks>}></Route>
-            <Route path='/nonFiction' element={<NonFictionBooks></NonFictionBooks>}></Route>
-            <Route path='/poetry' element={<PoetryBooks></PoetryBooks>}></Route>
+            <Route path='/fiction' element={<Fiction></Fiction>}></Route>
+            <Route path='/mysteryAndCrime' element={<MysteryAndCrime></MysteryAndCrime>}></Route>
+            <Route path='/nonFiction' element={<NonFiction></NonFiction>}></Route>
+            <Route path='/poetry' element={<Poetry></Poetry>}></Route>
             <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
-            <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorrorBooks></SciFiFantasyAndHorrorBooks>}></Route>
+            <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorror></SciFiFantasyAndHorror>}></Route>
             <Route path='allBooks' element={<AllBooks></AllBooks>}></Route>
 
-            <Route path='/NewArrivalBooks' element={<NewArrivalBooks></NewArrivalBooks>}></Route>
-            <Route path='/topRatedBooks' element={<TopRatedBooks></TopRatedBooks>}></Route>
+            <Route path='/NewArrivals' element={<NewArrivals></NewArrivals>}></Route>
+            <Route path='/topRated' element={<TopRated></TopRated>}></Route>
 
             <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
             <Route path='/addReview/:id' element={<RequireAuth><RequireUser><AddReview></AddReview></RequireUser></RequireAuth>}></Route>
 
 
             <Route path='/cart' element={<Cart></Cart>}></Route>
-            <Route path='/details' element={<RequireAuth><Details></Details></RequireAuth>}></Route>
+            <Route path='/deliveryDetails' element={<RequireAuth><DeliveryDetails /></RequireAuth>}></Route>
             <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
 
 
@@ -95,7 +100,7 @@ function App() {
               <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
               <Route path='manageBooks' element={<RequireAdmin><ManageBooks></ManageBooks></RequireAdmin>}></Route>
             </Route>
-            <Route path='/editBook/:id' element={<RequireAdmin><EditBook></EditBook></RequireAdmin>}></Route>
+            <Route path='/editBook/:id' element={<RequireAdmin><EditBook /></RequireAdmin>}></Route>
 
             <Route path='*' element={<NotFound></NotFound>}></Route>
           </Routes>

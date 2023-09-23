@@ -126,17 +126,17 @@ const CheckoutForm = () => {
         <>
             <form onSubmit={handleSubmit}>
                 <CardElement />
-                <button className='btn btn-outline btn-sm mt-5' type="submit" disabled={!stripe || !elements || !clientSecret}>
+                <button className='btn btn-outline btn-sm mt-5 transition ease-linear duration-500' type="submit" disabled={!stripe || !elements || !clientSecret}>
                     Pay
                 </button>
             </form>
             {
-                cardError && <p className='text-red-500'>{cardError}</p>
+                cardError && <p className='text-red-500 second-font'>{cardError}</p>
             }
             {
                 successMessage && <div>
-                    <p className='text-green-500'>{successMessage}</p>
-                    <p>Your transaction Id: <span className='text-orange-500'>{transactionId}</span></p>
+                    <p className='text-green-500 second-font'>{successMessage}</p>
+                    <p className='second-font'>Your transaction Id: <span className='text-orange-500'>{transactionId}</span></p>
                 </div>
             }
         </>

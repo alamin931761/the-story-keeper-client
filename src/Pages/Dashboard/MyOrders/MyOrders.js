@@ -32,7 +32,7 @@ const Orders = () => {
                     setMyOrders(data);
                 })
         }
-    }, [user]);
+    }, [user, navigate]);
 
     let myOrdersContainer;
     if (myOrders.length > 0) {
@@ -63,14 +63,14 @@ const Orders = () => {
     } else {
         myOrdersContainer = <div className='w-full mt-6 flex flex-col items-center justify-center'>
             <GoBook className='text-7xl opacity-5' />
-            <p>There are no orders associated with this account that were placed in the past</p>
+            <p className='second-font'>There are no orders associated with this account that were placed in the past</p>
         </div>
     }
 
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="My Orders"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>My Orders ({myOrders?.length})</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>My Orders ({myOrders?.length})</h2>
 
             {myOrdersContainer}
         </div>

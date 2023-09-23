@@ -1,7 +1,7 @@
 import useAllBooks from "./useAllBooks";
 
 const useShoppingCart = () => {
-    const [allBooks, setAllBooks] = useAllBooks();
+    const { allBooks } = useAllBooks();
     const shoppingCart = JSON.parse(localStorage.getItem('shopping-cart'));
 
     let savedCart = [];

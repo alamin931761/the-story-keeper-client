@@ -13,6 +13,7 @@ import { signOut } from 'firebase/auth';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
+    const [showPassword, setShowPassword] = useState(false);
     const [updatePassword, updating, error] = useUpdatePassword(auth);
 
     const [profileData, setProfileData] = useState([]);
@@ -111,7 +112,7 @@ const MyProfile = () => {
     return (
         <div className='mx-3' data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="My Profile"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>My Profile</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>My Profile</h2>
 
             <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1">
                 {/* profile info */}
@@ -119,28 +120,28 @@ const MyProfile = () => {
                     <div className="lg:w-[450px] w-full">
                         <div className='bg-[#DFF6FF] p-4 rounded-lg'>
                             <div className='flex justify-end mb-5'>
-                                <label htmlFor="my-modal-3" className="btn btn-outline"><BiEdit className='text-2xl mr-2' />Edit Profile</label>
+                                <label htmlFor="my-modal-3" className="btn btn-outline transition ease-linear duration-500"><BiEdit className='text-2xl mr-2' />Edit Profile</label>
                             </div>
                             <div className="avatar flex justify-center mb-5">
                                 <div className="w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                     <img src={profilePicture} alt="" />
                                 </div>
                             </div>
-                            <p className='mb-3'><span className='font-bold text-xl'>Name: </span>{user.displayName}</p>
-                            <p className='mb-3 break-all'><span className='font-bold text-xl'>Email: </span>{user.email}</p>
-                            <p className='mb-3 break-all'><span className='font-bold text-xl'>Address: </span><span>{profileData[0]?.address}</span></p>
-                            <p className='mb-3 break-all'><span className='font-bold text-xl'>Phone Number: </span>{profileData[0]?.phoneNumber}</p>
+                            <p className='mb-3'><span className='font-bold text-xl second-font'>Name: </span>{user.displayName}</p>
+                            <p className='mb-3 break-all'><span className='font-bold text-xl second-font'>Email: </span>{user.email}</p>
+                            <p className='mb-3 break-all'><span className='font-bold text-xl second-font'>Address: </span><span>{profileData[0]?.address}</span></p>
+                            <p className='mb-3 break-all'><span className='font-bold text-xl second-font'>Phone Number: </span>{profileData[0]?.phoneNumber}</p>
                         </div>
                     </div>
                 </div>
 
                 {/* change password  */}
                 <div className='flex flex-col justify-center my-6'>
-                    <h2 className='text-2xl text-center mb-4'>Update Password</h2>
+                    <h2 className='text-2xl text-center mb-5 second-font'>Update Password</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center items-center'>
                         {/* New Password */}
-                        <div className="form-control w-full max-w-lg mb-2">
-                            <input type='password' className='input input-bordered w-full max-w-lg' placeholder='New Password' {...register("newPassword", {
+                        <div className="form-control w-full max-w-lg mb-5">
+                            <input type={`${showPassword ? 'text' : 'password'}`} className='input input-bordered w-full max-w-lg' placeholder='New Password' {...register("newPassword", {
                                 required: {
                                     value: true,
                                     message: "New Password field is required"
@@ -150,15 +151,15 @@ const MyProfile = () => {
                                     message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
                                 }
                             })} />
-                            <label className="label">
+                            <label className="label pb-0">
                                 {errors.newPassword?.type === 'required' && <span className="label-text-alt text-red-400">{errors.newPassword.message}</span>}
                                 {errors.newPassword?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.newPassword.message}</span>}
                             </label>
                         </div>
 
                         {/* New Password 2 */}
-                        <div className="form-control w-full max-w-lg">
-                            <input type='password' className='input input-bordered w-full max-w-lg' placeholder='Confirm New Password' {...register("newPassword2", {
+                        <div className="form-control w-full max-w-lg mb-5">
+                            <input type={`${showPassword ? 'text' : 'password'}`} className='input input-bordered w-full max-w-lg' placeholder='Confirm New Password' {...register("newPassword2", {
                                 required: {
                                     value: true,
                                     message: "New Password field is required"
@@ -168,13 +169,19 @@ const MyProfile = () => {
                                     message: "Password must be at least 8 characters, at least one uppercase and one lowercase letter, at least one number and one special character(!@#$%^&*)."
                                 }
                             })} />
-                            <label className="label">
+                            <label className="label pb-0">
                                 {errors.newPassword2?.type === 'required' && <span className="label-text-alt text-red-400">{errors.newPassword2.message}</span>}
                                 {errors.newPassword2?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.newPassword2.message}</span>}
                             </label>
+                            <label className="label">
+                                <div className='flex items-center'>
+                                    <input onClick={() => setShowPassword(!showPassword)} className="checkbox" name='password-toggle' id='password-toggle' type="checkbox" />
+                                    <label className="ml-2 my-0 cursor-pointer second-font" htmlFor="password-toggle">Show Password</label>
+                                </div>
+                            </label>
                         </div>
 
-                        <input className='btn btn-outline' type="submit" value="Update Password" />
+                        <input className='btn btn-outline transition ease-linear duration-500' type="submit" value="Update Password" />
                     </form>
                 </div>
 
@@ -182,7 +189,7 @@ const MyProfile = () => {
                 <div className="modal bg-[#00000094]">
                     <div className="modal-box relative bg-[#DFF6FF]">
                         <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                        <h2 className='text-2xl text-center mb-4'>Update Profile</h2>
+                        <h2 className='text-2xl text-center mb-4 second-font'>Update Profile</h2>
 
                         <form onSubmit={handleUpdateProfile} className='flex flex-col items-center w-full'>
                             <input value={user.displayName} className='input input-bordered w-full max-w-lg mb-2' disabled />
@@ -190,7 +197,7 @@ const MyProfile = () => {
                             <input ref={imageRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Image URL' />
                             <input ref={numberRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Phone Number' />
                             <input ref={addressRef} className='input input-bordered w-full max-w-lg mb-2' placeholder='Address' />
-                            <input className='btn btn-outline' type="submit" value="Update Profile" />
+                            <input className='transition ease-linear duration-500 btn btn-outline ' type="submit" value="Update Profile" />
                         </form>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import useAllBooks from "./useAllBooks";
 
 const useTopRatedBooks = () => {
-    const [allBooks, setAllBooks] = useAllBooks([]);
+    const { allBooks } = useAllBooks();
 
     const allReviewedBooks = allBooks?.filter(review => review.reviews);
 

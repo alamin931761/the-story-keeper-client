@@ -80,10 +80,10 @@ const User = ({ allUser, index, refetch }) => {
         <tr>
             <th>{index + 1}</th>
             <td className='text-center'>{email}</td>
-            <td className='text-center'>{role !== "admin" && user.email === "alamin931761@gmail.com" && <button onClick={() => makeAdmin(email)} className="btn btn-xs btn-outline btn-success">Make Admin</button>}</td>
+            <td className='text-center'>{role !== "admin" && user.email === "alamin931761@gmail.com" && <button onClick={() => makeAdmin(email)} className="btn btn-xs btn-outline btn-success transition ease-linear duration-500">Make Admin</button>}</td>
 
-            <td className='text-center'>{role === 'admin' && email !== 'alamin931761@gmail.com' && user.email === "alamin931761@gmail.com" && <button onClick={() => removeAdmin(email)} className="btn btn-xs btn-outline">Remove Admin</button>}</td>
-            <td className='text-center'>{email !== 'alamin931761@gmail.com' && email !== user.email && <button onClick={() => deleteUser(email, role)} className="btn btn-xs btn-outline btn-error">Delete</button>}</td>
+            <td className='text-center'>{role === 'admin' && email !== 'alamin931761@gmail.com' && user.email === "alamin931761@gmail.com" && <button onClick={() => removeAdmin(email)} className="btn btn-xs btn-outline transition ease-linear duration-500">Remove Admin</button>}</td>
+            <td className='text-center'>{email !== 'alamin931761@gmail.com' && email !== user.email && <button onClick={() => deleteUser(email, role)} className="btn btn-xs btn-outline btn-error transition ease-linear duration-500">Delete</button>}</td>
         </tr>
     );
 };

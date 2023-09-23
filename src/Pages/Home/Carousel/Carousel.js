@@ -41,21 +41,21 @@ const Carousel = () => {
                     <SwiperSlide>
                         <div className='absolute text-white bg-[#0000007d] p-3 rounded-lg'>
                             <p className='text-[2vw]'>Reading is the best for get idea</p>
-                            <h2 className='text-[5vw]'>Start Reading</h2>
+                            <h2 className='text-[5vw] second-font'>Start Reading</h2>
                         </div>
                         <img src={carousel1} alt="" />
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className='absolute text-white bg-[#0000007d] p-3 rounded-lg'>
                             <p className='text-[2vw]'>Reading is the best for get idea</p>
-                            <h2 className='text-[5vw]'>Keep Reading</h2>
+                            <h2 className='text-[5vw] second-font'>Keep Reading</h2>
                         </div>
                         <img src={carousel2} alt="" />
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className='absolute text-white bg-[#0000007d] p-3 rounded-lg'>
                             <p className='text-[2vw]'>Reading books improves general knowledge</p>
-                            <h2 className='text-[5vw]'>Keep Reading</h2>
+                            <h2 className='text-[5vw] second-font'>Keep Reading</h2>
                         </div>
                         <img src={carousel3} alt="" />
                     </SwiperSlide>

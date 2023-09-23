@@ -27,7 +27,7 @@ const Table = ({ data, deleteBook, index }) => {
                             </div>
                         </div>
                         <div>
-                            <div className="font-bold">{title}</div>
+                            <div className="font-bold text-xl second-font">{title}</div>
                             <div className="text-sm opacity-50">{author}</div>
                         </div>
                     </div>
@@ -41,10 +41,10 @@ const Table = ({ data, deleteBook, index }) => {
                 <input type="checkbox" id="cart-delete-confirm-modal" className="modal-toggle" />
                 <div className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
-                        <h3 className="text-lg text-red-500">Are you sure you want to delete <span className='font-bold'>{title}</span>?</h3>
+                        <h3 className="text-lg text-red-500 second-font">Are you sure you want to delete <span className='font-bold'>{title}</span>?</h3>
                         <div className="modal-action">
-                            <button onClick={() => handleDeleteButton(_id)} className="btn btn-outline btn-error mb-1">< MdDelete className='text-2xl mr-2' />Delete</button>
-                            <label htmlFor="cart-delete-confirm-modal" className="btn btn-outline"><ImCross className='text-xl mr-2 mb-1' />Cancel</label>
+                            <button onClick={() => handleDeleteButton(_id)} className="btn btn-outline btn-error mb-1 transition ease-linear duration-500">< MdDelete className='text-2xl mr-2' />Delete</button>
+                            <label htmlFor="cart-delete-confirm-modal" className="btn btn-outline transition ease-linear duration-500"><ImCross className='text-xl mr-2 mb-1' />Cancel</label>
                         </div>
                     </div>
                 </div>

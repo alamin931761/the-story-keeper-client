@@ -35,10 +35,10 @@ const DeleteConfirmModal = ({ deleteBook, refetch, setDeleteBook }) => {
             <input type="checkbox" id="delete-confirm-modal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="text-lg text-red-500">Are you sure you want to delete <span className='font-bold'>{deleteBook.title}</span>?</h3>
+                    <h3 className="text-lg text-red-500 second-font">Are you sure you want to delete <span className='font-bold'>{deleteBook.title}</span>?</h3>
                     <div className="modal-action">
-                        <button onClick={() => handleDelete(deleteBook._id)} className="btn btn-outline btn-error"><MdDelete className="text-2xl mr-2" />Delete</button>
-                        <label htmlFor="delete-confirm-modal" className="btn btn-outline"><ImCross className='text-xl mr-2 mb-1' />Cancel</label>
+                        <button onClick={() => handleDelete(deleteBook._id)} className="btn btn-outline btn-error transition ease-linear duration-500"><MdDelete className="text-2xl mr-2" />Delete</button>
+                        <label htmlFor="delete-confirm-modal" className="btn btn-outline transition ease-linear duration-500"><ImCross className='text-xl mr-2 mb-1' />Cancel</label>
                     </div>
                 </div>
             </div>

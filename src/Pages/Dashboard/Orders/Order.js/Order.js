@@ -47,7 +47,7 @@ const Order = ({ data, refetch, index }) => {
                 <td className='text-center'>${total}</td>
                 <td className='text-center'>{transactionId}</td>
                 <td className='text-center'>{delivery}</td>
-                <td className='text-center'><button onClick={() => handleStatus(_id)} className={`${status ? 'btn btn-success' : 'btn btn-outline'}`}>{`${status ? status : 'Pending'}`}</button></td>
+                <td className='text-center'><button onClick={() => handleStatus(_id)} className={`${status ? 'btn btn-success' : 'btn btn-outline'} transition ease-linear duration-500`}>{`${status ? status : 'Pending'}`}</button></td>
             </tr>
 
 

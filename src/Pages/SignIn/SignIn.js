@@ -69,7 +69,7 @@ const SignIn = () => {
         <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title="Sign In"></PageTitle>
 
-            <h2 className='text-4xl text-center  my-10'>Sign In to The Story Keeper</h2>
+            <h2 className='text-4xl text-center my-10 second-font'>Sign In to The Story Keeper</h2>
 
             <div>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center'>
@@ -85,13 +85,13 @@ const SignIn = () => {
 
                     <div className='w-full max-w-lg'>
                         <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
-                        <button disabled={googleRecaptcha ? false : true} type='submit' className='btn btn-outline mt-5'>Sign In <SlLogin className='text-xl ml-2' /></button>
+                        <button disabled={googleRecaptcha ? false : true} type='submit' className='btn btn-outline mt-5 transition ease-linear duration-500'>Sign In <SlLogin className='text-xl ml-2' /></button>
                     </div>
 
                 </form>
 
-                <p className='mt-5'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline cursor-pointer'>Reset Password<BsArrowRight className='inline text-2xl ml-2' /></span></p>
-                <p className='mt-5'>New to The Story Keeper? <Link className='text-blue-500 underline' to='/signUp'>Please Sign Up<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
+                <p className='mt-5 second-font'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline cursor-pointer hover:decoration-wavy underline-offset-2'>Reset Password<BsArrowRight className='inline text-2xl ml-2' /></span></p>
+                <p className='mt-5 second-font'>New to The Story Keeper? <Link className='text-blue-500 underline hover:decoration-wavy underline-offset-2' to='/signUp'>Please Sign Up<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
 
             </div>
             {errorElement}

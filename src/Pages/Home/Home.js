@@ -1,10 +1,10 @@
 import React from 'react';
 import PageTitle from '../Shared/PageTitle';
 import Carousel from './Carousel/Carousel';
-import NewArrivals from './NewArrivals/NewArrivals';
 import Services from './Services/Services';
 import FrequentlyAskedQuestions from './FrequentlyAskedQuestions/FrequentlyAskedQuestions';
-import TopRatedSliceBooks from './TopRatedSliceBooks/TopRatedSliceBooks';
+import NewArrivalSlices from './NewArrivalSlices/NewArrivalSlices';
+import TopRatedSlices from './TopRatedSlices/TopRatedSlices';
 
 const Home = () => {
     return (
@@ -12,10 +12,10 @@ const Home = () => {
             <PageTitle title="Home"></PageTitle>
             <Carousel></Carousel>
             <div className='home-page'>
-                <NewArrivals></NewArrivals>
-                <TopRatedSliceBooks></TopRatedSliceBooks>
-                <Services></Services>
-                <FrequentlyAskedQuestions></FrequentlyAskedQuestions>
+                <NewArrivalSlices />
+                <TopRatedSlices />
+                <Services />
+                <FrequentlyAskedQuestions />
             </div>
         </div>
     );

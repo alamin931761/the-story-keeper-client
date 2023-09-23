@@ -57,14 +57,14 @@ const Orders = () => {
     } else {
         orderContainer = <div className='w-full mt-6 flex flex-col items-center justify-center'>
             <GoBook className='text-7xl opacity-5' />
-            <p>No one has ordered yet</p>
+            <p className='second-font'>No one has ordered yet</p>
         </div>
     }
 
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Orders"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>Orders({orders?.length})</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Orders({orders?.length})</h2>
 
             {orderContainer}
         </div>

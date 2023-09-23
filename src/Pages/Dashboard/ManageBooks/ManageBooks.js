@@ -47,14 +47,14 @@ const ManageBooks = () => {
     } else {
         manageBookContainer = <div className='w-full mt-6 flex flex-col items-center justify-center'>
             <GoBook className='text-7xl opacity-5' />
-            <p>No books have been added to this website yet</p>
+            <p className='second-font'>No books have been added to this website yet</p>
         </div>
     }
 
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Manage Books"></PageTitle>
-            <h2 className='text-center text-3xl my-6'>Manage Books ({books.length})</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Manage Books ({books.length})</h2>
 
             {manageBookContainer}
         </div>

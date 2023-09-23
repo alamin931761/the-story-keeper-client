@@ -18,13 +18,13 @@ const ManageBooksRow = ({ book, index, setDeleteBook }) => {
                     </div>
                 </div>
             </th>
-            <td className='text-2xl font-bold text-center'>{title}</td>
+            <td className='text-2xl font-bold text-center second-font'>{title}</td>
             <td className='text-center'>
-                <label onClick={() => navigate(`/editBook/${_id}`)} htmlFor="edit-book" className="btn btn-outline"><BiEdit className='text-2xl mr-2' />Edit</label>
+                <label onClick={() => navigate(`/editBook/${_id}`)} htmlFor="edit-book" className="btn btn-outline transition ease-linear duration-500"><BiEdit className='text-2xl mr-2' />Edit</label>
             </td>
 
             <td className='text-center'>
-                <label onClick={() => setDeleteBook(book)} htmlFor="delete-confirm-modal" className="btn btn-outline btn-error"><MdDelete className='text-2xl mr-2' />Delete</label>
+                <label onClick={() => setDeleteBook(book)} htmlFor="delete-confirm-modal" className="btn btn-outline btn-error transition ease-linear duration-500"><MdDelete className='text-2xl mr-2' />Delete</label>
             </td>
         </tr>
     );

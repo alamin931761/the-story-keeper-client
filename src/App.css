@@ -3,15 +3,30 @@
   background-color: #EDF7FA;
 }
 
+.second-font {
+  font-family: 'Amaranth', sans-serif;
+}
+
 .common-style {
   padding: 62px 10px 0px 10px;
 }
+
+/* input field and textarea */
+input {
+  font-family: 'Amaranth', sans-serif;
+}
+
+textarea {
+  font-family: 'Amaranth', sans-serif;
+}
+
+/* --------------------------------- */
 
 .home-page {
   padding: 0px 10px 0px 10px;
 }
 
-/* navbar */
+/* ----------- navbar ------------- */
 .nav-link {
   transition: 0.5s;
   cursor: pointer;
@@ -25,10 +40,13 @@
 .active {
   transition: 0.5s;
   color: yellow;
+  font-family: 'Amaranth', sans-serif;
 }
 
+/* -------------------------------- */
 
-/* footer */
+
+/* ---------- footer -----------*/
 .social-icon {
   color: white;
   transition: 0.5s;
@@ -38,3 +56,5 @@
   color: yellow;
   transform: translateX(2px);
 }
+
+/* --------------------------- */

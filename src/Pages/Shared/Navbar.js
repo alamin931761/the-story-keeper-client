@@ -190,10 +190,10 @@ const Navbar = () => {
                             </label>
                             <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                                 <div className="card-body bg-black">
-                                    <span className="font-bold text-xl text-white">{quantity} {item}</span>
-                                    <span className="text-white text-base">Subtotal: ${subtotal}</span>
+                                    <span className="font-bold text-xl text-white">{quantity} <span className='second-font'>{item}</span></span>
+                                    <span className="text-white text-base"><span className='second-font'>Subtotal:</span> ${subtotal}</span>
                                     <div className="card-actions">
-                                        <Link className='btn btn-outline btn-success w-full' to='/cart'><GiShoppingCart className="text-2xl mr-2" />View cart</Link>
+                                        <Link className='btn btn-outline btn-success w-full transition ease-linear duration-500' to='/cart'><GiShoppingCart className="text-2xl mr-2" />View cart</Link>
                                     </div>
                                 </div>
                             </div>

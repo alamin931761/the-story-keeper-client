@@ -37,11 +37,11 @@ const Social = () => {
         <div>
             <div className="divider">OR</div>
             <div className='flex flex-col justify-center mb-3'>
-                <button onClick={() => signInWithGoogle()} className='btn btn-outline mt-3 w-[300px] mx-auto'><FcGoogle className='text-3xl mr-1' />Continue with Google</button>
+                <button onClick={() => signInWithGoogle()} className='btn btn-outline mt-3 w-[300px] mx-auto transition ease-linear duration-500'><FcGoogle className='text-3xl mr-1' />Continue with Google</button>
 
-                <button onClick={() => signInWithGithub()} className='btn btn-outline mt-3 w-[300px] mx-auto'><BsGithub className='text-3xl mr-1' />Continue with Github</button>
+                <button onClick={() => signInWithGithub()} className='btn btn-outline mt-3 w-[300px] mx-auto transition ease-linear duration-500'><BsGithub className='text-3xl mr-1' />Continue with Github</button>
 
-                <button onClick={() => signInWithFacebook()} className='btn btn-outline mt-3 w-[300px] mx-auto'><FaFacebookSquare className='text-3xl mr-1' />Continue with Facebook</button>
+                <button onClick={() => signInWithFacebook()} className='btn btn-outline mt-3 w-[300px] mx-auto transition ease-linear duration-500'><FaFacebookSquare className='text-3xl mr-1' />Continue with Facebook</button>
             </div>
             {errorElement}
         </div>

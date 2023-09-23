@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import AllBook from './AllBook/AllBook';
 import { Link } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';
 import PageTitle from '../../Shared/PageTitle';
 import Loading from '../../Shared/Loading';
+import Card from '../../Shared/Card';
+import BackToHomeButton from '../../Shared/BackToHomeButton';
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
@@ -48,27 +49,27 @@ const AllBooks = () => {
         } else {
             setSorted(event.target.value);
         }
-    }
+    };
 
     const handleSelectChange = event => {
         setSize(parseInt(event.target.value));
         setPage(0);
-    }
+    };
 
     return (
         <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
             <PageTitle title="All Books"></PageTitle>
-            <h2 className="text-center text-3xl my-6">All Books</h2>
+            <h2 className="text-center text-3xl my-6 second-font">All Books</h2>
 
             <div className='flex justify-between flex-wrap mb-6'>
                 {/* price range  */}
                 <div className='w-[330px]'>
-                    <p>Price Range</p>
-                    <p>$0 - ${priceRange}</p>
+                    <p className='second-font'>Price Range</p>
+                    <p className='second-font'>$0 - ${priceRange}</p>
                     <input className="range range-md" type="range" min="0" max="2000" value={priceRange} onChange={(event) => setPriceRange(event.target.value)} />
                 </div>
 
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap second-font'>
                     {/* show  */}
                     <div className='flex items-center mr-10 mb-2'>
                         <p className='mr-2'>Show: </p>
@@ -95,7 +96,7 @@ const AllBooks = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
-                    filteredBooks.map(data => <AllBook key={data._id} data={data}></AllBook>)
+                    filteredBooks.map(data => <Card key={data._id} data={data}></Card>)
                 }
             </div>
 
@@ -107,9 +108,7 @@ const AllBooks = () => {
             </div>
 
             {/* back button  */}
-            <div className='flex justify-center mb-6'>
-                <Link className='btn btn-outline' to='/'><MdKeyboardBackspace className='text-2xl mr-2' />Back To Home</Link>
-            </div>
+            <BackToHomeButton />
         </div>
     );
 };
