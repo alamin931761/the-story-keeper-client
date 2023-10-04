@@ -16,13 +16,19 @@ import RandomBooks from './RandomBooks/RandomBooks';
 const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState({});
     const navigate = useNavigate('');
-    const { _id, image, title, subtitle, author, price, description, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding, reviews } = bookDetails;
+    const { _id, image, title, subtitle, author, price, description, publisher, publication_date, weight, pages_quantity, dimensions, isbn, binding, reviews, totalSales } = bookDetails;
     const { id } = useParams();
+
     useEffect(() => {
         fetch(`http://localhost:5000/book/${id}`)
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 404) {
+                    navigate('404')
+                }
+                return res.json();
+            })
             .then(data => setBookDetails(data));
-    }, [id, bookDetails]);
+    }, [id, bookDetails, navigate]);
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
@@ -98,9 +104,10 @@ const BookDetails = () => {
                         <p className='mt-4'>{description}</p>
                         <div className='mt-4'>
                             <p className='uppercase'><small>quantity: {quantity}</small></p>
-                            <p className='uppercase'><small>subtotal: {subtotal}</small></p>
+                            <p className='uppercase'><small>subtotal: ${subtotal}</small></p>
+                            <p className='uppercase'><small>Total Sales: {totalSales}</small></p>
                             <p className='uppercase'><small>publisher: {publisher}</small></p>
-                            <p className='uppercase'><small>publication date: {publication_date}</small></p>
+                            <p className='uppercase'><small>publication date (YY-MM-DD): {publication_date}</small></p>
                             <p className='uppercase'><small>weight: {weight}</small></p>
                             <p className='uppercase'><small>{pages_quantity ? 'pages quantity' : ''} {pages_quantity}</small></p>
                             <p className='uppercase'><small>{dimensions ? 'dimensions (mm): ' : ''}{dimensions}</small></p>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BsArrowLeft } from 'react-icons/bs';
 import { signOut } from 'firebase/auth';
@@ -10,6 +10,7 @@ import PageTitle from '../../../Shared/PageTitle';
 const EditBook = () => {
     const { id } = useParams();
     const [book, setBook] = useState([]);
+    const navigate = useNavigate('');
 
     useEffect(() => {
         fetch(`http://localhost:5000/editBook/${id}`, {
@@ -22,11 +23,13 @@ const EditBook = () => {
                 if (res.status === 401 || res.status === 403) {
                     signOut(auth);
                     localStorage.removeItem("accessToken");
+                } else if (res.status === 404) {
+                    navigate('404');
                 }
                 return res.json();
             })
             .then(data => setBook(data))
-    }, [book])
+    }, [book, id, navigate])
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = data => {

@@ -22,9 +22,14 @@ const AddReview = () => {
     // load book details 
     useEffect(() => {
         fetch(`http://localhost:5000/book/${id}`)
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 404) {
+                    navigate('404');
+                }
+                return res.json();
+            })
             .then(data => setBookDetails(data));
-    }, [id, bookDetails])
+    }, [id, bookDetails, navigate])
 
     // ratings 
     const onChange = (value) => {

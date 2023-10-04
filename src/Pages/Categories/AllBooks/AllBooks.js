@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { MdKeyboardBackspace } from 'react-icons/md';
 import PageTitle from '../../Shared/PageTitle';
 import Loading from '../../Shared/Loading';
 import Card from '../../Shared/Card';
@@ -11,8 +9,8 @@ const AllBooks = () => {
     const [count, setCount] = useState(0);
     const [priceRange, setPriceRange] = useState(2000);
     const [page, setPage] = useState(0);
-    const [size, setSize] = useState(9);
-    const [sorted, setSorted] = useState('');
+    const [size, setSize] = useState(3);
+    const [sorted, setSorted] = useState("default");
 
     useEffect(() => {
         fetch(`http://localhost:5000/books?page=${page}&size=${size}`, {
@@ -45,6 +43,16 @@ const AllBooks = () => {
         if (event.target.value === 'low-high') {
             setSorted(event.target.value);
         } else if (event.target.value === 'high-low') {
+            setSorted(event.target.value);
+        } else if (event.target.value === 'a-z') {
+            setSorted(event.target.value);
+        } else if (event.target.value === 'z-a') {
+            setSorted(event.target.value);
+        } else if (event.target.value === 'oldest-newest') {
+            setSorted(event.target.value);
+        } else if (event.target.value === 'newest-oldest') {
+            setSorted(event.target.value);
+        } else if (event.target.value === 'best-selling') {
             setSorted(event.target.value);
         } else {
             setSorted(event.target.value);
@@ -89,6 +97,11 @@ const AllBooks = () => {
                             <option value="default">Default</option>
                             <option value="low-high">Price (Low - High)</option>
                             <option value="high-low">Price (High - Low)</option>
+                            <option value="a-z">Title (A - Z)</option>
+                            <option value="z-a">Title (Z - A)</option>
+                            <option value="newest-oldest">Newest - Oldest</option>
+                            <option value="oldest-newest">Oldest - Newest</option>
+                            <option value="best-selling">Best Selling</option>
                         </select>
                     </div>
                 </div>
