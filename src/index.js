@@ -6,8 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from "react-query";
+import PaginationAndFilter from './Context/PaginationAndFilter';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import NewArrivalBooks from './Context/NewArrivalBooks';
 AOS.init();
 const queryClient = new QueryClient();
 
@@ -15,13 +17,17 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HelmetProvider>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </HelmetProvider>
+    <PaginationAndFilter>
+      <NewArrivalBooks>
+        <HelmetProvider>
+          <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
+          </BrowserRouter>
+        </HelmetProvider>
+      </NewArrivalBooks>
+    </PaginationAndFilter>
   </React.StrictMode>
 );
 

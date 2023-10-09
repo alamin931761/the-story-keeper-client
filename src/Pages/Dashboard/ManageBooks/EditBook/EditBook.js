@@ -35,7 +35,6 @@ const EditBook = () => {
     const onSubmit = data => {
         const author = data.author;
         const binding = data.binding;
-        const category = data.category;
         const description = data.description;
         const dimensions = data.dimensions;
         const image = data.image;
@@ -55,7 +54,7 @@ const EditBook = () => {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ author, binding, category, description, dimensions, image, isbn, title, subtitle, pages_quantity, price, publication_date, publisher, weight })
+            body: JSON.stringify({ author, binding, description, dimensions, image, isbn, title, subtitle, pages_quantity, price, publication_date, publisher, weight })
         })
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
@@ -245,29 +244,6 @@ const EditBook = () => {
                         <span className="label-text">Binding</span>
                     </label>
                     <input className="input input-bordered w-full mb-4" {...register("binding")} />
-                </div>
-
-                {/* category  */}
-                <div className='w-full'>
-                    <select className="select select-warning w-full" {...register("category", {
-                        required: {
-                            value: true,
-                            message: "Category field required, please select a category"
-                        }
-                    })}>
-                        <option value="" className='text-gray-500'>Select a category</option>
-                        <option value="essays">Essays</option>
-                        <option value="fiction">Fiction</option>
-                        <option value="non-fiction">Non-Fiction</option>
-                        <option value="sci-fi-fantasy-and-horror">Sci-Fi, Fantasy & Horror</option>
-                        <option value="arts-and-music">Arts & Music</option>
-                        <option value="mystery-and-crime">Mystery & Crime</option>
-                        <option value="poetry">Poetry</option>
-                        <option value="rare-books">Rare Books</option>
-                    </select>
-                    <label className="label">
-                        {errors.category?.type === 'required' && <span className="label-text-alt text-red-400">{errors.category.message}</span>}
-                    </label>
                 </div>
                 <input className="btn btn-outline mb-6 transition ease-linear duration-500" type="submit" value="update" />
             </form>

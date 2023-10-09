@@ -20,18 +20,20 @@ const Users = () => {
         }
         return res.json();
     }));
+    let loading;
     if (isLoading) {
-        return <Loading></Loading>
+        loading = <Loading></Loading>
     }
 
-    if (users.length === 0) {
-        return <Loading></Loading>
+    if (users?.length === 0) {
+        loading = <Loading ></Loading >
     }
 
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Users"></PageTitle>
-            <h2 className='text-center text-3xl my-6 second-font'>Users ({users.length})</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Users ({users?.length})</h2>
+            {loading}
 
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -46,7 +48,7 @@ const Users = () => {
                     </thead>
                     <tbody>
                         {
-                            users.map((allUser, index) => <User key={allUser._id} allUser={allUser} index={index} refetch={refetch}></User>)
+                            users?.map((allUser, index) => <User key={allUser._id} allUser={allUser} index={index} refetch={refetch}></User>)
                         }
                     </tbody>
                 </table>

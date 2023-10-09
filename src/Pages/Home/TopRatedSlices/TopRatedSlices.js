@@ -9,8 +9,9 @@ const TopRatedSlices = () => {
     const [topRatedBooksArray] = useTopRatedBooks();
 
     // loading 
+    let loading;
     if (topRatedBooksArray.length === 0) {
-        return <Loading></Loading>
+        loading = <Loading></Loading>;
     }
 
     const topRatedSliceBooks = topRatedBooksArray.slice(0, 3);
@@ -22,6 +23,7 @@ const TopRatedSlices = () => {
                 <Link to='/topRated' className='text-2xl underline-offset-2 hover:underline decoration-wavy hover:text-blue-500 transition ease-linear duration-500'>View all <BsArrowRight className='inline' /></Link>
             </div>
 
+            {loading}
             <div>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                     {

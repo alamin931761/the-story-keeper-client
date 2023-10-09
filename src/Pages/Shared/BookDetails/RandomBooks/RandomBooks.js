@@ -11,8 +11,9 @@ const RandomBooks = ({ id }) => {
             .then(data => setBooks(data));
     }, []);
 
+    let loading;
     if (books.length === 0) {
-        return <Loading></Loading>
+        loading = <Loading></Loading>;
     }
 
     // create random full array
@@ -30,6 +31,7 @@ const RandomBooks = ({ id }) => {
     return (
         <div>
             <h2 className='text-center text-3xl second-font mb-6'>You may also like</h2>
+            {loading}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
                     randomBooks.slice(0, 3).map(data => <Card key={data._id} data={data}></Card>)

@@ -13,7 +13,7 @@ const Order = ({ data, index }) => {
             <td className='text-center'>{time}</td>
             <td className='flex flex-col items-start'>
                 {
-                    books.map((book, index) => <span key={book._id} className='block'>{`${index + 1}.`} {book.title} ({book.quantity} piece)</span>)
+                    books.map((book, index) => <span key={book._id} className='block'>{`${index + 1}.`} {book.title} ({book.quantity} {book.quantity > 1 ? "pieces" : "piece"})</span>)
                 }
             </td>
             <td className='text-center'>${total}</td>

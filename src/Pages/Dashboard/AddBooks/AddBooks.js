@@ -22,7 +22,8 @@ const AddBooks = () => {
             dimensions: data.dimensions,
             isbn: parseInt(data.isbn),
             binding: data.binding,
-            category: data.category
+            category: data.category,
+            totalSales: 0
         };
 
         fetch('http://localhost:5000/allBooks', {

@@ -105,7 +105,7 @@ const BookDetails = () => {
                         <div className='mt-4'>
                             <p className='uppercase'><small>quantity: {quantity}</small></p>
                             <p className='uppercase'><small>subtotal: ${subtotal}</small></p>
-                            <p className='uppercase'><small>Total Sales: {totalSales}</small></p>
+                            <p className='uppercase'><small>Total Sales: {totalSales} ({totalSales > 1 ? "pieces" : "piece"})</small></p>
                             <p className='uppercase'><small>publisher: {publisher}</small></p>
                             <p className='uppercase'><small>publication date (YY-MM-DD): {publication_date}</small></p>
                             <p className='uppercase'><small>weight: {weight}</small></p>

@@ -61,48 +61,48 @@ function App() {
         <SearchContext.Provider value={[search, setSearch]}>
           <Navbar></Navbar>
           <Routes>
-            <Route path='/' element={<Home></Home>}></Route>
-            <Route path='/home' element={<Home></Home>}></Route>
-            <Route path='/signIn' element={<SignIn></SignIn>}></Route>
-            <Route path='/signUp' element={<SignUp></SignUp>}></Route>
-            <Route path='/search' element={<Search></Search>}></Route>
-            <Route path='/blogs' element={<Blogs></Blogs>}></Route>
-            <Route path='/contact' element={<Contact></Contact>}></Route>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/home' element={<Home />}></Route>
+            <Route path='/signIn' element={<SignIn />}></Route>
+            <Route path='/signUp' element={<SignUp />}></Route>
+            <Route path='/search' element={<Search />}></Route>
+            <Route path='/blogs' element={<Blogs />}></Route>
+            <Route path='/contact' element={<Contact />}></Route>
 
-            <Route path='/artsAndMusic' element={<ArtsAndMusic></ArtsAndMusic>}></Route>
-            <Route path='/essays' element={<Essays></Essays>}></Route>
-            <Route path='/fiction' element={<Fiction></Fiction>}></Route>
-            <Route path='/mysteryAndCrime' element={<MysteryAndCrime></MysteryAndCrime>}></Route>
-            <Route path='/nonFiction' element={<NonFiction></NonFiction>}></Route>
-            <Route path='/poetry' element={<Poetry></Poetry>}></Route>
-            <Route path='rareBooks' element={<RareBooks></RareBooks>}></Route>
-            <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorror></SciFiFantasyAndHorror>}></Route>
-            <Route path='allBooks' element={<AllBooks></AllBooks>}></Route>
+            <Route path='/artsAndMusic' element={<ArtsAndMusic />}></Route>
+            <Route path='/essays' element={<Essays />}></Route>
+            <Route path='/fiction' element={<Fiction />}></Route>
+            <Route path='/mysteryAndCrime' element={<MysteryAndCrime />}></Route>
+            <Route path='/nonFiction' element={<NonFiction />}></Route>
+            <Route path='/poetry' element={<Poetry />}></Route>
+            <Route path='rareBooks' element={<RareBooks />}></Route>
+            <Route path='/sciFiFantasyAndHorror' element={<SciFiFantasyAndHorror />}></Route>
+            <Route path='allBooks' element={<AllBooks />}></Route>
 
-            <Route path='/NewArrivals' element={<NewArrivals></NewArrivals>}></Route>
-            <Route path='/topRated' element={<TopRated></TopRated>}></Route>
+            <Route path='/newArrivals' element={<NewArrivals />}></Route>
+            <Route path='/topRated' element={<TopRated />}></Route>
 
-            <Route path='/bookDetails/:id' element={<BookDetails></BookDetails>}></Route>
-            <Route path='/addReview/:id' element={<RequireAuth><RequireUser><AddReview></AddReview></RequireUser></RequireAuth>}></Route>
+            <Route path='/bookDetails/:id' element={<BookDetails />}></Route>
+            <Route path='/addReview/:id' element={<RequireAuth><RequireUser><AddReview /></RequireUser></RequireAuth>}></Route>
 
 
-            <Route path='/cart' element={<Cart></Cart>}></Route>
+            <Route path='/cart' element={<Cart />}></Route>
             <Route path='/deliveryDetails' element={<RequireAuth><DeliveryDetails /></RequireAuth>}></Route>
-            <Route path='/checkout' element={<RequireAuth><Checkout></Checkout></RequireAuth>}></Route>
+            <Route path='/checkout' element={<RequireAuth><Checkout /></RequireAuth>}></Route>
 
 
-            <Route path='/dashboard' element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-              <Route index element={<Welcome></Welcome>}></Route>
-              <Route path='myProfile' element={<MyProfile></MyProfile>}></Route>
-              <Route path='myOrders' element={<RequireUser><MyOrders></MyOrders></RequireUser>}></Route>
-              <Route path='orders' element={<RequireAdmin><Orders></Orders></RequireAdmin>}></Route>
-              <Route path='addBooks' element={<RequireAdmin><AddBooks></AddBooks></RequireAdmin>}></Route>
-              <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
-              <Route path='manageBooks' element={<RequireAdmin><ManageBooks></ManageBooks></RequireAdmin>}></Route>
+            <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>}>
+              <Route index element={<Welcome />}></Route>
+              <Route path='myProfile' element={<MyProfile />}></Route>
+              <Route path='myOrders' element={<RequireUser><MyOrders /></RequireUser>}></Route>
+              <Route path='orders' element={<RequireAdmin><Orders /></RequireAdmin>}></Route>
+              <Route path='addBooks' element={<RequireAdmin><AddBooks /></RequireAdmin>}></Route>
+              <Route path='users' element={<RequireAdmin><Users /></RequireAdmin>}></Route>
+              <Route path='manageBooks' element={<RequireAdmin><ManageBooks /></RequireAdmin>}></Route>
             </Route>
             <Route path='/editBook/:id' element={<RequireAdmin><EditBook /></RequireAdmin>}></Route>
 
-            <Route path='*' element={<NotFound></NotFound>}></Route>
+            <Route path='*' element={<NotFound />}></Route>
           </Routes>
           <Footer></Footer>
         </SearchContext.Provider>

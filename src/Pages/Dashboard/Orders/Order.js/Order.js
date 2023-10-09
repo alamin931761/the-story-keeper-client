@@ -64,7 +64,7 @@ const Order = ({ data, refetch, index }) => {
                 <td className='text-center'>{time}</td>
                 <td className=''>
                     {
-                        books.map((book, index) => <p key={book._id}>{index + 1}. {book.title} <span className='mr-7'>({book.quantity} piece)</span></p>)
+                        books.map((book, index) => <p key={book._id}>{index + 1}. {book.title} <span className='mr-7'>({book.quantity} {book.quantity > 1 ? "pieces" : "piece"})</span></p>)
                     }
                 </td>
                 <td className='text-center'>${total}</td>

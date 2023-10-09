@@ -23,12 +23,13 @@ const Orders = () => {
         }
         return res.json()
     }));
+    let loading;
     if (isLoading) {
-        return <Loading></Loading>
+        loading = <Loading></Loading>;
     }
 
     let orderContainer;
-    if (orders.length > 0) {
+    if (orders?.length > 0) {
         orderContainer = <div className="overflow-x-auto w-full">
             <table className="table w-full">
                 <thead>
@@ -65,7 +66,7 @@ const Orders = () => {
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Orders"></PageTitle>
             <h2 className='text-center text-3xl my-6 second-font'>Orders({orders?.length})</h2>
-
+            {loading}
             {orderContainer}
         </div>
     );

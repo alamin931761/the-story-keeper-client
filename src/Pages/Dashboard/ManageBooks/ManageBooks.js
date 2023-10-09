@@ -15,12 +15,13 @@ const ManageBooks = () => {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
+    let loading;
     if (isLoading) {
-        return <Loading></Loading>
+        loading = <Loading></Loading>;
     }
 
     let manageBookContainer;
-    if (books.length > 0) {
+    if (books?.length > 0) {
         manageBookContainer = <div>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -54,7 +55,9 @@ const ManageBooks = () => {
     return (
         <div data-aos="fade-right" data-aos-duration="1000">
             <PageTitle title="Manage Books"></PageTitle>
-            <h2 className='text-center text-3xl my-6 second-font'>Manage Books ({books.length})</h2>
+            <h2 className='text-center text-3xl my-6 second-font'>Manage Books ({books?.length})</h2>
+
+            {loading}
 
             {manageBookContainer}
         </div>

@@ -63,7 +63,7 @@ const Orders = () => {
     } else {
         myOrdersContainer = <div className='w-full mt-6 flex flex-col items-center justify-center'>
             <GoBook className='text-7xl opacity-5' />
-            <p className='second-font'>There are no orders associated with this account that were placed in the past</p>
+            <p className='second-font mx-2'>There are no orders associated with this account that were placed in the past</p>
         </div>
     }
 
