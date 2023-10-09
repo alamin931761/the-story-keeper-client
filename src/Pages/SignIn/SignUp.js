@@ -132,7 +132,7 @@ const SignUp = () => {
                     <div className='w-full max-w-lg'>
                         <div className='flex items-center mb-5'>
                             <input onClick={() => setAgree(!agree)} className="checkbox" name='terms' id='terms' type="checkbox" />
-                            <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <span className='underline hover:decoration-wavy underline-offset-2 text-blue-500 cursor-pointer'>terms and conditions</span></label>
+                            <label className={`ml-2 ${agree ? 'text-black' : 'text-error'}`} htmlFor="terms">I accept the <label htmlFor="terms-and-conditions" className='underline hover:decoration-wavy underline-offset-2 text-blue-500 cursor-pointer'>terms and conditions</label></label>
                         </div>
 
                         <ReCAPTCHA className='cursor-pointer' sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
@@ -143,6 +143,32 @@ const SignUp = () => {
             </div >
             <p className='mt-5 second-font'>Already have an account? <Link className='text-blue-500 underline hover:decoration-wavy underline-offset-2' to='/signIn'>Please Sign In<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
             <Social></Social>
+
+            {/* terms and conditions modal */}
+            <div>
+                <input type="checkbox" id="terms-and-conditions" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box w-full">
+                        <h3 className="font-bold text-lg">Terms and Conditions</h3>
+                        <ul className='ml-5'>
+                            <li className='list-disc mb-2'>All books are sold subject to the condition that they shall not, by way of trade or otherwise, be lent, re-sold, hired out or otherwise circulated without prior consent in any form of binding or cover than that in which it is published and without a condition to the same effect as this condition being imposed on the subsequent purchase.</li>
+
+                            <li className='list-disc'>The price of books is exclusive of any applicable value added or other tax or bank charges which the customer shall be additionally liable to pay to Context as shown on the invoice.</li>
+
+                            <li className='list-disc mb-2'>Payment shall be by credit card - Visa, Mastercard, or debit cards can be accepted in Pounds sterling, euros, and dollars.</li>
+
+                            <li className='list-disc mb-2'>Goods are supplied on 14 day return basis assuming returned in perfect condition.</li>
+
+                            <li className='list-disc mb-2'>The customer shall inspect the goods on delivery and inform Context in writing within 48 hours. Replacement can be refused if it is not in stock.</li>
+
+                            <li className='list-disc'>It is the customer's responsibility to provide Context with a full and correct postal address. Context reserves the right to charge for redelivery in the event of incorrect details.</li>
+                        </ul>
+                        <div className="modal-action">
+                            <label htmlFor="terms-and-conditions" className="btn">Close!</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
