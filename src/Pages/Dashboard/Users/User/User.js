@@ -9,7 +9,7 @@ const User = ({ allUser, index, refetch }) => {
 
     // make admin 
     const makeAdmin = (emailAddress) => {
-        fetch(`http://localhost:5000/user/admin/${emailAddress}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/user/admin/${emailAddress}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -31,7 +31,7 @@ const User = ({ allUser, index, refetch }) => {
 
     // remove admin 
     const removeAdmin = (emailAddress) => {
-        fetch(`http://localhost:5000/user/admin/${emailAddress}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/user/admin/${emailAddress}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -55,7 +55,7 @@ const User = ({ allUser, index, refetch }) => {
         if (role === 'admin' && user.email !== 'alamin931761@gmail.com') {
             toast.error(`You can't remove an admin`);
         } else {
-            fetch(`http://localhost:5000/user/${emailAddress}`, {
+            fetch(`https://the-story-keeper-server-ebon.vercel.app/user/${emailAddress}`, {
                 method: "DELETE",
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`

@@ -21,7 +21,7 @@ const AddReview = () => {
 
     // load book details 
     useEffect(() => {
-        fetch(`http://localhost:5000/book/${id}`)
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/book/${id}`)
             .then(res => {
                 if (res.status === 404) {
                     navigate('404');
@@ -63,7 +63,7 @@ const AddReview = () => {
         bookDetails.reviews = reviews;
 
         // save review to the database
-        fetch(`http://localhost:5000/book/${id}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/book/${id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",

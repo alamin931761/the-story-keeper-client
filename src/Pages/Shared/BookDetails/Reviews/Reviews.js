@@ -7,7 +7,7 @@ const Reviews = ({ data }) => {
 
     // load user profile picture
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${email}`)
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/user/${email}`)
             .then(res => res.json())
             .then(data => setProfilePicture(data[0]?.imageURL))
     }, [email, profilePicture])

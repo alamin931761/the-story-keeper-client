@@ -32,7 +32,7 @@ const MyProfile = () => {
         };
 
         // update profile
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/user/${user.email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -59,7 +59,7 @@ const MyProfile = () => {
 
     // load user profile data
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/user/${user.email}`, {
             method: "GET",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,

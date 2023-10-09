@@ -8,7 +8,7 @@ import { signOut } from 'firebase/auth';
 const DeleteConfirmModal = ({ deleteBook, refetch, setDeleteBook }) => {
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/allBooks/${id}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/allBooks/${id}`, {
             method: "DELETE",
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`

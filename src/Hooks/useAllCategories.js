@@ -7,7 +7,7 @@ const useAllCategories = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/books?page=${page}&size=${size}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/books?page=${page}&size=${size}`, {
             headers: {
                 sorted,
                 minimum_slider_value: minimumSliderValue,

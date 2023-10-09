@@ -7,7 +7,7 @@ const useNewArrivals = () => {
     const [newArrivals, setNewArrivals] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/newArrivals?page=${page}&size=${size}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/newArrivals?page=${page}&size=${size}`, {
             headers: {
                 minimum_slider_value: minimumSliderValue,
                 maximum_slider_value: maximumSliderValue,

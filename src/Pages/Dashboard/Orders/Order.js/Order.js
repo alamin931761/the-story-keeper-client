@@ -7,7 +7,7 @@ const Order = ({ data, refetch, index }) => {
     const handleStatus = (id) => {
         // update status 
         const status = 'Shipped';
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/orders/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -29,11 +29,11 @@ const Order = ({ data, refetch, index }) => {
 
         // update total sales 
         for (let i = 0; i < books.length; i++) {
-            fetch(`http://localhost:5000/book/${books[i]._id}`)
+            fetch(`https://the-story-keeper-server-ebon.vercel.app/book/${books[i]._id}`)
                 .then(res => res.json())
                 .then(data => {
                     const totalSales = data.totalSales + books[i].quantity;
-                    fetch(`http://localhost:5000/allBooks/${books[i]._id}`, {
+                    fetch(`https://the-story-keeper-server-ebon.vercel.app/allBooks/${books[i]._id}`, {
                         method: "PATCH",
                         headers: {
                             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

@@ -10,7 +10,7 @@ import { GoBook } from 'react-icons/go';
 
 const Orders = () => {
     // orders data load using React query
-    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('http://localhost:5000/orders', {
+    const { data: orders, isLoading, refetch } = useQuery('orders', () => fetch('https://the-story-keeper-server-ebon.vercel.app/orders', {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`

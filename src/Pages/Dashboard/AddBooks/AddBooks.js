@@ -26,7 +26,7 @@ const AddBooks = () => {
             totalSales: 0
         };
 
-        fetch('http://localhost:5000/allBooks', {
+        fetch('https://the-story-keeper-server-ebon.vercel.app/allBooks', {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,

@@ -14,7 +14,7 @@ const Orders = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/order?email=${user.email}`, {
+            fetch(`https://the-story-keeper-server-ebon.vercel.app/order?email=${user.email}`, {
                 method: "GET",
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`

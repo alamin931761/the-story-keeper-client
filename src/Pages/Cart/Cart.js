@@ -41,7 +41,7 @@ const Cart = () => {
 
     // coupon codes 
     useEffect(() => {
-        fetch("http://localhost:5000/couponCodes")
+        fetch("https://the-story-keeper-server-ebon.vercel.app/couponCodes")
             .then(res => res.json())
             .then(data => setCoupon(data));
     }, []);

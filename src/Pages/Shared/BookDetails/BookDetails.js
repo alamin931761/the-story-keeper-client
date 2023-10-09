@@ -20,7 +20,7 @@ const BookDetails = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/book/${id}`)
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/book/${id}`)
             .then(res => {
                 if (res.status === 404) {
                     navigate('404')

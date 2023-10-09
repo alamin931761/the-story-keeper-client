@@ -13,7 +13,7 @@ const EditBook = () => {
     const navigate = useNavigate('');
 
     useEffect(() => {
-        fetch(`http://localhost:5000/editBook/${id}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/editBook/${id}`, {
             method: "GET",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -48,7 +48,7 @@ const EditBook = () => {
         const weight = (data.weight);
 
         // send edited book data to database
-        fetch(`http://localhost:5000/allBooks/${id}`, {
+        fetch(`https://the-story-keeper-server-ebon.vercel.app/allBooks/${id}`, {
             method: "PATCH",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,

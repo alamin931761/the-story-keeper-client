@@ -24,7 +24,7 @@ const CheckoutForm = () => {
         if (!total && !order.delivery && !order.books) {
             navigate('/cart');
         } else {
-            fetch('http://localhost:5000/create-payment-intent', {
+            fetch('https://the-story-keeper-server-ebon.vercel.app/create-payment-intent', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -98,7 +98,7 @@ const CheckoutForm = () => {
             setTransactionId(paymentIntent.id);
 
             // Save the order to the database 
-            const url = `http://localhost:5000/order`;
+            const url = `https://the-story-keeper-server-ebon.vercel.app/order`;
             fetch(url, {
                 method: "POST",
                 headers: {
