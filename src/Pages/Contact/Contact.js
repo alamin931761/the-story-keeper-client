@@ -39,7 +39,7 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        <a href="tel:+8613116273029">
+                        <a href="tel:+8801741931761">
                             <div className='flex items-center mb-10'>
                                 <FiPhone className='text-5xl mr-3' />
                                 <div>

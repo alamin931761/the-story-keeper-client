@@ -12,7 +12,7 @@ import { GoBook } from 'react-icons/go';
 import useShoppingCart from '../../Hooks/useShoppingCart';
 import { deleteShoppingCart, removeFromStorage } from '../../utilities/saveShoppingCartData';
 import Loading from '../Shared/Loading';
-import { OrderContext } from '../../App';
+import { OrderContext } from '../../Context/Order';
 
 const Cart = () => {
     const { savedCart } = useShoppingCart();

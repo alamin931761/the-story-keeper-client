@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { OrderContext } from '../../../App';
 import PageTitle from '../../Shared/PageTitle';
 import { toast } from 'react-toastify';
 import { BsBagCheck } from 'react-icons/bs';
+import { OrderContext } from '../../../Context/Order';
 
 const DeliveryDetails = () => {
     const [user] = useAuthState(auth);

@@ -7,9 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from "react-query";
 import PaginationAndFilter from './Context/PaginationAndFilter';
+import NewArrivalBooks from './Context/NewArrivalBooks';
+import Order from './Context/Order';
+import Search from './Context/Search';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import NewArrivalBooks from './Context/NewArrivalBooks';
 AOS.init();
 const queryClient = new QueryClient();
 
@@ -21,9 +23,13 @@ root.render(
       <NewArrivalBooks>
         <HelmetProvider>
           <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-              <App />
-            </QueryClientProvider>
+            <Search>
+              <Order>
+                <QueryClientProvider client={queryClient}>
+                  <App />
+                </QueryClientProvider>
+              </Order>
+            </Search>
           </BrowserRouter>
         </HelmetProvider>
       </NewArrivalBooks>

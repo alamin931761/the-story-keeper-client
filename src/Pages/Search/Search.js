@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { SearchContext } from '../../App';
 import useAllBooks from '../../Hooks/useAllBooks';
 import PageTitle from '../Shared/PageTitle';
 import Card from '../Shared/Card';
 import BackToHomeButton from '../Shared/BackToHomeButton';
 import Loading from '../Shared/Loading';
+import { SearchContext } from '../../Context/Search';
 
 const Search = () => {
     const [search, setSearch] = useContext(SearchContext);

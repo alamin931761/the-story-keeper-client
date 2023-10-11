@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import auth from '../../../firebase.init';
-import { OrderContext } from '../../../App';
+import { OrderContext } from '../../../Context/Order';
 
 const CheckoutForm = () => {
     const [order, setOrder] = useContext(OrderContext);
