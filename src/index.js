@@ -1,22 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "react-query";
-import PaginationAndFilter from './Context/PaginationAndFilter';
-import NewArrivalBooks from './Context/NewArrivalBooks';
-import Order from './Context/Order';
-import Search from './Context/Search';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import PaginationAndFilter from "./Context/PaginationAndFilter";
+import NewArrivalBooks from "./Context/NewArrivalBooks";
+import Order from "./Context/Order";
+import Search from "./Context/Search";
+import AOS from "aos";
+import "aos/dist/aos.css";
 AOS.init();
 const queryClient = new QueryClient();
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <PaginationAndFilter>

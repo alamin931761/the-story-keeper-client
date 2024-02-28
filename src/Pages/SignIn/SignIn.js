@@ -1,103 +1,181 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import auth from '../../firebase.init';
-import useToken from '../../Hooks/useToken';
-import Loading from '../Shared/Loading';
-import PageTitle from '../Shared/PageTitle';
-import Social from './Social';
-import { SlLogin } from 'react-icons/sl';
-import { BsArrowRight } from 'react-icons/bs';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { useState } from "react";
+import { useEffect } from "react";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import auth from "../../firebase.init";
+import useToken from "../../Hooks/useToken";
+import Loading from "../../components/Loading";
+import { SlLogin } from "react-icons/sl";
+import { BsArrowRight } from "react-icons/bs";
+import PageTitle from "../../components/PageTitle";
+import { TogglePassword } from "../../components/TogglePassword";
+import GoogleReCAPTCHA from "./GoogleReCAPTCHA";
+import Form from "../../components/reusableForm/Form";
+import FormSection from "../../components/reusableForm/FormSection";
+import Input from "../../components/reusableForm/Input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  ResetPasswordSchema,
+  SignInSchema,
+} from "../../components/reusableForm/Validation";
+import FormSubmit from "../../components/reusableForm/FormSubmit";
+import DynamicLink from "../../components/DynamicLink";
+import Modal from "../../components/Modal";
+import Social from "../../components/Social";
 
 const SignIn = () => {
-    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
-    const [sendPasswordResetEmail, sending, resetPasswordError] = useSendPasswordResetEmail(auth);
-    const [googleRecaptcha, setGoogleRecaptcha] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const location = useLocation();
-    const [token] = useToken(user);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, resetPasswordError] =
+    useSendPasswordResetEmail(auth);
+  const [recaptcha, setRecaptcha] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const location = useLocation();
+  const [token] = useToken(user);
 
-    const emailRef = useRef('');
-    const passwordRef = useRef('');
-    const handleSignIn = event => {
-        event.preventDefault();
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
-        signInWithEmailAndPassword(email, password);
-    };
+  // sign in
+  const {
+    register: SignInRegister,
+    formState: { errors: SignInErrors },
+    handleSubmit: handleSubmitSignIn,
+    reset: SignInReset,
+  } = useForm({ resolver: zodResolver(SignInSchema) });
 
-    // reset password 
-    const handleResetPassword = async () => {
-        const email = emailRef.current.value;
-        if (email) {
-            await sendPasswordResetEmail(email);
-            toast.info('An email has been sent to reset your password');
-        } else {
-            toast.error("Please enter your email address")
-        }
+  const handleSignIn = (data) => {
+    const { email, password } = data;
+    signInWithEmailAndPassword(email, password);
+    SignInReset();
+  };
+
+  // reset password
+  const {
+    register: resetPasswordRegister,
+    formState: { errors: resetPasswordErrors },
+    handleSubmit: resetPasswordHandleSubmit,
+    reset: ResetPasswordReset,
+  } = useForm({ resolver: zodResolver(ResetPasswordSchema) });
+
+  const handleResetPassword = async (data) => {
+    await sendPasswordResetEmail(data.email);
+    toast.info("An email has been sent to reset your password");
+    ResetPasswordReset();
+  };
+
+  if (resetPasswordError) {
+    toast.error(`${resetPasswordError}`);
+  }
+
+  // redirect
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
     }
-    if (resetPasswordError) {
-        toast.error(`${resetPasswordError}`);
-    }
+  }, [token, navigate, from]);
 
-    const navigate = useNavigate();
-    const from = location.state?.from?.pathname || '/';
-    useEffect(() => {
-        if (token) {
-            navigate(from, { replace: true });
-        }
-    }, [token, navigate, from])
-
-    let errorElement;
-    if (error) {
-        errorElement = <p className='text-error mt-2 text-center'>{error.message}</p>
-    }
-    if (loading || sending) {
-        return <Loading></Loading>
-    }
-
-    // google recaptcha 
-    const onChange = (value) => {
-        setGoogleRecaptcha(value);
-    }
-
-    return (
-        <div className='common-style' data-aos="fade-up" data-aos-duration="1000">
-            <PageTitle title="Sign In"></PageTitle>
-
-            <h2 className='text-4xl text-center my-10 second-font'>Sign In to The Story Keeper</h2>
-
-            <div>
-                <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center'>
-                    <p className='w-full max-w-lg text-sm mb-2'>Your Email Address</p>
-                    <input ref={emailRef} type="email" className="input input-bordered w-full max-w-lg mb-5" required />
-
-                    <p className='w-full max-w-lg text-sm mb-2'>Your Password</p>
-                    <input ref={passwordRef} type={`${showPassword ? 'text' : 'password'}`} className="input input-bordered w-full max-w-lg mb-2" required />
-                    <div className='flex items-center mb-5 w-full max-w-lg'>
-                        <input onClick={() => setShowPassword(!showPassword)} className="checkbox" name='password-toggle' id='password-toggle' type="checkbox" />
-                        <label className="ml-2 my-0 cursor-pointer" htmlFor="password-toggle">Show Password</label>
-                    </div>
-
-                    <div className='w-full max-w-lg'>
-                        <ReCAPTCHA sitekey={process.env.REACT_APP_google_recaptcha_site_key} onChange={onChange} />
-                        <button disabled={googleRecaptcha ? false : true} type='submit' className='btn btn-outline mt-5 transition ease-linear duration-500'>Sign In <SlLogin className='text-xl ml-2' /></button>
-                    </div>
-
-                </form>
-
-                <p className='mt-5 second-font'>Forgot your password? <span onClick={handleResetPassword} className='text-blue-500 underline cursor-pointer hover:decoration-wavy underline-offset-2'>Reset Password<BsArrowRight className='inline text-2xl ml-2' /></span></p>
-                <p className='mt-5 second-font'>New to The Story Keeper? <Link className='text-blue-500 underline hover:decoration-wavy underline-offset-2' to='/signUp'>Please Sign Up<BsArrowRight className='inline text-2xl ml-2' /></Link></p>
-
-            </div>
-            {errorElement}
-            <Social></Social>
-        </div>
+  // sign in error
+  let errorElement;
+  if (error) {
+    errorElement = (
+      <p className="text-error mt-5 text-center">{error.message}</p>
     );
+  }
+
+  // google recaptcha
+  const handleGoogleRECAPTCHA = (value) => {
+    setRecaptcha(value);
+  };
+
+  // loading
+  if (loading || sending) {
+    return <Loading />;
+  }
+
+  return (
+    <div
+      className="common-style w-full"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+    >
+      <PageTitle title="Sign In" />
+      <h2 className="text-4xl text-center my-10 second-font">
+        Sign In to The Story Keeper
+      </h2>
+
+      <div className="flex justify-center w-full">
+        <div className="w-full max-w-lg">
+          <Form onSubmit={handleSubmitSignIn(handleSignIn)}>
+            <FormSection>
+              <Input
+                name="email"
+                label="Your Email Address"
+                errors={SignInErrors}
+                type="text"
+                register={SignInRegister("email")}
+              />
+
+              <Input
+                name="password"
+                label="Your Password"
+                errors={SignInErrors}
+                type={`${showPassword ? "text" : "password"}`}
+                register={SignInRegister("password")}
+              />
+              <TogglePassword state={showPassword} setState={setShowPassword} />
+            </FormSection>
+
+            <GoogleReCAPTCHA onChange={handleGoogleRECAPTCHA} />
+
+            <FormSubmit disabled={recaptcha ? false : true}>
+              Sign In <SlLogin className="text-xl ml-2" />
+            </FormSubmit>
+
+            <label className="mt-5 second-font" htmlFor="reset-password-modal">
+              Forgot your password?{" "}
+              <span className="text-blue-500 cursor-pointer underline hover:decoration-wavy underline-offset-2">
+                Reset Password
+                <BsArrowRight className="inline text-2xl ml-2" />
+              </span>
+            </label>
+
+            <p className="mt-5 second-font">
+              New to The Story Keeper?{" "}
+              <DynamicLink
+                to="/sign-up"
+                className="text-blue-500 underline cursor-pointer hover:decoration-wavy underline-offset-2"
+              >
+                Please Sign Up
+                <BsArrowRight className="inline text-2xl ml-2" />
+              </DynamicLink>
+            </p>
+          </Form>
+        </div>
+      </div>
+      {errorElement}
+      <Social />
+
+      <Modal modalName="reset-password-modal" title="reset password">
+        <Form onSubmit={resetPasswordHandleSubmit(handleResetPassword)}>
+          <FormSection>
+            <Input
+              name="email"
+              label="your email address"
+              errors={resetPasswordErrors}
+              type="email"
+              register={resetPasswordRegister("email")}
+            />
+          </FormSection>
+          <FormSubmit>reset password</FormSubmit>
+        </Form>
+      </Modal>
+    </div>
+  );
 };
 
 export default SignIn;
