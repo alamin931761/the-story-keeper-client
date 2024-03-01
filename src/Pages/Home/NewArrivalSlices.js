@@ -16,12 +16,8 @@ const NewArrivalSlices = () => {
   return (
     <div className="mt-10" data-aos="fade-up" data-aos-duration="1000">
       <div className="flex justify-between items-center my-6">
-        <h2 className="text-3xl second-font">New Arrivals</h2>
-
-        <DynamicLink
-          to="/newArrivals"
-          className="text-2xl underline-offset-2 hover:underline decoration-wavy hover:text-blue-500 transition ease-linear duration-500"
-        >
+        <h2 className="text-3xl">New Arrivals</h2>
+        <DynamicLink to="/newArrivals">
           View all <BsArrowRight className="inline" />
         </DynamicLink>
       </div>

@@ -14,6 +14,7 @@ import Textarea from "../../../components/reusableForm/Textarea";
 import FormSubmit from "../../../components/reusableForm/FormSubmit";
 import { Select } from "../../../components/reusableForm/Select";
 import { BsArrowLeft } from "react-icons/bs";
+import DynamicLinkButton from "../../../components/DynamicLinkButton";
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -222,14 +223,11 @@ const UpdateBook = () => {
         </FormSubmit>
       </Form>
 
-      <div className="flex justify-center mb-6">
-        <Link
-          className="btn btn-outline transition ease-linear duration-500"
-          to="/dashboard/manageBooks"
-        >
+      <div className="flex justify-center mb-5">
+        <DynamicLinkButton to="/dashboard/manageBooks">
           <BsArrowLeft className="text-2xl mr-2" />
           Back to Manage Books
-        </Link>
+        </DynamicLinkButton>
       </div>
     </div>
   );

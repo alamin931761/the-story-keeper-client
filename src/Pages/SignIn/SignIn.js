@@ -146,10 +146,7 @@ const SignIn = () => {
 
             <p className="mt-5 second-font">
               New to The Story Keeper?{" "}
-              <DynamicLink
-                to="/sign-up"
-                className="text-blue-500 underline cursor-pointer hover:decoration-wavy underline-offset-2"
-              >
+              <DynamicLink to="/sign-up">
                 Please Sign Up
                 <BsArrowRight className="inline text-2xl ml-2" />
               </DynamicLink>

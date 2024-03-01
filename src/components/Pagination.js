@@ -8,7 +8,7 @@ const Pagination = () => {
   const pages = Math.ceil(count / size);
 
   return (
-    <div className="text-center my-6">
+    <div className="text-center my-5">
       {[...Array(pages).keys()].map((number) => (
         <button
           key={number}

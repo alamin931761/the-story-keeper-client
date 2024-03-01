@@ -5,15 +5,15 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { BsBagCheck } from "react-icons/bs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import DynamicLinkButton from "../../components/DynamicLinkButton";
-import { deliveryDetailsSchema } from "../../components/reusableForm/Validation";
-import Form from "../../components/reusableForm/Form";
-import FormSection from "../../components/reusableForm/FormSection";
-import Input from "../../components/reusableForm/Input";
-import FormSubmit from "../../components/reusableForm/FormSubmit";
-import auth from "../../firebase.init";
-import { OrderContext } from "../../Context/Order";
-import PageTitle from "../../components/PageTitle";
+import DynamicLinkButton from "../components/DynamicLinkButton";
+import { deliveryDetailsSchema } from "../components/reusableForm/Validation";
+import Form from "../components/reusableForm/Form";
+import FormSection from "../components/reusableForm/FormSection";
+import Input from "../components/reusableForm/Input";
+import FormSubmit from "../components/reusableForm/FormSubmit";
+import auth from "../firebase.init";
+import { OrderContext } from "../Context/Order";
+import PageTitle from "../components/PageTitle";
 
 const DeliveryDetails = () => {
   const [user] = useAuthState(auth);

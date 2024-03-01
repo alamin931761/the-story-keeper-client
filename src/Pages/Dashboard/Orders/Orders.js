@@ -1,11 +1,11 @@
 import Loading from "../../../components/Loading";
-import Order from "./Order.js/Order";
 import { useQuery } from "react-query";
 import { signOut } from "firebase/auth";
 import auth from "../../../firebase.init";
 import { Navigate } from "react-router-dom";
 import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
+import Order from "./Order";
 
 const Orders = () => {
   // orders data load using React query
@@ -61,7 +61,7 @@ const Orders = () => {
                 data={data}
                 refetch={refetch}
                 index={index}
-              ></Order>
+              />
             ))}
           </tbody>
         </table>

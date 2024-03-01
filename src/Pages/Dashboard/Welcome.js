@@ -1,5 +1,5 @@
 import { GiPartyPopper } from "react-icons/gi";
-import PageTitle from "../../../components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 
 const Welcome = () => {
   return (

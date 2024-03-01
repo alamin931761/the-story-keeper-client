@@ -2,13 +2,13 @@ import { useContext, useRef } from "react";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-import auth from "../../firebase.init";
+import logo from "../../../assets/images/logo.png";
+import auth from "../../../firebase.init";
 import { GiShoppingCart } from "react-icons/gi";
 import { RiMenu2Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
-import useShoppingCart from "../../Hooks/useShoppingCart";
-import { SearchContext } from "../../Context/Search";
+import useShoppingCart from "../../../Hooks/useShoppingCart";
+import { SearchContext } from "../../../Context/Search";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);

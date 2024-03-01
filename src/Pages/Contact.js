@@ -5,7 +5,6 @@ import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
 import emailjs from "@emailjs/browser";
 import { SlPaperPlane } from "react-icons/sl";
-import BackToHomeButton from "./Shared/BackToHomeButton";
 import PageTitle from "../components/PageTitle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ContactSchema } from "../components/reusableForm/Validation";
@@ -14,6 +13,8 @@ import FormSection from "../components/reusableForm/FormSection";
 import Input from "../components/reusableForm/Input";
 import Textarea from "../components/reusableForm/Textarea";
 import FormSubmit from "../components/reusableForm/FormSubmit";
+import DynamicLinkButton from "../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const Contact = () => {
   const {
@@ -115,8 +116,12 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* back button  */}
-      <BackToHomeButton />
+      <div className="flex justify-center">
+        <DynamicLinkButton to="/">
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back To Home
+        </DynamicLinkButton>
+      </div>
     </div>
   );
 };

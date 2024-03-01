@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
-import MyOrder from "./MyOrder/MyOrder";
 import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
+import MyOrder from "./MyOrder";
 
-const Orders = () => {
+const MyOrders = () => {
   const [user] = useAuthState(auth);
   const [myOrders, setMyOrders] = useState([]);
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const Orders = () => {
           </thead>
           <tbody>
             {myOrders.map((data, index) => (
-              <MyOrder key={data._id} data={data} index={index}></MyOrder>
+              <MyOrder key={data._id} data={data} index={index} />
             ))}
           </tbody>
         </table>
@@ -89,4 +89,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default MyOrders;

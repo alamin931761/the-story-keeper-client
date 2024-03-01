@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import DynamicLink from "../../components/DynamicLink";
 
 const FrequentlyAskedQuestions = () => {
   return (
@@ -20,13 +21,8 @@ const FrequentlyAskedQuestions = () => {
           <div className="collapse-content">
             <p>
               If you've forgotten your password, please go to the{" "}
-              <Link
-                className="text-blue-500 second-font underline-offset-2 hover:underline decoration-wavy"
-                to="/sign-in"
-              >
-                Sign in
-              </Link>{" "}
-              page and follow the link 'Reset Password'.
+              <DynamicLink to="/sign-in">Sign in</DynamicLink> page and follow
+              the link 'Reset Password'.
             </p>
           </div>
         </div>
@@ -43,20 +39,10 @@ const FrequentlyAskedQuestions = () => {
           <div className="collapse-content">
             <p>
               To change your password, go to{" "}
-              <Link
-                className="text-blue-500 second-font underline-offset-2 hover:underline decoration-wavy"
-                to="/dashboard"
-              >
-                Dashboard
-              </Link>{" "}
-              page and then click on{" "}
-              <Link
-                className="text-blue-500 second-font underline-offset-2 hover:underline decoration-wavy"
-                to="/dashboard/myProfile"
-              >
-                My Profile
-              </Link>
-              . You can also change or delete personal information, such as your
+              <DynamicLink to="/dashboard">Dashboard</DynamicLink> page and then
+              click on{" "}
+              <DynamicLink to="/dashboard/myProfile">My Profile</DynamicLink>.
+              You can also change or delete personal information, such as your
               image, address, and phone number.
             </p>
           </div>
@@ -75,7 +61,7 @@ const FrequentlyAskedQuestions = () => {
             <p>
               If you wish to delete your account, contact us at{" "}
               <a
-                className="text-blue-500 second-font underline-offset-2 hover:underline decoration-wavy"
+                className="text-blue-500 second-font underline-offset-2 underline hover:decoration-wavy"
                 href="mailto:alamin931761@gmail.com"
               >
                 alamin931761@gmail.com
@@ -178,7 +164,7 @@ const FrequentlyAskedQuestions = () => {
               If your order was not delivered or lost, please get in touch with
               our Customer Service by email at{" "}
               <a
-                className="text-blue-500 second-font underline-offset-2 hover:underline decoration-wavy"
+                className="text-blue-500 second-font underline-offset-2 underline hover:decoration-wavy"
                 href="mailto:alamin931761@gmail.com"
               >
                 alamin931761@gmail.com

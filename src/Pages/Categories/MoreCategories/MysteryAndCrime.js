@@ -1,12 +1,13 @@
 import { useContext, useEffect } from "react";
-import Loading from "../../../../components/Loading";
-import BackToHomeButton from "../../../Shared/BackToHomeButton";
-import Pagination from "../../../../components/Pagination";
-import FilterCategory from "../../../Shared/FilterCategory";
-import { PAGINATION_AND_FILTER_CONTEXT } from "../../../../Context/PaginationAndFilter";
-import useAllCategories from "../../../../Hooks/useAllCategories";
-import PageTitle from "../../../../components/PageTitle";
-import BookDetailsCard from "../../../../components/BookDetailsCard";
+import Loading from "../../../components/Loading";
+import Pagination from "../../../components/Pagination";
+import FilterCategory from "../../Shared/FilterCategory";
+import { PAGINATION_AND_FILTER_CONTEXT } from "../../../Context/PaginationAndFilter";
+import useAllCategories from "../../../Hooks/useAllCategories";
+import PageTitle from "../../../components/PageTitle";
+import BookDetailsCard from "../../../components/BookDetailsCard";
+import DynamicLinkButton from "../../../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const MysteryAndCrime = () => {
   const { setCategory } = useContext(PAGINATION_AND_FILTER_CONTEXT);
@@ -36,8 +37,12 @@ const MysteryAndCrime = () => {
 
       <Pagination />
 
-      {/* back button  */}
-      <BackToHomeButton />
+      <div className="flex justify-center">
+        <DynamicLinkButton to="/">
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back To Home
+        </DynamicLinkButton>
+      </div>
     </div>
   );
 };

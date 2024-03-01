@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import Loading from "../../../components/Loading";
-import ManageBooksRow from "./ManageBooksRow/ManageBooksRow";
-import DeleteConfirmModal from "./DeleteConfirmModal/DeleteConfirmModal";
 import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
+import DeleteBook from "./DeleteBook";
+import ManageBooksRow from "./ManageBooksRow";
 
 const ManageBooks = () => {
   const [deleteBook, setDeleteBook] = useState(null);
-  // load all books using React query
+
   const {
     data: books,
     isLoading,
@@ -48,17 +48,17 @@ const ManageBooks = () => {
                   book={book}
                   index={index}
                   setDeleteBook={setDeleteBook}
-                ></ManageBooksRow>
+                />
               ))}
             </tbody>
           </table>
         </div>
         {deleteBook && (
-          <DeleteConfirmModal
+          <DeleteBook
             deleteBook={deleteBook}
             refetch={refetch}
             setDeleteBook={setDeleteBook}
-          ></DeleteConfirmModal>
+          />
         )}
       </div>
     );

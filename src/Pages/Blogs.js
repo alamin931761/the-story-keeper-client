@@ -1,6 +1,7 @@
 import Typewriter from "typewriter-effect";
-import BackToHomeButton from "./Shared/BackToHomeButton";
 import PageTitle from "../components/PageTitle";
+import DynamicLinkButton from "../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const Blogs = () => {
   return (
@@ -17,7 +18,12 @@ const Blogs = () => {
         />
       </div>
 
-      <BackToHomeButton />
+      <div className="flex justify-center mt-5">
+        <DynamicLinkButton to="/">
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back To Home
+        </DynamicLinkButton>
+      </div>
     </div>
   );
 };

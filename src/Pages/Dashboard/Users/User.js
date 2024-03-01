@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import auth from "../../../../firebase.init";
+import auth from "../../../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const User = ({ allUser, index, refetch }) => {

@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import useAllBooks from "../Hooks/useAllBooks";
-import BackToHomeButton from "./Shared/BackToHomeButton";
 import Loading from "../components/Loading";
 import { SearchContext } from "../Context/Search";
 import PageTitle from "../components/PageTitle";
 import BookDetailsCard from "../components/BookDetailsCard";
+import DynamicLinkButton from "../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const Search = () => {
   const [search, setSearch] = useContext(SearchContext);
@@ -58,7 +59,12 @@ const Search = () => {
         ))}
       </div>
 
-      <BackToHomeButton />
+      <div className="flex justify-center">
+        <DynamicLinkButton to="/">
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back To Home
+        </DynamicLinkButton>
+      </div>
     </div>
   );
 };

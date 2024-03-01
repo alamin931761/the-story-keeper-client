@@ -1,4 +1,4 @@
-const Order = ({ data, index }) => {
+const MyOrder = ({ data, index }) => {
   const {
     name,
     email,
@@ -35,4 +35,4 @@ const Order = ({ data, index }) => {
   );
 };
 
-export default Order;
+export default MyOrder;

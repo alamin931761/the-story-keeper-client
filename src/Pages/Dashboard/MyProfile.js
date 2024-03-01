@@ -1,25 +1,25 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useUpdatePassword } from "react-firebase-hooks/auth";
-import auth from "../../../firebase.init";
+import auth from "../../firebase.init";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useEffect } from "react";
-import Loading from "../../../components/Loading";
+import Loading from "../../components/Loading";
 import { useForm } from "react-hook-form";
 import { BiEdit } from "react-icons/bi";
 import { signOut } from "firebase/auth";
-import PageTitle from "../../../components/PageTitle";
-import Form from "../../../components/reusableForm/Form";
-import FormSection from "../../../components/reusableForm/FormSection";
-import Input from "../../../components/reusableForm/Input";
-import FormSubmit from "../../../components/reusableForm/FormSubmit";
+import PageTitle from "../../components/PageTitle";
+import Form from "../../components/reusableForm/Form";
+import FormSection from "../../components/reusableForm/FormSection";
+import Input from "../../components/reusableForm/Input";
+import FormSubmit from "../../components/reusableForm/FormSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   UpdatePasswordSchema,
   updateProfileSchema,
-} from "../../../components/reusableForm/Validation";
-import { TogglePassword } from "../../../components/TogglePassword";
-import Modal from "../../../components/Modal";
+} from "../../components/reusableForm/Validation";
+import { TogglePassword } from "../../components/TogglePassword";
+import Modal from "../../components/Modal";
 
 const MyProfile = () => {
   const [user] = useAuthState(auth);

@@ -1,8 +1,9 @@
-import useTopRatedBooks from "../../../Hooks/useTopRatedBooks";
-import Loading from "../../../components/Loading";
-import BackToHomeButton from "../../Shared/BackToHomeButton";
-import PageTitle from "../../../components/PageTitle";
-import BookDetailsCard from "../../../components/BookDetailsCard";
+import useTopRatedBooks from "../../Hooks/useTopRatedBooks";
+import Loading from "../../components/Loading";
+import PageTitle from "../../components/PageTitle";
+import BookDetailsCard from "../../components/BookDetailsCard";
+import DynamicLinkButton from "../../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const TopRated = () => {
   const [topRatedBooksArray] = useTopRatedBooks();
@@ -24,8 +25,12 @@ const TopRated = () => {
         ))}
       </div>
 
-      {/* back button  */}
-      <BackToHomeButton />
+      <div className="flex justify-center mt-5">
+        <DynamicLinkButton to="/">
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back To Home
+        </DynamicLinkButton>
+      </div>
     </div>
   );
 };

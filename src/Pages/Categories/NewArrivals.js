@@ -1,11 +1,13 @@
 import { useContext } from "react";
-import useNewArrivals from "../../../Hooks/useNewArrivalsAndBestSelling";
-import { NEW_ARRIVAL_CONTEXT } from "../../../Context/NewArrivalBooks";
+import useNewArrivals from "../../Hooks/useNewArrivalsAndBestSelling";
+import { NEW_ARRIVAL_CONTEXT } from "../../Context/NewArrivalBooks";
 import ReactSlider from "react-slider";
 import styled from "styled-components";
-import Loading from "../../../components/Loading";
-import PageTitle from "../../../components/PageTitle";
-import BookDetailsCard from "../../../components/BookDetailsCard";
+import Loading from "../../components/Loading";
+import PageTitle from "../../components/PageTitle";
+import BookDetailsCard from "../../components/BookDetailsCard";
+import DynamicLinkButton from "../../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 // slider
 const StyledSlider = styled(ReactSlider)`
@@ -105,7 +107,7 @@ const NewArrivals = () => {
       </div>
 
       {/* pagination */}
-      <div className="text-center my-6">
+      <div className="text-center my-5">
         {[...Array(pages).keys()].map((number) => (
           <button
             key={number}
@@ -117,6 +119,13 @@ const NewArrivals = () => {
             {number + 1}
           </button>
         ))}
+      </div>
+
+      <div className="flex justify-center">
+        <DynamicLinkButton to="/">
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back To Home
+        </DynamicLinkButton>
       </div>
     </div>
   );

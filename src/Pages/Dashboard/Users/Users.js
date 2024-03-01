@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import Loading from "../../../components/Loading";
-import User from "./User/User";
 import { signOut } from "firebase/auth";
 import auth from "../../../firebase.init";
 import PageTitle from "../../../components/PageTitle";
+import User from "./User";
 
 const Users = () => {
   // users data load using React query
