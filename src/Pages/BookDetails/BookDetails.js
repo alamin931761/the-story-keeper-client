@@ -11,101 +11,100 @@ import Loading from "../../components/Loading";
 import useShoppingCart from "../../Hooks/useShoppingCart";
 import PageTitle from "../../components/PageTitle";
 import { addToStorage } from "../../utils/saveShoppingCartData";
+import { useGetSingleBookQuery } from "../../redux/api/bookApi";
+import DynamicLinkButton from "../../components/DynamicLinkButton";
 
 const BookDetails = () => {
-  const [bookDetails, setBookDetails] = useState({});
-  const navigate = useNavigate("");
+  const { id } = useParams();
+  const { data, isLoading } = useGetSingleBookQuery({ id });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  console.log(data.data.data);
+  //   const navigate = useNavigate("");
   const {
     _id,
-    image,
+    imageURL,
     title,
     subtitle,
     author,
     price,
+    availableQuantity,
     description,
     publisher,
-    publication_date,
-    weight,
-    pages_quantity,
+    publicationDate,
+    pagesQuantity,
     dimensions,
     isbn,
     binding,
-    reviews,
     totalSales,
-  } = bookDetails;
-  const { id } = useParams();
+    weight,
+  } = data.data.data;
 
-  useEffect(() => {
-    fetch(`https://the-story-keeper-server-ebon.vercel.app/book/${id}`)
-      .then((res) => {
-        if (res.status === 404) {
-          navigate("404");
-        }
-        return res.json();
-      })
-      .then((data) => setBookDetails(data));
-  }, [id, bookDetails, navigate]);
+  const date = new Date(publicationDate).toLocaleDateString();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
-  const onSubmit = async (data) => {
-    // Add book data to local storage
-    addToStorage(_id, parseInt(data.quantity));
-    toast.info(`${title} - successfully added to the cart`);
-    reset();
-  };
+  //   const {
+  //     register,
+  //     formState: { errors },
+  //     handleSubmit,
+  //     reset,
+  //   } = useForm();
+  //   const onSubmit = async (data) => {
+  //     // Add book data to local storage
+  //     addToStorage(_id, parseInt(data.quantity));
+  //     toast.info(`${title} - successfully added to the cart`);
+  //     reset();
+  //   };
 
   // set quantity and subtotal values
-  const { savedCart } = useShoppingCart();
-  let quantity = 0;
-  let subtotal = 0;
-  const findBook = savedCart.find((book) => book._id === _id);
-  if (findBook) {
-    quantity = findBook.quantity;
-    subtotal = findBook.subtotal;
-  }
+  //   const { savedCart } = useShoppingCart();
+  //   let quantity = 0;
+  //   let subtotal = 0;
+  //   const findBook = savedCart.find((book) => book._id === _id);
+  //   if (findBook) {
+  //     quantity = findBook.quantity;
+  //     subtotal = findBook.subtotal;
+  //   }
 
-  if (!bookDetails.image) {
-    return <Loading />;
-  }
+  //   if (!bookDetails.image) {
+  //     return <Loading />;
+  //   }
 
   // add review
-  const handleAddReview = () => {
-    navigate(`/addReview/${_id}`);
-  };
+  //   const handleAddReview = () => {
+  //     navigate(`/addReview/${_id}`);
+  //   };
 
-  let totalReview = 0;
-  let totalRating = 0;
-  let averageRating = 0;
-  let reviewContainer;
-  if (reviews) {
-    totalReview = reviews.length;
-    const ratings = reviews.map((data) => data.rating);
-    for (const rating of ratings) {
-      totalRating = totalRating + rating;
-    }
+  //   let totalReview = 0;
+  //   let totalRating = 0;
+  //   let averageRating = 0;
+  //   let reviewContainer;
+  //   if (reviews) {
+  //     totalReview = reviews.length;
+  //     const ratings = reviews.map((data) => data.rating);
+  //     for (const rating of ratings) {
+  //       totalRating = totalRating + rating;
+  //     }
 
-    averageRating = (totalRating / totalReview).toFixed(1);
+  //     averageRating = (totalRating / totalReview).toFixed(1);
 
-    reviewContainer = (
-      <div className="flex flex-wrap justify-around gap-y-7 mt-6">
-        {reviews.map((data) => (
-          <Reviews data={data} key={data.review}></Reviews>
-        ))}
-      </div>
-    );
-  } else {
-    reviewContainer = (
-      <div className="mt-6 flex flex-col items-center justify-center second-font">
-        <MdOutlineRateReview className="text-7xl opacity-5" />
-        <p>This book has no reviews yet. Be the first one to write a review.</p>
-      </div>
-    );
-  }
+  //     reviewContainer = (
+  //       <div className="flex flex-wrap justify-around gap-y-7 mt-6">
+  //         {reviews.map((data) => (
+  //           <Reviews data={data} key={data.review}></Reviews>
+  //         ))}
+  //       </div>
+  //     );
+  //   } else {
+  //     reviewContainer = (
+  //       <div className="mt-6 flex flex-col items-center justify-center second-font">
+  //         <MdOutlineRateReview className="text-7xl opacity-5" />
+  //         <p>This book has no reviews yet. Be the first one to write a review.</p>
+  //       </div>
+  //     );
+  //   }
 
   return (
     <div
@@ -114,7 +113,7 @@ const BookDetails = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="Book Details" />
-      <h2 className="text-center text-3xl my-6 second-font">
+      <h2 className="text-center text-3xl my-6 second-font capitalize">
         {title} - details
       </h2>
 
@@ -123,24 +122,24 @@ const BookDetails = () => {
           <div>
             <img
               className="h-full sm:w-full md:w-full lg:w-[350px]"
-              src={image}
+              src={imageURL}
               alt={title}
             />
           </div>
 
           <div className="ml-5 pt-5 mr-5 lg:w-[550px]">
-            <h1 className="text-2xl mt-4 second-font">{title}</h1>
-            <h1 className="text-xl mt-4 second-font">{subtitle}</h1>
-            <h3 className="text-lg mt-4 second-font">{author}</h3>
+            <h1 className="text-2xl mt-4 second-font capitalize">{title}</h1>
+            <h1 className="text-xl mt-4 second-font capitalize">{subtitle}</h1>
+            <h3 className="text-lg mt-4 second-font uppercase">{author}</h3>
             <h1 className="text-2xl mt-4 second-font">${price}</h1>
             <hr className="mt-4" />
             <p className="mt-4">{description}</p>
             <div className="mt-4">
               <p className="uppercase">
-                <small>quantity: {quantity}</small>
+                {/* <small>quantity: {quantity}</small> */}
               </p>
               <p className="uppercase">
-                <small>subtotal: ${subtotal}</small>
+                {/* <small>subtotal: ${subtotal}</small> */}
               </p>
               <p className="uppercase">
                 <small>
@@ -152,35 +151,32 @@ const BookDetails = () => {
                 <small>publisher: {publisher}</small>
               </p>
               <p className="uppercase">
-                <small>publication date (YY-MM-DD): {publication_date}</small>
+                <small>publication date (MM/DD/YY): {date}</small>
               </p>
               <p className="uppercase">
                 <small>weight: {weight}</small>
               </p>
               <p className="uppercase">
-                <small>
-                  {pages_quantity ? "pages quantity" : ""} {pages_quantity}
-                </small>
+                <small>Pages Quantity: {pagesQuantity}</small>
               </p>
               <p className="uppercase">
                 <small>
-                  {dimensions ? "dimensions (mm): " : ""}
-                  {dimensions}
+                  Available Quantity: {availableQuantity} (
+                  {availableQuantity > 1 ? "pieces" : "piece"})
                 </small>
               </p>
               <p className="uppercase">
-                <small>
-                  {isbn ? "isbn:" : ""} {isbn}
-                </small>
+                <small>dimensions: {dimensions}</small>
               </p>
               <p className="uppercase">
-                <small>
-                  {binding ? "binding:" : ""} {binding}
-                </small>
+                <small>isbn: {isbn}</small>
+              </p>
+              <p className="uppercase">
+                <small>binding: {binding}</small>
               </p>
             </div>
 
-            <form
+            {/* <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex justify-between my-2"
             >
@@ -229,12 +225,12 @@ const BookDetails = () => {
                 <BsCartPlus className="text-2xl mr-2" />
                 Add To Cart
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>
 
-      <div className="mt-12 mb-6">
+      {/* <div className="mt-12 mb-6">
         <h2 className="text-center text-3xl second-font">
           Reviews({totalReview})
         </h2>
@@ -256,15 +252,18 @@ const BookDetails = () => {
 
         <hr className="mt-6" />
 
-        {/* reviews */}
         {reviewContainer}
-      </div>
+      </div> */}
 
-      <div className="divider"></div>
+      <div className="divider" />
       {/* random books */}
-      <div className="mt-12">
+      {/* <div className="mt-12">
         <RandomBooks id={_id} />
-      </div>
+      </div> */}
+
+      <DynamicLinkButton to={`/${data.data.data.category}`}>
+        Back
+      </DynamicLinkButton>
     </div>
   );
 };

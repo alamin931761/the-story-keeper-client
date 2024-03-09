@@ -7,7 +7,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
-import useToken from "../../Hooks/useToken";
+// import useToken from "../../Hooks/useToken";
 import Loading from "../../components/Loading";
 import { SlLogin } from "react-icons/sl";
 import { BsArrowRight } from "react-icons/bs";
@@ -36,7 +36,7 @@ const SignIn = () => {
   const [recaptcha, setRecaptcha] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
-  const [token] = useToken(user);
+  // const [token] = useToken(user);
 
   // sign in
   const {
@@ -73,11 +73,11 @@ const SignIn = () => {
   // redirect
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-  useEffect(() => {
-    if (token) {
-      navigate(from, { replace: true });
-    }
-  }, [token, navigate, from]);
+  // useEffect(() => {
+  //   if (token) {
+  //     navigate(from, { replace: true });
+  //   }
+  // }, [token, navigate, from]);
 
   // sign in error
   let errorElement;
@@ -155,7 +155,7 @@ const SignIn = () => {
         </div>
       </div>
       {errorElement}
-      <Social />
+      {/* <Social /> */}
 
       <Modal modalName="reset-password-modal" title="reset password">
         <Form onSubmit={resetPasswordHandleSubmit(handleResetPassword)}>

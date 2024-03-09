@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { RiMenu3Line } from "react-icons/ri";
-import useAdmin from "../../Hooks/useAdmin";
+// import useAdmin from "../../Hooks/useAdmin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
-  const [admin] = useAdmin(user);
+  // const [admin] = useAdmin(user);
 
   return (
     <div className="pt-[59px]" data-aos="fade-down" data-aos-duration="1000">
@@ -28,7 +28,15 @@ const Dashboard = () => {
             <NavLink className="nav-link ml-4 mb-3" to="/dashboard/myProfile">
               My Profile
             </NavLink>
-            {admin && (
+
+            <NavLink className="nav-link ml-4 mb-3" to="/dashboard/add-book">
+              Add Books
+            </NavLink>
+
+            <NavLink className="nav-link ml-4 mb-3" to="/dashboard/manageBooks">
+              Manage Books
+            </NavLink>
+            {/* {admin && (
               <>
                 <NavLink
                   className="nav-link ml-4 mb-3"
@@ -59,7 +67,7 @@ const Dashboard = () => {
                   My Orders
                 </NavLink>
               </>
-            )}
+            )} */}
           </ul>
         </div>
       </div>

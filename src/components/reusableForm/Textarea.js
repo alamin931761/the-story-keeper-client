@@ -1,4 +1,11 @@
-const Textarea = ({ name, errors, register, label }) => {
+const Textarea = ({
+  name,
+  errors,
+  register,
+  label,
+  value = undefined,
+  disabled = false,
+}) => {
   return (
     <div className="w-full">
       <label className="block capitalize mb-2 ml-1" htmlFor={`${name}`}>
@@ -10,7 +17,9 @@ const Textarea = ({ name, errors, register, label }) => {
         cols="30"
         rows="5"
         className="textarea textarea-bordered w-full border"
-      ></textarea>
+        value={value}
+        disabled={disabled}
+      />
 
       {errors[name] && (
         <p className="text-xs text-red-500 ml-1">{errors[name].message}</p>

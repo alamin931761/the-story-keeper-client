@@ -1,33 +1,23 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
 import Loading from "../../../components/Loading";
 import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
 import DeleteBook from "./DeleteBook";
 import ManageBooksRow from "./ManageBooksRow";
+import { useGetAllBooksQuery } from "../../../redux/api/bookApi";
 
 const ManageBooks = () => {
   const [deleteBook, setDeleteBook] = useState(null);
+  const { data, isLoading } = useGetAllBooksQuery({
+    fields: "title,imageURL,price,availableQuantity",
+  });
 
-  const {
-    data: books,
-    isLoading,
-    refetch,
-  } = useQuery("books", () =>
-    fetch("https://the-story-keeper-server-ebon.vercel.app/allBooks", {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => res.json())
-  );
-  let loading;
   if (isLoading) {
-    loading = <Loading />;
+    return <Loading />;
   }
 
   let manageBookContainer;
-  if (books?.length > 0) {
+  if (data?.data?.data?.length > 0) {
     manageBookContainer = (
       <div>
         <div className="overflow-x-auto w-full">
@@ -37,12 +27,14 @@ const ManageBooks = () => {
                 <th></th>
                 <th className="text-center">Avatar</th>
                 <th className="text-center">Title</th>
+                <th className="text-center">Price</th>
+                <th className="text-center">Available Quantity</th>
                 <th className="text-center">Edit</th>
                 <th className="text-center">Delete</th>
               </tr>
             </thead>
             <tbody>
-              {books?.map((book, index) => (
+              {data?.data?.data?.map((book, index) => (
                 <ManageBooksRow
                   key={book._id}
                   book={book}
@@ -54,11 +46,7 @@ const ManageBooks = () => {
           </table>
         </div>
         {deleteBook && (
-          <DeleteBook
-            deleteBook={deleteBook}
-            refetch={refetch}
-            setDeleteBook={setDeleteBook}
-          />
+          <DeleteBook deleteBook={deleteBook} setDeleteBook={setDeleteBook} />
         )}
       </div>
     );
@@ -77,10 +65,8 @@ const ManageBooks = () => {
     <div data-aos="fade-right" data-aos-duration="1000">
       <PageTitle title="Manage Books" />
       <h2 className="text-center text-3xl my-6 second-font">
-        Manage Books ({books?.length})
+        Manage Books ({data?.data?.data?.length})
       </h2>
-
-      {loading}
 
       {manageBookContainer}
     </div>

@@ -6,33 +6,34 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "react-query";
-import PaginationAndFilter from "./Context/PaginationAndFilter";
 import NewArrivalBooks from "./Context/NewArrivalBooks";
 import Order from "./Context/Order";
 import Search from "./Context/Search";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 AOS.init();
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <PaginationAndFilter>
-      <NewArrivalBooks>
-        <HelmetProvider>
-          <BrowserRouter>
-            <Search>
-              <Order>
-                <QueryClientProvider client={queryClient}>
+    <NewArrivalBooks>
+      <HelmetProvider>
+        <BrowserRouter>
+          <Search>
+            <Order>
+              <QueryClientProvider client={queryClient}>
+                <Provider store={store}>
                   <App />
-                </QueryClientProvider>
-              </Order>
-            </Search>
-          </BrowserRouter>
-        </HelmetProvider>
-      </NewArrivalBooks>
-    </PaginationAndFilter>
+                </Provider>
+              </QueryClientProvider>
+            </Order>
+          </Search>
+        </BrowserRouter>
+      </HelmetProvider>
+    </NewArrivalBooks>
   </React.StrictMode>
 );
 

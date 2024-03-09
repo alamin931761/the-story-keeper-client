@@ -7,6 +7,11 @@ const Input = ({
   value = undefined,
   disabled = false,
 }) => {
+  let inputType = type;
+  if (value && type === "date") {
+    inputType = "text";
+  }
+
   return (
     <div className="w-full">
       <label className="block capitalize mb-2 ml-1 text-sm" htmlFor={`${name}`}>
@@ -14,7 +19,7 @@ const Input = ({
       </label>
 
       <input
-        type={type}
+        type={inputType}
         id={name}
         {...register}
         value={value}

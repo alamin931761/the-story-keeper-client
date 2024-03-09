@@ -1,19 +1,23 @@
-import { useContext } from "react";
-import { PAGINATION_AND_FILTER_CONTEXT } from "../Context/PaginationAndFilter";
+import { useDispatch, useSelector } from "react-redux";
+import { pageNumber } from "../redux/features/paginationAndFilterSlice";
 
 const Pagination = () => {
-  const { setPage, page, count, size } = useContext(
-    PAGINATION_AND_FILTER_CONTEXT
+  const dispatch = useDispatch();
+  const { page, limit, count } = useSelector(
+    (state) => state.paginationAndFilter
   );
-  const pages = Math.ceil(count / size);
+
+  const pages = Math.ceil(count / limit);
 
   return (
     <div className="text-center my-5">
       {[...Array(pages).keys()].map((number) => (
         <button
-          key={number}
-          onClick={() => setPage(number)}
-          className={`${page === number ? "btn btn-warning" : "btn"} my-2 mx-2`}
+          key={number + 1}
+          onClick={() => dispatch(pageNumber(number + 1))}
+          className={`${
+            page === number + 1 ? "btn btn-warning" : "btn"
+          } my-2 mx-2`}
         >
           {number + 1}
         </button>

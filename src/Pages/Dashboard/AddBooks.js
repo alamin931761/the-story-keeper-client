@@ -1,7 +1,5 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
-import auth from "../../firebase.init";
 import PageTitle from "../../components/PageTitle";
 import Form from "../../components/reusableForm/Form";
 import FormSection from "../../components/reusableForm/FormSection";
@@ -10,7 +8,9 @@ import Textarea from "../../components/reusableForm/Textarea";
 import { Select } from "../../components/reusableForm/Select";
 import FormSubmit from "../../components/reusableForm/FormSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddAndUpdateBookSchema } from "../../components/reusableForm/Validation";
+import { AddBookSchema } from "../../components/reusableForm/Validation";
+import { useAddBookMutation } from "../../redux/api/bookApi";
+import Loading from "../../components/Loading";
 
 const AddBooks = () => {
   const {
@@ -18,50 +18,44 @@ const AddBooks = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm({ resolver: zodResolver(AddAndUpdateBookSchema) });
+  } = useForm({ resolver: zodResolver(AddBookSchema) });
 
-  const AddBooks = (data) => {
+  const [addBook, { isLoading, error, data }] = useAddBookMutation();
+
+  const AddBooks = async (data) => {
     const newBook = {
       imageURL: data.imageURL,
-      title: data.title,
+      title: data.title.toLowerCase(),
       subtitle: data.subtitle,
-      author: data.author,
+      author: data.author.toLowerCase(),
       price: parseFloat(data.price),
-      quantity: parseInt(data.quantity),
+      availableQuantity: parseInt(data.availableQuantity),
       description: data.description,
       publisher: data.publisher,
       publicationDate: new Date(data.publicationDate).toISOString(),
       weight: parseInt(data.weight),
       pagesQuantity: parseInt(data.pagesQuantity),
       dimensions: data.dimensions,
-      isbn: parseInt(data.isbn),
+      isbn: data.isbn,
       binding: data.binding,
       category: data.category,
-      totalSales: 0,
     };
 
-    fetch("https://the-story-keeper-server-ebon.vercel.app/allBooks", {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newBook),
-    })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data.acknowledged) {
-          toast.info("Book added successfully");
-        }
-      });
+    const result = await addBook(newBook);
+    if (result?.data?.success) {
+      toast.info(result.data.message);
+    }
+
+    if (result?.error?.data?.success === false) {
+      toast.error(result.error.data.message);
+    }
+
     reset();
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div data-aos="fade-right" data-aos-duration="1000">
@@ -110,10 +104,10 @@ const AddBooks = () => {
           />
 
           <Input
-            register={register("quantity")}
+            register={register("availableQuantity")}
             type="text"
-            name="quantity"
-            label="quantity"
+            name="availableQuantity"
+            label="Available Quantity"
             errors={errors}
           />
 
@@ -189,6 +183,14 @@ const AddBooks = () => {
             label="category"
             errors={errors}
           />
+
+          {error ? (
+            <p className="text-red-500">
+              <span className="font-semibold">Error:</span> {error.data.message}
+            </p>
+          ) : (
+            ""
+          )}
         </FormSection>
         <FormSubmit className="md:col-start-2 flex md:justify-end">
           Add Book

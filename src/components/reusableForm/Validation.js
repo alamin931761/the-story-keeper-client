@@ -15,8 +15,8 @@ export const ContactSchema = z.object({
   message: z.string().min(1, { message: "Message field is required" }).trim(),
 });
 
-// add book and update book schema
-export const AddAndUpdateBookSchema = z.object({
+// add book book schema
+export const AddBookSchema = z.object({
   imageURL: z
     .string()
     .trim()
@@ -25,7 +25,10 @@ export const AddAndUpdateBookSchema = z.object({
   title: z
     .string()
     .min(1, { message: "Title field is required" })
-    .regex(/^[A-Za-z\s\-,\.]+$/, "Title must contain only letters")
+    .regex(
+      /^[()A-Za-z\s\-,\.\"':0-9&]+$/,
+      `Title must contain only letters, numbers, spaces, and the characters (,-'.()"&:)`
+    )
     .trim(),
 
   subtitle: z
@@ -35,18 +38,20 @@ export const AddAndUpdateBookSchema = z.object({
     .refine(
       (value) => {
         if (value) {
-          return /^[A-Za-z\s\-,\.]+$/.test(value);
+          return /^[()A-Za-z\s\-,\.\"':0-9&]+$/.test(value);
         }
         return true;
       },
-      { message: "Subtitle must contain only letters" }
+      {
+        message: `Title must contain only letters, numbers, spaces, and the characters (,-'.()"&:)`,
+      }
     ),
 
   author: z
     .string()
     .trim()
     .min(1, { message: "Author field is required" })
-    .regex(/^[A-Za-z\s\-\.]+$/, "Author must contain only letters"),
+    .regex(/^[A-Za-z\s\-,\.]+$/, "Author must contain only letters"),
 
   price: z
     .string()
@@ -55,7 +60,7 @@ export const AddAndUpdateBookSchema = z.object({
       message: "Price must be a positive number",
     }),
 
-  quantity: z
+  availableQuantity: z
     .string()
     .min(1, { message: "Quantity field is required" })
     .regex(/^(?:[1-9]\d*|0)$/, "Quantity must be a positive integer number"),
@@ -66,7 +71,7 @@ export const AddAndUpdateBookSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Publisher field is required" })
-    .regex(/^[A-Za-z\s\-,\.]+$/, "Publisher must contain only letters"),
+    .regex(/^[A-Za-z\s\-,\.&]+$/, "Publisher must contain only letters"),
   publicationDate: z
     .string()
     .min(1, { message: "Publication date field is required" }),
@@ -97,6 +102,23 @@ export const AddAndUpdateBookSchema = z.object({
     .regex(/^[A-Za-z\s\-,\.]+$/, "Binding must contain only letters"),
 
   category: z.string().min(1, { message: "Category field is required" }),
+});
+
+export const UpdateBookSchema = z.object({
+  price: z
+    .string()
+    .min(1, { message: "Price field is required" })
+    .regex(/^(?:[1-9]\d*|0)(?:\.\d+)?$/, {
+      message: "Price must be a positive number",
+    }),
+
+  availableQuantity: z
+    .string()
+    .min(1, { message: "Available quantity field is required" })
+    .regex(
+      /^(?:[1-9]\d*|0)$/,
+      "Available quantity must be a positive integer number"
+    ),
 });
 
 // update password schema

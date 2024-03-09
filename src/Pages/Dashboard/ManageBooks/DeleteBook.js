@@ -1,32 +1,20 @@
-import { signOut } from "firebase/auth";
-import auth from "../../../firebase.init";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md";
 import { ImCross } from "react-icons/im";
 import Modal from "../../../components/Modal";
+import { useDeleteBookMutation } from "../../../redux/api/bookApi";
+import Loading from "../../../components/Loading";
 
-const DeleteBook = ({ deleteBook, refetch, setDeleteBook }) => {
-  const handleDelete = (id) => {
-    fetch(`https://the-story-keeper-server-ebon.vercel.app/allBooks/${id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data.deletedCount) {
-          toast.success(`${deleteBook.title} has been successfully deleted.`);
-          setDeleteBook(null);
-          refetch();
-        }
-      });
+const DeleteBook = ({ deleteBook: deleteBookState, setDeleteBook }) => {
+  const [deleteBook, { isLoading }] = useDeleteBookMutation();
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const handleDelete = async (id) => {
+    const result = await deleteBook(id);
+    toast.success(result.data.message);
+    setDeleteBook(null);
   };
 
   return (
@@ -34,15 +22,15 @@ const DeleteBook = ({ deleteBook, refetch, setDeleteBook }) => {
       <Modal
         modalName="delete-confirm-modal"
         title={
-          <h3 className="text-xl text-red-500 text-start">
+          <span className="text-xl text-red-500 text-start">
             Are you sure you want to delete{" "}
-            <span className="font-bold">{deleteBook.title}</span>?
-          </h3>
+            <span className="font-bold">{deleteBookState.title}</span>?
+          </span>
         }
       >
         <div className="modal-action">
           <button
-            onClick={() => handleDelete(deleteBook._id)}
+            onClick={() => handleDelete(deleteBookState._id)}
             className="btn btn-outline btn-error transition ease-linear duration-500"
           >
             <MdDelete className="text-2xl mr-2" />

@@ -11,8 +11,8 @@ const Home = () => {
       <PageTitle title="Home" />
       <Carousel></Carousel>
       <div className="home-page">
-        <NewArrivalSlices />
-        <TopRatedSlices />
+        {/* <NewArrivalSlices /> */}
+        {/* <TopRatedSlices /> */}
         <Services />
         <FrequentlyAskedQuestions />
       </div>

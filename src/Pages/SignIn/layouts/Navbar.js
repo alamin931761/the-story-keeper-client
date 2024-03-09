@@ -7,7 +7,7 @@ import auth from "../../../firebase.init";
 import { GiShoppingCart } from "react-icons/gi";
 import { RiMenu2Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
-import useShoppingCart from "../../../Hooks/useShoppingCart";
+// import useShoppingCart from "../../../Hooks/useShoppingCart";
 import { SearchContext } from "../../../Context/Search";
 
 const Navbar = () => {
@@ -30,25 +30,25 @@ const Navbar = () => {
   };
 
   // cart data
-  const { savedCart } = useShoppingCart();
+  // const { savedCart } = useShoppingCart();
   // quantity
-  const quantityArray = savedCart.map((book) => book.quantity);
-  let quantity = 0;
-  for (const bookQuantity of quantityArray) {
-    quantity = quantity + bookQuantity;
-  }
+  // const quantityArray = savedCart.map((book) => book.quantity);
+  // let quantity = 0;
+  // for (const bookQuantity of quantityArray) {
+  //   quantity = quantity + bookQuantity;
+  // }
 
-  let item = "Item";
-  if (quantity > 1) {
-    item = "Items";
-  }
+  // let item = "Item";
+  // if (quantity > 1) {
+  //   item = "Items";
+  // }
 
   // subtotal
-  const subtotalArray = savedCart.map((book) => book.subtotal);
-  let subtotal = 0;
-  for (const price of subtotalArray) {
-    subtotal = subtotal + price;
-  }
+  // const subtotalArray = savedCart.map((book) => book.subtotal);
+  // let subtotal = 0;
+  // for (const price of subtotalArray) {
+  //   subtotal = subtotal + price;
+  // }
 
   // navbar
   const menuItems = (
@@ -77,12 +77,12 @@ const Navbar = () => {
                 <NavLink className="block my-3 nav-link" to="/fiction">
                   Fiction
                 </NavLink>
-                <NavLink className="block my-3 nav-link" to="/nonFiction">
+                <NavLink className="block my-3 nav-link" to="/non-fiction">
                   Non-Fiction
                 </NavLink>
                 <NavLink
                   className="block my-3 nav-link"
-                  to="/sciFiFantasyAndHorror"
+                  to="/sci-fi-fantasy-and-horror"
                 >
                   Sci-Fi, Fantasy & Horror
                 </NavLink>
@@ -92,22 +92,25 @@ const Navbar = () => {
             <div className="w-[230px]">
               <p className="font-semibold text-xl mt-3">More Categories</p>
               <div>
-                <NavLink className="block my-3 nav-link" to="/artsAndMusic">
+                <NavLink className="block my-3 nav-link" to="/arts-and-music">
                   Arts & Music
                 </NavLink>
-                <NavLink className="block my-3 nav-link" to="/mysteryAndCrime">
+                <NavLink
+                  className="block my-3 nav-link"
+                  to="/mystery-and-crime"
+                >
                   Mystery & Crime
                 </NavLink>
                 <NavLink className="block my-3 nav-link" to="/poetry">
                   Poetry
                 </NavLink>
-                <NavLink className="block my-3 nav-link" to="/rareBooks">
+                <NavLink className="block my-3 nav-link" to="/rare-books">
                   Rare Books
                 </NavLink>
               </div>
             </div>
           </div>
-          <NavLink className="block mb-3 nav-link text-center" to="/allBooks">
+          <NavLink className="block mb-3 nav-link text-center" to="/all-books">
             See All Books
           </NavLink>
         </ul>
@@ -324,7 +327,7 @@ const Navbar = () => {
                 <div className="indicator">
                   <GiShoppingCart className="text-3xl text-white nav-link" />
                   <span className="badge badge-sm indicator-item text-[#FFFF00]">
-                    {quantity}
+                    {/* {quantity} */}
                   </span>
                 </div>
               </label>
@@ -334,10 +337,10 @@ const Navbar = () => {
               >
                 <div className="card-body bg-black">
                   <span className="font-bold text-xl text-white">
-                    {quantity} <span className="second-font">{item}</span>
+                    {/* {quantity} <span className="second-font">{item}</span> */}
                   </span>
                   <span className="text-white text-base">
-                    <span className="second-font">Subtotal:</span> ${subtotal}
+                    {/* <span className="second-font">Subtotal:</span> ${subtotal} */}
                   </span>
                   <div className="card-actions">
                     <Link

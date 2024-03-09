@@ -1,13 +1,20 @@
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ReactSlider from "react-slider";
 import styled from "styled-components";
-import { PAGINATION_AND_FILTER_CONTEXT } from "../../Context/PaginationAndFilter";
+import {
+  booksLimit,
+  booksSort,
+  maximumSliderValue,
+  minimumSliderValue,
+  pageNumber,
+} from "../redux/features/paginationAndFilterSlice";
 
 // slider
 const StyledSlider = styled(ReactSlider)`
   width: 100%;
   height: 25px;
 `;
+
 const StyledThumb = styled.div`
   height: 25px;
   line-height: 25px;
@@ -31,46 +38,34 @@ const StyledTrack = styled.div`
 `;
 const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
 
-const FilterCategory = () => {
-  const { setSize, setPage, setSliderValue, sliderValue, setSorted } =
-    useContext(PAGINATION_AND_FILTER_CONTEXT);
+const FilterBooks = () => {
+  // price range
+  const dispatch = useDispatch();
+  const { minimumValue, maximumValue } = useSelector(
+    (state) => state.paginationAndFilter
+  );
+  const sliderValue = [minimumValue, maximumValue];
+
+  const handleSliderChange = (value) => {
+    dispatch(minimumSliderValue(value[0]));
+    dispatch(maximumSliderValue(value[1]));
+  };
 
   // select
   const handleSelectChange = (event) => {
-    setSize(parseInt(event.target.value));
-    setPage(0);
-  };
-
-  // slider
-  const handleSliderChange = (value) => {
-    setSliderValue(value);
+    dispatch(booksLimit(parseInt(event.target.value)));
+    dispatch(pageNumber(1));
   };
 
   // sort
   const sortedBooks = (event) => {
-    if (event.target.value === "low-high") {
-      setSorted(event.target.value);
-    } else if (event.target.value === "high-low") {
-      setSorted(event.target.value);
-    } else if (event.target.value === "a-z") {
-      setSorted(event.target.value);
-    } else if (event.target.value === "z-a") {
-      setSorted(event.target.value);
-    } else if (event.target.value === "oldest-newest") {
-      setSorted(event.target.value);
-    } else if (event.target.value === "newest-oldest") {
-      setSorted(event.target.value);
-    } else if (event.target.value === "best-selling") {
-      setSorted(event.target.value);
-    } else {
-      setSorted(event.target.value);
-    }
+    dispatch(booksSort(event.target.value));
   };
 
   return (
-    <div className="mb-6">
+    <div className="my-5">
       {/* price range  */}
-      <div className="w-full mr-2">
+      <div className="w-full mr-2 mb-5">
         <div className="flex flex-col justify-center h-full">
           <p className="second-font mb-2">Price Range</p>
           <StyledSlider
@@ -86,15 +81,13 @@ const FilterCategory = () => {
 
       <div className="second-font flex justify-end items-center flex-wrap">
         {/* show  */}
-        <div className="flex items-center my-6">
+        <div className="flex items-center">
           <p className="mr-2">Show: </p>
           <select
             onChange={handleSelectChange}
             className="select select-bordered w-[75px]"
           >
-            <option value="3" selected>
-              3
-            </option>
+            <option value="3">3</option>
             <option value="6">6</option>
             <option value="9">9</option>
             <option value="12">12</option>
@@ -109,14 +102,13 @@ const FilterCategory = () => {
             onChange={sortedBooks}
             className="select select-bordered w-[185px]"
           >
-            <option value="default">Default</option>
-            <option value="low-high">Price (Low - High)</option>
-            <option value="high-low">Price (High - Low)</option>
-            <option value="a-z">Title (A - Z)</option>
-            <option value="z-a">Title (Z - A)</option>
-            <option value="newest-oldest">Newest - Oldest</option>
-            <option value="oldest-newest">Oldest - Newest</option>
-            <option value="best-selling">Best Selling</option>
+            <option value="updatedAt">Default</option>
+            <option value="price">Price (Low - High)</option>
+            <option value="-price">Price (High - Low)</option>
+            <option value="title">Title (A - Z)</option>
+            <option value="-title">Title (Z - A)</option>
+            <option value="-createdAt">Newest - Oldest</option>
+            <option value="createdAt">Oldest - Newest</option>
           </select>
         </div>
       </div>
@@ -124,4 +116,4 @@ const FilterCategory = () => {
   );
 };
 
-export default FilterCategory;
+export default FilterBooks;

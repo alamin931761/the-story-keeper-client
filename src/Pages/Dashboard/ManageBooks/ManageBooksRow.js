@@ -3,8 +3,7 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 
 const ManageBooksRow = ({ book, index, setDeleteBook }) => {
-  const { image, title, _id } = book;
-
+  const { imageURL, title, _id, price, availableQuantity } = book;
   const navigate = useNavigate();
 
   return (
@@ -13,14 +12,16 @@ const ManageBooksRow = ({ book, index, setDeleteBook }) => {
       <th className="text-center">
         <div className="avatar">
           <div className="w-24 rounded-full">
-            <img src={image} alt={title} />
+            <img src={imageURL} alt={title} />
           </div>
         </div>
       </th>
-      <td className="text-2xl font-bold text-center second-font">{title}</td>
+      <td className="text-2xl text-center second-font">{title}</td>
+      <td className="text-2xl text-center second-font">${price}</td>
+      <td className="text-2xl text-center second-font">{availableQuantity}</td>
       <td className="text-center">
         <label
-          onClick={() => navigate(`/updateBook/${_id}`)}
+          onClick={() => navigate(`/update-book/${_id}`)}
           htmlFor="edit-book"
           className="btn btn-outline transition ease-linear duration-500"
         >

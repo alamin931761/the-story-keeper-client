@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react"
+// import { useEffect, useState } from "react";
 
-const useAdmin = user => {
-    const [admin, setAdmin] = useState(false);
-    const [adminLoading, setAdminLoading] = useState(true);
+// const useAdmin = (user) => {
+//   const [admin, setAdmin] = useState(false);
+//   const [adminLoading, setAdminLoading] = useState(true);
 
-    useEffect(() => {
-        const email = user?.email;
-        if (email) {
-            fetch(`https://the-story-keeper-server-ebon.vercel.app/admin/${email}`, {
-                headers: {
-                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    setAdmin(data.admin);
-                    setAdminLoading(false);
-                })
-        }
-    }, [user])
-    return [admin, adminLoading];
-}
-export default useAdmin;
+//   useEffect(() => {
+//     const email = user?.email;
+//     if (email) {
+//       fetch(`http://localhost:5000/api/v1/admin/${email}`, {
+//         headers: {
+//           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+//         },
+//       })
+//         .then((res) => res.json())
+//         .then((data) => {
+//           setAdmin(data.admin);
+//           setAdminLoading(false);
+//         });
+//     }
+//   }, [user]);
+//   return [admin, adminLoading];
+// };
+// export default useAdmin;
