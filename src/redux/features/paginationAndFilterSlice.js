@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   limit: 3,
   page: 1,
-  count: 0,
+  count: 3,
   minimumValue: 0,
   maximumValue: 2000,
   sort: "updatedAt",

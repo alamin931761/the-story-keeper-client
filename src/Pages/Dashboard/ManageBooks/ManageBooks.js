@@ -4,22 +4,27 @@ import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
 import DeleteBook from "./DeleteBook";
 import ManageBooksRow from "./ManageBooksRow";
-import { useGetAllBooksQuery } from "../../../redux/api/bookApi";
+import Pagination from "../../../components/Pagination";
+import FilterBooks from "../../../components/FilterBooks";
+import useLoadBooks from "../../../Hooks/useLoadBooks";
 
 const ManageBooks = () => {
   const [deleteBook, setDeleteBook] = useState(null);
-  const { data, isLoading } = useGetAllBooksQuery({
-    fields: "title,imageURL,price,availableQuantity",
-  });
+  const { books, count, isLoading } = useLoadBooks(
+    "title,imageURL,price,availableQuantity"
+  );
 
   if (isLoading) {
     return <Loading />;
   }
 
   let manageBookContainer;
-  if (data?.data?.data?.length > 0) {
+  if (count > 0) {
     manageBookContainer = (
       <div>
+        <div className="mx-2">
+          <FilterBooks />
+        </div>
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
@@ -34,7 +39,7 @@ const ManageBooks = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.data?.map((book, index) => (
+              {books.map((book, index) => (
                 <ManageBooksRow
                   key={book._id}
                   book={book}
@@ -44,6 +49,8 @@ const ManageBooks = () => {
               ))}
             </tbody>
           </table>
+
+          <Pagination />
         </div>
         {deleteBook && (
           <DeleteBook deleteBook={deleteBook} setDeleteBook={setDeleteBook} />
@@ -64,8 +71,8 @@ const ManageBooks = () => {
   return (
     <div data-aos="fade-right" data-aos-duration="1000">
       <PageTitle title="Manage Books" />
-      <h2 className="text-center text-3xl my-6 second-font">
-        Manage Books ({data?.data?.data?.length})
+      <h2 className="text-center text-3xl mt-5 second-font">
+        Manage Books ({count})
       </h2>
 
       {manageBookContainer}

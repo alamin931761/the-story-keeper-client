@@ -5,7 +5,7 @@ const Footer = () => {
   const year = today.getFullYear();
 
   return (
-    <footer className="footer footer-center p-10 bg-black text-base-content">
+    <footer className="footer footer-center p-10 bg-black text-base-content relative z-[40]">
       <div>
         <div className="grid grid-flow-col gap-4">
           <a target="_blank" href="https://www.facebook.com/alamin931761/">

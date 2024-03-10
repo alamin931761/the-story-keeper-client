@@ -3,7 +3,7 @@ import PageTitle from "../../components/PageTitle";
 
 const Welcome = () => {
   return (
-    <div className="h-[95%]">
+    <div className="h-screen">
       <PageTitle title="Dashboard"></PageTitle>
       <div
         className="h-full flex justify-center items-center mt-4"

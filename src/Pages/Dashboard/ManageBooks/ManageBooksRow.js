@@ -16,7 +16,7 @@ const ManageBooksRow = ({ book, index, setDeleteBook }) => {
           </div>
         </div>
       </th>
-      <td className="text-2xl text-center second-font">{title}</td>
+      <td className="text-2xl text-center second-font capitalize">{title}</td>
       <td className="text-2xl text-center second-font">${price}</td>
       <td className="text-2xl text-center second-font">{availableQuantity}</td>
       <td className="text-center">

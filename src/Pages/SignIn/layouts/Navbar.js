@@ -195,13 +195,13 @@ const Navbar = () => {
                           </NavLink>
                           <NavLink
                             className="block my-1 nav-link"
-                            to="/nonFiction"
+                            to="/non-fiction"
                           >
                             Non-Fiction
                           </NavLink>
                           <NavLink
                             className="block my-1 nav-link"
-                            to="/sciFiFantasyAndHorror"
+                            to="/sci-fi-fantasy-and-horror"
                           >
                             Sci-Fi, Fantasy & Horror
                           </NavLink>
@@ -213,13 +213,13 @@ const Navbar = () => {
                         <div className="ml-8">
                           <NavLink
                             className="block my-1 nav-link"
-                            to="/artsAndMusic"
+                            to="/arts-and-music"
                           >
                             Arts & Music
                           </NavLink>
                           <NavLink
                             className="block my-1 nav-link"
-                            to="/mysteryAndCrime"
+                            to="/mystery-and-crime"
                           >
                             Mystery & Crime
                           </NavLink>
@@ -228,7 +228,7 @@ const Navbar = () => {
                           </NavLink>
                           <NavLink
                             className="block my-1 nav-link"
-                            to="/rareBooks"
+                            to="/rare-books"
                           >
                             Rare Books
                           </NavLink>
@@ -237,7 +237,7 @@ const Navbar = () => {
                     </div>
                     <NavLink
                       className="block my-1 nav-link ml-6"
-                      to="/allBooks"
+                      to="/all-books"
                     >
                       See All Books
                     </NavLink>

@@ -4,13 +4,15 @@ import PageTitle from "../../../components/PageTitle";
 import BookDetailsCard from "../../../components/BookDetailsCard";
 import DynamicLinkButton from "../../../components/DynamicLinkButton";
 import { MdKeyboardBackspace } from "react-icons/md";
-import { useGetAllBooksQuery } from "../../../redux/api/bookApi";
+import FilterBooks from "../../../components/FilterBooks";
+import useLoadBooks from "../../../Hooks/useLoadBooks";
 
 const Fiction = () => {
-  const { data, isLoading } = useGetAllBooksQuery({
-    fields: "title,price,author,imageURL",
-    category: "fiction",
-  });
+  const { books, count, isLoading } = useLoadBooks(
+    "imageURL,title,author,price",
+    "fiction"
+  );
+
   if (isLoading) {
     return <Loading />;
   }
@@ -18,10 +20,14 @@ const Fiction = () => {
   return (
     <div className="common-style" data-aos="fade-down" data-aos-duration="1000">
       <PageTitle title="Fiction" />
-      <h2 className="text-center text-3xl my-6 second-font">Fiction</h2>
+      <h2 className="text-center text-3xl my-6 second-font">
+        Fiction ({count})
+      </h2>
+
+      <FilterBooks />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.data.data.map((data) => (
+        {books.map((data) => (
           <BookDetailsCard key={data._id} data={data} />
         ))}
       </div>
