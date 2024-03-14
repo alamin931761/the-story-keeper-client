@@ -12,7 +12,7 @@ import SignUp from "./Pages/SignIn/SignUp";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 // import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
 // import Orders from "./Pages/Dashboard/Orders/Orders";
-// import Users from "./Pages/Dashboard/Users/Users";
+import Users from "./Pages/Dashboard/Users/Users";
 import ManageBooks from "./Pages/Dashboard/ManageBooks/ManageBooks";
 // import Search from "./Pages/Search";
 import Blogs from "./Pages/Blogs";
@@ -36,7 +36,7 @@ import ArtsAndMusic from "./Pages/Categories/MoreCategories/ArtsAndMusic";
 import MysteryAndCrime from "./Pages/Categories/MoreCategories/MysteryAndCrime";
 import Poetry from "./Pages/Categories/MoreCategories/Poetry";
 import RareBooks from "./Pages/Categories/MoreCategories/RareBooks";
-// import MyProfile from "./Pages/Dashboard/MyProfile";
+import MyProfile from "./Pages/Dashboard/MyProfile";
 import Welcome from "./Pages/Dashboard/Welcome";
 // import DeliveryDetails from "./Pages/DeliveryDetails";
 
@@ -67,8 +67,8 @@ function App() {
         <Route path="/all-books" element={<AllBooks />} />
 
         <Route path="/book-details/:id" element={<BookDetails />} />
+        {/* <Route path="/new-arrivals" element={<NewArrivals />} /> */}
         {/* 
-        <Route path="/newArrivals" element={<NewArrivals />}></Route>
         <Route path="/topRated" element={<TopRated />}></Route>
 
         */}
@@ -100,7 +100,7 @@ function App() {
           }
         >
           <Route index element={<Welcome />}></Route>
-          {/* <Route path="myProfile" element={<MyProfile />}></Route> */}
+          <Route path="my-profile" element={<MyProfile />} />
           <Route
             path="myOrders"
             // element={<RequireUser>{/* <MyOrders /> */}</RequireUser>}
@@ -120,6 +120,7 @@ function App() {
           <Route
             path="users"
             // element={<RequireAdmin>{/* <Users /> */}</RequireAdmin>}
+            element={<Users />}
           ></Route>
           <Route
             path="manageBooks"

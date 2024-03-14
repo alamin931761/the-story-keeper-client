@@ -46,7 +46,7 @@ const Contact = () => {
   return (
     <div className="common-style" data-aos="fade-down" data-aos-duration="1000">
       <PageTitle title="Contact" />
-      <h2 className="text-3xl text-center my-6 second-font">Contact us</h2>
+      <h2 className="text-3xl text-center my-5 second-font">Contact us</h2>
 
       <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 mt-8">
         <div className="flex items-center justify-center w-full">

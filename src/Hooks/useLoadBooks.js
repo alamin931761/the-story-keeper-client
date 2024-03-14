@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  bookCount,
-  booksLimit,
-  booksSort,
+  documentsCount,
+  documentsLimit,
+  documentsSort,
   maximumSliderValue,
   minimumSliderValue,
   pageNumber,
@@ -15,8 +15,8 @@ const useLoadBooks = (fields, category) => {
 
   // set initial query parameters
   useEffect(() => {
-    dispatch(booksSort("updatedAt"));
-    dispatch(booksLimit(3));
+    dispatch(documentsSort("availableQuantity"));
+    dispatch(documentsLimit(3));
     dispatch(pageNumber(1));
     dispatch(minimumSliderValue(0));
     dispatch(maximumSliderValue(2000));
@@ -46,7 +46,7 @@ const useLoadBooks = (fields, category) => {
   //   set count value
   useEffect(() => {
     if (data?.data?.data?.count) {
-      dispatch(bookCount(data.data.data.count));
+      dispatch(documentsCount(data?.data?.data?.count));
     }
   }, [data?.data?.data?.count, dispatch]);
 

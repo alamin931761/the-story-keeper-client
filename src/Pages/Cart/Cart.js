@@ -240,7 +240,7 @@
 //         <div className="flex flex-col justify-center items-center my-6">
 //           <button
 //             onClick={clearCart}
-//             className="btn btn-outline btn-error mb-6 transition ease-linear duration-500"
+//             className="btn btn-outline btn-error mb-5 transition ease-linear duration-500"
 //           >
 //             Clear Cart <AiOutlineClear className="ml-2 text-2xl mb-1" />
 //           </button>
@@ -260,7 +260,7 @@
 //   return (
 //     <div className="common-style" data-aos="fade-down" data-aos-duration="1000">
 //       <PageTitle title="Cart" />
-//       <h2 className="text-center text-3xl my-6 second-font">Cart</h2>
+//       <h2 className="text-center text-3xl my-5 second-font">Cart</h2>
 
 //       {cart}
 //     </div>

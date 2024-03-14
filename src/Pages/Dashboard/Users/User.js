@@ -1,119 +1,102 @@
-// import { toast } from "react-toastify";
-// import auth from "../../../firebase.init";
-// import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import auth from "../../../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  useGetSingleUserQuery,
+  useUpdateRoleMutation,
+} from "../../../redux/api/userApi";
+import Loading from "../../../components/Loading";
 
-// const User = ({ allUser, index, refetch }) => {
-//   const { email, role } = allUser;
-//   const [user] = useAuthState(auth);
+const User = ({ allUser, index }) => {
+  const { email, role } = allUser;
+  const [user] = useAuthState(auth);
+  const currentUserEmail = user.email;
+  const { data, isLoading } = useGetSingleUserQuery(currentUserEmail);
+  const [updateRole, { isLoading: updateRoleLoading }] =
+    useUpdateRoleMutation();
 
-//   // make admin
-//   // const makeAdmin = (emailAddress) => {
-//   //   fetch(`http://localhost:5000/api/v1//user/admin/${emailAddress}`, {
-//   //     method: "PUT",
-//   //     headers: {
-//   //       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//   //     },
-//   //   })
-//   //     .then((res) => {
-//   //       if (res.status === 403 || res.status === 401) {
-//   //         toast.error("Failed to make an admin");
-//   //       }
-//   //       return res.json();
-//   //     })
-//   //     .then((data) => {
-//   //       if (data.modifiedCount > 0) {
-//   //         refetch();
-//   //         toast("Successfully made an admin");
-//   //       }
-//   //     });
-//   // };
+  if (isLoading || updateRoleLoading) {
+    return (
+      <div className="flex justify-center items-center w-[95vw]">
+        <Loading />
+      </div>
+    );
+  }
 
-//   // remove admin
-//   const removeAdmin = (emailAddress) => {
-//     fetch(`http://localhost:5000/api/v1//user/admin/${emailAddress}`, {
-//       method: "PATCH",
-//       headers: {
-//         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//       },
-//     })
-//       .then((res) => {
-//         if (res.status === 403 || res.status === 401) {
-//           toast.error("Failed to remove an admin");
-//         }
-//         return res.json();
-//       })
-//       .then((data) => {
-//         if (data.modifiedCount > 0) {
-//           refetch();
-//           toast("Successfully remove an admin");
-//         }
-//       });
-//   };
-//   // delete user
-//   const deleteUser = (emailAddress, role) => {
-//     if (role === "admin" && user.email !== "alamin931761@gmail.com") {
-//       toast.error(`You can't remove an admin`);
-//     } else {
-//       fetch(`http://localhost:5000/api/v1//user/${emailAddress}`, {
-//         method: "DELETE",
-//         headers: {
-//           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//         },
-//       })
-//         .then((res) => {
-//           if (res.status === 403 || res.status === 401) {
-//             toast.error("Failed to delete an user");
-//           }
-//           return res.json();
-//         })
-//         .then((data) => {
-//           if (data.deletedCount > 0) {
-//             toast.success(`User deleted successfully`);
-//             refetch();
-//           }
-//         });
-//     }
-//   };
+  const currentUserRole = data.data.data.role;
 
-//   return (
-//     <tr>
-//       <th>{index + 1}</th>
-//       <td className="text-center">{email}</td>
-//       <td className="text-center">
-//         {role !== "admin" && user.email === "alamin931761@gmail.com" && (
-//           <button
-//             onClick={() => makeAdmin(email)}
-//             className="btn btn-xs btn-outline btn-success transition ease-linear duration-500"
-//           >
-//             Make Admin
-//           </button>
-//         )}
-//       </td>
+  //   make admin
+  const makeAdmin = async (email) => {
+    const options = {
+      email,
+      role: { role: "admin" },
+    };
+    const result = await updateRole(options);
+    if (result?.data?.success) {
+      toast.info("Successfully made an admin");
+    }
 
-//       <td className="text-center">
-//         {role === "admin" &&
-//           email !== "alamin931761@gmail.com" &&
-//           user.email === "alamin931761@gmail.com" && (
-//             <button
-//               onClick={() => removeAdmin(email)}
-//               className="btn btn-xs btn-outline transition ease-linear duration-500"
-//             >
-//               Remove Admin
-//             </button>
-//           )}
-//       </td>
-//       <td className="text-center">
-//         {email !== "alamin931761@gmail.com" && email !== user.email && (
-//           <button
-//             onClick={() => deleteUser(email, role)}
-//             className="btn btn-xs btn-outline btn-error transition ease-linear duration-500"
-//           >
-//             Delete
-//           </button>
-//         )}
-//       </td>
-//     </tr>
-//   );
-// };
+    if (result?.error?.data?.success === false) {
+      toast.error(result.error.data.message);
+    }
+  };
 
-// export default User;
+  //   remove admin
+  const removeAdmin = async (email) => {
+    const options = {
+      email,
+      role: { role: "user" },
+    };
+
+    const result = await updateRole(options);
+    console.log(result);
+    if (result?.data?.success) {
+      toast.info("Successfully made an user");
+    }
+
+    if (result?.error?.data?.success === false) {
+      toast.error(result.error.data.message);
+    }
+  };
+
+  return (
+    <tr>
+      <th>{index + 1}</th>
+      <td className="text-center">{email}</td>
+      <td className="text-center capitalize">
+        {role === "superAdmin" ? "super admin" : role}
+      </td>
+      {currentUserRole === "superAdmin" ? (
+        <td className="text-center">
+          {role === "user" && (
+            <button
+              onClick={() => makeAdmin(email)}
+              className="btn btn-xs btn-outline btn-success transition ease-linear duration-500"
+            >
+              Make Admin
+            </button>
+          )}
+        </td>
+      ) : (
+        <td />
+      )}
+
+      {currentUserRole === "superAdmin" ? (
+        <td className="text-center">
+          {role === "admin" && (
+            <button
+              onClick={() => removeAdmin(email)}
+              className="btn btn-xs btn-outline transition ease-linear duration-500"
+            >
+              Remove Admin
+            </button>
+          )}
+        </td>
+      ) : (
+        <td />
+      )}
+    </tr>
+  );
+};
+
+export default User;

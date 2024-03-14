@@ -16,7 +16,7 @@ const TopRated = () => {
   return (
     <div className="common-style" data-aos="fade-up" data-aos-duration="1000">
       <PageTitle title="Top Rated" />
-      <h2 className="text-center text-3xl my-6 second-font">Top Rated</h2>
+      <h2 className="text-center text-3xl my-5 second-font">Top Rated</h2>
       {loading}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

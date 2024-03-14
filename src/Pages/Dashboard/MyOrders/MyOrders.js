@@ -64,7 +64,7 @@
 //     );
 //   } else {
 //     myOrdersContainer = (
-//       <div className="w-full mt-6 flex flex-col items-center justify-center">
+//       <div className="w-full mt-5 flex flex-col items-center justify-center">
 //         <GoBook className="text-7xl opacity-5" />
 //         <p className="second-font mx-2">
 //           There are no orders associated with this account that were placed in
@@ -77,7 +77,7 @@
 //   return (
 //     <div data-aos="fade-right" data-aos-duration="1000">
 //       <PageTitle title="My Orders" />
-//       <h2 className="text-center text-3xl my-6 second-font">
+//       <h2 className="text-center text-3xl my-5 second-font">
 //         My Orders ({myOrders?.length})
 //       </h2>
 

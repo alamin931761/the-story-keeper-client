@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { pageNumber } from "../redux/features/paginationAndFilterSlice";
+import { pageNumber } from "../../redux/features/paginationAndFilterSlice";
 
 const Pagination = () => {
   const dispatch = useDispatch();
+
   const { page, limit, count } = useSelector(
     (state) => state.paginationAndFilter
   );

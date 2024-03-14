@@ -57,7 +57,7 @@ const DeliveryDetails = () => {
   return (
     <div className="common-style" data-aos="fade-up" data-aos-duration="1000">
       <PageTitle title="Delivery Details" />
-      <h2 className="text-center text-3xl my-6 second-font">
+      <h2 className="text-center text-3xl my-5 second-font">
         Delivery Details
       </h2>
 

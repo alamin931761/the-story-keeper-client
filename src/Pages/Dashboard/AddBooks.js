@@ -9,8 +9,8 @@ import { Select } from "../../components/reusableForm/Select";
 import FormSubmit from "../../components/reusableForm/FormSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddBookSchema } from "../../components/reusableForm/Validation";
-import { useAddBookMutation } from "../../redux/api/bookApi";
 import Loading from "../../components/Loading";
+import { useAddBookMutation } from "../../redux/api/bookApi";
 
 const AddBooks = () => {
   const {
@@ -20,7 +20,7 @@ const AddBooks = () => {
     reset,
   } = useForm({ resolver: zodResolver(AddBookSchema) });
 
-  const [addBook, { isLoading, error, data }] = useAddBookMutation();
+  const [addBook, { isLoading, error }] = useAddBookMutation();
 
   const AddBooks = async (data) => {
     const newBook = {
@@ -60,7 +60,7 @@ const AddBooks = () => {
   return (
     <div data-aos="fade-right" data-aos-duration="1000">
       <PageTitle title="Add Books" />
-      <h2 className="text-center text-3xl my-6 second-font">Add Books</h2>
+      <h2 className="text-center text-3xl my-5 second-font">Add Books</h2>
 
       <Form onSubmit={handleSubmit(AddBooks)} double={true}>
         <FormSection>

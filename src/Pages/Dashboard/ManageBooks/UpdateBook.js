@@ -21,10 +21,7 @@ import Loading from "../../../components/Loading";
 const UpdateBook = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetSingleBookQuery({ id });
-  const [
-    updateBook,
-    { isLoading: updating, data: updateBookData, error: updatingError },
-  ] = useUpdateBookMutation();
+  const [updateBook, { isLoading: updating }] = useUpdateBookMutation();
 
   const {
     register,
@@ -37,12 +34,8 @@ const UpdateBook = () => {
     return <Loading />;
   }
 
-  if (error || updatingError) {
-    toast.error(error?.data?.message || updatingError?.error.message);
-  }
-
-  if (updateBookData) {
-    toast.success(updateBookData.message);
+  if (error) {
+    toast.error(error?.data?.message);
   }
 
   const {
@@ -65,9 +58,9 @@ const UpdateBook = () => {
   } = data?.data?.data;
   const date = new Date(publicationDate).toLocaleDateString();
 
-  const handleUpdateBook = (data) => {
+  const handleUpdateBook = async (data) => {
     const book = {
-      price: parseFloat(data.price),
+      price: parseInt(data.price),
       availableQuantity: parseInt(data.availableQuantity),
     };
 
@@ -76,14 +69,22 @@ const UpdateBook = () => {
       data: book,
     };
 
-    updateBook(options);
+    const result = await updateBook(options);
+    if (result?.data?.success) {
+      toast.success(result?.data?.message);
+    }
+
+    if (result?.error?.data?.success === false) {
+      toast.error(result?.error?.data?.message);
+    }
+
     reset();
   };
 
   return (
     <div className="common-style" data-aos="fade-up" data-aos-duration="1000">
       <PageTitle title="Edit Book" />
-      <h2 className="text-center text-3xl my-6 second-font">{title}</h2>
+      <h2 className="text-center text-3xl my-5 second-font">{title}</h2>
 
       <Form double={true} onSubmit={handleSubmit(handleUpdateBook)}>
         <FormSection>

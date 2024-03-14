@@ -141,9 +141,14 @@ export const UpdatePasswordSchema = z.object({
 
 // update profile schema
 export const updateProfileSchema = z.object({
-  imageURL: z.string().trim().optional(),
+  imageURL: z
+    .string()
+    .trim()
+    .min(1, { message: "Image URL field is required" }),
+
   phoneNumber: z
     .string()
+    .min(1, { message: "Phone Number field is required" })
     .refine(
       (value) => {
         if (value) {
@@ -152,9 +157,8 @@ export const updateProfileSchema = z.object({
         return true;
       },
       { message: "Invalid phone number" }
-    )
-    .optional(),
-  address: z.string().trim().optional(),
+    ),
+  address: z.string().min(1, { message: "Address field is required" }).trim(),
 });
 
 // sign in schema

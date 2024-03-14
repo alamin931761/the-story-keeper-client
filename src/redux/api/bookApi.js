@@ -27,14 +27,13 @@ export const bookApi = createApi({
     }),
 
     getSingleBook: builder.query({
-      query: (params) => {
-        const id = params.id;
+      query: (id) => {
         return {
           url: `/${id}`,
           method: "GET",
         };
       },
-      invalidatesTags: ["book"],
+      providesTags: ["book"],
     }),
 
     updateBook: builder.mutation({
@@ -45,6 +44,7 @@ export const bookApi = createApi({
           body: options.data,
         };
       },
+      invalidatesTags: ["book"],
     }),
 
     deleteBook: builder.mutation({
@@ -56,6 +56,16 @@ export const bookApi = createApi({
       },
       invalidatesTags: ["book"],
     }),
+
+    getRandomBooks: builder.query({
+      query: ({ id, bookCategory }) => {
+        return {
+          url: `/random-books/${id}`,
+          method: "GET",
+          params: bookCategory,
+        };
+      },
+    }),
   }),
 });
 
@@ -65,4 +75,5 @@ export const {
   useGetSingleBookQuery,
   useUpdateBookMutation,
   useDeleteBookMutation,
+  useGetRandomBooksQuery,
 } = bookApi;

@@ -4,9 +4,11 @@ import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
 import DeleteBook from "./DeleteBook";
 import ManageBooksRow from "./ManageBooksRow";
-import Pagination from "../../../components/Pagination";
-import FilterBooks from "../../../components/FilterBooks";
 import useLoadBooks from "../../../Hooks/useLoadBooks";
+import Pagination from "../../../components/dataManipulation/Pagination";
+import Slider from "../../../components/dataManipulation/Slider";
+import Limit from "../../../components/dataManipulation/Limit";
+import Sort from "../../../components/dataManipulation/Sort";
 
 const ManageBooks = () => {
   const [deleteBook, setDeleteBook] = useState(null);
@@ -23,8 +25,29 @@ const ManageBooks = () => {
     manageBookContainer = (
       <div>
         <div className="mx-2">
-          <FilterBooks />
+          {/* filter books */}
+          <Slider />
+          <div className="second-font flex justify-end items-center flex-wrap">
+            <Limit />
+            <Sort className="w-[290px]">
+              <option value="availableQuantity">Default</option>
+              <option value="price">Price (Low - High)</option>
+              <option value="-price">Price (High - Low)</option>
+              <option value="title">Title (A - Z)</option>
+              <option value="-title">Title (Z - A)</option>
+              <option value="-createdAt">Newest - Oldest</option>
+              <option value="createdAt">Oldest - Newest</option>
+              <option value="-availableQuantity">
+                Available Quantity (Highest - Lowest)
+              </option>
+              <option value="availableQuantity">
+                Available Quantity (Lowest - Highest)
+              </option>
+            </Sort>
+          </div>
         </div>
+
+        {/* table */}
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
@@ -59,7 +82,7 @@ const ManageBooks = () => {
     );
   } else {
     manageBookContainer = (
-      <div className="w-full mt-6 flex flex-col items-center justify-center">
+      <div className="w-full mt-5 flex flex-col items-center justify-center">
         <GoBook className="text-7xl opacity-5" />
         <p className="second-font">
           No books have been added to this website yet

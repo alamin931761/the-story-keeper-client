@@ -6,23 +6,19 @@ const initialState = {
   count: 3,
   minimumValue: 0,
   maximumValue: 2000,
-  sort: "updatedAt",
+  sort: "availableQuantity",
 };
 
 export const paginationAndFilterSlice = createSlice({
   name: "paginationAndFilter",
   initialState,
   reducers: {
-    bookCount: (state, action) => {
+    documentsCount: (state, action) => {
       state.count = action.payload;
     },
 
     pageNumber: (state, action) => {
       state.page = action.payload;
-    },
-
-    bookSize: (state, action) => {
-      state.size = action.payload;
     },
 
     minimumSliderValue: (state, action) => {
@@ -33,23 +29,23 @@ export const paginationAndFilterSlice = createSlice({
       state.maximumValue = action.payload;
     },
 
-    booksLimit: (state, action) => {
+    documentsLimit: (state, action) => {
       state.limit = action.payload;
     },
 
-    booksSort: (state, action) => {
+    documentsSort: (state, action) => {
       state.sort = action.payload;
     },
   },
 });
 
 export const {
-  bookCount,
+  documentsCount,
   pageNumber,
   minimumSliderValue,
   maximumSliderValue,
-  booksLimit,
-  booksSort,
+  documentsLimit,
+  documentsSort,
 } = paginationAndFilterSlice.actions;
 
 export default paginationAndFilterSlice.reducer;

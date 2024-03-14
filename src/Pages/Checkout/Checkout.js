@@ -13,7 +13,7 @@ const Checkout = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="Checkout" />
-      <h2 className="text-center text-3xl my-6 second-font">
+      <h2 className="text-center text-3xl my-5 second-font">
         Welcome to checkout page
       </h2>
 

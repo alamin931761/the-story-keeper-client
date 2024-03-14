@@ -150,7 +150,7 @@
 //   return (
 //     <div className="common-style" data-aos="fade-left" data-aos-duration="1000">
 //       <PageTitle title="Add Review" />
-//       <h2 className="text-3xl text-center my-6 second-font">Leave a Review</h2>
+//       <h2 className="text-3xl text-center my-5 second-font">Leave a Review</h2>
 
 //       <div className="flex justify-center w-full">
 //         <div className="w-full max-w-lg">

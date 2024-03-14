@@ -2,7 +2,7 @@ const Modal = ({ children, modalName, title }) => {
   return (
     <div>
       <input type="checkbox" id={modalName} className="modal-toggle" />
-      <div className="modal bg-[#00000094] z-50">
+      <div className="modal bg-[#00000094] z-[10000]">
         <div className="modal-box relative top-7 bg-[#DFF6FF]">
           <div>
             <label

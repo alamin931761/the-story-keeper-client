@@ -11,18 +11,20 @@ import Loading from "../../components/Loading";
 import useShoppingCart from "../../Hooks/useShoppingCart";
 import PageTitle from "../../components/PageTitle";
 import { addToStorage } from "../../utils/saveShoppingCartData";
-import { useGetSingleBookQuery } from "../../redux/api/bookApi";
+import {
+  useGetRandomBooksQuery,
+  useGetSingleBookQuery,
+} from "../../redux/api/bookApi";
 import DynamicLinkButton from "../../components/DynamicLinkButton";
 
 const BookDetails = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleBookQuery({ id });
+  const { data, isLoading } = useGetSingleBookQuery(id);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  console.log(data.data.data);
   //   const navigate = useNavigate("");
   const {
     _id,
@@ -41,7 +43,8 @@ const BookDetails = () => {
     binding,
     totalSales,
     weight,
-  } = data.data.data;
+    category,
+  } = data?.data?.data;
 
   const date = new Date(publicationDate).toLocaleDateString();
 
@@ -99,7 +102,7 @@ const BookDetails = () => {
   //     );
   //   } else {
   //     reviewContainer = (
-  //       <div className="mt-6 flex flex-col items-center justify-center second-font">
+  //       <div className="mt-5 flex flex-col items-center justify-center second-font">
   //         <MdOutlineRateReview className="text-7xl opacity-5" />
   //         <p>This book has no reviews yet. Be the first one to write a review.</p>
   //       </div>
@@ -113,7 +116,7 @@ const BookDetails = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="Book Details" />
-      <h2 className="text-center text-3xl my-6 second-font capitalize">
+      <h2 className="text-center text-3xl my-5 second-font capitalize">
         {title} - details
       </h2>
 
@@ -257,11 +260,11 @@ const BookDetails = () => {
 
       <div className="divider" />
       {/* random books */}
-      {/* <div className="mt-12">
-        <RandomBooks id={_id} />
-      </div> */}
+      <div className="mt-12">
+        <RandomBooks id={_id} category={category} />
+      </div>
 
-      <DynamicLinkButton to={`/${data.data.data.category}`}>
+      <DynamicLinkButton to={`/${data?.data?.data?.category}`}>
         Back
       </DynamicLinkButton>
     </div>

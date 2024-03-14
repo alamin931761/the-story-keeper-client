@@ -26,11 +26,13 @@ import Modal from "../../components/Modal";
 const SignUp = () => {
   const [agree, setAgree] = useState(false);
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    // useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    useCreateUserWithEmailAndPassword(auth);
+
   const [updateProfile, updating, updateProfileError] = useUpdateProfile(auth);
   const [showPassword, setShowPassword] = useState(false);
   const [recaptcha, setRecaptcha] = useState("");
-  const [token] = useToken(user);
+  const { token } = useToken(user);
   const navigate = useNavigate();
 
   const {
@@ -154,7 +156,7 @@ const SignUp = () => {
       </p>
 
       {errorElement}
-      <Social />
+      {/* <Social /> */}
 
       {/* terms and conditions modal */}
       <Modal modalName="terms-and-conditions" title="Terms and Conditions">

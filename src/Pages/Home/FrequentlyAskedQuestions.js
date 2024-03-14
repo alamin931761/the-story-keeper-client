@@ -4,7 +4,7 @@ import DynamicLink from "../../components/DynamicLink";
 const FrequentlyAskedQuestions = () => {
   return (
     <div className="my-10" data-aos="fade-down" data-aos-duration="1000">
-      <h2 className="text-3xl text-center my-6 second-font">
+      <h2 className="text-3xl text-center my-5 second-font">
         Frequently Asked Questions
       </h2>
 

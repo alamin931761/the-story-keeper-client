@@ -31,7 +31,7 @@ const Dashboard = () => {
         <div className="drawer-side min-h-full">
           <label htmlFor="my-drawer-2" className="drawer-overlay" />
           <ul className="menu p-4 w-64 bg-[#000000de] text-white min-h-full fixed left-0 top-[59px]">
-            <NavLink className="nav-link ml-4 mb-3" to="/dashboard/myProfile">
+            <NavLink className="nav-link ml-4 mb-3" to="/dashboard/my-profile">
               My Profile
             </NavLink>
 
@@ -41,6 +41,10 @@ const Dashboard = () => {
 
             <NavLink className="nav-link ml-4 mb-3" to="/dashboard/manageBooks">
               Manage Books
+            </NavLink>
+
+            <NavLink className="nav-link ml-4 mb-3" to="/dashboard/users">
+              Users
             </NavLink>
             {/* {admin && (
               <>
