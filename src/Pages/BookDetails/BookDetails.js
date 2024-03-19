@@ -1,21 +1,12 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
-import { BsCartPlus } from "react-icons/bs";
-import { MdOutlineRateReview } from "react-icons/md";
-import Reviews from "./Reviews";
+import { useParams } from "react-router-dom";
 import RandomBooks from "./RandomBooks";
 import Loading from "../../components/Loading";
 import useShoppingCart from "../../Hooks/useShoppingCart";
 import PageTitle from "../../components/PageTitle";
 import { addToStorage } from "../../utils/saveShoppingCartData";
-import {
-  useGetRandomBooksQuery,
-  useGetSingleBookQuery,
-} from "../../redux/api/bookApi";
+import { useGetSingleBookQuery } from "../../redux/api/bookApi";
 import DynamicLinkButton from "../../components/DynamicLinkButton";
+import Reviews from "../Review/Reviews";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -25,7 +16,6 @@ const BookDetails = () => {
     return <Loading />;
   }
 
-  //   const navigate = useNavigate("");
   const {
     _id,
     imageURL,
@@ -69,44 +59,6 @@ const BookDetails = () => {
   //   if (findBook) {
   //     quantity = findBook.quantity;
   //     subtotal = findBook.subtotal;
-  //   }
-
-  //   if (!bookDetails.image) {
-  //     return <Loading />;
-  //   }
-
-  // add review
-  //   const handleAddReview = () => {
-  //     navigate(`/addReview/${_id}`);
-  //   };
-
-  //   let totalReview = 0;
-  //   let totalRating = 0;
-  //   let averageRating = 0;
-  //   let reviewContainer;
-  //   if (reviews) {
-  //     totalReview = reviews.length;
-  //     const ratings = reviews.map((data) => data.rating);
-  //     for (const rating of ratings) {
-  //       totalRating = totalRating + rating;
-  //     }
-
-  //     averageRating = (totalRating / totalReview).toFixed(1);
-
-  //     reviewContainer = (
-  //       <div className="flex flex-wrap justify-around gap-y-7 mt-6">
-  //         {reviews.map((data) => (
-  //           <Reviews data={data} key={data.review}></Reviews>
-  //         ))}
-  //       </div>
-  //     );
-  //   } else {
-  //     reviewContainer = (
-  //       <div className="mt-5 flex flex-col items-center justify-center second-font">
-  //         <MdOutlineRateReview className="text-7xl opacity-5" />
-  //         <p>This book has no reviews yet. Be the first one to write a review.</p>
-  //       </div>
-  //     );
   //   }
 
   return (
@@ -233,32 +185,10 @@ const BookDetails = () => {
         </div>
       </div>
 
-      {/* <div className="mt-12 mb-6">
-        <h2 className="text-center text-3xl second-font">
-          Reviews({totalReview})
-        </h2>
-        <div className="flex items-center justify-between">
-          <p className="second-font">
-            Get specific details about this book from customers who own it.
-          </p>
-          <button
-            onClick={handleAddReview}
-            className="btn btn-outline transition ease-linear duration-500"
-          >
-            Write a Review
-          </button>
-        </div>
-        <p className="second-font">
-          <span className="font-semibold">Ratings:</span> {averageRating} out of
-          5
-        </p>
-
-        <hr className="mt-6" />
-
-        {reviewContainer}
-      </div> */}
+      <Reviews id={_id} />
 
       <div className="divider" />
+
       {/* random books */}
       <div className="mt-12">
         <RandomBooks id={_id} category={category} />

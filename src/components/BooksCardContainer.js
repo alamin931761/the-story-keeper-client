@@ -12,7 +12,7 @@ const BooksCardContainer = ({ isLoading, books, count, name, dataAos }) => {
   }
 
   return (
-    <div className="common-style" data-aos={dataAos} dataAosDuration="1000">
+    <div className="common-style" data-aos={dataAos} dataAosDuration="50000">
       <PageTitle title={name} />
 
       <h2 className="text-center text-3xl my-5 second-font">

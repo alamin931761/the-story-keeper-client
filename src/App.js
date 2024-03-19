@@ -31,13 +31,14 @@ import RequireAuth from "./Pages/SignIn/RequireAuth";
 import RequireUser from "./Pages/SignIn/RequireUser";
 import BookDetails from "./Pages/BookDetails/BookDetails";
 // import Checkout from "./Pages/Checkout/Checkout";
-// import AddReview from "./Pages/BookDetails/AddReview/AddReview";
 import ArtsAndMusic from "./Pages/Categories/MoreCategories/ArtsAndMusic";
 import MysteryAndCrime from "./Pages/Categories/MoreCategories/MysteryAndCrime";
 import Poetry from "./Pages/Categories/MoreCategories/Poetry";
 import RareBooks from "./Pages/Categories/MoreCategories/RareBooks";
 import MyProfile from "./Pages/Dashboard/MyProfile";
 import Welcome from "./Pages/Dashboard/Welcome";
+import AddReview from "./Pages/Review/AddReview";
+import UpdateReview from "./Pages/Review/UpdateReview";
 // import DeliveryDetails from "./Pages/DeliveryDetails";
 
 function App() {
@@ -73,13 +74,17 @@ function App() {
 
         */}
         <Route
-          path="/addReview/:id"
-          element={
-            <RequireAuth>
-              {/* <RequireUser><AddReview /></RequireUser> */}
-            </RequireAuth>
-          }
-        ></Route>
+          path="/add-review/:id"
+          // element={
+          //   <RequireAuth>
+          //     <RequireUser>
+          //       <AddReview />
+          //     </RequireUser>
+          //   </RequireAuth>
+          // }
+          element={<AddReview />}
+        />
+        <Route path="/review/:id" element={<UpdateReview />} />
 
         {/* <Route path="/cart" element={<Cart />}></Route> */}
         <Route

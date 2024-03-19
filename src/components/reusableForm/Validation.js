@@ -217,8 +217,13 @@ export const deliveryDetailsSchema = z.object({
 
 // add review schema
 export const addReviewSchema = z.object({
-  review: z
+  reviewContent: z
     .string()
     .min(1, { message: "Review content field is required" })
     .trim(),
+});
+
+// update review
+export const updateReviewSchema = z.object({
+  reviewContent: z.string().trim().optional(),
 });

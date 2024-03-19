@@ -1,10 +1,10 @@
 .App {
-  font-family: 'Poppins', sans-serif;
-  background-color: #EDF7FA;
+  font-family: "Poppins", sans-serif;
+  background-color: #edf7fa;
 }
 
 .second-font {
-  font-family: 'Amaranth', sans-serif;
+  font-family: "Amaranth", sans-serif;
 }
 
 .common-style {
@@ -13,11 +13,11 @@
 
 /* input field and textarea */
 input {
-  font-family: 'Amaranth', sans-serif;
+  font-family: "Amaranth", sans-serif;
 }
 
 textarea {
-  font-family: 'Amaranth', sans-serif;
+  font-family: "Amaranth", sans-serif;
 }
 
 /* --------------------------------- */
@@ -40,11 +40,10 @@ textarea {
 .active {
   transition: 0.5s;
   color: yellow;
-  font-family: 'Amaranth', sans-serif;
+  font-family: "Amaranth", sans-serif;
 }
 
 /* -------------------------------- */
-
 
 /* ---------- footer -----------*/
 .social-icon {
@@ -58,3 +57,13 @@ textarea {
 }
 
 /* --------------------------- */
+
+/* review */
+.StarPicker.enlargeStar .DefaultStarComponent {
+  transition: transform 0.2s ease-in-out, color 0.4s;
+}
+
+.StarPicker.enlargeStar .DefaultStarComponent.selected {
+  text-shadow: rgb(173, 140, 6) 1px 1px 1px;
+  transform: scale(1.2);
+}

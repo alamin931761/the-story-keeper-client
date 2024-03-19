@@ -20,7 +20,7 @@ import Loading from "../../../components/Loading";
 
 const UpdateBook = () => {
   const { id } = useParams();
-  const { data, isLoading, error } = useGetSingleBookQuery({ id });
+  const { data, isLoading, error } = useGetSingleBookQuery(id);
   const [updateBook, { isLoading: updating }] = useUpdateBookMutation();
 
   const {
