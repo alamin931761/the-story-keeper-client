@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-// import Cart from "./Pages/Cart/Cart";
+import Cart from "./Pages/Cart/Cart";
 import Home from "./Pages/Home/Home";
 import Footer from "./Pages/SignIn/layouts/Footer";
 import Navbar from "./Pages/SignIn/layouts/Navbar";
@@ -86,7 +86,7 @@ function App() {
         />
         <Route path="/review/:id" element={<UpdateReview />} />
 
-        {/* <Route path="/cart" element={<Cart />}></Route> */}
+        <Route path="/cart" element={<Cart />} />
         <Route
           path="/deliveryDetails"
           // element={<RequireAuth>{/* <DeliveryDetails /> */}</RequireAuth>}

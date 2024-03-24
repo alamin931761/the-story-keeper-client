@@ -2,23 +2,33 @@ import { useState } from "react";
 import Loading from "../../../components/Loading";
 import { GoBook } from "react-icons/go";
 import PageTitle from "../../../components/PageTitle";
-import DeleteBook from "./DeleteBook";
 import ManageBooksRow from "./ManageBooksRow";
 import useLoadBooks from "../../../Hooks/useLoadBooks";
 import Pagination from "../../../components/dataManipulation/Pagination";
 import Slider from "../../../components/dataManipulation/Slider";
 import Limit from "../../../components/dataManipulation/Limit";
 import Sort from "../../../components/dataManipulation/Sort";
+import DeleteConfirmationModal from "../../../components/DeleteConfirmationModal";
+import { toast } from "react-toastify";
+import { useDeleteBookMutation } from "../../../redux/api/bookApi";
 
 const ManageBooks = () => {
-  const [deleteBook, setDeleteBook] = useState(null);
+  const [deleteState, setDeleteState] = useState(null);
+  const [deleteBook, { isLoading: deleteBookLoading }] =
+    useDeleteBookMutation();
   const { books, count, isLoading } = useLoadBooks(
     "title,imageURL,price,availableQuantity"
   );
 
-  if (isLoading) {
+  if (isLoading || deleteBookLoading) {
     return <Loading />;
   }
+
+  const handleDelete = async (bookData) => {
+    const result = await deleteBook(bookData._id);
+    toast.success(result.data.message);
+    setDeleteState(null);
+  };
 
   let manageBookContainer;
   if (count > 0) {
@@ -67,7 +77,7 @@ const ManageBooks = () => {
                   key={book._id}
                   book={book}
                   index={index}
-                  setDeleteBook={setDeleteBook}
+                  setDeleteState={setDeleteState}
                 />
               ))}
             </tbody>
@@ -75,9 +85,18 @@ const ManageBooks = () => {
 
           <Pagination />
         </div>
-        {deleteBook && (
-          <DeleteBook deleteBook={deleteBook} setDeleteBook={setDeleteBook} />
-        )}
+
+        <DeleteConfirmationModal
+          modalName="book-delete-confirmation-modal"
+          message={
+            <>
+              Are you sure you want to delete this{" "}
+              <span className="font-semibold">{deleteState?.title}</span>
+            </>
+          }
+          deleteState={deleteState}
+          handleDelete={handleDelete}
+        />
       </div>
     );
   } else {

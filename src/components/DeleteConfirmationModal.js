@@ -3,27 +3,15 @@ import Modal from "./Modal";
 import { ImCross } from "react-icons/im";
 
 const DeleteConfirmationModal = ({
-  title = "",
   modalName,
   message,
   deleteState,
   handleDelete,
 }) => {
-  // const handleDelete = async (id) => {
-  //   // const result = await deleteBook(id);
-  //   // toast.success(result.data.message);
-  //   // setDeleteBook(null);
-  // };
-
   return (
     <Modal
       modalName={modalName}
-      title={
-        <span className="text-xl text-red-500 text-start">
-          {message}
-          <span className="font-bold">{title}</span>
-        </span>
-      }
+      title={<span className="text-xl text-red-500">{message}?</span>}
     >
       <div className="modal-action">
         <button

@@ -7,11 +7,12 @@ import auth from "../../../firebase.init";
 import { GiShoppingCart } from "react-icons/gi";
 import { RiMenu2Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
-// import useShoppingCart from "../../../Hooks/useShoppingCart";
+import useShoppingCart from "../../../Hooks/useShoppingCart";
 import { SearchContext } from "../../../Context/Search";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
+  const { quantity, subtotal } = useShoppingCart(); // cart data
   const [search, setSearch] = useContext(SearchContext);
 
   const handleSignOut = () => {
@@ -29,26 +30,10 @@ const Navbar = () => {
     event.target.reset();
   };
 
-  // cart data
-  // const { savedCart } = useShoppingCart();
-  // quantity
-  // const quantityArray = savedCart.map((book) => book.quantity);
-  // let quantity = 0;
-  // for (const bookQuantity of quantityArray) {
-  //   quantity = quantity + bookQuantity;
-  // }
-
-  // let item = "Item";
-  // if (quantity > 1) {
-  //   item = "Items";
-  // }
-
-  // subtotal
-  // const subtotalArray = savedCart.map((book) => book.subtotal);
-  // let subtotal = 0;
-  // for (const price of subtotalArray) {
-  //   subtotal = subtotal + price;
-  // }
+  let item = "Item";
+  if (quantity > 1) {
+    item = "Items";
+  }
 
   // navbar
   const menuItems = (
@@ -327,7 +312,7 @@ const Navbar = () => {
                 <div className="indicator">
                   <GiShoppingCart className="text-3xl text-white nav-link" />
                   <span className="badge badge-sm indicator-item text-[#FFFF00]">
-                    {/* {quantity} */}
+                    {quantity}
                   </span>
                 </div>
               </label>
@@ -337,10 +322,10 @@ const Navbar = () => {
               >
                 <div className="card-body bg-black">
                   <span className="font-bold text-xl text-white">
-                    {/* {quantity} <span className="second-font">{item}</span> */}
+                    {quantity} <span className="second-font">{item}</span>
                   </span>
                   <span className="text-white text-base">
-                    {/* <span className="second-font">Subtotal:</span> ${subtotal} */}
+                    <span className="second-font">Subtotal:</span> ${subtotal}
                   </span>
                   <div className="card-actions">
                     <Link

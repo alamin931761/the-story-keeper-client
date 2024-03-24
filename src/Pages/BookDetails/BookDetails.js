@@ -1,16 +1,20 @@
 import { useParams } from "react-router-dom";
 import RandomBooks from "./RandomBooks";
 import Loading from "../../components/Loading";
-import useShoppingCart from "../../Hooks/useShoppingCart";
 import PageTitle from "../../components/PageTitle";
 import { addToStorage } from "../../utils/saveShoppingCartData";
 import { useGetSingleBookQuery } from "../../redux/api/bookApi";
 import DynamicLinkButton from "../../components/DynamicLinkButton";
 import Reviews from "../Review/Reviews";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { BsCartPlus } from "react-icons/bs";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const BookDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleBookQuery(id);
+  const [quantity, setQuantity] = useState(1);
 
   if (isLoading) {
     return <Loading />;
@@ -38,28 +42,47 @@ const BookDetails = () => {
 
   const date = new Date(publicationDate).toLocaleDateString();
 
-  //   const {
-  //     register,
-  //     formState: { errors },
-  //     handleSubmit,
-  //     reset,
-  //   } = useForm();
-  //   const onSubmit = async (data) => {
-  //     // Add book data to local storage
-  //     addToStorage(_id, parseInt(data.quantity));
-  //     toast.info(`${title} - successfully added to the cart`);
-  //     reset();
-  //   };
+  // quantity
+  const handleQuantityInputChange = (event) => {
+    const value = parseInt(event.target.value);
+    if (parseInt(value) >= 1 && availableQuantity >= parseInt(value)) {
+      setQuantity(parseInt(value));
+    } else {
+      setQuantity(0);
+    }
 
-  // set quantity and subtotal values
-  //   const { savedCart } = useShoppingCart();
-  //   let quantity = 0;
-  //   let subtotal = 0;
-  //   const findBook = savedCart.find((book) => book._id === _id);
-  //   if (findBook) {
-  //     quantity = findBook.quantity;
-  //     subtotal = findBook.subtotal;
-  //   }
+    if (availableQuantity < parseInt(value)) {
+      toast.error(
+        "Sorry, we don't have enough stock available for this quantity. Please select a lower quantity or check back later."
+      );
+    }
+  };
+
+  const incrementQuantity = (event) => {
+    event.preventDefault();
+    if (availableQuantity > quantity) {
+      setQuantity((prevState) => prevState + 1);
+    } else {
+      toast.error(
+        "Sorry, we don't have enough stock available for this quantity. Please select a lower quantity or check back later."
+      );
+    }
+  };
+
+  const decrementQuantity = (event) => {
+    event.preventDefault();
+    if (quantity > 1) {
+      setQuantity((prevState) => prevState - 1);
+    } else {
+      toast.error("Quantity cannot be less than 1.");
+    }
+  };
+
+  const handleAddToCart = (event) => {
+    event.preventDefault();
+    addToStorage(_id, event.target.quantity.value);
+    toast.success(`"${title}" has been added to your cart.`);
+  };
 
   return (
     <div
@@ -73,114 +96,100 @@ const BookDetails = () => {
       </h2>
 
       <div className="flex justify-center">
-        <div className="flex flex-wrap lg:flex-nowrap shadow-2xl bg-[#DFF6FF] justify-center">
-          <div>
-            <img
-              className="h-full sm:w-full md:w-full lg:w-[350px]"
-              src={imageURL}
-              alt={title}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 shadow-md bg-[#DFF6FF]">
+          <div className="max-w-[450px]">
+            <img className="h-fit w-full" src={imageURL} alt={title} />
           </div>
 
-          <div className="ml-5 pt-5 mr-5 lg:w-[550px]">
-            <h1 className="text-2xl mt-4 second-font capitalize">{title}</h1>
+          <div className="max-w-[450px] p-4">
+            <h1 className="text-2xl second-font capitalize">{title}</h1>
             <h1 className="text-xl mt-4 second-font capitalize">{subtitle}</h1>
             <h3 className="text-lg mt-4 second-font uppercase">{author}</h3>
             <h1 className="text-2xl mt-4 second-font">${price}</h1>
             <hr className="mt-4" />
             <p className="mt-4">{description}</p>
             <div className="mt-4">
-              <p className="uppercase">
-                {/* <small>quantity: {quantity}</small> */}
+              <p className="uppercase mt-1">
+                <small>quantity: {quantity}</small>
               </p>
-              <p className="uppercase">
-                {/* <small>subtotal: ${subtotal}</small> */}
+              <p className="uppercase mt-1">
+                <small>subtotal: ${price * quantity}</small>
               </p>
-              <p className="uppercase">
+              <p className="uppercase mt-1">
                 <small>
                   Total Sales: {totalSales} (
                   {totalSales > 1 ? "pieces" : "piece"})
                 </small>
               </p>
-              <p className="uppercase">
+              <p className="uppercase mt-1">
                 <small>publisher: {publisher}</small>
               </p>
-              <p className="uppercase">
+              <p className="uppercase mt-1">
                 <small>publication date (MM/DD/YY): {date}</small>
               </p>
-              <p className="uppercase">
+              <p className="uppercase mt-1">
                 <small>weight: {weight}</small>
               </p>
-              <p className="uppercase">
+              <p className="uppercase mt-1">
                 <small>Pages Quantity: {pagesQuantity}</small>
               </p>
-              <p className="uppercase">
+              <p className="uppercase mt-1">
+                <small>dimensions: {dimensions}</small>
+              </p>
+              <p className="uppercase mt-1">
+                <small>isbn: {isbn}</small>
+              </p>
+              <p className="uppercase mt-1">
+                <small>binding: {binding}</small>
+              </p>
+              <p className="uppercase mt-1">
                 <small>
                   Available Quantity: {availableQuantity} (
                   {availableQuantity > 1 ? "pieces" : "piece"})
                 </small>
               </p>
-              <p className="uppercase">
-                <small>dimensions: {dimensions}</small>
-              </p>
-              <p className="uppercase">
-                <small>isbn: {isbn}</small>
-              </p>
-              <p className="uppercase">
-                <small>binding: {binding}</small>
-              </p>
             </div>
 
-            {/* <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex justify-between my-2"
-            >
-              <div className="form-control w-full max-w-[200px] mb-2">
-                <input
-                  type="number"
-                  className="input input-bordered w-full max-w-lg"
-                  placeholder="Quantity"
-                  {...register("quantity", {
-                    required: {
-                      value: true,
-                      message: "Quantity field is required",
-                    },
-                    min: {
-                      value: 1,
-                      message: "Minimum quantity must be 1",
-                    },
-                    max: {
-                      value: 1000,
-                      message: "Quantity must be less than 1001",
-                    },
-                  })}
-                />
-                <label className="label">
-                  {errors.quantity?.type === "required" && (
-                    <span className="label-text-alt text-red-400">
-                      {errors.quantity.message}
-                    </span>
+            <form onSubmit={handleAddToCart} className="mt-4">
+              <div className="flex justify-between flex-wrap gap-3">
+                <div className="flex">
+                  <button
+                    onClick={decrementQuantity}
+                    className="btn btn-outline transition ease-linear duration-500 rounded-none"
+                  >
+                    <FaMinus className="text-lg" />
+                  </button>
+                  <input
+                    type="text"
+                    name="quantity"
+                    onChange={handleQuantityInputChange}
+                    value={quantity}
+                    className="input input-bordered rounded-none w-32 focus:outline-none text-center text-2xl"
+                  />
+                  <button
+                    onClick={incrementQuantity}
+                    className="btn btn-outline transition ease-linear duration-500 rounded-none"
+                  >
+                    <FaPlus className="text-lg" />
+                  </button>
+                </div>
+
+                <button
+                  className="btn btn-outline transition ease-linear duration-500 rounded-none"
+                  type="submit"
+                  disabled={availableQuantity === 0}
+                >
+                  {availableQuantity > 0 ? (
+                    <>
+                      <BsCartPlus className="text-2xl mr-1" />
+                      Add To Cart
+                    </>
+                  ) : (
+                    "Out of stock"
                   )}
-                  {errors.quantity?.type === "min" && (
-                    <span className="label-text-alt text-red-400">
-                      {errors.quantity.message}
-                    </span>
-                  )}
-                  {errors.quantity?.type === "max" && (
-                    <span className="label-text-alt text-red-400">
-                      {errors.quantity.message}
-                    </span>
-                  )}
-                </label>
+                </button>
               </div>
-              <button
-                className="btn btn-outline transition ease-linear duration-500"
-                type="submit"
-              >
-                <BsCartPlus className="text-2xl mr-2" />
-                Add To Cart
-              </button>
-            </form> */}
+            </form>
           </div>
         </div>
       </div>

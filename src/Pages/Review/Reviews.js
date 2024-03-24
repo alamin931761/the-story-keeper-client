@@ -93,7 +93,12 @@ const Reviews = ({ id }) => {
 
       <DeleteConfirmationModal
         modalName="review-delete-confirmation-modal"
-        message="Are you sure you want to delete this review?"
+        message={
+          <>
+            Are you sure you want to delete this{" "}
+            <span className="font-semibold">review</span>
+          </>
+        }
         deleteState={deleteState}
         handleDelete={handleDelete}
       />
