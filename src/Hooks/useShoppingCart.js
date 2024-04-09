@@ -4,6 +4,7 @@ const useShoppingCart = () => {
   const [savedCart, setSavedCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
   const [subtotal, setSubTotal] = useState(0);
+  const [bookIdAndQuantity, setBookIdAndQuantity] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -11,6 +12,7 @@ const useShoppingCart = () => {
       const cartItems = [];
       let totalQuantity = 0;
       let subtotal = 0;
+      const idAndQuantity = [];
 
       for (const id in shoppingCart) {
         const response = await fetch(
@@ -18,20 +20,21 @@ const useShoppingCart = () => {
         );
         const data = await response.json();
         const bookQuantity = parseInt(shoppingCart[id]);
+        idAndQuantity.push({ bookId: id, quantity: bookQuantity });
         totalQuantity += bookQuantity;
         const bookSubtotal = data.data.data.price * bookQuantity;
         subtotal += bookSubtotal;
-        const book = { ...data.data.data, bookQuantity, bookSubtotal };
-        cartItems.push(book);
+        cartItems.push({ ...data.data.data, bookQuantity, bookSubtotal });
       }
       setSavedCart(cartItems);
       setQuantity(totalQuantity);
       setSubTotal(subtotal);
+      setBookIdAndQuantity(idAndQuantity);
     };
 
     fetchData();
   }, [savedCart]);
 
-  return { savedCart, quantity, subtotal };
+  return { savedCart, quantity, subtotal, bookIdAndQuantity };
 };
 export default useShoppingCart;

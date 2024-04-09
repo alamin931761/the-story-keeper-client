@@ -6,6 +6,7 @@ import {
   useUpdateRoleMutation,
 } from "../../../redux/api/userApi";
 import Loading from "../../../components/Loading";
+import TableRow from "../../../components/reusableTable/TableRow";
 
 const User = ({ allUser, index }) => {
   const { email, role } = allUser;
@@ -37,7 +38,7 @@ const User = ({ allUser, index }) => {
     }
 
     if (result?.error?.data?.success === false) {
-      toast.error(result.error.data.message);
+      toast.error(result?.error?.data?.message);
     }
   };
 
@@ -55,17 +56,18 @@ const User = ({ allUser, index }) => {
     }
 
     if (result?.error?.data?.success === false) {
-      toast.error(result.error.data.message);
+      toast.error(result?.error?.data?.message);
     }
   };
 
   return (
-    <tr>
+    <TableRow>
       <th>{index + 1}</th>
       <td className="text-center">{email}</td>
       <td className="text-center capitalize">
         {role === "superAdmin" ? "super admin" : role}
       </td>
+
       {currentUserRole === "superAdmin" ? (
         <td className="text-center">
           {role === "user" && (
@@ -95,7 +97,7 @@ const User = ({ allUser, index }) => {
       ) : (
         <td />
       )}
-    </tr>
+    </TableRow>
   );
 };
 

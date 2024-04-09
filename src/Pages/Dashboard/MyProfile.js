@@ -107,9 +107,13 @@ const MyProfile = () => {
   }
 
   return (
-    <div className="mx-3" data-aos="fade-right" data-aos-duration="1000">
+    <div
+      className="mx-2 min-h-screen"
+      data-aos="fade-right"
+      data-aos-duration="1000"
+    >
       <PageTitle title="My Profile" />
-      <h2 className="text-center text-3xl my-5 second-font">My Profile</h2>
+      <h2 className="text-center text-3xl mb-5 second-font">My Profile</h2>
 
       <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-y-5">
         <div className="flex justify-center items-center">
@@ -120,8 +124,7 @@ const MyProfile = () => {
                   htmlFor="update-profile-modal"
                   className="btn btn-outline transition ease-linear duration-500"
                 >
-                  <BiEdit className="text-2xl mr-2" />
-                  Update Profile
+                  <BiEdit className="text-2xl" />
                 </label>
               </div>
               <div className="avatar flex justify-center mb-5">

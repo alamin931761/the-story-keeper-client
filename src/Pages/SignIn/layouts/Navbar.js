@@ -9,6 +9,7 @@ import { RiMenu2Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import useShoppingCart from "../../../Hooks/useShoppingCart";
 import { SearchContext } from "../../../Context/Search";
+import Container from "../../../components/Container";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -108,13 +109,6 @@ const Navbar = () => {
         Contact
       </NavLink>
 
-      <NavLink
-        className="text-white flex items-center ml-4 nav-link"
-        to="/blogs"
-      >
-        Blogs
-      </NavLink>
-
       {user && (
         <>
           <NavLink
@@ -145,8 +139,9 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <div className="navbar bg-black fixed z-50">
+    <Container className="pt-16">
+      {/* <div className="navbar bg-black fixed top-0 z-50 w-full max-w-[1250px] mx-auto "> */}
+      <div className="navbar bg-black fixed top-0 z-50 w-full">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -157,7 +152,6 @@ const Navbar = () => {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-[300px]"
             >
               {/* {menuItems} */}
-
               <div className="menu text-white w-full rounded-box">
                 <div className="text-white flex items-center ml-4 my-1 nav-link">
                   <NavLink to="/home">Home</NavLink>
@@ -234,12 +228,6 @@ const Navbar = () => {
                 >
                   Contact
                 </NavLink>
-                <NavLink
-                  className="text-white flex items-center ml-4 my-1 nav-link"
-                  to="/blogs"
-                >
-                  Blogs
-                </NavLink>
 
                 {user && (
                   <>
@@ -305,7 +293,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* cart start  */}
+          {/* cart */}
           <div className="flex-none">
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -340,10 +328,9 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          {/* cart end  */}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

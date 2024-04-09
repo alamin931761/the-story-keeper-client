@@ -1,18 +1,20 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import PageTitle from "../../components/PageTitle";
-import Form from "../../components/reusableForm/Form";
-import FormSection from "../../components/reusableForm/FormSection";
-import Input from "../../components/reusableForm/Input";
-import Textarea from "../../components/reusableForm/Textarea";
-import { Select } from "../../components/reusableForm/Select";
-import FormSubmit from "../../components/reusableForm/FormSubmit";
+import PageTitle from "../../../components/PageTitle";
+import Form from "../../../components/reusableForm/Form";
+import FormSection from "../../../components/reusableForm/FormSection";
+import Input from "../../../components/reusableForm/Input";
+import Textarea from "../../../components/reusableForm/Textarea";
+import { Select } from "../../../components/reusableForm/Select";
+import FormSubmit from "../../../components/reusableForm/FormSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddBookSchema } from "../../components/reusableForm/Validation";
-import Loading from "../../components/Loading";
-import { useAddBookMutation } from "../../redux/api/bookApi";
+import { AddBookSchema } from "../../../components/reusableForm/Validation";
+import Loading from "../../../components/Loading";
+import { useAddBookMutation } from "../../../redux/api/bookApi";
+import { MdKeyboardBackspace } from "react-icons/md";
+import DynamicLinkButton from "../../../components/DynamicLinkButton";
 
-const AddBooks = () => {
+const AddBook = () => {
   const {
     register,
     formState: { errors },
@@ -22,7 +24,7 @@ const AddBooks = () => {
 
   const [addBook, { isLoading, error }] = useAddBookMutation();
 
-  const AddBooks = async (data) => {
+  const handleAddBook = async (data) => {
     const newBook = {
       imageURL: data.imageURL,
       title: data.title.toLowerCase(),
@@ -43,11 +45,11 @@ const AddBooks = () => {
 
     const result = await addBook(newBook);
     if (result?.data?.success) {
-      toast.info(result.data.message);
+      toast.info(result?.data?.message);
     }
 
     if (result?.error?.data?.success === false) {
-      toast.error(result.error.data.message);
+      toast.error(result?.error?.data?.message);
     }
 
     reset();
@@ -59,10 +61,10 @@ const AddBooks = () => {
 
   return (
     <div data-aos="fade-right" data-aos-duration="1000">
-      <PageTitle title="Add Books" />
-      <h2 className="text-center text-3xl my-5 second-font">Add Books</h2>
+      <PageTitle title="Add Book" />
+      <h2 className="text-center text-3xl mb-5 second-font">Add Book</h2>
 
-      <Form onSubmit={handleSubmit(AddBooks)} double={true}>
+      <Form onSubmit={handleSubmit(handleAddBook)} double={true}>
         <FormSection>
           <Input
             register={register("imageURL")}
@@ -186,7 +188,8 @@ const AddBooks = () => {
 
           {error ? (
             <p className="text-red-500">
-              <span className="font-semibold">Error:</span> {error.data.message}
+              <span className="font-semibold">Error:</span>{" "}
+              {error?.data?.message}
             </p>
           ) : (
             ""
@@ -196,8 +199,16 @@ const AddBooks = () => {
           Add Book
         </FormSubmit>
       </Form>
+
+      {/* back button */}
+      <div className="flex justify-center">
+        <DynamicLinkButton to={`/dashboard/books`}>
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back to Books
+        </DynamicLinkButton>
+      </div>
     </div>
   );
 };
 
-export default AddBooks;
+export default AddBook;

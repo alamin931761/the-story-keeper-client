@@ -15,7 +15,7 @@ export const ContactSchema = z.object({
   message: z.string().min(1, { message: "Message field is required" }).trim(),
 });
 
-// add book book schema
+// add book schema
 export const AddBookSchema = z.object({
   imageURL: z
     .string()
@@ -104,6 +104,7 @@ export const AddBookSchema = z.object({
   category: z.string().min(1, { message: "Category field is required" }),
 });
 
+// update book schema
 export const UpdateBookSchema = z.object({
   price: z
     .string()
@@ -200,6 +201,59 @@ export const SignUpSchema = z.object({
     ),
 });
 
+// add review schema
+export const addReviewSchema = z.object({
+  reviewContent: z
+    .string()
+    .min(1, { message: "Review content field is required" })
+    .trim(),
+});
+
+// update review
+export const updateReviewSchema = z.object({
+  reviewContent: z.string().trim().optional(),
+});
+
+// add coupon
+export const addCouponSchema = z.object({
+  code: z
+    .string()
+    .trim()
+    .min(1, { message: "Code field is required" })
+    .max(10, { message: "Coupon code must be 10 or fewer characters long" }),
+
+  discount: z
+    .string()
+    .min(1, { message: "Discount field is required" })
+    .regex(/^\d*\.?\d+$/, "Discount must be a positive number"),
+
+  expiryDate: z.string().min(1, { message: "Expiry date field is required" }),
+
+  limit: z
+    .string()
+    .min(1, { message: "Limit field is required" })
+    .regex(/^(?:[1-9]\d*|0)$/, "Limit must be a positive integer number"),
+});
+
+// update coupon
+export const updateCouponSchema = z.object({
+  expiryDate: z.string().min(1, { message: "Expiry date field is required" }),
+
+  limit: z
+    .string()
+    .min(1, { message: "Limit field is required" })
+    .regex(/^(?:[1-9]\d*|0)$/, "Limit must be a positive integer number"),
+});
+
+// apply coupon
+export const applyCouponSchema = z.object({
+  code: z
+    .string()
+    .trim()
+    .min(1, { message: "Coupon code is required" })
+    .max(10, { message: "Coupon code must be 10 or fewer characters long" }),
+});
+
 // delivery details schema
 export const deliveryDetailsSchema = z.object({
   phoneNumber: z
@@ -213,17 +267,4 @@ export const deliveryDetailsSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Delivery address field is required" }),
-});
-
-// add review schema
-export const addReviewSchema = z.object({
-  reviewContent: z
-    .string()
-    .min(1, { message: "Review content field is required" })
-    .trim(),
-});
-
-// update review
-export const updateReviewSchema = z.object({
-  reviewContent: z.string().trim().optional(),
 });

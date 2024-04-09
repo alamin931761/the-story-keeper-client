@@ -22,6 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema } from "../../components/reusableForm/Validation";
 import FormSubmit from "../../components/reusableForm/FormSubmit";
 import Modal from "../../components/Modal";
+import Container from "../../components/Container";
 
 const SignUp = () => {
   const [agree, setAgree] = useState(false);
@@ -74,132 +75,137 @@ const SignUp = () => {
   };
 
   return (
-    <div className="common-style" data-aos="fade-down" data-aos-duration="1000">
-      <PageTitle title="Sign Up" />
+    <Container>
+      <div className="mb-5" data-aos="fade-down" data-aos-duration="1000">
+        <PageTitle title="Sign Up" />
 
-      <h2 className="text-4xl text-center my-10 second-font">
-        Sign Up to The Story Keeper
-      </h2>
+        <h2 className="text-4xl text-center my-5 second-font">
+          Sign Up to The Story Keeper
+        </h2>
 
-      <div className="flex justify-center w-full">
-        <div className="w-full max-w-lg">
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormSection>
-              <Input
-                name="name"
-                label="Your name"
-                errors={errors}
-                type="text"
-                register={register("name")}
-              />
-
-              <Input
-                name="email"
-                label="Your email address"
-                errors={errors}
-                type="email"
-                register={register("email")}
-              />
-
-              <Input
-                name="password"
-                label="Your Password"
-                errors={errors}
-                type={`${showPassword ? "text" : "password"}`}
-                register={register("password")}
-              />
-
-              <TogglePassword state={showPassword} setState={setShowPassword} />
-
-              <div className="flex items-center">
-                <input
-                  onClick={() => setAgree(!agree)}
-                  className="checkbox"
-                  name="terms"
-                  id="terms"
-                  type="checkbox"
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-lg">
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <FormSection>
+                <Input
+                  name="name"
+                  label="Your name"
+                  errors={errors}
+                  type="text"
+                  register={register("name")}
                 />
 
-                <label
-                  className={`ml-2 ${agree ? "text-black" : "text-error"}`}
-                  htmlFor="terms"
-                >
-                  I accept the{" "}
+                <Input
+                  name="email"
+                  label="Your email address"
+                  errors={errors}
+                  type="email"
+                  register={register("email")}
+                />
+
+                <Input
+                  name="password"
+                  label="Your Password"
+                  errors={errors}
+                  type={`${showPassword ? "text" : "password"}`}
+                  register={register("password")}
+                />
+
+                <TogglePassword
+                  state={showPassword}
+                  setState={setShowPassword}
+                />
+
+                <div className="flex items-center">
+                  <input
+                    onClick={() => setAgree(!agree)}
+                    className="checkbox"
+                    name="terms"
+                    id="terms"
+                    type="checkbox"
+                  />
+
                   <label
-                    htmlFor="terms-and-conditions"
-                    className="underline hover:decoration-wavy underline-offset-2 text-blue-500 cursor-pointer"
+                    className={`ml-2 ${agree ? "text-black" : "text-error"}`}
+                    htmlFor="terms"
                   >
-                    terms and conditions
+                    I accept the{" "}
+                    <label
+                      htmlFor="terms-and-conditions"
+                      className="underline hover:decoration-wavy underline-offset-2 text-blue-500 cursor-pointer"
+                    >
+                      terms and conditions
+                    </label>
                   </label>
-                </label>
-              </div>
-            </FormSection>
-            <GoogleReCAPTCHA onChange={onChange} />
+                </div>
+              </FormSection>
+              <GoogleReCAPTCHA onChange={onChange} />
 
-            <FormSubmit disabled={recaptcha && agree ? false : true}>
-              Sign Up
-              <SlLogin className="text-xl ml-2" />
-            </FormSubmit>
-          </Form>
+              <FormSubmit disabled={recaptcha && agree ? false : true}>
+                Sign Up
+                <SlLogin className="text-xl ml-2" />
+              </FormSubmit>
+            </Form>
+
+            <p className="mt-5 second-font">
+              Already have an account?{" "}
+              <DynamicLink
+                to="/sign-in"
+                className="text-blue-500 underline cursor-pointer hover:decoration-wavy underline-offset-2"
+              >
+                Please Sign In
+                <BsArrowRight className="inline text-2xl ml-2" />
+              </DynamicLink>
+            </p>
+          </div>
         </div>
+
+        {errorElement}
+        {/* <Social /> */}
+
+        {/* terms and conditions modal */}
+        <Modal modalName="terms-and-conditions" title="Terms and Conditions">
+          <ul className="ml-5">
+            <li className="list-disc mb-2">
+              All books are sold subject to the condition that they shall not,
+              by way of trade or otherwise, be lent, re-sold, hired out or
+              otherwise circulated without prior consent in any form of binding
+              or cover than that in which it is published and without a
+              condition to the same effect as this condition being imposed on
+              the subsequent purchase.
+            </li>
+
+            <li className="list-disc">
+              The price of books is exclusive of any applicable value added or
+              other tax or bank charges which the customer shall be additionally
+              liable to pay to Context as shown on the invoice.
+            </li>
+
+            <li className="list-disc mb-2">
+              Payment shall be by credit card - Visa, Mastercard, or debit cards
+              can be accepted in Pounds sterling, euros, and dollars.
+            </li>
+
+            <li className="list-disc mb-2">
+              Goods are supplied on 14 day return basis assuming returned in
+              perfect condition.
+            </li>
+
+            <li className="list-disc mb-2">
+              The customer shall inspect the goods on delivery and inform
+              Context in writing within 48 hours. Replacement can be refused if
+              it is not in stock.
+            </li>
+
+            <li className="list-disc">
+              It is the customer's responsibility to provide Context with a full
+              and correct postal address. Context reserves the right to charge
+              for redelivery in the event of incorrect details.
+            </li>
+          </ul>
+        </Modal>
       </div>
-
-      <p className="mt-5 second-font">
-        Already have an account?{" "}
-        <DynamicLink
-          to="/sign-in"
-          className="text-blue-500 underline cursor-pointer hover:decoration-wavy underline-offset-2"
-        >
-          Please Sign In
-          <BsArrowRight className="inline text-2xl ml-2" />
-        </DynamicLink>
-      </p>
-
-      {errorElement}
-      {/* <Social /> */}
-
-      {/* terms and conditions modal */}
-      <Modal modalName="terms-and-conditions" title="Terms and Conditions">
-        <ul className="ml-5">
-          <li className="list-disc mb-2">
-            All books are sold subject to the condition that they shall not, by
-            way of trade or otherwise, be lent, re-sold, hired out or otherwise
-            circulated without prior consent in any form of binding or cover
-            than that in which it is published and without a condition to the
-            same effect as this condition being imposed on the subsequent
-            purchase.
-          </li>
-
-          <li className="list-disc">
-            The price of books is exclusive of any applicable value added or
-            other tax or bank charges which the customer shall be additionally
-            liable to pay to Context as shown on the invoice.
-          </li>
-
-          <li className="list-disc mb-2">
-            Payment shall be by credit card - Visa, Mastercard, or debit cards
-            can be accepted in Pounds sterling, euros, and dollars.
-          </li>
-
-          <li className="list-disc mb-2">
-            Goods are supplied on 14 day return basis assuming returned in
-            perfect condition.
-          </li>
-
-          <li className="list-disc mb-2">
-            The customer shall inspect the goods on delivery and inform Context
-            in writing within 48 hours. Replacement can be refused if it is not
-            in stock.
-          </li>
-
-          <li className="list-disc">
-            It is the customer's responsibility to provide Context with a full
-            and correct postal address. Context reserves the right to charge for
-            redelivery in the event of incorrect details.
-          </li>
-        </ul>
-      </Modal>
-    </div>
+    </Container>
   );
 };
 

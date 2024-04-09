@@ -5,7 +5,7 @@ import { GiRoundStar } from "react-icons/gi";
 const Services = () => {
   return (
     <div
-      className="mt-10 flex justify-around flex-wrap bg-[#DFF6FF] rounded-lg"
+      className="my-10 flex justify-around flex-wrap bg-[#DFF6FF] rounded-lg"
       data-aos="fade-up"
       data-aos-duration="1000"
     >

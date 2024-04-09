@@ -10,18 +10,18 @@ import Input from "../../../components/reusableForm/Input";
 import Textarea from "../../../components/reusableForm/Textarea";
 import FormSubmit from "../../../components/reusableForm/FormSubmit";
 import { Select } from "../../../components/reusableForm/Select";
-import { BsArrowLeft } from "react-icons/bs";
-import DynamicLinkButton from "../../../components/DynamicLinkButton";
 import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
 } from "../../../redux/api/bookApi";
 import Loading from "../../../components/Loading";
+import DynamicLinkButton from "../../../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const UpdateBook = () => {
   const { id } = useParams();
-  const { data, isLoading, error } = useGetSingleBookQuery(id);
-  const [updateBook, { isLoading: updating }] = useUpdateBookMutation();
+  const { data, isLoading } = useGetSingleBookQuery(id);
+  const [updateBook, { isLoading: updating, error }] = useUpdateBookMutation();
 
   const {
     register,
@@ -32,10 +32,6 @@ const UpdateBook = () => {
 
   if (isLoading || updating) {
     return <Loading />;
-  }
-
-  if (error) {
-    toast.error(error?.data?.message);
   }
 
   const {
@@ -60,7 +56,7 @@ const UpdateBook = () => {
 
   const handleUpdateBook = async (data) => {
     const book = {
-      price: parseInt(data.price),
+      price: parseFloat(data.price),
       availableQuantity: parseInt(data.availableQuantity),
     };
 
@@ -82,9 +78,9 @@ const UpdateBook = () => {
   };
 
   return (
-    <div className="common-style" data-aos="fade-up" data-aos-duration="1000">
-      <PageTitle title="Edit Book" />
-      <h2 className="text-center text-3xl my-5 second-font">{title}</h2>
+    <div data-aos="fade-up" data-aos-duration="1000">
+      <PageTitle title="Update Book" />
+      <h2 className="text-center text-3xl mb-5 second-font">{title}</h2>
 
       <Form double={true} onSubmit={handleSubmit(handleUpdateBook)}>
         <FormSection>
@@ -220,6 +216,15 @@ const UpdateBook = () => {
             value={category}
             disabled={true}
           />
+
+          {error ? (
+            <p className="text-red-500">
+              <span className="font-semibold">Error:</span>{" "}
+              {error?.data?.message}
+            </p>
+          ) : (
+            ""
+          )}
         </FormSection>
 
         <FormSubmit className="md:col-start-2 flex md:justify-end">
@@ -227,10 +232,11 @@ const UpdateBook = () => {
         </FormSubmit>
       </Form>
 
-      <div className="flex justify-center mb-5">
-        <DynamicLinkButton to="/dashboard/manageBooks">
-          <BsArrowLeft className="text-2xl mr-2" />
-          Back to Manage Books
+      {/* back button */}
+      <div className="flex justify-center">
+        <DynamicLinkButton to={`/dashboard/books`}>
+          <MdKeyboardBackspace className="text-2xl mr-2" />
+          Back to Books
         </DynamicLinkButton>
       </div>
     </div>

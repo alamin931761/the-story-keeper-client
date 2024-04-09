@@ -11,7 +11,7 @@ const Modal = ({ children, modalName, title }) => {
             >
               ✕
             </label>
-            <h2 className="text-2xl text-center mb-4 second-font capitalize">
+            <h2 className="text-2xl mb-4 mt-2 second-font capitalize">
               {title}
             </h2>
           </div>

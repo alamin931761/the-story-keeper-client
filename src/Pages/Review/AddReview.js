@@ -18,6 +18,7 @@ import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../../redux/api/bookApi";
+import Container from "../../components/Container";
 
 const AddReview = () => {
   const { id } = useParams();
@@ -51,11 +52,11 @@ const AddReview = () => {
     };
     const result = await addReview(options);
     if (result?.data?.success) {
-      toast.info(result.data.message);
+      toast.info(result?.data?.message);
     }
 
     if (result?.error?.data?.success === false) {
-      toast.error(result.error.data.message);
+      toast.error(result?.error?.data?.message);
     }
     reset();
   };
@@ -67,57 +68,65 @@ const AddReview = () => {
   const { _id, title } = data?.data?.data;
 
   return (
-    <div className="common-style" data-aos="fade-left" data-aos-duration="1000">
-      <PageTitle title="Add Review" />
-      <h2 className="text-3xl text-center my-5 second-font">Leave a Review</h2>
+    <Container>
+      <div
+        className="min-h-screen"
+        data-aos="fade-left"
+        data-aos-duration="1000"
+      >
+        <PageTitle title="Add Review" />
+        <h2 className="text-3xl text-center my-5 second-font">
+          Leave a Review
+        </h2>
 
-      <div className="flex justify-center w-full">
-        <div className="w-full max-w-lg">
-          <div className="my-5 mx-3 flex flex-col items-center">
-            <p className="w-full max-w-lg text-sm">Ratings</p>
-            <div className="w-full max-w-lg">
-              <Rating onChange={onChange} ratingValue={ratingValue} />
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-lg">
+            <div className="mx-3 flex flex-col items-center">
+              <p className="w-full max-w-lg text-sm">Ratings</p>
+              <div className="w-full max-w-lg">
+                <Rating onChange={onChange} ratingValue={ratingValue} />
+              </div>
             </div>
+
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <FormSection>
+                <Input
+                  name="bookName"
+                  label="book name"
+                  errors={errors}
+                  type="text"
+                  value={title}
+                  disabled={true}
+                />
+                <Textarea
+                  name="reviewContent"
+                  errors={errors}
+                  register={register("reviewContent")}
+                  label="Review content"
+                />
+
+                {error ? (
+                  <p className="text-red-500">
+                    <span className="font-semibold">Error:</span>{" "}
+                    {error?.data?.message}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </FormSection>
+              <FormSubmit disabled={ratingValue === null}>Submit</FormSubmit>
+            </Form>
           </div>
+        </div>
 
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormSection>
-              <Input
-                name="bookName"
-                label="book name"
-                errors={errors}
-                type="text"
-                value={title}
-                disabled={true}
-              />
-              <Textarea
-                name="reviewContent"
-                errors={errors}
-                register={register("reviewContent")}
-                label="Review content"
-              />
-
-              {error ? (
-                <p className="text-red-500">
-                  <span className="font-semibold">Error:</span>{" "}
-                  {error.data.message}
-                </p>
-              ) : (
-                ""
-              )}
-            </FormSection>
-            <FormSubmit disabled={ratingValue === null}>Submit</FormSubmit>
-          </Form>
+        <div className="flex justify-center ">
+          <DynamicLinkButton to={`/book-details/${_id}`}>
+            <MdKeyboardBackspace className="text-2xl mr-2" />
+            Back to Details page
+          </DynamicLinkButton>
         </div>
       </div>
-
-      <div className="flex justify-center ">
-        <DynamicLinkButton to={`/book-details/${_id}`}>
-          <MdKeyboardBackspace className="text-2xl mr-2" />
-          Back to Details page
-        </DynamicLinkButton>
-      </div>
-    </div>
+    </Container>
   );
 };
 

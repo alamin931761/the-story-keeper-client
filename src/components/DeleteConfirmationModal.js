@@ -14,13 +14,14 @@ const DeleteConfirmationModal = ({
       title={<span className="text-xl text-red-500">{message}?</span>}
     >
       <div className="modal-action">
-        <button
+        <label
+          htmlFor={modalName}
           onClick={() => handleDelete(deleteState)}
           className="btn btn-outline btn-error transition ease-linear duration-500"
         >
           <MdDelete className="text-2xl mr-2" />
           Delete
-        </button>
+        </label>
         <label
           htmlFor={modalName}
           className="btn btn-outline transition ease-linear duration-500"

@@ -1,149 +1,157 @@
-// import { useContext, useEffect, useState } from "react";
-// import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-// import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
-// import { signOut } from "firebase/auth";
-// import auth from "../../firebase.init";
-// import { OrderContext } from "../../Context/Order";
+import { useEffect, useState } from "react";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useCreateOrderMutation } from "../../redux/api/orderApi";
+import { useDispatch, useSelector } from "react-redux";
+import { useCreatePaymentIntentMutation } from "../../redux/api/paymentApi";
+import Loading from "../../components/Loading";
+import { clearInfo, info } from "../../redux/features/orderInfoSlice";
 
-// const CheckoutForm = () => {
-//   const [order, setOrder] = useContext(OrderContext);
-//   const [cardError, setCardError] = useState("");
-//   const [clientSecret, setClientSecret] = useState("");
-//   const [successMessage, setSuccessMessage] = useState("");
-//   const [transactionId, setTransactionId] = useState("");
-//   const stripe = useStripe();
-//   const elements = useElements();
+const CheckoutForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [cardError, setCardError] = useState("");
+  const [orderError, setOrderError] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  // const [transactionId, setTransactionId] = useState("");
+  const [createPaymentIntent, { isLoading, error }] =
+    useCreatePaymentIntentMutation();
+  const [createOrder, { createOrderLoading, createOrderError }] =
+    useCreateOrderMutation();
+  const dispatch = useDispatch();
+  const { order } = useSelector((state) => state.orderInfo);
+  const { email, total, deliveryAddress, deliveryCharge, books } = order;
 
-//   const name = order.name;
-//   const email = order.email;
-//   const total = order.total;
+  const navigate = useNavigate("");
+  useEffect(() => {
+    if (
+      books === undefined &&
+      deliveryCharge === undefined &&
+      email === undefined &&
+      deliveryAddress === undefined
+    ) {
+      navigate("/cart");
+    } else {
+      const fetchClientSecret = async () => {
+        const result = await createPaymentIntent({ total });
+        if (result?.data?.success) {
+          // toast.info(result?.data?.message);
+          setClientSecret(result?.data?.data?.data?.clientSecret);
+        }
 
-//   const navigate = useNavigate("");
-//   useEffect(() => {
-//     if (!total && !order.delivery && !order.books) {
-//       navigate("/cart");
-//     } else {
-//       fetch("http://localhost:5000/api/v1//create-payment-intent", {
-//         method: "POST",
-//         headers: {
-//           "content-type": "application/json",
-//           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//         },
-//         body: JSON.stringify({ total }),
-//       })
-//         .then((res) => {
-//           if (res.status === 401 || res.status === 403) {
-//             signOut(auth);
-//             localStorage.removeItem("accessToken");
-//             navigate("/sign-in");
-//           }
-//           return res.json();
-//         })
-//         .then((data) => {
-//           if (data?.clientSecret) {
-//             setClientSecret(data.clientSecret);
-//           }
-//         });
-//     }
-//   }, [total, navigate, order.delivery, order.books]);
+        if (result?.error?.data?.success === false) {
+          toast.error(result?.error?.data?.message);
+        }
+      };
+      fetchClientSecret();
+    }
+  }, [order, navigate, total, email]);
 
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
+  // pay button
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-//     if (!stripe || !elements) {
-//       return;
-//     }
+    if (!stripe || !elements) {
+      return;
+    }
 
-//     const card = elements.getElement(CardElement);
+    const card = elements.getElement(CardElement);
 
-//     if (card == null) {
-//       return;
-//     }
+    if (card == null) {
+      return;
+    }
 
-//     const { error, paymentMethod } = await stripe.createPaymentMethod({
-//       type: "card",
-//       card,
-//     });
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
+    setCardError(error?.message || "");
+    setSuccessMessage("");
 
-//     // if (error) {
-//     //     setCardError(error.message);
-//     // }
-//     // else {
-//     //     setCardError("");
-//     // }
-//     setCardError(error?.message || "");
-//     setSuccessMessage("");
+    // confirm card payment
+    const { paymentIntent, error: intentError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            // name: name,
+            email: email,
+          },
+        },
+      });
 
-//     // confirm card payment
-//     const { paymentIntent, error: intentError } =
-//       await stripe.confirmCardPayment(clientSecret, {
-//         payment_method: {
-//           card: card,
-//           billing_details: {
-//             name: name,
-//             email: email,
-//           },
-//         },
-//       });
-//     order.transactionId = paymentIntent.id;
+    if (intentError) {
+      setCardError(intentError?.message);
+    } else {
+      setCardError("");
+      setSuccessMessage("Congrats! Your payment is completed.");
+      const transactionId = paymentIntent.id;
+      dispatch(info({ transactionId: transactionId }));
 
-//     if (intentError) {
-//       setCardError(intentError?.message);
-//     } else {
-//       setCardError("");
-//       setSuccessMessage("Congrats! Your payment is completed.");
-//       setTransactionId(paymentIntent.id);
+      // Save the order to the database
+      const orderCreation = await createOrder({ ...order, transactionId });
+      if (orderCreation?.data?.success) {
+        toast.info(orderCreation?.data?.message);
 
-//       // Save the order to the database
-//       const url = `http://localhost:5000/api/v1//order`;
-//       fetch(url, {
-//         method: "POST",
-//         headers: {
-//           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//           "content-type": "application/json",
-//         },
-//         body: JSON.stringify(order),
-//       })
-//         .then((res) => res.json())
-//         .then((result) => {
-//           if (result.insertedId) {
-//             toast.info("Your order has been placed");
-//           }
-//         });
+        setTimeout(() => {
+          navigate("/dashboard/my-profile");
+        }, 10000);
+      }
 
-//       setTimeout(() => {
-//         localStorage.removeItem("shopping-cart");
-//         setOrder({});
-//         navigate("/dashboard/myOrders");
-//       }, 7000);
-//     }
-//   };
+      if (orderCreation?.error?.data?.success === false) {
+        toast.error(orderCreation?.error?.data?.message);
+        setOrderError(orderCreation?.error?.data?.message);
+      }
 
-//   return (
-//     <>
-//       <form onSubmit={handleSubmit}>
-//         <CardElement />
-//         <button
-//           className="btn btn-outline btn-sm mt-5 transition ease-linear duration-500"
-//           type="submit"
-//           disabled={!stripe || !elements || !clientSecret}
-//         >
-//           Pay
-//         </button>
-//       </form>
-//       {cardError && <p className="text-red-500 second-font">{cardError}</p>}
-//       {successMessage && (
-//         <div>
-//           <p className="text-green-500 second-font">{successMessage}</p>
-//           <p className="second-font">
-//             Your transaction Id:{" "}
-//             <span className="text-orange-500">{transactionId}</span>
-//           </p>
-//         </div>
-//       )}
-//     </>
-//   );
-// };
+      setTimeout(() => {
+        navigate("/dashboard/my-profile");
+        localStorage.removeItem("shopping-cart");
+        dispatch(clearInfo({}));
+      }, 12000);
+    }
+  };
 
-// export default CheckoutForm;
+  if (isLoading || createOrderLoading) {
+    return <Loading />;
+  }
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <CardElement />
+        <button
+          className="btn btn-outline btn-sm mt-5 transition ease-linear duration-500"
+          type="submit"
+          disabled={!stripe || !elements || !clientSecret}
+        >
+          Pay
+        </button>
+      </form>
+
+      {/* card error */}
+      {(cardError || error) && (
+        <p className="text-red-500 second-font mt-2">
+          Error: {cardError || error?.data?.message}
+        </p>
+      )}
+
+      {/* order error */}
+      {orderError && (
+        <p className="text-red-500 second-font mt-2">Error: {orderError}</p>
+      )}
+      {successMessage && (
+        <div>
+          <p className="text-green-500 second-font mt-2">{successMessage}</p>
+          <p className="second-font">
+            Your transaction Id:{" "}
+            <span className="text-orange-500">{order?.transactionId}</span>
+          </p>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default CheckoutForm;

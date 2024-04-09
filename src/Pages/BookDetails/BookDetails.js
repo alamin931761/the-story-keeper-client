@@ -10,6 +10,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import Container from "../../components/Container";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -81,132 +83,139 @@ const BookDetails = () => {
   const handleAddToCart = (event) => {
     event.preventDefault();
     addToStorage(_id, event.target.quantity.value);
-    toast.success(`"${title}" has been added to your cart.`);
+    toast.success(
+      <p>
+        <span className="font-semibold capitalize">{title} </span>has been added
+        to your cart.
+      </p>
+    );
   };
 
   return (
-    <div
-      className="common-style mb-6"
-      data-aos="fade-right"
-      data-aos-duration="1000"
-    >
-      <PageTitle title="Book Details" />
-      <h2 className="text-center text-3xl my-5 second-font capitalize">
-        {title} - details
-      </h2>
+    <Container>
+      <div className="my-5 mx-2" data-aos="fade-right" data-aos-duration="1000">
+        <PageTitle title="Book Details" />
+        <h2 className="text-center text-3xl mb-5 second-font capitalize">
+          {title} - details
+        </h2>
 
-      <div className="flex justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 shadow-md bg-[#DFF6FF]">
-          <div className="max-w-[450px]">
-            <img className="h-fit w-full" src={imageURL} alt={title} />
-          </div>
-
-          <div className="max-w-[450px] p-4">
-            <h1 className="text-2xl second-font capitalize">{title}</h1>
-            <h1 className="text-xl mt-4 second-font capitalize">{subtitle}</h1>
-            <h3 className="text-lg mt-4 second-font uppercase">{author}</h3>
-            <h1 className="text-2xl mt-4 second-font">${price}</h1>
-            <hr className="mt-4" />
-            <p className="mt-4">{description}</p>
-            <div className="mt-4">
-              <p className="uppercase mt-1">
-                <small>quantity: {quantity}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>subtotal: ${price * quantity}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>
-                  Total Sales: {totalSales} (
-                  {totalSales > 1 ? "pieces" : "piece"})
-                </small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>publisher: {publisher}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>publication date (MM/DD/YY): {date}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>weight: {weight}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>Pages Quantity: {pagesQuantity}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>dimensions: {dimensions}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>isbn: {isbn}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>binding: {binding}</small>
-              </p>
-              <p className="uppercase mt-1">
-                <small>
-                  Available Quantity: {availableQuantity} (
-                  {availableQuantity > 1 ? "pieces" : "piece"})
-                </small>
-              </p>
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 shadow-md bg-[#DFF6FF]">
+            <div className="max-w-[450px]">
+              <img className="h-fit w-full" src={imageURL} alt={title} />
             </div>
 
-            <form onSubmit={handleAddToCart} className="mt-4">
-              <div className="flex justify-between flex-wrap gap-3">
-                <div className="flex">
+            <div className="max-w-[450px] p-4">
+              <h1 className="text-2xl second-font capitalize">{title}</h1>
+              <h1 className="text-xl mt-4 second-font capitalize">
+                {subtitle}
+              </h1>
+              <h3 className="text-lg mt-4 second-font uppercase">{author}</h3>
+              <h1 className="text-2xl mt-4 second-font">${price}</h1>
+              <hr className="mt-4" />
+              <p className="mt-4">{description}</p>
+              <div className="mt-4">
+                <p className="uppercase mt-1">
+                  <small>quantity: {quantity}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>subtotal: ${price * quantity}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>
+                    Total Sales: {totalSales} (
+                    {totalSales > 1 ? "pieces" : "piece"})
+                  </small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>
+                    Available Quantity: {availableQuantity} (
+                    {availableQuantity > 1 ? "pieces" : "piece"})
+                  </small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>publisher: {publisher}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>publication date (MM/DD/YY): {date}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>weight: {weight}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>Pages Quantity: {pagesQuantity}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>dimensions: {dimensions}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>isbn: {isbn}</small>
+                </p>
+                <p className="uppercase mt-1">
+                  <small>binding: {binding}</small>
+                </p>
+              </div>
+
+              <form onSubmit={handleAddToCart} className="mt-4">
+                <div className="flex justify-between flex-wrap gap-3">
+                  <div className="flex">
+                    <button
+                      onClick={decrementQuantity}
+                      className="btn btn-outline transition ease-linear duration-500 rounded-none"
+                    >
+                      <FaMinus className="text-lg" />
+                    </button>
+                    <input
+                      type="text"
+                      name="quantity"
+                      onChange={handleQuantityInputChange}
+                      value={quantity}
+                      className="input input-bordered rounded-none w-32 focus:outline-none text-center text-2xl"
+                    />
+                    <button
+                      onClick={incrementQuantity}
+                      className="btn btn-outline transition ease-linear duration-500 rounded-none"
+                    >
+                      <FaPlus className="text-lg" />
+                    </button>
+                  </div>
+
                   <button
-                    onClick={decrementQuantity}
                     className="btn btn-outline transition ease-linear duration-500 rounded-none"
+                    type="submit"
+                    disabled={availableQuantity === 0}
                   >
-                    <FaMinus className="text-lg" />
-                  </button>
-                  <input
-                    type="text"
-                    name="quantity"
-                    onChange={handleQuantityInputChange}
-                    value={quantity}
-                    className="input input-bordered rounded-none w-32 focus:outline-none text-center text-2xl"
-                  />
-                  <button
-                    onClick={incrementQuantity}
-                    className="btn btn-outline transition ease-linear duration-500 rounded-none"
-                  >
-                    <FaPlus className="text-lg" />
+                    {availableQuantity > 0 ? (
+                      <>
+                        <BsCartPlus className="text-2xl mr-1" />
+                        Add To Cart
+                      </>
+                    ) : (
+                      "Out of stock"
+                    )}
                   </button>
                 </div>
-
-                <button
-                  className="btn btn-outline transition ease-linear duration-500 rounded-none"
-                  type="submit"
-                  disabled={availableQuantity === 0}
-                >
-                  {availableQuantity > 0 ? (
-                    <>
-                      <BsCartPlus className="text-2xl mr-1" />
-                      Add To Cart
-                    </>
-                  ) : (
-                    "Out of stock"
-                  )}
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
 
-      <Reviews id={_id} />
+        <div className="divider my-5" />
+        {/* reviews */}
+        <Reviews id={_id} />
+        <div className="divider my-5" />
 
-      <div className="divider" />
-
-      {/* random books */}
-      <div className="mt-12">
+        {/* random books */}
         <RandomBooks id={_id} category={category} />
-      </div>
 
-      <DynamicLinkButton to={`/${data?.data?.data?.category}`}>
-        Back
-      </DynamicLinkButton>
-    </div>
+        <div className="flex justify-center">
+          <DynamicLinkButton to={`/${data?.data?.data?.category}`}>
+            <MdKeyboardBackspace className="text-2xl mr-2" />
+            Back
+          </DynamicLinkButton>
+        </div>
+      </div>
+    </Container>
   );
 };
 

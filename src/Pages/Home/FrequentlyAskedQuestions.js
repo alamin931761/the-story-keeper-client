@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
 import DynamicLink from "../../components/DynamicLink";
 
 const FrequentlyAskedQuestions = () => {
   return (
-    <div className="my-10" data-aos="fade-down" data-aos-duration="1000">
-      <h2 className="text-3xl text-center my-5 second-font">
+    <div className="mb-10" data-aos="fade-down" data-aos-duration="1000">
+      <h2 className="text-3xl text-center second-font mb-5">
         Frequently Asked Questions
       </h2>
 
@@ -152,7 +151,7 @@ const FrequentlyAskedQuestions = () => {
         </div>
         <div
           tabIndex={0}
-          className="collapse collapse-arrow border border-[#000000] bg-[#DFF6FF] mb-1 rounded-box"
+          className="collapse collapse-arrow border border-[#000000] bg-[#DFF6FF] rounded-box"
           data-aos="zoom-in-up"
           data-aos-duration="3000"
         >

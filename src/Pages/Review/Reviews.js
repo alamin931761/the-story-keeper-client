@@ -23,7 +23,7 @@ const Reviews = ({ id }) => {
 
   const handleDelete = async (reviewData) => {
     const result = await deleteBook(reviewData._id);
-    toast.success(result.data.message);
+    toast.success(result?.data?.message);
     setDeleteState(null);
   };
 
@@ -36,7 +36,7 @@ const Reviews = ({ id }) => {
   let totalRating = 0;
   let averageRating = 0;
   let reviewContainer;
-  if (data?.data?.data) {
+  if (data?.data?.data?.length > 0) {
     totalReview = data.data.data.length;
     const ratings = data.data.data.map((data) => data.rating);
     for (const rating of ratings) {
@@ -58,12 +58,14 @@ const Reviews = ({ id }) => {
     );
   } else {
     reviewContainer = (
-      <div className="mt-5 flex flex-col items-center justify-center second-font">
+      <div className="flex flex-col items-center justify-center second-font border border-blue-500 mt-5">
         <MdOutlineRateReview className="text-7xl opacity-5" />
         <p>This book has no reviews yet. Be the first one to write a review.</p>
       </div>
     );
   }
+
+  console.log(data.data.data);
 
   return (
     <div>
@@ -71,7 +73,7 @@ const Reviews = ({ id }) => {
         Reviews({data?.data?.data?.length || 0})
       </h2>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-5">
         <p className="second-font">
           Get specific details about this book from customers who own it.
         </p>
@@ -86,8 +88,6 @@ const Reviews = ({ id }) => {
       <p className="second-font">
         <span className="font-semibold">Ratings:</span> {averageRating} out of 5
       </p>
-
-      <hr className="mt-5" />
 
       {reviewContainer}
 

@@ -17,6 +17,7 @@ import Loading from "../../components/Loading";
 import DynamicLinkButton from "../../components/DynamicLinkButton";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { toast } from "react-toastify";
+import Container from "../../components/Container";
 
 const UpdateReview = () => {
   const { id } = useParams();
@@ -52,11 +53,11 @@ const UpdateReview = () => {
     };
     const result = await updateReview(options);
     if (result?.data?.success) {
-      toast.info(result.data.message);
+      toast.info(result?.data?.message);
     }
 
     if (result?.error?.data?.success === false) {
-      toast.error(result.error.data.message);
+      toast.error(result?.error?.data?.message);
     }
     reset();
   };
@@ -66,49 +67,55 @@ const UpdateReview = () => {
   }
 
   return (
-    <div className="common-style" data-aos="fade-left" data-aos-duration="1000">
-      <PageTitle title="Update Review" />
-      <h2 className="text-3xl text-center my-5 second-font">Update Review</h2>
+    <Container>
+      <div
+        className="min-h-screen"
+        data-aos="fade-left"
+        data-aos-duration="1000"
+      >
+        <PageTitle title="Update Review" />
+        <h2 className="text-3xl text-center second-font my-5">Update Review</h2>
 
-      <div className="flex justify-center w-full">
-        <div className="w-full max-w-lg">
-          <div className="my-5 mx-3 flex flex-col items-center">
-            <p className="w-full max-w-lg text-sm">Ratings</p>
-            <div className="w-full max-w-lg">
-              <Rating onChange={onChange} ratingValue={ratingValue} />
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-lg">
+            <div className="mx-3 flex flex-col items-center">
+              <p className="w-full max-w-lg text-sm">Ratings</p>
+              <div className="w-full max-w-lg">
+                <Rating onChange={onChange} ratingValue={ratingValue} />
+              </div>
             </div>
+
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <FormSection>
+                <Textarea
+                  name="reviewContent"
+                  errors={errors}
+                  register={register("reviewContent")}
+                  label="Review content"
+                />
+
+                {error ? (
+                  <p className="text-red-500">
+                    <span className="font-semibold">Error:</span>{" "}
+                    {error?.data?.message}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </FormSection>
+              <FormSubmit>Update</FormSubmit>
+            </Form>
           </div>
+        </div>
 
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormSection>
-              <Textarea
-                name="reviewContent"
-                errors={errors}
-                register={register("reviewContent")}
-                label="Review content"
-              />
-
-              {error ? (
-                <p className="text-red-500">
-                  <span className="font-semibold">Error:</span>{" "}
-                  {error.data.message}
-                </p>
-              ) : (
-                ""
-              )}
-            </FormSection>
-            <FormSubmit>Update</FormSubmit>
-          </Form>
+        <div className="flex justify-center ">
+          <DynamicLinkButton to={`/book-details/${data.data.data.bookId}`}>
+            <MdKeyboardBackspace className="text-2xl mr-2" />
+            Back to Details page
+          </DynamicLinkButton>
         </div>
       </div>
-
-      <div className="flex justify-center ">
-        <DynamicLinkButton to={`/book-details/${data.data.data.bookId}`}>
-          <MdKeyboardBackspace className="text-2xl mr-2" />
-          Back to Details page
-        </DynamicLinkButton>
-      </div>
-    </div>
+    </Container>
   );
 };
 

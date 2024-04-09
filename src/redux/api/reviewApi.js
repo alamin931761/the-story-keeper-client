@@ -26,6 +26,7 @@ export const reviewApi = createApi({
           method: "GET",
         };
       },
+      providesTags: ["review"],
     }),
 
     getAllReviews: builder.query({

@@ -42,7 +42,7 @@
 //   }
 
 //   return (
-//     <div className="common-style">
+//     <div className=" ">
 //       <PageTitle title="Search" />
 
 //       {result}

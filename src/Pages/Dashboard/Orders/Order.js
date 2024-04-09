@@ -1,105 +1,102 @@
-// import { toast } from "react-toastify";
+import Loading from "../../../components/Loading";
+import TableRow from "../../../components/reusableTable/TableRow";
+import { useUpdateOrderStatusMutation } from "../../../redux/api/orderApi";
+import { toast } from "react-toastify";
 
-// const Order = ({ data, refetch, index }) => {
-//   const {
-//     _id,
-//     title,
-//     email,
-//     address,
-//     phoneNumber,
-//     delivery,
-//     books,
-//     date,
-//     time,
-//     total,
-//     status,
-//     transactionId,
-//     name,
-//   } = data;
+const Order = ({ data, index }) => {
+  const [updateOrderStatus, { isLoading, error }] =
+    useUpdateOrderStatusMutation();
+  const {
+    orderId,
+    books,
+    deliveryAddress,
+    deliveryCharge,
+    email,
+    name,
+    phoneNumber,
+    _id,
+    tax,
+    discount,
+    total,
+    transactionId,
+    status,
+    createdAt,
+  } = data;
 
-//   const handleStatus = (id) => {
-//     // update status
-//     const status = "Shipped";
-//     fetch(`http://localhost:5000/api/v1//orders/${id}`, {
-//       method: "PATCH",
-//       headers: {
-//         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//         "content-type": "application/json",
-//       },
-//       body: JSON.stringify({ status }),
-//     })
-//       .then((res) => {
-//         if (res.status === 401 || res.status === 403) {
-//           toast.error("Failed to shipped");
-//         }
-//         return res.json();
-//       })
-//       .then((data) => {
-//         if (data.modifiedCount > 0) {
-//           toast.info("Shipped");
-//         }
-//       });
+  // handle status
+  const handleStatus = async (id) => {
+    const result = await updateOrderStatus(id);
+    if (result?.data?.success) {
+      toast.info(result?.data?.message);
+    }
 
-//     // update total sales
-//     for (let i = 0; i < books.length; i++) {
-//       fetch(`http://localhost:5000/api/v1//book/${books[i]._id}`)
-//         .then((res) => res.json())
-//         .then((data) => {
-//           const totalSales = data.totalSales + books[i].quantity;
-//           fetch(`http://localhost:5000/api/v1//allBooks/${books[i]._id}`, {
-//             method: "PATCH",
-//             headers: {
-//               authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//               "content-type": "application/json",
-//             },
-//             body: JSON.stringify({ totalSales }),
-//           })
-//             .then((res) => res.json())
-//             .then((data) => {
-//               if (data.modifiedCount > 0) {
-//                 toast.success(
-//                   `Total sales of ${books[i].title} books have been successfully updated.`
-//                 );
-//               }
-//             });
-//         });
-//     }
-//     refetch();
-//   };
+    if (result?.error?.data?.success === false) {
+      toast.error(result?.error?.data?.message);
+    }
+  };
 
-//   return (
-//     <>
-//       <tr>
-//         <th className="text-center">{index + 1}</th>
-//         <td className="text-center">{name}</td>
-//         <td className="text-center">{email}</td>
-//         <td className="text-center">{address}</td>
-//         <td className="text-center">{phoneNumber}</td>
-//         <td className="text-center">{date}</td>
-//         <td className="text-center">{time}</td>
-//         <td className="">
-//           {books.map((book, index) => (
-//             <p key={book._id}>
-//               {index + 1}. {book.title}{" "}
-//               <span className="mr-7">
-//                 ({book.quantity} {book.quantity > 1 ? "pieces" : "piece"})
-//               </span>
-//             </p>
-//           ))}
-//         </td>
-//         <td className="text-center">${total}</td>
-//         <td className="text-center">{transactionId}</td>
-//         <td className="text-center">{delivery}</td>
-//         <td className="text-center">
-//           <button
-//             onClick={() => handleStatus(_id)}
-//             disabled={status ? true : false}
-//             className="btn btn-outline transition ease-linear duration-500"
-//           >{`${status ? status : "Pending"}`}</button>
-//         </td>
-//       </tr>
-//     </>
-//   );
-// };
+  if (isLoading) {
+    return <Loading />;
+  }
 
-// export default Order;
+  return (
+    <TableRow>
+      <th className="text-center">{index + 1}</th>
+      <td className="text-center">{orderId}</td>
+      <td>
+        <p>Date: {new Date(createdAt).toLocaleDateString()}</p>
+        <p>Time: {new Date(createdAt).toLocaleTimeString()}</p>
+      </td>
+
+      {/* book details */}
+      <td>
+        {books.map((book) => (
+          <div className="flex items-center">
+            <div className="avatar mr-2 my-2">
+              <div className="w-24 rounded-xl">
+                <img src={book.imageURL} alt={book.title} />
+              </div>
+            </div>
+            <ol>
+              <li className="capitalize">title: {book.title}</li>
+              <li className="capitalize">Price: ${book.price}</li>
+              <li className="capitalize">
+                quantity: {book.quantity}{" "}
+                {book.quantity > 1 ? "pieces" : "piece"}
+              </li>
+              <li className="capitalize">
+                subtotal: ${book.price * book.quantity}
+              </li>
+            </ol>
+          </div>
+        ))}
+      </td>
+
+      <td className="text-center">${tax}</td>
+      <td className="text-center">${deliveryCharge}</td>
+      <td className="text-center">${discount}</td>
+      <td className="text-center">${total}</td>
+      <td className="text-center">{transactionId}</td>
+
+      {/* delivery details */}
+      <td>
+        <p>Name: {name}</p>
+        <p>Email: {email}</p>
+        <p>Phone Number: {phoneNumber}</p>
+        <p>Address: {deliveryAddress}</p>
+      </td>
+
+      <td className="text-center">
+        <button
+          onClick={() => handleStatus(_id)}
+          disabled={status === "shipped"}
+          className="btn btn-outline transition ease-linear duration-500"
+        >
+          {status}
+        </button>
+      </td>
+    </TableRow>
+  );
+};
+
+export default Order;

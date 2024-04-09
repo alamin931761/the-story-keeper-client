@@ -10,12 +10,8 @@ import SignIn from "./Pages/SignIn/SignIn";
 import Contact from "./Pages/Contact";
 import SignUp from "./Pages/SignIn/SignUp";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-// import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
-// import Orders from "./Pages/Dashboard/Orders/Orders";
 import Users from "./Pages/Dashboard/Users/Users";
-import ManageBooks from "./Pages/Dashboard/ManageBooks/ManageBooks";
 // import Search from "./Pages/Search";
-import Blogs from "./Pages/Blogs";
 import Essays from "./Pages/Categories/TopCategories/Essays";
 import Fiction from "./Pages/Categories/TopCategories/Fiction";
 import NonFiction from "./Pages/Categories/TopCategories/NonFiction";
@@ -23,14 +19,12 @@ import SciFiFantasyAndHorror from "./Pages/Categories/TopCategories/SciFiFantasy
 // import TopRated from "./Pages/Categories/TopRated";
 import NewArrivals from "./Pages/Categories/NewArrivals";
 import AllBooks from "./Pages/Categories/AllBooks";
-import AddBooks from "./Pages/Dashboard/AddBooks";
-import UpdateBook from "./Pages/Dashboard/ManageBooks/UpdateBook";
+import UpdateBook from "./Pages/Dashboard/Books/UpdateBook";
 import NotFound from "./Pages/NotFound";
 import RequireAdmin from "./Pages/SignIn/RequireAdmin";
 import RequireAuth from "./Pages/SignIn/RequireAuth";
 import RequireUser from "./Pages/SignIn/RequireUser";
 import BookDetails from "./Pages/BookDetails/BookDetails";
-// import Checkout from "./Pages/Checkout/Checkout";
 import ArtsAndMusic from "./Pages/Categories/MoreCategories/ArtsAndMusic";
 import MysteryAndCrime from "./Pages/Categories/MoreCategories/MysteryAndCrime";
 import Poetry from "./Pages/Categories/MoreCategories/Poetry";
@@ -39,7 +33,15 @@ import MyProfile from "./Pages/Dashboard/MyProfile";
 import Welcome from "./Pages/Dashboard/Welcome";
 import AddReview from "./Pages/Review/AddReview";
 import UpdateReview from "./Pages/Review/UpdateReview";
-// import DeliveryDetails from "./Pages/DeliveryDetails";
+import Coupons from "./Pages/Dashboard/Coupons/Coupons";
+import Books from "./Pages/Dashboard/Books/Books";
+import AddBook from "./Pages/Dashboard/Books/AddBook";
+import AddCoupon from "./Pages/Dashboard/Coupons/AddCoupon";
+import UpdateCoupon from "./Pages/Dashboard/Coupons/UpdateCoupon";
+import DeliveryDetails from "./Pages/DeliveryDetails";
+import Checkout from "./Pages/Checkout/Checkout";
+import Orders from "./Pages/Dashboard/Orders/Orders";
+import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
 
 function App() {
   return (
@@ -51,7 +53,6 @@ function App() {
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         {/* <Route path="/search" element={<Search />}></Route> */}
-        <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
 
         <Route path="/essays" element={<Essays />} />
@@ -88,13 +89,15 @@ function App() {
 
         <Route path="/cart" element={<Cart />} />
         <Route
-          path="/deliveryDetails"
+          path="/delivery-details"
           // element={<RequireAuth>{/* <DeliveryDetails /> */}</RequireAuth>}
+          element={<DeliveryDetails />}
         ></Route>
         <Route
           path="/checkout"
+          element={<Checkout />}
           // element={<RequireAuth>{/* <Checkout /> */}</RequireAuth>}
-        ></Route>
+        />
 
         <Route
           path="/dashboard"
@@ -105,39 +108,59 @@ function App() {
           }
         >
           <Route index element={<Welcome />}></Route>
-          <Route path="my-profile" element={<MyProfile />} />
+          <Route path="/dashboard/my-profile" element={<MyProfile />} />
           <Route
-            path="myOrders"
+            path="/dashboard/my-orders"
             // element={<RequireUser>{/* <MyOrders /> */}</RequireUser>}
-          ></Route>
+            element={<MyOrders />}
+          />
           <Route
-            path="orders"
+            path="/dashboard/orders"
+            element={<Orders />}
             // element={<RequireAdmin>{/* <Orders /> */}</RequireAdmin>}
-          ></Route>
+          />
           <Route
-            path="add-book"
+            path="/dashboard/books/add-book"
             element={
               // <RequireAdmin>
-              <AddBooks />
+              <AddBook />
               // </RequireAdmin>
             }
-          ></Route>
+          />
           <Route
-            path="users"
+            path="/dashboard/users"
             // element={<RequireAdmin>{/* <Users /> */}</RequireAdmin>}
             element={<Users />}
           ></Route>
           <Route
-            path="manageBooks"
-            // element={<RequireAdmin>{/* <ManageBooks /> */}</RequireAdmin>}
-            element={<ManageBooks />}
+            path="/dashboard/books"
+            // element={<RequireAdmin>{/* <Books /> */}</RequireAdmin>}
+            element={<Books />}
           ></Route>
+
+          <Route
+            path="/dashboard/books/update-book/:id"
+            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
+            element={<UpdateBook />}
+          />
+
+          <Route
+            path="/dashboard/coupons"
+            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
+            element={<Coupons />}
+          />
+
+          <Route
+            path="/dashboard/coupons/add-coupon"
+            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
+            element={<AddCoupon />}
+          />
+          <Route
+            path="/dashboard/coupons/update-coupon/:id"
+            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
+            element={<UpdateCoupon />}
+          />
         </Route>
-        <Route
-          path="/update-book/:id"
-          // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
-          element={<UpdateBook />}
-        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

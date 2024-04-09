@@ -21,54 +21,52 @@ const Carousel = () => {
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
   return (
-    <div>
-      <>
-        <Swiper
-          spaceBetween={30}
-          centeredSlides={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={true}
-          modules={[Autoplay, Pagination, Navigation]}
-          onAutoplayTimeLeft={onAutoplayTimeLeft}
-          className="mySwiper"
-        >
-          <SwiperSlide>
-            <div className="absolute text-white bg-[#0000007d] p-3 rounded-lg">
-              <p className="text-[2vw]">Reading is the best for get idea</p>
-              <h2 className="text-[5vw] second-font">Start Reading</h2>
-            </div>
-            <img src={carousel1} alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="absolute text-white bg-[#0000007d] p-3 rounded-lg">
-              <p className="text-[2vw]">Reading is the best for get idea</p>
-              <h2 className="text-[5vw] second-font">Keep Reading</h2>
-            </div>
-            <img src={carousel2} alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="absolute text-white bg-[#0000007d] p-3 rounded-lg">
-              <p className="text-[2vw]">
-                Reading books improves general knowledge
-              </p>
-              <h2 className="text-[5vw] second-font">Keep Reading</h2>
-            </div>
-            <img src={carousel3} alt="" />
-          </SwiperSlide>
-          <div className="autoplay-progress" slot="container-end">
-            <svg viewBox="0 0 48 48" ref={progressCircle}>
-              <circle cx="24" cy="24" r="20"></circle>
-            </svg>
-            <span ref={progressContent}></span>
+    <div style={{ height: "calc(100vh - 64px)" }}>
+      <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        onAutoplayTimeLeft={onAutoplayTimeLeft}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <div className="absolute text-white bg-[#0000007d] p-3 rounded-lg">
+            <p className="text-[2vw]">Reading is the best for get idea</p>
+            <h2 className="text-[5vw] second-font">Start Reading</h2>
           </div>
-        </Swiper>
-      </>
+          <img src={carousel1} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="absolute text-white bg-[#0000007d] p-3 rounded-lg">
+            <p className="text-[2vw]">Reading is the best for get idea</p>
+            <h2 className="text-[5vw] second-font">Keep Reading</h2>
+          </div>
+          <img src={carousel2} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="absolute text-white bg-[#0000007d] p-3 rounded-lg">
+            <p className="text-[2vw]">
+              Reading books improves general knowledge
+            </p>
+            <h2 className="text-[5vw] second-font">Keep Reading</h2>
+          </div>
+          <img src={carousel3} alt="" />
+        </SwiperSlide>
+        <div className="autoplay-progress" slot="container-end">
+          <svg viewBox="0 0 48 48" ref={progressCircle}>
+            <circle cx="24" cy="24" r="20"></circle>
+          </svg>
+          <span ref={progressContent}></span>
+        </div>
+      </Swiper>
     </div>
   );
 };

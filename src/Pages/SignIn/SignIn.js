@@ -27,6 +27,7 @@ import DynamicLink from "../../components/DynamicLink";
 import Modal from "../../components/Modal";
 import Social from "../../components/Social";
 import useToken from "../../Hooks/useToken";
+import Container from "../../components/Container";
 
 const SignIn = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -98,80 +99,84 @@ const SignIn = () => {
   }
 
   return (
-    <div
-      className="common-style w-full"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-    >
-      <PageTitle title="Sign In" />
-      <h2 className="text-4xl text-center my-10 second-font">
-        Sign In to The Story Keeper
-      </h2>
+    <Container>
+      <div className="w-full mb-5" data-aos="fade-up" data-aos-duration="1000">
+        <PageTitle title="Sign In" />
+        <h2 className="text-4xl text-center my-5 second-font">
+          Sign In to The Story Keeper
+        </h2>
 
-      <div className="flex justify-center w-full">
-        <div className="w-full max-w-lg">
-          <Form onSubmit={handleSubmitSignIn(handleSignIn)}>
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-lg">
+            <Form onSubmit={handleSubmitSignIn(handleSignIn)}>
+              <FormSection>
+                <Input
+                  name="email"
+                  label="Your Email Address"
+                  errors={SignInErrors}
+                  type="text"
+                  register={SignInRegister("email")}
+                />
+
+                <Input
+                  name="password"
+                  label="Your Password"
+                  errors={SignInErrors}
+                  type={`${showPassword ? "text" : "password"}`}
+                  register={SignInRegister("password")}
+                />
+                <TogglePassword
+                  state={showPassword}
+                  setState={setShowPassword}
+                />
+              </FormSection>
+
+              <GoogleReCAPTCHA onChange={handleGoogleRECAPTCHA} />
+
+              <FormSubmit disabled={recaptcha ? false : true}>
+                Sign In <SlLogin className="text-xl ml-2" />
+              </FormSubmit>
+
+              <label
+                className="mt-5 second-font"
+                htmlFor="reset-password-modal"
+              >
+                Forgot your password?{" "}
+                <span className="text-blue-500 cursor-pointer underline hover:decoration-wavy underline-offset-2">
+                  Reset Password
+                  <BsArrowRight className="inline text-2xl ml-2" />
+                </span>
+              </label>
+
+              <p className="mt-5 second-font">
+                New to The Story Keeper?{" "}
+                <DynamicLink to="/sign-up">
+                  Please Sign Up
+                  <BsArrowRight className="inline text-2xl ml-2" />
+                </DynamicLink>
+              </p>
+            </Form>
+          </div>
+        </div>
+        {errorElement}
+        {/* <Social /> */}
+
+        <Modal modalName="reset-password-modal" title="reset password">
+          <Form onSubmit={resetPasswordHandleSubmit(handleResetPassword)}>
             <FormSection>
               <Input
                 name="email"
-                label="Your Email Address"
-                errors={SignInErrors}
-                type="text"
-                register={SignInRegister("email")}
+                label="your email address"
+                errors={resetPasswordErrors}
+                type="email"
+                register={resetPasswordRegister("email")}
               />
-
-              <Input
-                name="password"
-                label="Your Password"
-                errors={SignInErrors}
-                type={`${showPassword ? "text" : "password"}`}
-                register={SignInRegister("password")}
-              />
-              <TogglePassword state={showPassword} setState={setShowPassword} />
             </FormSection>
-
-            <GoogleReCAPTCHA onChange={handleGoogleRECAPTCHA} />
-
-            <FormSubmit disabled={recaptcha ? false : true}>
-              Sign In <SlLogin className="text-xl ml-2" />
-            </FormSubmit>
-
-            <label className="mt-5 second-font" htmlFor="reset-password-modal">
-              Forgot your password?{" "}
-              <span className="text-blue-500 cursor-pointer underline hover:decoration-wavy underline-offset-2">
-                Reset Password
-                <BsArrowRight className="inline text-2xl ml-2" />
-              </span>
-            </label>
-
-            <p className="mt-5 second-font">
-              New to The Story Keeper?{" "}
-              <DynamicLink to="/sign-up">
-                Please Sign Up
-                <BsArrowRight className="inline text-2xl ml-2" />
-              </DynamicLink>
-            </p>
+            <FormSubmit>reset password</FormSubmit>
           </Form>
-        </div>
+        </Modal>
       </div>
-      {errorElement}
-      {/* <Social /> */}
-
-      <Modal modalName="reset-password-modal" title="reset password">
-        <Form onSubmit={resetPasswordHandleSubmit(handleResetPassword)}>
-          <FormSection>
-            <Input
-              name="email"
-              label="your email address"
-              errors={resetPasswordErrors}
-              type="email"
-              register={resetPasswordRegister("email")}
-            />
-          </FormSection>
-          <FormSubmit>reset password</FormSubmit>
-        </Form>
-      </Modal>
-    </div>
+    </Container>
   );
 };
 

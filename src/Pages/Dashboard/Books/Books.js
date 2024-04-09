@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { toast } from "react-toastify";
 import Loading from "../../../components/Loading";
-import { GoBook } from "react-icons/go";
-import PageTitle from "../../../components/PageTitle";
-import ManageBooksRow from "./ManageBooksRow";
-import useLoadBooks from "../../../Hooks/useLoadBooks";
-import Pagination from "../../../components/dataManipulation/Pagination";
 import Slider from "../../../components/dataManipulation/Slider";
 import Limit from "../../../components/dataManipulation/Limit";
 import Sort from "../../../components/dataManipulation/Sort";
+import Book from "./Book";
+import Pagination from "../../../components/dataManipulation/Pagination";
 import DeleteConfirmationModal from "../../../components/DeleteConfirmationModal";
-import { toast } from "react-toastify";
+import PageTitle from "../../../components/PageTitle";
 import { useDeleteBookMutation } from "../../../redux/api/bookApi";
+import { useState } from "react";
+import useLoadBooks from "../../../Hooks/useLoadBooks";
+import { GoBook } from "react-icons/go";
+import { Link } from "react-router-dom";
+import Table from "../../../components/reusableTable/Table";
+import TableHead from "../../../components/reusableTable/TableHead";
+import TableBody from "../../../components/reusableTable/TableBody";
 
-const ManageBooks = () => {
+const Books = () => {
   const [deleteState, setDeleteState] = useState(null);
   const [deleteBook, { isLoading: deleteBookLoading }] =
     useDeleteBookMutation();
@@ -26,13 +30,13 @@ const ManageBooks = () => {
 
   const handleDelete = async (bookData) => {
     const result = await deleteBook(bookData._id);
-    toast.success(result.data.message);
+    toast.success(result?.data?.message);
     setDeleteState(null);
   };
 
-  let manageBookContainer;
+  let booksContainer;
   if (count > 0) {
-    manageBookContainer = (
+    booksContainer = (
       <div>
         <div className="mx-2">
           {/* filter books */}
@@ -58,31 +62,28 @@ const ManageBooks = () => {
         </div>
 
         {/* table */}
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th></th>
-                <th className="text-center">Avatar</th>
-                <th className="text-center">Title</th>
-                <th className="text-center">Price</th>
-                <th className="text-center">Available Quantity</th>
-                <th className="text-center">Edit</th>
-                <th className="text-center">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div>
+          <Table>
+            <TableHead>
+              <th className="text-center">Avatar</th>
+              <th className="text-center">Title</th>
+              <th className="text-center">Price</th>
+              <th className="text-center">Available Quantity</th>
+              <th className="text-center">Edit</th>
+              <th className="text-center">Delete</th>
+            </TableHead>
+
+            <TableBody>
               {books.map((book, index) => (
-                <ManageBooksRow
+                <Book
                   key={book._id}
                   book={book}
                   index={index}
                   setDeleteState={setDeleteState}
                 />
               ))}
-            </tbody>
-          </table>
-
+            </TableBody>
+          </Table>
           <Pagination />
         </div>
 
@@ -90,7 +91,7 @@ const ManageBooks = () => {
           modalName="book-delete-confirmation-modal"
           message={
             <>
-              Are you sure you want to delete this{" "}
+              Are you sure you want to delete{" "}
               <span className="font-semibold">{deleteState?.title}</span>
             </>
           }
@@ -100,8 +101,8 @@ const ManageBooks = () => {
       </div>
     );
   } else {
-    manageBookContainer = (
-      <div className="w-full mt-5 flex flex-col items-center justify-center">
+    booksContainer = (
+      <div className="w-full flex flex-col items-center justify-center">
         <GoBook className="text-7xl opacity-5" />
         <p className="second-font">
           No books have been added to this website yet
@@ -111,15 +112,24 @@ const ManageBooks = () => {
   }
 
   return (
-    <div data-aos="fade-right" data-aos-duration="1000">
-      <PageTitle title="Manage Books" />
-      <h2 className="text-center text-3xl mt-5 second-font">
-        Manage Books ({count})
-      </h2>
+    <div
+      className="relative min-h-screen"
+      data-aos="fade-right"
+      data-aos-duration="1000"
+    >
+      <PageTitle title="Books" />
+      <Link
+        to="/dashboard/books/add-book"
+        className="btn btn-outline btn-xs lg:btn-sm transition ease-linear duration-500 absolute top-2 left-2"
+      >
+        Add Book
+      </Link>
 
-      {manageBookContainer}
+      <h2 className="text-center text-3xl second-font mb-5">Books ({count})</h2>
+
+      {booksContainer}
     </div>
   );
 };
 
-export default ManageBooks;
+export default Books;

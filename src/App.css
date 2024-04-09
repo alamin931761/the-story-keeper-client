@@ -7,10 +7,6 @@
   font-family: "Amaranth", sans-serif;
 }
 
-.common-style {
-  padding: 62px 10px 0px 10px;
-}
-
 /* input field and textarea */
 input {
   font-family: "Amaranth", sans-serif;
@@ -18,12 +14,6 @@ input {
 
 textarea {
   font-family: "Amaranth", sans-serif;
-}
-
-/* --------------------------------- */
-
-.home-page {
-  padding: 0px 10px 0px 10px;
 }
 
 /* ----------- navbar ------------- */

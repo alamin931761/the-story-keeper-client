@@ -1,89 +1,68 @@
-// import { signOut } from "firebase/auth";
-// import { useEffect, useState } from "react";
-// import { useAuthState } from "react-firebase-hooks/auth";
-// import { useNavigate } from "react-router-dom";
-// import auth from "../../../firebase.init";
-// import { GoBook } from "react-icons/go";
-// import PageTitle from "../../../components/PageTitle";
-// import MyOrder from "./MyOrder";
+import Loading from "../../../components/Loading";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import { useGetUserOrdersQuery } from "../../../redux/api/orderApi";
+import Table from "../../../components/reusableTable/Table";
+import TableHead from "../../../components/reusableTable/TableHead";
+import TableBody from "../../../components/reusableTable/TableBody";
+import { GoBook } from "react-icons/go";
+import MyOrder from "./MyOrder";
+import PageTitle from "../../../components/PageTitle";
 
-// const MyOrders = () => {
-//   const [user] = useAuthState(auth);
-//   const [myOrders, setMyOrders] = useState([]);
-//   const navigate = useNavigate();
+const MyOrders = () => {
+  const [user] = useAuthState(auth);
+  const email = user.email;
+  const { data, isLoading } = useGetUserOrdersQuery(email);
+  if (isLoading) {
+    return <Loading />;
+  }
 
-//   useEffect(() => {
-//     if (user) {
-//       fetch(`http://localhost:5000/api/v1//order?email=${user.email}`, {
-//         method: "GET",
-//         headers: {
-//           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//         },
-//       })
-//         .then((res) => {
-//           if (res.status === 401 || res.status === 403) {
-//             signOut(auth);
-//             localStorage.removeItem("accessToken");
-//             navigate("/");
-//           }
-//           return res.json();
-//         })
-//         .then((data) => {
-//           setMyOrders(data);
-//         });
-//     }
-//   }, [user, navigate]);
+  let orderContainer;
+  if (data?.data?.data.length > 0) {
+    orderContainer = (
+      <Table>
+        <TableHead>
+          <th className="text-center">Order ID</th>
+          <th className="text-center">Date and Time</th>
+          <th className="text-center">Book Description</th>
+          <th className="text-center">Tax</th>
+          <th className="text-center">Delivery Charge</th>
+          <th className="text-center">Discount</th>
+          <th className="text-center">Total</th>
+          <th className="text-center">Transaction Id</th>
+          <th className="text-center">Delivery Details</th>
+          <th className="text-center">Status</th>
+        </TableHead>
 
-//   let myOrdersContainer;
-//   if (myOrders.length > 0) {
-//     myOrdersContainer = (
-//       <div className="overflow-x-auto w-full">
-//         <table className="table w-full">
-//           <thead>
-//             <tr>
-//               <th></th>
-//               <th className="text-center">Name</th>
-//               <th className="text-center">Email</th>
-//               <th className="text-center">Address</th>
-//               <th className="text-center">Phone Number</th>
-//               <th className="text-center">Date</th>
-//               <th className="text-center">Time</th>
-//               <th className="text-center">Books</th>
-//               <th className="text-center">Total</th>
-//               <th className="text-center">Transaction Id</th>
-//               <th className="text-center">Delivery</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {myOrders.map((data, index) => (
-//               <MyOrder key={data._id} data={data} index={index} />
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     );
-//   } else {
-//     myOrdersContainer = (
-//       <div className="w-full mt-5 flex flex-col items-center justify-center">
-//         <GoBook className="text-7xl opacity-5" />
-//         <p className="second-font mx-2">
-//           There are no orders associated with this account that were placed in
-//           the past
-//         </p>
-//       </div>
-//     );
-//   }
+        <TableBody>
+          {data?.data?.data.map((data, index) => (
+            <MyOrder key={data._id} data={data} index={index} />
+          ))}
+        </TableBody>
+      </Table>
+    );
+  } else {
+    orderContainer = (
+      <div className="w-full mt-5 flex flex-col items-center justify-center">
+        <GoBook className="text-7xl opacity-5" />
+        <p className="second-font">You haven't ordered yet</p>
+      </div>
+    );
+  }
 
-//   return (
-//     <div data-aos="fade-right" data-aos-duration="1000">
-//       <PageTitle title="My Orders" />
-//       <h2 className="text-center text-3xl my-5 second-font">
-//         My Orders ({myOrders?.length})
-//       </h2>
+  return (
+    <div
+      className="min-h-screen"
+      data-aos="fade-right"
+      data-aos-duration="1000"
+    >
+      <PageTitle title="My Orders" />
+      <h2 className="text-center text-3xl my-5 second-font">
+        My Orders({data?.data?.data.length})
+      </h2>
+      {orderContainer}
+    </div>
+  );
+};
 
-//       {myOrdersContainer}
-//     </div>
-//   );
-// };
-
-// export default MyOrders;
+export default MyOrders;
