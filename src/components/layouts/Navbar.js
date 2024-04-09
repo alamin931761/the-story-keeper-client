@@ -1,34 +1,41 @@
-import { useContext, useRef } from "react";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "../../../assets/images/logo.png";
-import auth from "../../../firebase.init";
+import logo from "../../assets/images/logo.png";
 import { GiShoppingCart } from "react-icons/gi";
 import { RiMenu2Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
-import useShoppingCart from "../../../Hooks/useShoppingCart";
-import { SearchContext } from "../../../Context/Search";
-import Container from "../../../components/Container";
+import auth from "../../firebase.init";
+import useShoppingCart from "../../Hooks/useShoppingCart";
+import Container from "../Container";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { search } from "../../redux/features/searchSlice";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
+  const dispatch = useDispatch();
   const { quantity, subtotal } = useShoppingCart(); // cart data
-  const [search, setSearch] = useContext(SearchContext);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
 
+  // handle sign out
   const handleSignOut = () => {
     localStorage.removeItem("accessToken");
     signOut(auth);
   };
 
+  // handle search
   const navigate = useNavigate();
-  const searchRef = useRef("");
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const searchValue = searchRef.current.value.toLowerCase();
-    setSearch(searchValue);
+  const handleSearch = (data) => {
+    const searchTerm = data.searchTerm.toLowerCase();
+    dispatch(search(searchTerm));
     navigate("/search");
-    event.target.reset();
+    reset();
   };
 
   let item = "Item";
@@ -281,9 +288,9 @@ const Navbar = () => {
                 tabIndex={0}
                 className="mt-3 card card-compact dropdown-content w-[270px] bg-base-100 shadow"
               >
-                <form onSubmit={handleSearch}>
+                <form onSubmit={handleSubmit(handleSearch)}>
                   <input
-                    ref={searchRef}
+                    {...register("searchTerm", { required: true })}
                     type="text"
                     placeholder="Search by Title, Author or ISBN"
                     className="input input-bordered w-full max-w-sm bg-black text-white"

@@ -10,7 +10,7 @@ import {
 } from "../redux/features/paginationAndFilterSlice";
 import { useGetAllBooksQuery } from "../redux/api/bookApi";
 
-const useLoadBooks = (fields, category) => {
+const useLoadBooks = (fields, category, searchTerm) => {
   const dispatch = useDispatch();
 
   // set initial query parameters
@@ -39,6 +39,9 @@ const useLoadBooks = (fields, category) => {
   }
   if (category) {
     queryOptions.category = category;
+  }
+  if (searchTerm) {
+    queryOptions.searchTerm = searchTerm;
   }
 
   const { data, isLoading } = useGetAllBooksQuery(queryOptions);

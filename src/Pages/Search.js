@@ -1,72 +1,47 @@
-// import { useContext } from "react";
-// import useAllBooks from "../Hooks/useAllBooks";
-// import Loading from "../components/Loading";
-// import { SearchContext } from "../Context/Search";
-// import PageTitle from "../components/PageTitle";
-// import BookDetailsCard from "../components/BookDetailsCard";
-// import DynamicLinkButton from "../components/DynamicLinkButton";
-// import { MdKeyboardBackspace } from "react-icons/md";
+import useLoadBooks from "../Hooks/useLoadBooks";
+import BooksCardContainer from "../components/BooksCardContainer";
+import { useSelector } from "react-redux";
+import DynamicLinkButton from "../components/DynamicLinkButton";
+import { MdKeyboardBackspace } from "react-icons/md";
 
-// const Search = () => {
-//   const [search, setSearch] = useContext(SearchContext);
-//   const { allBooks } = useAllBooks();
-//   const searchByTitle = allBooks.filter((books) =>
-//     books.title.toLowerCase().includes(search)
-//   );
-//   const searchByAuthor = allBooks.filter((books) =>
-//     books.author.toLowerCase().includes(search)
-//   );
-//   const searchByISBN = allBooks?.filter((books) =>
-//     books.isbn.toString().includes(search)
-//   );
+const Search = () => {
+  const { searchTerm } = useSelector((state) => state.searchSlice);
+  console.log(searchTerm);
+  const { books, count, isLoading } = useLoadBooks(
+    "imageURL,title,author,price",
+    "",
+    searchTerm
+  );
 
-//   let result = "";
-//   let loading;
-//   if (
-//     searchByTitle.length === 0 &&
-//     searchByAuthor.length === 0 &&
-//     searchByISBN.length === 0
-//   ) {
-//     result = (
-//       <h2 className="text-3xl text-center mt-5 second-font">
-//         No Results Found For: <span className="text-red-500">{search}</span>
-//       </h2>
-//     );
-//     loading = <Loading />;
-//   } else {
-//     result = (
-//       <h2 className="text-3xl text-center mt-5 pb-5 second-font">
-//         Search Results For: <span className="text-red-500">{search}</span>
-//       </h2>
-//     );
-//   }
+  return (
+    <div className="min-h-screen">
+      {books?.length === 0 ? (
+        <div>
+          <h2 className="text-3xl text-center second-font my-5">
+            No Results Found For:{" "}
+            <span className="text-red-500">{searchTerm}</span>
+          </h2>
 
-//   return (
-//     <div className=" ">
-//       <PageTitle title="Search" />
+          <div className="flex justify-center">
+            <DynamicLinkButton to="/">
+              <MdKeyboardBackspace className="text-2xl mr-2" />
+              Back To Home
+            </DynamicLinkButton>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <BooksCardContainer
+            isLoading={isLoading}
+            books={books}
+            count={count}
+            name="Search"
+            dataAos="fade-up"
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
-//       {result}
-//       {loading}
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//         {searchByTitle?.map((data) => (
-//           <BookDetailsCard key={data._id} data={data} />
-//         ))}
-//         {searchByAuthor?.map((data) => (
-//           <BookDetailsCard key={data._id} data={data} />
-//         ))}
-//         {searchByISBN?.map((data) => (
-//           <BookDetailsCard key={data._id} data={data} />
-//         ))}
-//       </div>
-
-//       <div className="flex justify-center">
-//         <DynamicLinkButton to="/">
-//           <MdKeyboardBackspace className="text-2xl mr-2" />
-//           Back To Home
-//         </DynamicLinkButton>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Search;
+export default Search;

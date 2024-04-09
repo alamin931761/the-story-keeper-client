@@ -1,5 +1,5 @@
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
-import Container from "../../../components/Container";
+import Container from "../Container";
 
 const Footer = () => {
   const today = new Date();

@@ -3,10 +3,11 @@ import { bookApi } from "./api/bookApi";
 import { userApi } from "./api/userApi";
 import { reviewApi } from "./api/reviewApi";
 import { couponApi } from "./api/couponApi";
-import paginationAndFilterReducer from "./features/paginationAndFilterSlice";
-import orderInfoReducer from "./features/orderInfoSlice";
 import { paymentApi } from "./api/paymentApi";
 import { orderApi } from "./api/orderApi";
+import paginationAndFilterReducer from "./features/paginationAndFilterSlice";
+import orderInfoReducer from "./features/orderInfoSlice";
+import searchReducer from "./features/searchSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     [orderApi.reducerPath]: orderApi.reducer,
     paginationAndFilter: paginationAndFilterReducer,
     orderInfo: orderInfoReducer,
+    searchSlice: searchReducer,
   },
 
   middleware: (getDefaultMiddleware) => {

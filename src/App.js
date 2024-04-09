@@ -4,8 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Cart from "./Pages/Cart/Cart";
 import Home from "./Pages/Home/Home";
-import Footer from "./Pages/SignIn/layouts/Footer";
-import Navbar from "./Pages/SignIn/layouts/Navbar";
 import SignIn from "./Pages/SignIn/SignIn";
 import Contact from "./Pages/Contact";
 import SignUp from "./Pages/SignIn/SignUp";
@@ -42,6 +40,9 @@ import DeliveryDetails from "./Pages/DeliveryDetails";
 import Checkout from "./Pages/Checkout/Checkout";
 import Orders from "./Pages/Dashboard/Orders/Orders";
 import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
+import Search from "./Pages/Search";
+import Navbar from "./components/layouts/Navbar";
+import Footer from "./components/layouts/Footer";
 
 function App() {
   return (
@@ -52,7 +53,7 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
-        {/* <Route path="/search" element={<Search />}></Route> */}
+        <Route path="/search" element={<Search />} />
         <Route path="/contact" element={<Contact />}></Route>
 
         <Route path="/essays" element={<Essays />} />
