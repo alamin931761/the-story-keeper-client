@@ -22,14 +22,19 @@ import {
   useGetSingleUserQuery,
   useUpdateProfileMutation,
 } from "../../redux/api/userApi";
+import UnauthorizedError from "../../components/UnauthorizedError";
 
 const MyProfile = () => {
   // update profile
   const [user] = useAuthState(auth);
   const email = user.email;
-  const { data, isLoading } = useGetSingleUserQuery(email);
-  const [updateProfile, { isLoading: updateProfileLoading }] =
-    useUpdateProfileMutation();
+  const { data, isLoading } = useGetSingleUserQuery({
+    email,
+  });
+  const [
+    updateProfile,
+    { isLoading: updateProfileLoading, isError, error: updateProfileError },
+  ] = useUpdateProfileMutation();
   const [showPassword, setShowPassword] = useState(false);
   const [updatePassword, updating, error] = useUpdatePassword(auth);
 
@@ -50,6 +55,7 @@ const MyProfile = () => {
     const options = {
       data: updateProfileData,
       email,
+      token: localStorage.getItem("accessToken"),
     };
     const result = await updateProfile(options);
     if (result?.error?.data?.success === false) {
@@ -93,17 +99,10 @@ const MyProfile = () => {
     return <Loading />;
   }
 
-  const {
-    name,
-    email: userEmail,
-    address,
-    phoneNumber,
-    imageURL,
-  } = data?.data?.data;
   // image
   let profilePicture = "https://i.ibb.co/4WCwkWc/user-default-image.png";
-  if (imageURL) {
-    profilePicture = imageURL;
+  if (data?.data?.data?.imageURL) {
+    profilePicture = data?.data?.data?.imageURL;
   }
 
   return (
@@ -113,127 +112,142 @@ const MyProfile = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="My Profile" />
-      <h2 className="text-center text-3xl mb-5 second-font">My Profile</h2>
+      {isError ? (
+        <UnauthorizedError error={updateProfileError} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl mb-5 second-font">My Profile</h2>
 
-      <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-y-5">
-        <div className="flex justify-center items-center">
-          <div className="lg:w-[450px] w-full">
-            <div className="bg-[#DFF6FF] p-4 rounded-lg">
-              <div className="flex justify-end mb-5">
-                <label
-                  htmlFor="update-profile-modal"
-                  className="btn btn-outline transition ease-linear duration-500"
-                >
-                  <BiEdit className="text-2xl" />
-                </label>
-              </div>
-              <div className="avatar flex justify-center mb-5">
-                <div className="w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img src={profilePicture} alt="" />
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-y-5">
+            <div className="flex justify-center items-center">
+              <div className="lg:w-[450px] w-full">
+                <div className="bg-[#DFF6FF] p-4 rounded-lg">
+                  <div className="flex justify-end mb-5">
+                    <label
+                      htmlFor="update-profile-modal"
+                      className="btn btn-outline transition ease-linear duration-500"
+                    >
+                      <BiEdit className="text-2xl" />
+                    </label>
+                  </div>
+                  <div className="avatar flex justify-center mb-5">
+                    <div className="w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src={profilePicture} alt="" />
+                    </div>
+                  </div>
+                  <p className="mb-3">
+                    <span className="font-bold text-xl second-font">
+                      Name:{" "}
+                    </span>
+                    {data?.data?.data?.name}
+                  </p>
+                  <p className="mb-3 break-all">
+                    <span className="font-bold text-xl second-font">
+                      Email:{" "}
+                    </span>
+                    {data?.data?.data?.email}
+                  </p>
+                  <p className="mb-3 break-all">
+                    <span className="font-bold text-xl second-font">
+                      Address:{" "}
+                    </span>
+                    <span>{data?.data?.data?.address}</span>
+                  </p>
+                  <p className="mb-3 break-all">
+                    <span className="font-bold text-xl second-font">
+                      Phone Number:{" "}
+                    </span>
+                    {data?.data?.data?.phoneNumber}
+                  </p>
                 </div>
               </div>
-              <p className="mb-3">
-                <span className="font-bold text-xl second-font">Name: </span>
-                {name}
-              </p>
-              <p className="mb-3 break-all">
-                <span className="font-bold text-xl second-font">Email: </span>
-                {userEmail}
-              </p>
-              <p className="mb-3 break-all">
-                <span className="font-bold text-xl second-font">Address: </span>
-                <span>{address}</span>
-              </p>
-              <p className="mb-3 break-all">
-                <span className="font-bold text-xl second-font">
-                  Phone Number:{" "}
-                </span>
-                {phoneNumber}
-              </p>
             </div>
+
+            {/* change password  */}
+            <div className="flex flex-col justify-center">
+              <h2 className="text-2xl text-center mb-5 second-font">
+                Update Password
+              </h2>
+
+              <Form onSubmit={handleSubmitPassword(changePassword)}>
+                <FormSection>
+                  <Input
+                    name="password"
+                    register={registerPassword("password")}
+                    label="New Password"
+                    type={`${showPassword ? "text" : "password"}`}
+                    errors={errorsPassword}
+                  />
+
+                  <Input
+                    name="confirmPassword"
+                    register={registerPassword("confirmPassword")}
+                    label="Confirm New Password"
+                    type={`${showPassword ? "text" : "password"}`}
+                    errors={errorsPassword}
+                  />
+
+                  <TogglePassword
+                    state={showPassword}
+                    setState={setShowPassword}
+                  />
+                </FormSection>
+                <FormSubmit>Update Password</FormSubmit>
+              </Form>
+            </div>
+
+            {/* update profile modal */}
+            <Modal modalName="update-profile-modal" title="update profile">
+              <Form onSubmit={handleSubmitUpdateProfile(handleUpdateProfile)}>
+                <FormSection>
+                  <Input
+                    type="text"
+                    label="Name"
+                    name="name"
+                    errors={errorsUpdateProfile}
+                    value={data?.data?.data?.name}
+                    disabled={true}
+                  />
+
+                  <Input
+                    type="text"
+                    label="Email"
+                    name="email"
+                    errors={errorsUpdateProfile}
+                    value={data?.data?.data?.email}
+                    disabled={true}
+                  />
+
+                  <Input
+                    type="text"
+                    label="Image URL"
+                    name="imageURL"
+                    errors={errorsUpdateProfile}
+                    register={registerUpdateProfile("imageURL")}
+                  />
+
+                  <Input
+                    type="text"
+                    label="Phone Number"
+                    name="phoneNumber"
+                    errors={errorsUpdateProfile}
+                    register={registerUpdateProfile("phoneNumber")}
+                  />
+
+                  <Input
+                    type="text"
+                    label="Address"
+                    name="address"
+                    errors={errorsUpdateProfile}
+                    register={registerUpdateProfile("address")}
+                  />
+                </FormSection>
+                <FormSubmit>Update Profile</FormSubmit>
+              </Form>
+            </Modal>
           </div>
-        </div>
-
-        {/* change password  */}
-        <div className="flex flex-col justify-center">
-          <h2 className="text-2xl text-center mb-5 second-font">
-            Update Password
-          </h2>
-
-          <Form onSubmit={handleSubmitPassword(changePassword)}>
-            <FormSection>
-              <Input
-                name="password"
-                register={registerPassword("password")}
-                label="New Password"
-                type={`${showPassword ? "text" : "password"}`}
-                errors={errorsPassword}
-              />
-
-              <Input
-                name="confirmPassword"
-                register={registerPassword("confirmPassword")}
-                label="Confirm New Password"
-                type={`${showPassword ? "text" : "password"}`}
-                errors={errorsPassword}
-              />
-
-              <TogglePassword state={showPassword} setState={setShowPassword} />
-            </FormSection>
-            <FormSubmit>Update Password</FormSubmit>
-          </Form>
-        </div>
-
-        {/* update profile modal */}
-        <Modal modalName="update-profile-modal" title="update profile">
-          <Form onSubmit={handleSubmitUpdateProfile(handleUpdateProfile)}>
-            <FormSection>
-              <Input
-                type="text"
-                label="Name"
-                name="name"
-                errors={errorsUpdateProfile}
-                value={name}
-                disabled={true}
-              />
-
-              <Input
-                type="text"
-                label="Email"
-                name="email"
-                errors={errorsUpdateProfile}
-                value={userEmail}
-                disabled={true}
-              />
-
-              <Input
-                type="text"
-                label="Image URL"
-                name="imageURL"
-                errors={errorsUpdateProfile}
-                register={registerUpdateProfile("imageURL")}
-              />
-
-              <Input
-                type="text"
-                label="Phone Number"
-                name="phoneNumber"
-                errors={errorsUpdateProfile}
-                register={registerUpdateProfile("phoneNumber")}
-              />
-
-              <Input
-                type="text"
-                label="Address"
-                name="address"
-                errors={errorsUpdateProfile}
-                register={registerUpdateProfile("address")}
-              />
-            </FormSection>
-            <FormSubmit>Update Profile</FormSubmit>
-          </Form>
-        </Modal>
-      </div>
+        </>
+      )}
     </div>
   );
 };

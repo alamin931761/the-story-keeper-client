@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Social from "../../components/Social";
 import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
@@ -23,6 +22,7 @@ import { SignUpSchema } from "../../components/reusableForm/Validation";
 import FormSubmit from "../../components/reusableForm/FormSubmit";
 import Modal from "../../components/Modal";
 import Container from "../../components/Container";
+import Social from "../../components/Social";
 
 const SignUp = () => {
   const [agree, setAgree] = useState(false);
@@ -161,7 +161,7 @@ const SignUp = () => {
         </div>
 
         {errorElement}
-        {/* <Social /> */}
+        <Social />
 
         {/* terms and conditions modal */}
         <Modal modalName="terms-and-conditions" title="Terms and Conditions">

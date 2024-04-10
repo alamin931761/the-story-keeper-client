@@ -18,11 +18,14 @@ import DynamicLinkButton from "../../components/DynamicLinkButton";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { toast } from "react-toastify";
 import Container from "../../components/Container";
+import UnauthorizedError from "../../components/UnauthorizedError";
 
 const UpdateReview = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleReviewQuery(id);
-  const [updateReview, { isLoading: updateReviewLoading, error }] =
+  const { data, isLoading } = useGetSingleReviewQuery({
+    id,
+  });
+  const [updateReview, { isLoading: updateReviewLoading, isError, error }] =
     useUpdateReviewMutation();
   const [ratingValue, setRatingValue] = useState(null);
 
@@ -50,6 +53,7 @@ const UpdateReview = () => {
     const options = {
       id,
       review,
+      token: localStorage.getItem("accessToken"),
     };
     const result = await updateReview(options);
     if (result?.data?.success) {
@@ -74,46 +78,53 @@ const UpdateReview = () => {
         data-aos-duration="1000"
       >
         <PageTitle title="Update Review" />
-        <h2 className="text-3xl text-center second-font my-5">Update Review</h2>
-
-        <div className="flex justify-center w-full">
-          <div className="w-full max-w-lg">
-            <div className="mx-3 flex flex-col items-center">
-              <p className="w-full max-w-lg text-sm">Ratings</p>
+        {isError ? (
+          <UnauthorizedError error={error} />
+        ) : (
+          <>
+            {" "}
+            <h2 className="text-3xl text-center second-font my-5">
+              Update Review
+            </h2>
+            <div className="flex justify-center w-full">
               <div className="w-full max-w-lg">
-                <Rating onChange={onChange} ratingValue={ratingValue} />
+                <div className="mx-3 flex flex-col items-center">
+                  <p className="w-full max-w-lg text-sm">Ratings</p>
+                  <div className="w-full max-w-lg">
+                    <Rating onChange={onChange} ratingValue={ratingValue} />
+                  </div>
+                </div>
+
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                  <FormSection>
+                    <Textarea
+                      name="reviewContent"
+                      errors={errors}
+                      register={register("reviewContent")}
+                      label="Review content"
+                    />
+
+                    {error ? (
+                      <p className="text-red-500">
+                        <span className="font-semibold">Error:</span>{" "}
+                        {error?.data?.message}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </FormSection>
+                  <FormSubmit>Update</FormSubmit>
+                </Form>
               </div>
             </div>
-
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <FormSection>
-                <Textarea
-                  name="reviewContent"
-                  errors={errors}
-                  register={register("reviewContent")}
-                  label="Review content"
-                />
-
-                {error ? (
-                  <p className="text-red-500">
-                    <span className="font-semibold">Error:</span>{" "}
-                    {error?.data?.message}
-                  </p>
-                ) : (
-                  ""
-                )}
-              </FormSection>
-              <FormSubmit>Update</FormSubmit>
-            </Form>
-          </div>
-        </div>
-
-        <div className="flex justify-center ">
-          <DynamicLinkButton to={`/book-details/${data.data.data.bookId}`}>
-            <MdKeyboardBackspace className="text-2xl mr-2" />
-            Back to Details page
-          </DynamicLinkButton>
-        </div>
+            <div className="flex justify-center ">
+              <DynamicLinkButton to={`/book-details/${data.data.data.bookId}`}>
+                <MdKeyboardBackspace className="text-2xl mr-2" />
+                Back to Details page
+              </DynamicLinkButton>
+            </div>
+          </>
+        )}
       </div>
     </Container>
   );

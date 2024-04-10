@@ -15,10 +15,11 @@ import { Link } from "react-router-dom";
 import Table from "../../../components/reusableTable/Table";
 import TableHead from "../../../components/reusableTable/TableHead";
 import TableBody from "../../../components/reusableTable/TableBody";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const Books = () => {
   const [deleteState, setDeleteState] = useState(null);
-  const [deleteBook, { isLoading: deleteBookLoading }] =
+  const [deleteBook, { isLoading: deleteBookLoading, isError, error }] =
     useDeleteBookMutation();
   const { books, count, isLoading } = useLoadBooks(
     "title,imageURL,price,availableQuantity"
@@ -29,7 +30,10 @@ const Books = () => {
   }
 
   const handleDelete = async (bookData) => {
-    const result = await deleteBook(bookData._id);
+    const result = await deleteBook({
+      id: bookData._id,
+      token: localStorage.getItem("accessToken"),
+    });
     toast.success(result?.data?.message);
     setDeleteState(null);
   };
@@ -118,16 +122,24 @@ const Books = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="Books" />
-      <Link
-        to="/dashboard/books/add-book"
-        className="btn btn-outline btn-xs lg:btn-sm transition ease-linear duration-500 absolute top-2 left-2"
-      >
-        Add Book
-      </Link>
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <Link
+            to="/dashboard/books/add-book"
+            className="btn btn-outline btn-xs lg:btn-sm transition ease-linear duration-500 absolute top-2 left-2"
+          >
+            Add Book
+          </Link>
 
-      <h2 className="text-center text-3xl second-font mb-5">Books ({count})</h2>
+          <h2 className="text-center text-3xl second-font mb-5">
+            Books ({count})
+          </h2>
 
-      {booksContainer}
+          {booksContainer}
+        </>
+      )}
     </div>
   );
 };

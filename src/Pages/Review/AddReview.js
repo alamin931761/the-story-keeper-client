@@ -19,13 +19,14 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../../redux/api/bookApi";
 import Container from "../../components/Container";
+import UnauthorizedError from "../../components/UnauthorizedError";
 
 const AddReview = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleBookQuery(id);
   const [user] = useAuthState(auth);
   const [ratingValue, setRatingValue] = useState(null);
-  const [addReview, { isLoading: ReviewLoading, error }] =
+  const [addReview, { isLoading: ReviewLoading, error, isError }] =
     useAddReviewMutation();
 
   // rating
@@ -49,6 +50,7 @@ const AddReview = () => {
     const options = {
       id,
       review,
+      token: localStorage.getItem("accessToken"),
     };
     const result = await addReview(options);
     if (result?.data?.success) {
@@ -75,56 +77,63 @@ const AddReview = () => {
         data-aos-duration="1000"
       >
         <PageTitle title="Add Review" />
-        <h2 className="text-3xl text-center my-5 second-font">
-          Leave a Review
-        </h2>
-
-        <div className="flex justify-center w-full">
-          <div className="w-full max-w-lg">
-            <div className="mx-3 flex flex-col items-center">
-              <p className="w-full max-w-lg text-sm">Ratings</p>
+        {isError ? (
+          <UnauthorizedError error={error} />
+        ) : (
+          <>
+            {" "}
+            <h2 className="text-3xl text-center my-5 second-font">
+              Leave a Review
+            </h2>
+            <div className="flex justify-center w-full">
               <div className="w-full max-w-lg">
-                <Rating onChange={onChange} ratingValue={ratingValue} />
+                <div className="mx-3 flex flex-col items-center">
+                  <p className="w-full max-w-lg text-sm">Ratings</p>
+                  <div className="w-full max-w-lg">
+                    <Rating onChange={onChange} ratingValue={ratingValue} />
+                  </div>
+                </div>
+
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                  <FormSection>
+                    <Input
+                      name="bookName"
+                      label="book name"
+                      errors={errors}
+                      type="text"
+                      value={title}
+                      disabled={true}
+                    />
+                    <Textarea
+                      name="reviewContent"
+                      errors={errors}
+                      register={register("reviewContent")}
+                      label="Review content"
+                    />
+
+                    {error ? (
+                      <p className="text-red-500">
+                        <span className="font-semibold">Error:</span>{" "}
+                        {error?.data?.message}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </FormSection>
+                  <FormSubmit disabled={ratingValue === null}>
+                    Submit
+                  </FormSubmit>
+                </Form>
               </div>
             </div>
-
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <FormSection>
-                <Input
-                  name="bookName"
-                  label="book name"
-                  errors={errors}
-                  type="text"
-                  value={title}
-                  disabled={true}
-                />
-                <Textarea
-                  name="reviewContent"
-                  errors={errors}
-                  register={register("reviewContent")}
-                  label="Review content"
-                />
-
-                {error ? (
-                  <p className="text-red-500">
-                    <span className="font-semibold">Error:</span>{" "}
-                    {error?.data?.message}
-                  </p>
-                ) : (
-                  ""
-                )}
-              </FormSection>
-              <FormSubmit disabled={ratingValue === null}>Submit</FormSubmit>
-            </Form>
-          </div>
-        </div>
-
-        <div className="flex justify-center ">
-          <DynamicLinkButton to={`/book-details/${_id}`}>
-            <MdKeyboardBackspace className="text-2xl mr-2" />
-            Back to Details page
-          </DynamicLinkButton>
-        </div>
+            <div className="flex justify-center ">
+              <DynamicLinkButton to={`/book-details/${_id}`}>
+                <MdKeyboardBackspace className="text-2xl mr-2" />
+                Back to Details page
+              </DynamicLinkButton>
+            </div>
+          </>
+        )}
       </div>
     </Container>
   );

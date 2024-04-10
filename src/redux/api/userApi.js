@@ -7,6 +7,7 @@ export const userApi = createApi({
   }),
   tagTypes: ["user"],
 
+  // create or login user
   endpoints: (builder) => ({
     createOrLoginUser: builder.mutation({
       query: (data) => {
@@ -18,8 +19,9 @@ export const userApi = createApi({
       },
     }),
 
+    // get single user
     getSingleUser: builder.query({
-      query: (email) => {
+      query: ({ email }) => {
         return {
           url: `/${email}`,
           method: "GET",
@@ -28,33 +30,38 @@ export const userApi = createApi({
       providesTags: ["user"],
     }),
 
+    // get all users
     getAllUsers: builder.query({
-      query: () => {
+      query: ({ token }) => {
         return {
           url: "/",
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       providesTags: ["user"],
     }),
 
+    // update profile
     updateProfile: builder.mutation({
-      query: (options) => {
+      query: ({ email, data, token }) => {
         return {
-          url: `/update-profile/${options.email}`,
+          url: `/update-profile/${email}`,
           method: "PATCH",
-          body: options.data,
+          body: data,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["user"],
     }),
 
     updateRole: builder.mutation({
-      query: (options) => {
+      query: ({ email, role, token }) => {
         return {
-          url: `/update-role/${options.email}`,
+          url: `/update-role/${email}`,
           method: "PATCH",
-          body: options.role,
+          body: role,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["user"],

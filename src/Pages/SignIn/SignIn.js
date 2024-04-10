@@ -25,9 +25,9 @@ import {
 import FormSubmit from "../../components/reusableForm/FormSubmit";
 import DynamicLink from "../../components/DynamicLink";
 import Modal from "../../components/Modal";
-import Social from "../../components/Social";
 import useToken from "../../Hooks/useToken";
 import Container from "../../components/Container";
+import Social from "../../components/Social";
 
 const SignIn = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -159,6 +159,8 @@ const SignIn = () => {
           </div>
         </div>
         {errorElement}
+
+        <Social />
         {/* <Social /> */}
 
         <Modal modalName="reset-password-modal" title="reset password">

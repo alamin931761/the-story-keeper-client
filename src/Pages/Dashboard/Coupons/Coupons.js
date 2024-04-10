@@ -13,9 +13,12 @@ import { ImGift } from "react-icons/im";
 import Table from "../../../components/reusableTable/Table";
 import TableHead from "../../../components/reusableTable/TableHead";
 import TableBody from "../../../components/reusableTable/TableBody";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const Coupons = () => {
-  const { data, isLoading } = useGetAllCouponsQuery();
+  const { data, isLoading, isError, error } = useGetAllCouponsQuery({
+    token: localStorage.getItem("accessToken"),
+  });
   const [deleteCoupon, { isLoading: deleteCouponLoading }] =
     useDeleteCouponMutation();
   const [deleteState, setDeleteState] = useState(null);
@@ -25,7 +28,10 @@ const Coupons = () => {
   }
 
   const handleDelete = async (couponData) => {
-    const result = await deleteCoupon(couponData._id);
+    const result = await deleteCoupon({
+      id: couponData._id,
+      token: localStorage.getItem("accessToken"),
+    });
     toast.success(result?.data?.message);
     setDeleteState(null);
   };
@@ -89,18 +95,24 @@ const Coupons = () => {
     >
       <PageTitle title="Coupons" />
 
-      <Link
-        to="/dashboard/coupons/add-coupon"
-        className="btn btn-outline btn-xs lg:btn-sm transition ease-linear duration-500 absolute top-2 left-2"
-      >
-        Add Coupon
-      </Link>
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <Link
+            to="/dashboard/coupons/add-coupon"
+            className="btn btn-outline btn-xs lg:btn-sm transition ease-linear duration-500 absolute top-2 left-2"
+          >
+            Add Coupon
+          </Link>
 
-      <h2 className="text-center text-3xl mb-5 second-font">
-        Coupons ({data?.data?.data?.length})
-      </h2>
+          <h2 className="text-center text-3xl mb-5 second-font">
+            Coupons ({data?.data?.data?.length})
+          </h2>
 
-      {couponContainer}
+          {couponContainer}
+        </>
+      )}
     </div>
   );
 };

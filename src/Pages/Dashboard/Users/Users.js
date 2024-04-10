@@ -5,9 +5,12 @@ import { useGetAllUsersQuery } from "../../../redux/api/userApi";
 import Table from "../../../components/reusableTable/Table";
 import TableHead from "../../../components/reusableTable/TableHead";
 import TableBody from "../../../components/reusableTable/TableBody";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const Users = () => {
-  const { data, isLoading } = useGetAllUsersQuery();
+  const { data, isLoading, isError, error } = useGetAllUsersQuery({
+    token: localStorage.getItem("accessToken"),
+  });
 
   if (isLoading) {
     return <Loading />;
@@ -20,24 +23,31 @@ const Users = () => {
       className="min-h-screen"
     >
       <PageTitle title="Users" />
-      <h2 className="text-center text-3xl mb-5 second-font">
-        Users ({data?.data?.data?.count})
-      </h2>
 
-      <Table>
-        <TableHead>
-          <th className="text-center">Email</th>
-          <th className="text-center">Role</th>
-          <th className="text-center">Make Admin</th>
-          <th className="text-center">Remove Admin</th>
-        </TableHead>
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl mb-5 second-font">
+            Users ({data?.data?.data?.count || 0})
+          </h2>
 
-        <TableBody>
-          {data?.data?.data?.users?.map((allUser, index) => (
-            <User key={allUser._id} allUser={allUser} index={index} />
-          ))}
-        </TableBody>
-      </Table>
+          <Table>
+            <TableHead>
+              <th className="text-center">Email</th>
+              <th className="text-center">Role</th>
+              <th className="text-center">Make Admin</th>
+              <th className="text-center">Remove Admin</th>
+            </TableHead>
+
+            <TableBody>
+              {data?.data?.data?.users?.map((allUser, index) => (
+                <User key={allUser._id} allUser={allUser} index={index} />
+              ))}
+            </TableBody>
+          </Table>
+        </>
+      )}
     </div>
   );
 };

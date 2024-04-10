@@ -8,19 +8,22 @@ export const reviewApi = createApi({
   tagTypes: ["review"],
 
   endpoints: (builder) => ({
+    // add review
     addReview: builder.mutation({
-      query: ({ id, review }) => {
+      query: ({ id, review, token }) => {
         return {
           url: `/add-review/${id}`,
           method: "POST",
           body: review,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["review"],
     }),
 
+    // get single review
     getSingleReview: builder.query({
-      query: (id) => {
+      query: ({ id }) => {
         return {
           url: `/single-review/${id}`,
           method: "GET",
@@ -29,6 +32,7 @@ export const reviewApi = createApi({
       providesTags: ["review"],
     }),
 
+    // get all review
     getAllReviews: builder.query({
       query: (id) => {
         return {
@@ -39,22 +43,25 @@ export const reviewApi = createApi({
       providesTags: ["review"],
     }),
 
+    // update review
     updateReview: builder.mutation({
-      query: ({ id, review }) => {
+      query: ({ id, review, token }) => {
         return {
           url: `/${id}`,
           method: "PATCH",
           body: review,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["review"],
     }),
 
     deleteReview: builder.mutation({
-      query: (id) => {
+      query: ({ id, token }) => {
         return {
           url: `/${id}`,
           method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["review"],

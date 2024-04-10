@@ -8,58 +8,69 @@ export const couponApi = createApi({
   tagTypes: ["coupon"],
 
   endpoints: (builder) => ({
+    // add coupon
     addCoupon: builder.mutation({
-      query: (data) => {
+      query: ({ data, token }) => {
         return {
           url: "/add-coupon",
           method: "POST",
           body: data,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["coupon"],
     }),
 
+    // get single coupon
     getSingleCoupon: builder.query({
-      query: (id) => {
+      query: ({ id, token }) => {
         return {
           url: `/${id}`,
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       providesTags: ["coupon"],
     }),
 
+    // get all coupons
     getAllCoupons: builder.query({
-      query: () => {
+      query: ({ token }) => {
         return {
           url: "/",
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       providesTags: ["coupon"],
     }),
 
+    // update coupon
     updateCoupon: builder.mutation({
-      query: (options) => {
+      query: ({ id, updatedData, token }) => {
         return {
-          url: `/${options.id}`,
+          url: `/${id}`,
           method: "PATCH",
-          body: options.updatedData,
+          body: updatedData,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["coupon"],
     }),
 
+    // delete coupon
     deleteCoupon: builder.mutation({
-      query: (id) => {
+      query: ({ id, token }) => {
         return {
           url: `/${id}`,
           method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["coupon"],
     }),
 
+    // verify coupon
     verifyCoupon: builder.mutation({
       query: (code) => {
         return {

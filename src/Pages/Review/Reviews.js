@@ -9,10 +9,11 @@ import Review from "./Review";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import UnauthorizedError from "../../components/UnauthorizedError";
 
 const Reviews = ({ id }) => {
   const { data, isLoading } = useGetAllReviewsQuery(id);
-  const [deleteBook, { isLoading: deleteReviewLoading }] =
+  const [deleteBook, { isLoading: deleteReviewLoading, isError, error }] =
     useDeleteReviewMutation();
   const [deleteState, setDeleteState] = useState(null);
   const navigate = useNavigate("");
@@ -21,8 +22,12 @@ const Reviews = ({ id }) => {
     return <Loading />;
   }
 
+  // delete review
   const handleDelete = async (reviewData) => {
-    const result = await deleteBook(reviewData._id);
+    const result = await deleteBook({
+      id: reviewData._id,
+      token: localStorage.getItem("accessToken"),
+    });
     toast.success(result?.data?.message);
     setDeleteState(null);
   };
@@ -65,44 +70,49 @@ const Reviews = ({ id }) => {
     );
   }
 
-  console.log(data.data.data);
-
   return (
-    <div>
-      <h2 className="text-center text-3xl second-font">
-        Reviews({data?.data?.data?.length || 0})
-      </h2>
+    <>
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl second-font">
+            Reviews({data?.data?.data?.length || 0})
+          </h2>
 
-      <div className="flex items-center justify-between mt-5">
-        <p className="second-font">
-          Get specific details about this book from customers who own it.
-        </p>
-        <button
-          onClick={navigateToAddReview}
-          className="btn btn-outline transition ease-linear duration-500"
-        >
-          Write a Review
-        </button>
-      </div>
+          <div className="flex items-center justify-between mt-5">
+            <p className="second-font">
+              Get specific details about this book from customers who own it.
+            </p>
+            <button
+              onClick={navigateToAddReview}
+              className="btn btn-outline transition ease-linear duration-500"
+            >
+              Write a Review
+            </button>
+          </div>
 
-      <p className="second-font">
-        <span className="font-semibold">Ratings:</span> {averageRating} out of 5
-      </p>
+          <p className="second-font">
+            <span className="font-semibold">Ratings:</span> {averageRating} out
+            of 5
+          </p>
 
-      {reviewContainer}
+          {reviewContainer}
 
-      <DeleteConfirmationModal
-        modalName="review-delete-confirmation-modal"
-        message={
-          <>
-            Are you sure you want to delete this{" "}
-            <span className="font-semibold">review</span>
-          </>
-        }
-        deleteState={deleteState}
-        handleDelete={handleDelete}
-      />
-    </div>
+          <DeleteConfirmationModal
+            modalName="review-delete-confirmation-modal"
+            message={
+              <>
+                Are you sure you want to delete this{" "}
+                <span className="font-semibold">review</span>
+              </>
+            }
+            deleteState={deleteState}
+            handleDelete={handleDelete}
+          />
+        </>
+      )}
+    </>
   );
 };
 

@@ -6,15 +6,20 @@ export const bookApi = createApi({
   tagTypes: ["book"],
 
   endpoints: (builder) => ({
+    // add book
     addBook: builder.mutation({
-      query: (data) => ({
-        url: "/add-book",
-        method: "POST",
-        body: data,
-      }),
+      query: ({ data, token }) => {
+        return {
+          url: "/add-book",
+          method: "POST",
+          body: data,
+          headers: { Authorization: `Bearer ${token}` },
+        };
+      },
       invalidatesTags: ["book"],
     }),
 
+    // get all books
     getAllBooks: builder.query({
       query: (params) => {
         return {
@@ -26,6 +31,7 @@ export const bookApi = createApi({
       providesTags: ["book"],
     }),
 
+    // get single book
     getSingleBook: builder.query({
       query: (id) => {
         return {
@@ -36,27 +42,32 @@ export const bookApi = createApi({
       providesTags: ["book"],
     }),
 
+    // update book
     updateBook: builder.mutation({
-      query: (options) => {
+      query: ({ id, data, token }) => {
         return {
-          url: `/${options.id}`,
+          url: `/${id}`,
           method: "PATCH",
-          body: options.data,
+          body: data,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["book"],
     }),
 
+    // delete book
     deleteBook: builder.mutation({
-      query: (id) => {
+      query: ({ id, token }) => {
         return {
           url: `/${id}`,
           method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["book"],
     }),
 
+    // get random books
     getRandomBooks: builder.query({
       query: ({ id, bookCategory }) => {
         return {

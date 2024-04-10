@@ -150,14 +150,9 @@ export const updateProfileSchema = z.object({
   phoneNumber: z
     .string()
     .min(1, { message: "Phone Number field is required" })
-    .refine(
-      (value) => {
-        if (value) {
-          return /^[0-9]+$/.test(value);
-        }
-        return true;
-      },
-      { message: "Invalid phone number" }
+    .regex(
+      /^0\d{10}$/,
+      "Invalid phone number, please enter 11 digit phone number"
     ),
   address: z.string().min(1, { message: "Address field is required" }).trim(),
 });

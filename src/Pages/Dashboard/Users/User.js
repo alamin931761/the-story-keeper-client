@@ -11,8 +11,10 @@ import TableRow from "../../../components/reusableTable/TableRow";
 const User = ({ allUser, index }) => {
   const { email, role } = allUser;
   const [user] = useAuthState(auth);
-  const currentUserEmail = user.email;
-  const { data, isLoading } = useGetSingleUserQuery(currentUserEmail);
+  const { data, isLoading } = useGetSingleUserQuery({
+    email: user.email,
+    token: localStorage.getItem("accessToken"),
+  });
   const [updateRole, { isLoading: updateRoleLoading }] =
     useUpdateRoleMutation();
 
@@ -31,6 +33,7 @@ const User = ({ allUser, index }) => {
     const options = {
       email,
       role: { role: "admin" },
+      token: localStorage.getItem("accessToken"),
     };
     const result = await updateRole(options);
     if (result?.data?.success) {
@@ -47,6 +50,7 @@ const User = ({ allUser, index }) => {
     const options = {
       email,
       role: { role: "user" },
+      token: localStorage.getItem("accessToken"),
     };
 
     const result = await updateRole(options);

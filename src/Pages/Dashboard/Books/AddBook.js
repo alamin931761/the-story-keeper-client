@@ -13,6 +13,7 @@ import Loading from "../../../components/Loading";
 import { useAddBookMutation } from "../../../redux/api/bookApi";
 import { MdKeyboardBackspace } from "react-icons/md";
 import DynamicLinkButton from "../../../components/DynamicLinkButton";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const AddBook = () => {
   const {
@@ -22,7 +23,7 @@ const AddBook = () => {
     reset,
   } = useForm({ resolver: zodResolver(AddBookSchema) });
 
-  const [addBook, { isLoading, error }] = useAddBookMutation();
+  const [addBook, { isLoading, error, isError }] = useAddBookMutation();
 
   const handleAddBook = async (data) => {
     const newBook = {
@@ -43,7 +44,10 @@ const AddBook = () => {
       category: data.category,
     };
 
-    const result = await addBook(newBook);
+    const result = await addBook({
+      data: newBook,
+      token: localStorage.getItem("accessToken"),
+    });
     if (result?.data?.success) {
       toast.info(result?.data?.message);
     }
@@ -62,151 +66,157 @@ const AddBook = () => {
   return (
     <div data-aos="fade-right" data-aos-duration="1000">
       <PageTitle title="Add Book" />
-      <h2 className="text-center text-3xl mb-5 second-font">Add Book</h2>
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl mb-5 second-font">Add Book</h2>
 
-      <Form onSubmit={handleSubmit(handleAddBook)} double={true}>
-        <FormSection>
-          <Input
-            register={register("imageURL")}
-            type="text"
-            name="imageURL"
-            label="Image URL"
-            errors={errors}
-          />
-          <Input
-            register={register("title")}
-            type="text"
-            name="title"
-            label="title"
-            errors={errors}
-          />
+          <Form onSubmit={handleSubmit(handleAddBook)} double={true}>
+            <FormSection>
+              <Input
+                register={register("imageURL")}
+                type="text"
+                name="imageURL"
+                label="Image URL"
+                errors={errors}
+              />
+              <Input
+                register={register("title")}
+                type="text"
+                name="title"
+                label="title"
+                errors={errors}
+              />
 
-          <Input
-            register={register("subtitle")}
-            type="text"
-            name="subtitle"
-            label="subtitle"
-            errors={errors}
-          />
+              <Input
+                register={register("subtitle")}
+                type="text"
+                name="subtitle"
+                label="subtitle"
+                errors={errors}
+              />
 
-          <Input
-            register={register("author")}
-            type="text"
-            name="author"
-            label="author"
-            errors={errors}
-          />
+              <Input
+                register={register("author")}
+                type="text"
+                name="author"
+                label="author"
+                errors={errors}
+              />
 
-          <Input
-            register={register("price")}
-            type="text"
-            name="price"
-            label="price"
-            errors={errors}
-          />
+              <Input
+                register={register("price")}
+                type="text"
+                name="price"
+                label="price"
+                errors={errors}
+              />
 
-          <Input
-            register={register("availableQuantity")}
-            type="text"
-            name="availableQuantity"
-            label="Available Quantity"
-            errors={errors}
-          />
+              <Input
+                register={register("availableQuantity")}
+                type="text"
+                name="availableQuantity"
+                label="Available Quantity"
+                errors={errors}
+              />
 
-          <div className="md:row-span-2">
-            <Textarea
-              register={register("description")}
-              type="text"
-              name="description"
-              label="description"
-              errors={errors}
-            />
+              <div className="md:row-span-2">
+                <Textarea
+                  register={register("description")}
+                  type="text"
+                  name="description"
+                  label="description"
+                  errors={errors}
+                />
+              </div>
+
+              <Input
+                register={register("publisher")}
+                type="text"
+                name="publisher"
+                label="publisher"
+                errors={errors}
+              />
+
+              <Input
+                register={register("publicationDate")}
+                type="date"
+                name="publicationDate"
+                label="publication date"
+                errors={errors}
+              />
+
+              <Input
+                register={register("weight")}
+                type="text"
+                name="weight"
+                label="weight"
+                errors={errors}
+              />
+
+              <Input
+                register={register("pagesQuantity")}
+                type="text"
+                name="pagesQuantity"
+                label="pages Quantity"
+                errors={errors}
+              />
+
+              <Input
+                register={register("dimensions")}
+                type="text"
+                name="dimensions"
+                label="dimensions"
+                errors={errors}
+              />
+
+              <Input
+                register={register("isbn")}
+                type="text"
+                name="isbn"
+                label="isbn"
+                errors={errors}
+              />
+
+              <Input
+                register={register("binding")}
+                type="text"
+                name="binding"
+                label="binding"
+                errors={errors}
+              />
+
+              <Select
+                register={register("category")}
+                name="category"
+                label="category"
+                errors={errors}
+              />
+
+              {error ? (
+                <p className="text-red-500">
+                  <span className="font-semibold">Error:</span>{" "}
+                  {error?.data?.message}
+                </p>
+              ) : (
+                ""
+              )}
+            </FormSection>
+            <FormSubmit className="md:col-start-2 flex md:justify-end">
+              Add Book
+            </FormSubmit>
+          </Form>
+
+          {/* back button */}
+          <div className="flex justify-center">
+            <DynamicLinkButton to={`/dashboard/books`}>
+              <MdKeyboardBackspace className="text-2xl mr-2" />
+              Back to Books
+            </DynamicLinkButton>
           </div>
-
-          <Input
-            register={register("publisher")}
-            type="text"
-            name="publisher"
-            label="publisher"
-            errors={errors}
-          />
-
-          <Input
-            register={register("publicationDate")}
-            type="date"
-            name="publicationDate"
-            label="publication date"
-            errors={errors}
-          />
-
-          <Input
-            register={register("weight")}
-            type="text"
-            name="weight"
-            label="weight"
-            errors={errors}
-          />
-
-          <Input
-            register={register("pagesQuantity")}
-            type="text"
-            name="pagesQuantity"
-            label="pages Quantity"
-            errors={errors}
-          />
-
-          <Input
-            register={register("dimensions")}
-            type="text"
-            name="dimensions"
-            label="dimensions"
-            errors={errors}
-          />
-
-          <Input
-            register={register("isbn")}
-            type="text"
-            name="isbn"
-            label="isbn"
-            errors={errors}
-          />
-
-          <Input
-            register={register("binding")}
-            type="text"
-            name="binding"
-            label="binding"
-            errors={errors}
-          />
-
-          <Select
-            register={register("category")}
-            name="category"
-            label="category"
-            errors={errors}
-          />
-
-          {error ? (
-            <p className="text-red-500">
-              <span className="font-semibold">Error:</span>{" "}
-              {error?.data?.message}
-            </p>
-          ) : (
-            ""
-          )}
-        </FormSection>
-        <FormSubmit className="md:col-start-2 flex md:justify-end">
-          Add Book
-        </FormSubmit>
-      </Form>
-
-      {/* back button */}
-      <div className="flex justify-center">
-        <DynamicLinkButton to={`/dashboard/books`}>
-          <MdKeyboardBackspace className="text-2xl mr-2" />
-          Back to Books
-        </DynamicLinkButton>
-      </div>
+        </>
+      )}
     </div>
   );
 };

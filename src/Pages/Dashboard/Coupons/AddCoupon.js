@@ -30,7 +30,10 @@ const AddCoupon = () => {
       expiryDate: new Date(data.expiryDate).toISOString(),
     };
 
-    const result = await addCoupon(couponData);
+    const result = await addCoupon({
+      data: couponData,
+      token: localStorage.getItem("accessToken"),
+    });
     if (result?.data?.success) {
       toast.info(result?.data?.message);
     }
@@ -54,7 +57,7 @@ const AddCoupon = () => {
       <PageTitle title="Add Coupon" />
       <h2 className="text-center text-3xl mb-5 second-font">Add Coupon</h2>
 
-      <div className="border border-red-500 flex justify-center">
+      <div className="flex justify-center">
         <div className="w-full max-w-lg">
           <Form onSubmit={handleSubmit(handleAddCoupon)}>
             <FormSection>

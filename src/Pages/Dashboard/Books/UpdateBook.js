@@ -17,11 +17,13 @@ import {
 import Loading from "../../../components/Loading";
 import DynamicLinkButton from "../../../components/DynamicLinkButton";
 import { MdKeyboardBackspace } from "react-icons/md";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const UpdateBook = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleBookQuery(id);
-  const [updateBook, { isLoading: updating, error }] = useUpdateBookMutation();
+  const [updateBook, { isLoading: updating, error, isError }] =
+    useUpdateBookMutation();
 
   const {
     register,
@@ -63,6 +65,7 @@ const UpdateBook = () => {
     const options = {
       id: _id,
       data: book,
+      token: localStorage.getItem("accessToken"),
     };
 
     const result = await updateBook(options);
@@ -80,165 +83,171 @@ const UpdateBook = () => {
   return (
     <div data-aos="fade-up" data-aos-duration="1000">
       <PageTitle title="Update Book" />
-      <h2 className="text-center text-3xl mb-5 second-font">{title}</h2>
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl mb-5 second-font">{title}</h2>
 
-      <Form double={true} onSubmit={handleSubmit(handleUpdateBook)}>
-        <FormSection>
-          <Input
-            type="text"
-            name="imageURL"
-            label="Image URL"
-            errors={errors}
-            value={imageURL}
-            disabled={true}
-          />
-          <Input
-            type="text"
-            name="title"
-            label="title"
-            errors={errors}
-            value={title}
-            disabled={true}
-          />
+          <Form double={true} onSubmit={handleSubmit(handleUpdateBook)}>
+            <FormSection>
+              <Input
+                type="text"
+                name="imageURL"
+                label="Image URL"
+                errors={errors}
+                value={imageURL}
+                disabled={true}
+              />
+              <Input
+                type="text"
+                name="title"
+                label="title"
+                errors={errors}
+                value={title}
+                disabled={true}
+              />
 
-          <Input
-            type="text"
-            name="subtitle"
-            label="subtitle"
-            errors={errors}
-            value={subtitle}
-            disabled={true}
-          />
+              <Input
+                type="text"
+                name="subtitle"
+                label="subtitle"
+                errors={errors}
+                value={subtitle}
+                disabled={true}
+              />
 
-          <Input
-            type="text"
-            name="author"
-            label="author"
-            errors={errors}
-            value={author}
-            disabled={true}
-          />
+              <Input
+                type="text"
+                name="author"
+                label="author"
+                errors={errors}
+                value={author}
+                disabled={true}
+              />
 
-          <Input
-            register={register("price")}
-            type="text"
-            name="price"
-            label="price"
-            errors={errors}
-          />
+              <Input
+                register={register("price")}
+                type="text"
+                name="price"
+                label="price"
+                errors={errors}
+              />
 
-          <Input
-            register={register("availableQuantity")}
-            type="text"
-            name="availableQuantity"
-            label="Available Quantity"
-            errors={errors}
-          />
+              <Input
+                register={register("availableQuantity")}
+                type="text"
+                name="availableQuantity"
+                label="Available Quantity"
+                errors={errors}
+              />
 
-          <div className="md:row-span-2">
-            <Textarea
-              type="text"
-              name="description"
-              label="description"
-              errors={errors}
-              value={description}
-              disabled={true}
-            />
+              <div className="md:row-span-2">
+                <Textarea
+                  type="text"
+                  name="description"
+                  label="description"
+                  errors={errors}
+                  value={description}
+                  disabled={true}
+                />
+              </div>
+
+              <Input
+                type="text"
+                name="publisher"
+                label="publisher"
+                errors={errors}
+                value={publisher}
+                disabled={true}
+              />
+
+              <Input
+                type="date"
+                name="publicationDate"
+                label="publication date"
+                errors={errors}
+                value={date}
+                disabled={true}
+              />
+
+              <Input
+                type="text"
+                name="weight"
+                label="weight"
+                errors={errors}
+                value={weight}
+                disabled={true}
+              />
+
+              <Input
+                type="text"
+                name="pagesQuantity"
+                label="pages Quantity"
+                errors={errors}
+                value={pagesQuantity}
+                disabled={true}
+              />
+
+              <Input
+                type="text"
+                name="dimensions"
+                label="dimensions"
+                errors={errors}
+                value={dimensions}
+                disabled={true}
+              />
+
+              <Input
+                type="text"
+                name="isbn"
+                label="isbn"
+                errors={errors}
+                value={isbn}
+                disabled={true}
+              />
+
+              <Input
+                type="text"
+                name="binding"
+                label="binding"
+                errors={errors}
+                value={binding}
+                disabled={true}
+              />
+
+              <Select
+                name="category"
+                label="category"
+                errors={errors}
+                value={category}
+                disabled={true}
+              />
+
+              {error ? (
+                <p className="text-red-500">
+                  <span className="font-semibold">Error:</span>{" "}
+                  {error?.data?.message}
+                </p>
+              ) : (
+                ""
+              )}
+            </FormSection>
+
+            <FormSubmit className="md:col-start-2 flex md:justify-end">
+              Update Book
+            </FormSubmit>
+          </Form>
+
+          {/* back button */}
+          <div className="flex justify-center">
+            <DynamicLinkButton to={`/dashboard/books`}>
+              <MdKeyboardBackspace className="text-2xl mr-2" />
+              Back to Books
+            </DynamicLinkButton>
           </div>
-
-          <Input
-            type="text"
-            name="publisher"
-            label="publisher"
-            errors={errors}
-            value={publisher}
-            disabled={true}
-          />
-
-          <Input
-            type="date"
-            name="publicationDate"
-            label="publication date"
-            errors={errors}
-            value={date}
-            disabled={true}
-          />
-
-          <Input
-            type="text"
-            name="weight"
-            label="weight"
-            errors={errors}
-            value={weight}
-            disabled={true}
-          />
-
-          <Input
-            type="text"
-            name="pagesQuantity"
-            label="pages Quantity"
-            errors={errors}
-            value={pagesQuantity}
-            disabled={true}
-          />
-
-          <Input
-            type="text"
-            name="dimensions"
-            label="dimensions"
-            errors={errors}
-            value={dimensions}
-            disabled={true}
-          />
-
-          <Input
-            type="text"
-            name="isbn"
-            label="isbn"
-            errors={errors}
-            value={isbn}
-            disabled={true}
-          />
-
-          <Input
-            type="text"
-            name="binding"
-            label="binding"
-            errors={errors}
-            value={binding}
-            disabled={true}
-          />
-
-          <Select
-            name="category"
-            label="category"
-            errors={errors}
-            value={category}
-            disabled={true}
-          />
-
-          {error ? (
-            <p className="text-red-500">
-              <span className="font-semibold">Error:</span>{" "}
-              {error?.data?.message}
-            </p>
-          ) : (
-            ""
-          )}
-        </FormSection>
-
-        <FormSubmit className="md:col-start-2 flex md:justify-end">
-          Update Book
-        </FormSubmit>
-      </Form>
-
-      {/* back button */}
-      <div className="flex justify-center">
-        <DynamicLinkButton to={`/dashboard/books`}>
-          <MdKeyboardBackspace className="text-2xl mr-2" />
-          Back to Books
-        </DynamicLinkButton>
-      </div>
+        </>
+      )}
     </div>
   );
 };
