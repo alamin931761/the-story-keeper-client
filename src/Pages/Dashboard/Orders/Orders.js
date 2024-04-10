@@ -6,9 +6,12 @@ import { useGetAllOrdersQuery } from "../../../redux/api/orderApi";
 import Table from "../../../components/reusableTable/Table";
 import TableHead from "../../../components/reusableTable/TableHead";
 import TableBody from "../../../components/reusableTable/TableBody";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const Orders = () => {
-  const { data, isLoading } = useGetAllOrdersQuery();
+  const { data, isLoading, isError, error } = useGetAllOrdersQuery({
+    token: localStorage.getItem("accessToken"),
+  });
   if (isLoading) {
     return <Loading />;
   }
@@ -53,10 +56,16 @@ const Orders = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="Orders" />
-      <h2 className="text-center text-3xl my-5 second-font">
-        Orders({data?.data?.data.length})
-      </h2>
-      {orderContainer}
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl my-5 second-font">
+            Orders({data?.data?.data.length})
+          </h2>
+          {orderContainer}
+        </>
+      )}
     </div>
   );
 };

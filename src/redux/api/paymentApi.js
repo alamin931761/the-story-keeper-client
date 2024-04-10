@@ -9,11 +9,12 @@ export const paymentApi = createApi({
 
   endpoints: (builder) => ({
     createPaymentIntent: builder.mutation({
-      query: (data) => {
+      query: ({ total, token }) => {
         return {
           url: "/create-payment-intent",
           method: "POST",
-          body: data,
+          body: { total },
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["payment"],

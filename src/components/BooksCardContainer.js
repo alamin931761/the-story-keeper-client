@@ -14,7 +14,7 @@ const BooksCardContainer = ({ isLoading, books, count, name, dataAos }) => {
 
   return (
     <Container>
-      <div className="mx-2" data-aos={dataAos} dataAosDuration="50000">
+      <div className="mx-2" data-aos={dataAos} data-aos-duration="1000">
         <PageTitle title={name} />
 
         <h2 className="text-center text-3xl my-5 second-font">

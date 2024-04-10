@@ -8,11 +8,15 @@ import TableBody from "../../../components/reusableTable/TableBody";
 import { GoBook } from "react-icons/go";
 import MyOrder from "./MyOrder";
 import PageTitle from "../../../components/PageTitle";
+import UnauthorizedError from "../../../components/UnauthorizedError";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
   const email = user.email;
-  const { data, isLoading } = useGetUserOrdersQuery(email);
+  const { data, isLoading, isError, error } = useGetUserOrdersQuery({
+    email,
+    token: localStorage.getItem("accessToken"),
+  });
   if (isLoading) {
     return <Loading />;
   }
@@ -57,10 +61,16 @@ const MyOrders = () => {
       data-aos-duration="1000"
     >
       <PageTitle title="My Orders" />
-      <h2 className="text-center text-3xl my-5 second-font">
-        My Orders({data?.data?.data.length})
-      </h2>
-      {orderContainer}
+      {isError ? (
+        <UnauthorizedError error={error} />
+      ) : (
+        <>
+          <h2 className="text-center text-3xl my-5 second-font">
+            My Orders({data?.data?.data.length})
+          </h2>
+          {orderContainer}
+        </>
+      )}
     </div>
   );
 };

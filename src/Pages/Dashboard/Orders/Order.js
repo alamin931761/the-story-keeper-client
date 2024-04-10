@@ -4,8 +4,7 @@ import { useUpdateOrderStatusMutation } from "../../../redux/api/orderApi";
 import { toast } from "react-toastify";
 
 const Order = ({ data, index }) => {
-  const [updateOrderStatus, { isLoading, error }] =
-    useUpdateOrderStatusMutation();
+  const [updateOrderStatus, { isLoading }] = useUpdateOrderStatusMutation();
   const {
     orderId,
     books,
@@ -25,7 +24,10 @@ const Order = ({ data, index }) => {
 
   // handle status
   const handleStatus = async (id) => {
-    const result = await updateOrderStatus(id);
+    const result = await updateOrderStatus({
+      id,
+      token: localStorage.getItem("accessToken"),
+    });
     if (result?.data?.success) {
       toast.info(result?.data?.message);
     }
@@ -51,7 +53,7 @@ const Order = ({ data, index }) => {
       {/* book details */}
       <td>
         {books.map((book) => (
-          <div className="flex items-center">
+          <div className="flex items-center" key={book.imageURL}>
             <div className="avatar mr-2 my-2">
               <div className="w-24 rounded-xl">
                 <img src={book.imageURL} alt={book.title} />

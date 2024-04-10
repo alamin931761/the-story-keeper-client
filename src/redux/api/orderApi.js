@@ -6,43 +6,50 @@ export const orderApi = createApi({
   tagTypes: ["order"],
 
   endpoints: (builder) => ({
+    // create order
     createOrder: builder.mutation({
-      query: (data) => {
+      query: ({ order, token }) => {
         return {
           url: "/create-order",
           method: "POST",
-          body: data,
+          body: order,
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["order"],
     }),
 
+    // get all orders
     getAllOrders: builder.query({
-      query: () => {
+      query: ({ token }) => {
         return {
           url: "/",
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       providesTags: ["order"],
     }),
 
+    // get user orders
     getUserOrders: builder.query({
-      query: (email) => {
+      query: ({ email, token }) => {
         return {
           url: `/${email}`,
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       providesTags: ["order"],
     }),
 
+    // update order status
     updateOrderStatus: builder.mutation({
-      query: (id) => {
-        console.log(id);
+      query: ({ id, token }) => {
         return {
           url: `/${id}`,
           method: "PATCH",
+          headers: { Authorization: `Bearer ${token}` },
         };
       },
       invalidatesTags: ["order"],

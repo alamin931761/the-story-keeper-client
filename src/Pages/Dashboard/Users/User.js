@@ -54,7 +54,6 @@ const User = ({ allUser, index }) => {
     };
 
     const result = await updateRole(options);
-    console.log(result);
     if (result?.data?.success) {
       toast.info("Successfully made an user");
     }

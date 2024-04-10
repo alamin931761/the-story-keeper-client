@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCreatePaymentIntentMutation } from "../../redux/api/paymentApi";
 import Loading from "../../components/Loading";
 import { clearInfo, info } from "../../redux/features/orderInfoSlice";
+import UnauthorizedError from "../../components/UnauthorizedError";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -16,10 +17,16 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   // const [transactionId, setTransactionId] = useState("");
-  const [createPaymentIntent, { isLoading, error }] =
+  const [createPaymentIntent, { isLoading, isError, error }] =
     useCreatePaymentIntentMutation();
-  const [createOrder, { createOrderLoading, createOrderError }] =
-    useCreateOrderMutation();
+  const [
+    createOrder,
+    {
+      isLoading: createOrderLoading,
+      isError: isCreateOrderError,
+      error: createOrderError,
+    },
+  ] = useCreateOrderMutation();
   const dispatch = useDispatch();
   const { order } = useSelector((state) => state.orderInfo);
   const { email, total, deliveryAddress, deliveryCharge, books } = order;
@@ -35,7 +42,10 @@ const CheckoutForm = () => {
       navigate("/cart");
     } else {
       const fetchClientSecret = async () => {
-        const result = await createPaymentIntent({ total });
+        const result = await createPaymentIntent({
+          total,
+          token: localStorage.getItem("accessToken"),
+        });
         if (result?.data?.success) {
           // toast.info(result?.data?.message);
           setClientSecret(result?.data?.data?.data?.clientSecret);
@@ -91,13 +101,12 @@ const CheckoutForm = () => {
       dispatch(info({ transactionId: transactionId }));
 
       // Save the order to the database
-      const orderCreation = await createOrder({ ...order, transactionId });
+      const orderCreation = await createOrder({
+        order: { ...order, transactionId },
+        token: localStorage.getItem("accessToken"),
+      });
       if (orderCreation?.data?.success) {
         toast.info(orderCreation?.data?.message);
-
-        setTimeout(() => {
-          navigate("/dashboard/my-profile");
-        }, 10000);
       }
 
       if (orderCreation?.error?.data?.success === false) {
@@ -106,7 +115,7 @@ const CheckoutForm = () => {
       }
 
       setTimeout(() => {
-        navigate("/dashboard/my-profile");
+        navigate("/dashboard/my-orders");
         localStorage.removeItem("shopping-cart");
         dispatch(clearInfo({}));
       }, 12000);
@@ -119,36 +128,44 @@ const CheckoutForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        <button
-          className="btn btn-outline btn-sm mt-5 transition ease-linear duration-500"
-          type="submit"
-          disabled={!stripe || !elements || !clientSecret}
-        >
-          Pay
-        </button>
-      </form>
+      {isError || isCreateOrderError ? (
+        <UnauthorizedError error={error || createOrderError} />
+      ) : (
+        <>
+          <form onSubmit={handleSubmit}>
+            <CardElement />
+            <button
+              className="btn btn-outline btn-sm mt-5 transition ease-linear duration-500"
+              type="submit"
+              disabled={!stripe || !elements || !clientSecret}
+            >
+              Pay
+            </button>
+          </form>
 
-      {/* card error */}
-      {(cardError || error) && (
-        <p className="text-red-500 second-font mt-2">
-          Error: {cardError || error?.data?.message}
-        </p>
-      )}
+          {/* card error */}
+          {(cardError || error) && (
+            <p className="text-red-500 second-font mt-2">
+              Error: {cardError || error?.data?.message}
+            </p>
+          )}
 
-      {/* order error */}
-      {orderError && (
-        <p className="text-red-500 second-font mt-2">Error: {orderError}</p>
-      )}
-      {successMessage && (
-        <div>
-          <p className="text-green-500 second-font mt-2">{successMessage}</p>
-          <p className="second-font">
-            Your transaction Id:{" "}
-            <span className="text-orange-500">{order?.transactionId}</span>
-          </p>
-        </div>
+          {/* order error */}
+          {orderError && (
+            <p className="text-red-500 second-font mt-2">Error: {orderError}</p>
+          )}
+          {successMessage && (
+            <div>
+              <p className="text-green-500 second-font mt-2">
+                {successMessage}
+              </p>
+              <p className="second-font">
+                Your transaction Id:{" "}
+                <span className="text-orange-500">{order?.transactionId}</span>
+              </p>
+            </div>
+          )}
+        </>
       )}
     </>
   );
