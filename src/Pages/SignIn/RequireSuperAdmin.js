@@ -5,7 +5,7 @@ import Loading from "../../components/Loading";
 import { signOut } from "firebase/auth";
 import { useGetSingleUserQuery } from "../../redux/api/userApi";
 
-const RequireUser = ({ children }) => {
+const RequireSuperAdmin = ({ children }) => {
   const [user] = useAuthState(auth);
   const { data, isLoading } = useGetSingleUserQuery({
     email: user?.email,
@@ -16,7 +16,7 @@ const RequireUser = ({ children }) => {
     return <Loading />;
   }
 
-  if (data?.data?.data?.role !== "user") {
+  if (data?.data?.data?.role !== "superAdmin") {
     signOut(auth);
     return (
       <Navigate to="/sign-in" state={{ from: location }} replace></Navigate>
@@ -26,4 +26,4 @@ const RequireUser = ({ children }) => {
   return children;
 };
 
-export default RequireUser;
+export default RequireSuperAdmin;

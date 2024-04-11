@@ -28,7 +28,7 @@ const Users = () => {
         <UnauthorizedError error={error} />
       ) : (
         <>
-          <h2 className="text-center text-3xl mb-5 second-font">
+          <h2 className="text-center text-3xl my-5 second-font">
             Users ({data?.data?.data?.count || 0})
           </h2>
 

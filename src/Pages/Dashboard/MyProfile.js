@@ -116,7 +116,7 @@ const MyProfile = () => {
         <UnauthorizedError error={updateProfileError} />
       ) : (
         <>
-          <h2 className="text-center text-3xl mb-5 second-font">My Profile</h2>
+          <h2 className="text-center text-3xl my-5 second-font">My Profile</h2>
 
           <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-y-5">
             <div className="flex justify-center items-center">

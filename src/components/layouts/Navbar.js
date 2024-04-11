@@ -11,11 +11,18 @@ import Container from "../Container";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { search } from "../../redux/features/searchSlice";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
   const dispatch = useDispatch();
   const { quantity, subtotal } = useShoppingCart(); // cart data
+
+  let updatedQuantity = 0;
+  useEffect(() => {
+    updatedQuantity = quantity;
+  }, [quantity]);
+
   const {
     register,
     formState: { errors },

@@ -106,7 +106,7 @@ const Coupons = () => {
             Add Coupon
           </Link>
 
-          <h2 className="text-center text-3xl mb-5 second-font">
+          <h2 className="text-center text-3xl my-5 second-font">
             Coupons ({data?.data?.data?.length})
           </h2>
 

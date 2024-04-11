@@ -1,14 +1,21 @@
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { RiMenu3Line } from "react-icons/ri";
-// import useAdmin from "../../Hooks/useAdmin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Container from "../../components/Container";
+import { useGetSingleUserQuery } from "../../redux/api/userApi";
+import Loading from "../../components/Loading";
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
-  // const [admin] = useAdmin(user);
+  const { data, isLoading } = useGetSingleUserQuery({
+    email: user?.email,
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container>
@@ -33,6 +40,7 @@ const Dashboard = () => {
           <div className="drawer-side min-h-full">
             <label htmlFor="my-drawer-2" className="drawer-overlay" />
             <ul className="menu p-4 w-64 bg-[#000000de] text-white min-h-full fixed">
+              {/* common */}
               <NavLink
                 className="nav-link ml-4 mb-3"
                 to="/dashboard/my-profile"
@@ -40,57 +48,49 @@ const Dashboard = () => {
                 My Profile
               </NavLink>
 
-              <NavLink className="nav-link ml-4 mb-3" to="/dashboard/my-orders">
-                My Orders
-              </NavLink>
-
-              <NavLink className="nav-link ml-4 mb-3" to="/dashboard/books">
-                Books
-              </NavLink>
-
-              <NavLink className="nav-link ml-4 mb-3" to="/dashboard/coupons">
-                Coupons
-              </NavLink>
-
-              <NavLink className="nav-link ml-4 mb-3" to="/dashboard/orders">
-                Orders
-              </NavLink>
-
-              <NavLink className="nav-link ml-4 mb-3" to="/dashboard/users">
-                Users
-              </NavLink>
-              {/* {admin && (
-              <>
+              {/* user */}
+              {data?.data?.data?.role === "user" ? (
                 <NavLink
                   className="nav-link ml-4 mb-3"
-                  to="/dashboard/addBooks"
-                >
-                  Add Books
-                </NavLink>
-                <NavLink
-                  className="nav-link ml-4 mb-3"
-                  to="/dashboard/manageBooks"
-                >
-                  Manage Books
-                </NavLink>
-                <NavLink className="nav-link ml-4 mb-3" to="/dashboard/orders">
-                  Orders
-                </NavLink>
-                <NavLink className="nav-link ml-4 mb-3" to="/dashboard/users">
-                  Users
-                </NavLink>
-              </>
-            )}
-            {!admin && (
-              <>
-                <NavLink
-                  className="nav-link ml-4 mb-3"
-                  to="/dashboard/myOrders"
+                  to="/dashboard/my-orders"
                 >
                   My Orders
                 </NavLink>
-              </>
-            )} */}
+              ) : (
+                ""
+              )}
+              {data?.data?.data?.role !== "user" ? (
+                <>
+                  <NavLink className="nav-link ml-4 mb-3" to="/dashboard/books">
+                    Books
+                  </NavLink>
+
+                  <NavLink
+                    className="nav-link ml-4 mb-3"
+                    to="/dashboard/coupons"
+                  >
+                    Coupons
+                  </NavLink>
+
+                  <NavLink
+                    className="nav-link ml-4 mb-3"
+                    to="/dashboard/orders"
+                  >
+                    Orders
+                  </NavLink>
+                </>
+              ) : (
+                ""
+              )}
+
+              {/* super admin */}
+              {data?.data?.data?.role === "superAdmin" ? (
+                <NavLink className="nav-link ml-4 mb-3" to="/dashboard/users">
+                  Users
+                </NavLink>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
         </div>

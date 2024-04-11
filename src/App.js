@@ -9,16 +9,14 @@ import Contact from "./Pages/Contact";
 import SignUp from "./Pages/SignIn/SignUp";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Users from "./Pages/Dashboard/Users/Users";
-// import Search from "./Pages/Search";
 import Essays from "./Pages/Categories/TopCategories/Essays";
 import Fiction from "./Pages/Categories/TopCategories/Fiction";
 import NonFiction from "./Pages/Categories/TopCategories/NonFiction";
 import SciFiFantasyAndHorror from "./Pages/Categories/TopCategories/SciFiFantasyAndHorror";
-// import TopRated from "./Pages/Categories/TopRated";
-import NewArrivals from "./Pages/Categories/NewArrivals";
 import AllBooks from "./Pages/Categories/AllBooks";
 import UpdateBook from "./Pages/Dashboard/Books/UpdateBook";
 import NotFound from "./Pages/NotFound";
+import RequireSuperAdmin from "./Pages/SignIn/RequireSuperAdmin";
 import RequireAdmin from "./Pages/SignIn/RequireAdmin";
 import RequireAuth from "./Pages/SignIn/RequireAuth";
 import RequireUser from "./Pages/SignIn/RequireUser";
@@ -49,12 +47,12 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/sign-in" element={<SignIn />}></Route>
-        <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/essays" element={<Essays />} />
         <Route path="/fiction" element={<Fiction />} />
@@ -70,34 +68,39 @@ function App() {
         <Route path="/all-books" element={<AllBooks />} />
 
         <Route path="/book-details/:id" element={<BookDetails />} />
-        {/* <Route path="/new-arrivals" element={<NewArrivals />} /> */}
-        {/* 
-        <Route path="/topRated" element={<TopRated />}></Route>
-
-        */}
         <Route
           path="/add-review/:id"
-          // element={
-          //   <RequireAuth>
-          //     <RequireUser>
-          //       <AddReview />
-          //     </RequireUser>
-          //   </RequireAuth>
-          // }
-          element={<AddReview />}
+          element={
+            <RequireUser>
+              <AddReview />
+            </RequireUser>
+          }
         />
-        <Route path="/review/:id" element={<UpdateReview />} />
+        <Route
+          path="/review/:id"
+          element={
+            <RequireUser>
+              <UpdateReview />
+            </RequireUser>
+          }
+        />
 
         <Route path="/cart" element={<Cart />} />
         <Route
           path="/delivery-details"
-          // element={<RequireAuth>{/* <DeliveryDetails /> */}</RequireAuth>}
-          element={<DeliveryDetails />}
-        ></Route>
+          element={
+            <RequireUser>
+              <DeliveryDetails />
+            </RequireUser>
+          }
+        />
         <Route
           path="/checkout"
-          element={<Checkout />}
-          // element={<RequireAuth>{/* <Checkout /> */}</RequireAuth>}
+          element={
+            <RequireUser>
+              <Checkout />
+            </RequireUser>
+          }
         />
 
         <Route
@@ -108,58 +111,86 @@ function App() {
             </RequireAuth>
           }
         >
-          <Route index element={<Welcome />}></Route>
+          <Route index element={<Welcome />} />
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
           <Route
             path="/dashboard/my-orders"
-            // element={<RequireUser>{/* <MyOrders /> */}</RequireUser>}
-            element={<MyOrders />}
-          />
-          <Route
-            path="/dashboard/orders"
-            element={<Orders />}
-            // element={<RequireAdmin>{/* <Orders /> */}</RequireAdmin>}
-          />
-          <Route
-            path="/dashboard/books/add-book"
             element={
-              // <RequireAdmin>
-              <AddBook />
-              // </RequireAdmin>
+              <RequireUser>
+                <MyOrders />
+              </RequireUser>
             }
           />
           <Route
-            path="/dashboard/users"
-            // element={<RequireAdmin>{/* <Users /> */}</RequireAdmin>}
-            element={<Users />}
-          ></Route>
-          <Route
-            path="/dashboard/books"
-            // element={<RequireAdmin>{/* <Books /> */}</RequireAdmin>}
-            element={<Books />}
-          ></Route>
-
-          <Route
-            path="/dashboard/books/update-book/:id"
-            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
-            element={<UpdateBook />}
+            path="/dashboard/orders"
+            element={
+              <RequireAdmin>
+                <Orders />
+              </RequireAdmin>
+            }
           />
 
           <Route
-            path="/dashboard/coupons"
-            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
-            element={<Coupons />}
+            path="/dashboard/books/add-book"
+            element={
+              <RequireAdmin>
+                <AddBook />
+              </RequireAdmin>
+            }
+          />
+
+          <Route
+            path="/dashboard/books"
+            element={
+              <RequireAdmin>
+                <Books />
+              </RequireAdmin>
+            }
+          />
+
+          <Route
+            path="/dashboard/books/update-book/:id"
+            element={
+              <RequireAdmin>
+                <UpdateBook />
+              </RequireAdmin>
+            }
+          />
+
+          <Route
+            path="/dashboard/users"
+            element={
+              <RequireSuperAdmin>
+                <Users />
+              </RequireSuperAdmin>
+            }
           />
 
           <Route
             path="/dashboard/coupons/add-coupon"
-            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
-            element={<AddCoupon />}
+            element={
+              <RequireAdmin>
+                <AddCoupon />
+              </RequireAdmin>
+            }
           />
+
+          <Route
+            path="/dashboard/coupons"
+            element={
+              <RequireAdmin>
+                <Coupons />
+              </RequireAdmin>
+            }
+          />
+
           <Route
             path="/dashboard/coupons/update-coupon/:id"
-            // element={<RequireAdmin>{/* <UpdateBook /> */}</RequireAdmin>}
-            element={<UpdateCoupon />}
+            element={
+              <RequireAdmin>
+                <UpdateCoupon />
+              </RequireAdmin>
+            }
           />
         </Route>
 

@@ -10,15 +10,22 @@ import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import UnauthorizedError from "../../components/UnauthorizedError";
+import auth from "../../firebase.init";
+import { useGetSingleUserQuery } from "../../redux/api/userApi";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Reviews = ({ id }) => {
   const { data, isLoading } = useGetAllReviewsQuery(id);
   const [deleteBook, { isLoading: deleteReviewLoading, isError, error }] =
     useDeleteReviewMutation();
+  const [user] = useAuthState(auth);
+  const { data: userData, isUserDataLoading } = useGetSingleUserQuery({
+    email: user?.email,
+  });
   const [deleteState, setDeleteState] = useState(null);
   const navigate = useNavigate("");
 
-  if (isLoading || deleteReviewLoading) {
+  if (isLoading || deleteReviewLoading || isUserDataLoading) {
     return <Loading />;
   }
 
@@ -63,7 +70,7 @@ const Reviews = ({ id }) => {
     );
   } else {
     reviewContainer = (
-      <div className="flex flex-col items-center justify-center second-font border border-blue-500 mt-5">
+      <div className="flex flex-col items-center justify-center second-font mt-5">
         <MdOutlineRateReview className="text-7xl opacity-5" />
         <p>This book has no reviews yet. Be the first one to write a review.</p>
       </div>
@@ -87,6 +94,7 @@ const Reviews = ({ id }) => {
             <button
               onClick={navigateToAddReview}
               className="btn btn-outline transition ease-linear duration-500"
+              disabled={userData?.data?.data?.role !== "user"}
             >
               Write a Review
             </button>

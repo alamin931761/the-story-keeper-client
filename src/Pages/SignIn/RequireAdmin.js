@@ -1,26 +1,32 @@
-// import { signOut } from "firebase/auth";
-// import { useAuthState } from "react-firebase-hooks/auth";
-// import { Navigate, useLocation } from "react-router-dom";
-// import auth from "../../firebase.init";
-// import useAdmin from "../../Hooks/useAdmin";
-// import Loading from "../../components/Loading";
+import auth from "../../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Navigate, useLocation } from "react-router-dom";
+import Loading from "../../components/Loading";
+import { signOut } from "firebase/auth";
+import { useGetSingleUserQuery } from "../../redux/api/userApi";
 
-// const RequireAdmin = ({ children }) => {
-//   const [user, loading] = useAuthState(auth);
-//   const [admin, adminLoading] = useAdmin(user);
-//   const location = useLocation();
+const RequireAdmin = ({ children }) => {
+  const [user] = useAuthState(auth);
+  const { data, isLoading } = useGetSingleUserQuery({
+    email: user?.email,
+  });
+  const location = useLocation();
 
-//   if (loading || adminLoading) {
-//     return <Loading />;
-//   }
+  if (isLoading) {
+    return <Loading />;
+  }
 
-//   if (!user || !admin) {
-//     signOut(auth);
-//     return (
-//       <Navigate to="/sign-in" state={{ from: location }} replace></Navigate>
-//     );
-//   }
-//   return children;
-// };
+  if (
+    data?.data?.data?.role !== "superAdmin" &&
+    data?.data?.data?.role !== "admin"
+  ) {
+    signOut(auth);
+    return (
+      <Navigate to="/sign-in" state={{ from: location }} replace></Navigate>
+    );
+  }
 
-// export default RequireAdmin;
+  return children;
+};
+
+export default RequireAdmin;

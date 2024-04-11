@@ -133,7 +133,7 @@ const Books = () => {
             Add Book
           </Link>
 
-          <h2 className="text-center text-3xl second-font mb-5">
+          <h2 className="text-center text-3xl second-font my-5">
             Books ({count})
           </h2>
 
