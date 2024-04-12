@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1/books" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://the-story-keeper-server-sigma.vercel.app/api/v1/books",
+  }),
   tagTypes: ["book"],
 
   endpoints: (builder) => ({

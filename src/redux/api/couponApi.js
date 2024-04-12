@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const couponApi = createApi({
   reducerPath: "couponApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/coupons",
+    baseUrl: "https://the-story-keeper-server-sigma.vercel.app/api/v1/coupons",
   }),
   tagTypes: ["coupon"],
 

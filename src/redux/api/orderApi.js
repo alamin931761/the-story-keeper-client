@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const orderApi = createApi({
   reducerPath: "orderApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1/orders" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://the-story-keeper-server-sigma.vercel.app/api/v1/orders",
+  }),
   tagTypes: ["order"],
 
   endpoints: (builder) => ({
