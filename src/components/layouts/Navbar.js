@@ -10,18 +10,12 @@ import useShoppingCart from "../../Hooks/useShoppingCart";
 import Container from "../Container";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { search } from "../../redux/features/searchSlice";
-import { useEffect } from "react";
+import { searchBook } from "../../redux/features/searchSlice";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
   const dispatch = useDispatch();
   const { quantity, subtotal } = useShoppingCart(); // cart data
-
-  let updatedQuantity = 0;
-  useEffect(() => {
-    updatedQuantity = quantity;
-  }, [quantity]);
 
   const {
     register,
@@ -40,7 +34,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handleSearch = (data) => {
     const searchTerm = data.searchTerm.toLowerCase();
-    dispatch(search(searchTerm));
+    dispatch(searchBook(searchTerm));
     navigate("/search");
     reset();
   };

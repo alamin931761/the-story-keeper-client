@@ -8,6 +8,7 @@ import { orderApi } from "./api/orderApi";
 import paginationAndFilterReducer from "./features/paginationAndFilterSlice";
 import orderInfoReducer from "./features/orderInfoSlice";
 import searchReducer from "./features/searchSlice";
+import shoppingCartReducer from "./features/shoppingCartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     [orderApi.reducerPath]: orderApi.reducer,
     paginationAndFilter: paginationAndFilterReducer,
     orderInfo: orderInfoReducer,
-    searchSlice: searchReducer,
+    search: searchReducer,
+    shoppingCart: shoppingCartReducer,
   },
 
   middleware: (getDefaultMiddleware) => {

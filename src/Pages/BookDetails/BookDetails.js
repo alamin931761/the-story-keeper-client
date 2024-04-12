@@ -12,9 +12,12 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Container from "../../components/Container";
 import { MdKeyboardBackspace } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/features/shoppingCartSlice";
 
 const BookDetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const { data, isLoading } = useGetSingleBookQuery(id);
   const [quantity, setQuantity] = useState(1);
 
@@ -82,13 +85,26 @@ const BookDetails = () => {
 
   const handleAddToCart = (event) => {
     event.preventDefault();
-    addToStorage(_id, event.target.quantity.value);
+    dispatch(
+      addToCart({
+        _id,
+        imageURL,
+        title,
+        author,
+        price,
+        bookQuantity: parseInt(event.target.quantity.value),
+        bookSubtotal: price * parseInt(event.target.quantity.value),
+      })
+    );
+
     toast.success(
       <p>
         <span className="font-semibold capitalize">{title} </span>has been added
         to your cart.
       </p>
     );
+
+    setQuantity(1);
   };
 
   return (

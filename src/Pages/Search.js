@@ -5,8 +5,7 @@ import DynamicLinkButton from "../components/DynamicLinkButton";
 import { MdKeyboardBackspace } from "react-icons/md";
 
 const Search = () => {
-  const { searchTerm } = useSelector((state) => state.searchSlice);
-  console.log(searchTerm);
+  const { searchTerm } = useSelector((state) => state.search);
   const { books, count, isLoading } = useLoadBooks(
     "imageURL,title,author,price",
     "",

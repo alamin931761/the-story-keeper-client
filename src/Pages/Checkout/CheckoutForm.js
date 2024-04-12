@@ -8,6 +8,7 @@ import { useCreatePaymentIntentMutation } from "../../redux/api/paymentApi";
 import Loading from "../../components/Loading";
 import { clearInfo, info } from "../../redux/features/orderInfoSlice";
 import UnauthorizedError from "../../components/UnauthorizedError";
+import { clearCart } from "../../redux/features/shoppingCartSlice";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -16,7 +17,6 @@ const CheckoutForm = () => {
   const [orderError, setOrderError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  // const [transactionId, setTransactionId] = useState("");
   const [createPaymentIntent, { isLoading, isError, error }] =
     useCreatePaymentIntentMutation();
   const [
@@ -115,8 +115,7 @@ const CheckoutForm = () => {
       }
 
       setTimeout(() => {
-        navigate("/dashboard/my-orders");
-        localStorage.removeItem("shopping-cart");
+        dispatch(clearCart());
         dispatch(clearInfo({}));
       }, 12000);
     }

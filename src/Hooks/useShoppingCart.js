@@ -1,39 +1,30 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const useShoppingCart = () => {
   const [savedCart, setSavedCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
-  const [subtotal, setSubTotal] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
   const [bookIdAndQuantity, setBookIdAndQuantity] = useState([]);
+  const { shoppingCart } = useSelector((state) => state.shoppingCart);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const shoppingCart = JSON.parse(localStorage.getItem("shopping-cart"));
-      const cartItems = [];
-      let totalQuantity = 0;
-      let subtotal = 0;
-      const idAndQuantity = [];
+    let bookQuantity = 0;
+    let bookSubtotal = 0;
+    const idAndQuantity = [];
+    const cartItems = [];
 
-      for (const id in shoppingCart) {
-        const response = await fetch(
-          `http://localhost:5000/api/v1/books/${id}`
-        );
-        const data = await response.json();
-        const bookQuantity = parseInt(shoppingCart[id]);
-        idAndQuantity.push({ bookId: id, quantity: bookQuantity });
-        totalQuantity += bookQuantity;
-        const bookSubtotal = data.data.data.price * bookQuantity;
-        subtotal += bookSubtotal;
-        cartItems.push({ ...data.data.data, bookQuantity, bookSubtotal });
-      }
-      setSavedCart(cartItems);
-      setQuantity(totalQuantity);
-      setSubTotal(subtotal);
-      setBookIdAndQuantity(idAndQuantity);
-    };
-
-    fetchData();
-  }, [savedCart]);
+    for (const book of shoppingCart) {
+      bookQuantity += book.bookQuantity;
+      bookSubtotal += book.bookSubtotal;
+      idAndQuantity.push({ bookId: book._id, quantity: book.bookQuantity });
+      cartItems.push(book);
+    }
+    setSavedCart(cartItems);
+    setQuantity(bookQuantity);
+    setSubtotal(bookSubtotal);
+    setBookIdAndQuantity(idAndQuantity);
+  }, [shoppingCart]);
 
   return { savedCart, quantity, subtotal, bookIdAndQuantity };
 };

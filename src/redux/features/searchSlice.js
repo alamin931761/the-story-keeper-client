@@ -5,15 +5,15 @@ const initialState = {
 };
 
 export const searchSlice = createSlice({
-  name: "searchSlice",
+  name: "search",
   initialState,
   reducers: {
-    search: (state, action) => {
+    searchBook: (state, action) => {
       state.searchTerm = action.payload;
     },
   },
 });
 
-export const { search } = searchSlice.actions;
+export const { searchBook } = searchSlice.actions;
 
 export default searchSlice.reducer;

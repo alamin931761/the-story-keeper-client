@@ -5,10 +5,6 @@ import { BsBagCheck } from "react-icons/bs";
 import { AiOutlineClear } from "react-icons/ai";
 import { GoBook } from "react-icons/go";
 import useShoppingCart from "../../Hooks/useShoppingCart";
-import {
-  deleteShoppingCart,
-  removeFromStorage,
-} from "../../utils/saveShoppingCartData";
 import PageTitle from "../../components/PageTitle";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import Container from "../../components/Container";
@@ -23,6 +19,10 @@ import Table from "../../components/reusableTable/Table";
 import TableHead from "../../components/reusableTable/TableHead";
 import TableBody from "../../components/reusableTable/TableBody";
 import CartTableRow from "./CartTableRow";
+import {
+  clearCart,
+  removeFromCart,
+} from "../../redux/features/shoppingCartSlice";
 
 const Cart = () => {
   const { savedCart, subtotal, bookIdAndQuantity } = useShoppingCart();
@@ -41,7 +41,7 @@ const Cart = () => {
 
   // delete the book from the shopping cart
   const handleDelete = (book) => {
-    removeFromStorage(book._id);
+    dispatch(removeFromCart(book._id));
     toast.success(
       <p>
         <span className="font-semibold capitalize">{book.title} </span>has been
@@ -51,9 +51,9 @@ const Cart = () => {
     setDeleteState(null);
   };
 
-  // clear cart
-  const clearCart = () => {
-    deleteShoppingCart();
+  // clear shopping cart
+  const clearShoppingCart = () => {
+    dispatch(clearCart());
   };
 
   // verify coupon
@@ -230,7 +230,7 @@ const Cart = () => {
 
         <div className="flex flex-col justify-center items-center">
           <button
-            onClick={clearCart}
+            onClick={clearShoppingCart}
             className="btn btn-outline btn-error mb-5 transition ease-linear duration-500"
           >
             Clear Cart <AiOutlineClear className="ml-2 text-2xl mb-1" />
