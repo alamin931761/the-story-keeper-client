@@ -24,7 +24,7 @@ const BooksCardContainer = ({ isLoading, books, count, name, dataAos }) => {
         <FilterBooks />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {books.map((data) => (
+          {books?.map((data) => (
             <BookDetailsCard key={data._id} data={data} />
           ))}
         </div>

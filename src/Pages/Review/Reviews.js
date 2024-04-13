@@ -59,7 +59,7 @@ const Reviews = ({ id }) => {
 
     reviewContainer = (
       <div className="flex flex-wrap justify-around gap-y-5 mt-5">
-        {data.data.data.map((reviewData) => (
+        {data?.data?.data?.map((reviewData) => (
           <Review
             key={reviewData._id}
             data={reviewData}
@@ -94,7 +94,10 @@ const Reviews = ({ id }) => {
             <button
               onClick={navigateToAddReview}
               className="btn btn-outline transition ease-linear duration-500"
-              disabled={userData?.data?.data?.role !== "user"}
+              disabled={
+                userData?.data?.data?.role === "admin" ||
+                userData?.data?.data?.role === "superAdmin"
+              }
             >
               Write a Review
             </button>

@@ -79,6 +79,7 @@ export const couponApi = createApi({
           body: code,
         };
       },
+      invalidatesTags: ["coupon"],
     }),
   }),
 });

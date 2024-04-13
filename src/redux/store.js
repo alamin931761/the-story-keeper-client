@@ -34,4 +34,5 @@ export const store = configureStore({
       orderApi.middleware
     );
   },
+  devTools: false,
 });

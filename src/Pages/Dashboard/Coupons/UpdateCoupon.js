@@ -38,31 +38,42 @@ const UpdateCoupon = () => {
     reset,
   } = useForm({ resolver: zodResolver(updateCouponSchema) });
 
-  const handleUpdateCoupon = async (data) => {
-    const updatedData = {
-      expiryDate: new Date(data.expiryDate).toISOString(),
-      limit: parseInt(data.limit),
-    };
-
-    const options = {
-      id,
-      updatedData,
-      token: localStorage.getItem("accessToken"),
-    };
-    const result = await updateBook(options);
-    if (result?.data?.success) {
-      toast.info(result?.data?.message);
-    }
-
-    if (result?.error?.data?.success === false) {
-      toast.error(result?.error?.data?.message);
-    }
-    reset();
-  };
-
   if (isLoading || updating) {
     return <Loading />;
   }
+
+  const handleUpdateCoupon = async (couponData) => {
+    if (data?.data?.data?.totalUsage <= parseInt(couponData.limit)) {
+      const updatedData = {
+        expiryDate: new Date(couponData.expiryDate).toISOString(),
+        limit: parseInt(couponData.limit),
+      };
+
+      const options = {
+        id,
+        updatedData,
+        token: localStorage.getItem("accessToken"),
+      };
+
+      // result
+      const result = await updateBook(options);
+      if (result?.data?.success) {
+        toast.info(result?.data?.message);
+      }
+
+      if (result?.error?.data?.success === false) {
+        toast.error(result?.error?.data?.message);
+      }
+      reset();
+    } else {
+      toast.error(
+        <p>
+          <span className="font-semibold">Limit</span> must be greater than or
+          equal to the <span className="font-semibold">total usage</span>
+        </p>
+      );
+    }
+  };
 
   return (
     <div

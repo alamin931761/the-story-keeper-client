@@ -45,7 +45,7 @@ const Review = ({ data, setDeleteState }) => {
           </div>
 
           <div className="ml-1">
-            <h6>{data.user.name}</h6>
+            <h6>{data?.user?.name}</h6>
             <p className="text-xs">{timeDifference}</p>
           </div>
         </div>

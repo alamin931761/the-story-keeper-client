@@ -17,7 +17,7 @@ const Orders = () => {
   }
 
   let orderContainer;
-  if (data?.data?.data.length > 0) {
+  if (data?.data?.data?.length > 0) {
     orderContainer = (
       <Table>
         <TableHead>
@@ -34,7 +34,7 @@ const Orders = () => {
         </TableHead>
 
         <TableBody>
-          {data?.data?.data.map((data, index) => (
+          {data?.data?.data?.map((data, index) => (
             <Order key={data._id} data={data} index={index} />
           ))}
         </TableBody>
@@ -61,7 +61,7 @@ const Orders = () => {
       ) : (
         <>
           <h2 className="text-center text-3xl my-5 second-font">
-            Orders({data?.data?.data.length})
+            Orders({data?.data?.data?.length})
           </h2>
           {orderContainer}
         </>
