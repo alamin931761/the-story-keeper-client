@@ -39,8 +39,8 @@ import Checkout from "./Pages/Checkout/Checkout";
 import Orders from "./Pages/Dashboard/Orders/Orders";
 import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
 import Search from "./Pages/Search";
-import Navbar from "./components/layouts/Navbar";
-import Footer from "./components/layouts/Footer";
+import Navbar from "./components/shared/Navbar";
+import Footer from "./components/shared/Footer";
 
 function App() {
   return (
