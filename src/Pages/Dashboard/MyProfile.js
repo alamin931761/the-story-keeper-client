@@ -100,7 +100,7 @@ const MyProfile = () => {
   }
 
   // image
-  let profilePicture = "https://i.ibb.co/4WCwkWc/user-default-image.png";
+  let profilePicture = "https://i.postimg.cc/vmgbRrFt/user-default-image.png";
   if (data?.data?.data?.imageURL) {
     profilePicture = data?.data?.data?.imageURL;
   }
@@ -132,7 +132,7 @@ const MyProfile = () => {
                   </div>
                   <div className="avatar flex justify-center mb-5">
                     <div className="w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                      <img src={profilePicture} alt="" />
+                      <img src={profilePicture} alt="profile picture" />
                     </div>
                   </div>
                   <p className="mb-3">

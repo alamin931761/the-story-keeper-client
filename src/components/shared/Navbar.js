@@ -57,7 +57,10 @@ const Navbar = () => {
       </div>
 
       <div className="z-40 dropdown dropdown-hover text-white">
-        <label tabIndex={0} className="flex items-center ml-4 nav-link">
+        <label
+          tabIndex={0}
+          className="flex items-center ml-4 nav-link outline-none"
+        >
           Shop By Category
         </label>
         <ul tabIndex={0} className="bg-black dropdown-content rounded-lg">

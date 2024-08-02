@@ -25,7 +25,7 @@ const Review = ({ data, setDeleteState }) => {
   };
 
   // image
-  let imageURL = "https://i.ibb.co/4WCwkWc/user-default-image.png";
+  let imageURL = "https://i.postimg.cc/vmgbRrFt/user-default-image.png";
   if (data?.user?.imageURL) {
     imageURL = data?.user?.imageURL;
   }
